@@ -1,0 +1,19 @@
+{% extends 'commerce/no-sidebar.html' %}
+{% load i18n %}
+
+{% block title %}{% trans 'Recover password' %}{% endblock %}
+
+{% block content %}
+    <h1 class="page-header">{% trans 'Recover password' %}</h1>
+
+    <div id="accounts-recover">
+        <form method="post" action="{% url commerce_accounts_recover %}" class="form-horizontal">
+            <div class="well">
+                {% csrf_token %}
+                {% include 'commerce/helpers/form.html' %}
+            </div>
+
+            <button class="btn btn-primary pull-right"><span>{% trans 'Send new password' %}</span></button>
+        </form>
+    </div>
+{% endblock %}

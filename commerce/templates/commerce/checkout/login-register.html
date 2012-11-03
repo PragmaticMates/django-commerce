@@ -1,0 +1,33 @@
+{% extends 'commerce/no-sidebar.html' %}
+{% load i18n %}
+
+{% block title %}{% trans 'Login or registration' %}{% endblock %}
+{% block content %}
+    {% include 'commerce/checkout/helpers/process.html' with active="login-register" %}
+    <div id="checkout-login-register">
+        <div class="row">
+            <div class="span6">
+                <h2 class="page-header">{% trans 'Login' %}</h2>
+                <form method="post" action="{% url commerce_checkout_login_register %}" class="well">
+                    {% csrf_token %}
+                    {% include 'commerce/helpers/form.html' with form=login_form %}
+
+                    <div class="form-actions">
+                        <input type="submit" class="btn btn-primary" name="login" value="{% trans 'Continue' %}" />
+                    </div>
+                </form>
+            </div>
+
+            <div class="span6">
+                <h2 class="page-header">{% trans 'Registration' %}</h2>
+                <form method="post" action="{% url commerce_checkout_login_register %}" class="well">
+                    {% csrf_token %}
+                    {% include 'commerce/helpers/form.html' with form=registration_form %}
+                    <div class="form-actions">
+                        <input type="submit" class="btn btn-primary" name="registration" value="{% trans 'Continue' %}" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

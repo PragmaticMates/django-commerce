@@ -1,0 +1,69 @@
+{% extends 'commerce/no-sidebar.html' %}
+{% load i18n utils %}
+
+{% block title %}{% trans 'Cart' %}{% endblock %}
+
+{% block content %}
+    <div id="cart">
+        <h1 class="page-header">{% trans 'Cart' %}</h1>
+        {% if cart.items %}
+            <form method="post" action="{% url commerce_cart_update %}">
+                {% csrf_token %}
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>{% trans 'Title' %}</th>
+                            <th>{% trans 'Qty' %}</th>
+                            <th>{% trans 'Unit price' %}</th>
+                            <th>{% trans 'Price' %}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for item in cart.items %}
+                            <tr>
+                                <td>
+                                    {% if item.product.associated_product %}
+                                        <a href="{{ item.product.associated_product.get_absolute_url }}">
+                                    {% else %}
+                                        <a href="{{ item.product.get_absolute_url }}">
+                                    {% endif  %}
+                                        {% autoescape off %}{{ item.product }}{% endautoescape %}
+                                    </a>
+                                </td>
+                                <td><input type="text" name="product-{{ item.product.pk }}" value="{{ item.quantity }}" class="span1"></td>
+                                <td>
+                                    {% if item.product.price_discount %}
+                                        <span style="text-decoration: line-through;">{{ item.product.price|format_price }}</span>
+                                    {% endif %}
+                                    {{ item.product.get_price|format_price }}
+                                </td>
+                                <td>{{ item.price|format_price }}</td>
+                                <td><a href="{% url commerce_cart_remove item.product.pk %}">{% trans 'remove' %}</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <strong>{% trans 'Total' %}:</strong>
+                                {{ cart.total|format_price }}
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="actions">
+                    <a href="{% url home %}" class="btn pull-left">{% trans 'Continue in shopping' %}</a>
+                    <a href="{% url commerce_cart_empty %}" class="btn">{% trans 'Empty cart' %}</a>
+                    <input type="submit" class="btn" value="{% trans 'Update cart' %}">
+                    <a href="{% url commerce_checkout_login_register %}" class="btn btn-primary pull-right">{% trans 'Continue to checkout' %}</a>
+                </div>
+            </form>
+        {% else %}
+            <div class="empty-cart">{% trans 'You cart is empty' %}</div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'commerce/sidebar-left.html' %}
+{% load i18n utils %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+    <h1 class="page-header">{{ object.title }}</h1>
+
+    {% filter %}
+
+    {% include 'commerce/products/helpers/list.html' %}
+{% endblock %}

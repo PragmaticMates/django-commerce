@@ -1,0 +1,15 @@
+{% extends 'commerce/base.html' %}
+{% load i18n utils %}
+
+{% block body %}
+    <div class="row">
+        <div id="sidebar" class="span3">
+            {% catalogs_block %}
+            {% pages_block %}
+        </div><!-- /#sidebar -->
+
+        <div id="content" class="span9">
+            {% block content %}{% endblock %}
+        </div><!-- /#content -->
+    </div>
+ {% endblock %}

@@ -1,0 +1,36 @@
+{% load i18n %}
+
+<div class="pagination pagination-centered">
+    <ul>
+        {% if has_previous %}
+            <li class="button"><a href="?{{ page_ident }}={{ previous }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">{% trans 'previous' %}</a></li>
+        {% else %}
+            <li class="button disabled"><a>{% trans 'previous' %}</a></li>
+        {% endif %}
+
+        {% if show_first %}
+            <li><a href="?{{ page_ident }}=1{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">1</a></li>
+            <li class="disabled"><a>...</a></li>
+        {% endif %}
+
+        {% for linkpage in page_numbers %}
+            {% ifequal linkpage page %}
+                <li class="active disabled"><a>{{ page }}</a></li>
+            {% else %}
+                <li><a href="?{{ page_ident }}={{ linkpage }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">{{ linkpage }}</a></li>
+            {% endifequal %}
+        {% endfor %}
+
+
+        {% if show_last %}
+            <li class="disabled"><a>...</a></li>
+            <li><a href="?{{ page_ident }}={{ count }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">{{ count }}</a></li>
+        {% endif %}
+
+        {% if has_next %}
+            <li class="button"><a href="?{{ page_ident }}={{ next }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">{% trans 'next' %}</a></li>
+        {% else %}
+            <li class="button disabled"><a>{% trans 'next' %}</a></li>
+        {% endif %}
+    </ul>
+</div><!-- /.pagination -->

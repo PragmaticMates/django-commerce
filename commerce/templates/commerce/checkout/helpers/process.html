@@ -1,0 +1,9 @@
+{% load i18n %}
+<div class="process row">
+    <ul class="nav nav-pills">
+        <li class="span3 {% if active == 'login-register' %}active{% endif %}"><a href="{% url commerce_checkout_login_register %}"><strong><span>1</span></strong> {% trans 'Login or registration' %}</a></li>
+        <li class="span3 {% if active == 'profile' %}active{% endif %}"><a href="{% url commerce_checkout_profile %}"><strong><span>2</span></strong> {% trans 'Profile information' %}</a></li>
+        <li class="span3 {% if active == 'shipping-payment' %}active{% endif %}"><a href="{% url commerce_checkout_shipping_payment %}"><strong><span>3</span></strong> {% trans 'Shipping and payment' %}</a></li>
+        <li class="span3 {% if active == 'confirm' %}active{% endif %}"><a href="{% url commerce_checkout_confirm %}"><strong><span>4</span></strong> {% trans 'Order confirmation' %}</a></li>
+    </ul>
+</div>

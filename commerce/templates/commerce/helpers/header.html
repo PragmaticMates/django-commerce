@@ -1,0 +1,27 @@
+{% load i18n utils %}
+
+<div id="header">
+    <div class="clearfix">
+        <div class="row">
+            <div class="span6">
+                {% include 'commerce/helpers/secondary-links.html' %}
+            </div>
+
+            <span class="pull-right">
+                {% cart_block %}
+            </span>
+        </div>
+    </div>
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <ul class="nav">
+                    <li class=""><a href="{% url home %}">{% trans 'Home' %}</a></li>
+                    <li class=""><a href="{% url commerce_catalogs %}">{% trans 'Catalog' %}</a></li>
+                    <li class=""><a href="{% url commerce_cart %}">{% trans 'Cart' %}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div><!-- /#header -->

@@ -1,0 +1,17 @@
+{% load i18n %}
+
+{% if object_list %}
+    <div id="catalog">
+        <h2 class="page-header">{% trans 'Catalog' %}</h2>
+
+        <ul class="nav nav-tabs nav-stacked">
+            {% for object in object_list %}
+                <li class="{% if active == object.slug %}active{% endif %}">
+                    <a href="{{ object.get_absolute_url }}"><span>{{ object.title }}</span></a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div><!-- /#catalog -->
+{% else %}
+    {% trans 'Catalog is empty' %}
+{% endif %}

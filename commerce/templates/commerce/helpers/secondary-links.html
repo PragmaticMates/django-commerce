@@ -1,0 +1,22 @@
+{% load i18n utils %}
+
+<ul class="nav nav-pills">
+    {% if request.user.is_authenticated %}
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                {{ request.user.get_full_name }}
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="{% url commerce_accounts_profile %}">{% trans 'Profile' %}</a></li>
+                <li><a href="{% url commerce_order_your %}">{% trans 'Orders' %}</a></li>
+            </ul>
+        </li>
+        <li><a href="{% url commerce_accounts_password %}">{% trans 'Change password' %}</a></li>
+        <li><a href="{% url commerce_accounts_logout %}">{% trans 'Logout' %}</a></li>
+    {% else %}
+        <li><a href="{% url commerce_accounts_login %}">{% trans 'Login' %}</a></li>
+        <li><a href="{% url commerce_accounts_registration %}">{% trans 'Registration' %}</a></li>
+        <li><a href="{% url commerce_accounts_recover %}">{% trans 'Recover password' %}</a></li>
+    {% endif %}
+</ul>

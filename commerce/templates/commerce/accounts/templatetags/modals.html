@@ -1,0 +1,61 @@
+{% load i18n %}
+
+{# LOGIN #}
+<div id="modal-login" class="modal hide">
+    <form method="post" action="{% url commerce_accounts_login %}" class="form-horizontal">
+        {% csrf_token %}
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>{% trans 'Login' %}</h3>
+        </div>
+
+        <div class="modal-body">
+            {% include 'commerce/helpers/form.html' with form=login_form %}
+        </div>
+
+        <div class="modal-footer">
+            <input type="submit" class="btn" value="{% trans 'Login' %}">
+        </div>
+    </form>
+</div>
+
+{# REGISTRATION #}
+<div id="modal-registration" class="modal hide">
+    <form method="post" action="{% url commerce_accounts_registration %}" class="form-horizontal">
+        {% csrf_token %}
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>{% trans 'Registration' %}</h3>
+        </div>
+
+        <div class="modal-body">
+            {% include 'commerce/helpers/form.html' with form=registration_form %}
+        </div>
+
+        <div class="modal-footer">
+            <input type="submit" class="btn" value="{% trans 'Register' %}">
+        </div>
+    </form>
+</div>
+
+{# RECOVER #}
+<div id="modal-recover" class="modal hide">
+    <form method="post" action="{% url commerce_accounts_recover %}" class="form-horizontal">
+        {% csrf_token %}
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>{% trans 'Recover password' %}</h3>
+        </div>
+
+        <div class="modal-body">
+            {% include 'commerce/helpers/form.html' with form=recover_form %}
+        </div>
+
+        <div class="modal-footer">
+            <input type="submit" class="btn" value="{% trans 'Recover password' %}">
+        </div>
+    </form>
+</div>

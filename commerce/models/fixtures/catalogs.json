@@ -1,0 +1,110 @@
+[
+    {
+        "pk":4,
+        "model":"commerce.catalog",
+        "fields":{
+            "description":"Aminokyseliny s\u00fa stavebn\u00e9 jednotky prote\u00ednov! Zlep\u0161\u00faju va\u0161u vytrvalos\u0165, regener\u00e1ciu a celkov\u00e9 zdravie organizmu!",
+            "weight":0,
+            "created":"2012-07-23T09:46:47Z",
+            "title":"Aminokyseliny a BCAA",
+            "modified":"2012-07-23T09:48:52.238Z",
+            "slug":"aminokyseliny-bcaa"
+        }
+    },
+    {
+        "pk":2,
+        "model":"commerce.catalog",
+        "fields":{
+            "description":"Gainery s\u00fa objemov\u00e9 pr\u00edpravky, ktor\u00fdch hlavn\u00fdm cie\u013eom je nabratie kvalitnej svalovej hmoty a zabezpe\u010denie dostato\u010dn\u00e9ho pr\u00edjmu kal\u00f3ri\u00ed!",
+            "weight":0,
+            "created":"2012-07-23T09:46:47Z",
+            "title":"Gainery",
+            "modified":"2012-07-23T09:48:10.183Z",
+            "slug":"gainery"
+        }
+    },
+    {
+        "pk":3,
+        "model":"commerce.catalog",
+        "fields":{
+            "description":"Z\u00edskaj silu, v\u00fdbu\u0161nos\u0165 a \u010dist\u00fa svalov\u00fa hmotu v\u010faka kreat\u00ednu. Vyberte si z ponuky osved\u010den\u00fdch a kvalitn\u00fdch druhov kreat\u00ednov!",
+            "weight":0,
+            "created":"2012-07-23T09:46:47Z",
+            "title":"Kreat\u00edny",
+            "modified":"2012-07-23T09:48:27.046Z",
+            "slug":"kreatiny"
+        }
+    },
+    {
+        "pk":9,
+        "model":"commerce.catalog",
+        "fields":{
+            "description":"Aj va\u0161e k\u013aby musia by\u0165 pevn\u00e9 a zdrav\u00e9! Dodajte im potrebn\u00e9 \u017eiviny tou najlep\u0161ou k\u013abovou v\u00fd\u017eivou! K\u013abova v\u00fd\u017eiva zabezpe\u010duje v\u00fd\u017eivu a ochranu k\u013ebov a obnovu chrupakov\u00fdch tkan\u00edv.",
+            "weight":0,
+            "created":"2012-07-23T09:46:47Z",
+            "title":"K\u013abov\u00e1 v\u00fd\u017eiva",
+            "modified":"2012-07-23T09:51:12.660Z",
+            "slug":"klbova-vyziva"
+        }
+    },
+    {
+        "pk":6,
+        "model":"commerce.catalog",
+        "fields":{
+            "description":"",
+            "weight":0,
+            "created":"2012-07-23T09:46:47Z",
+            "title":"NO produkty",
+            "modified":"2012-07-23T09:49:42.418Z",
+            "slug":"no-produkty"
+        }
+    },
+    {
+        "pk":7,
+        "model":"commerce.catalog",
+        "fields":{
+            "description":"Predtr\u00e9nigov\u00e9 stimulanty v\u00e1m dodaj\u00fa extra energiu a s\u00fastredenie, v\u010faka ktor\u00e9mu odtr\u00e9nujte tak tvrdo a intez\u00edvne ako nikdy predt\u00fdm!",
+            "weight":0,
+            "created":"2012-07-23T09:46:47Z",
+            "title":"Predtr\u00e9ningov\u00e9 stimulanty",
+            "modified":"2012-07-23T09:50:11.601Z",
+            "slug":"predtreningove-stimulanty"
+        }
+    },
+    {
+        "pk":1,
+        "model":"commerce.catalog",
+        "fields":{
+            "description":"Prote\u00edn je najd\u00f4le\u017eitej\u0161\u00ed doplnok v\u00fd\u017eivy. Obsahuje bielkoviny, ktor\u00e9 s\u00fa z\u00e1kladn\u00fd stavebn\u00fd prvok pre va\u0161e svaly a ich regener\u00e1ciu.",
+            "weight":0,
+            "created":"2012-07-23T09:46:47Z",
+            "title":"Prote\u00edny",
+            "modified":"2012-07-23T09:47:44.860Z",
+            "slug":"proteiny"
+        }
+    },
+    {
+        "pk":5,
+        "model":"commerce.catalog",
+        "fields":{
+            "description":"Spa\u013eujte tuky ove\u013ea \u00fa\u010dinnej\u0161i! V na\u0161ej ponuke n\u00e1jde lipotropicke, metabolick\u00e9 aj thermogenick\u00e9 spalova\u010de tuku. Sta\u010d\u00ed si len vybra\u0165!",
+            "weight":0,
+            "created":"2012-07-23T09:46:47Z",
+            "title":"Spalova\u010de tuku",
+            "modified":"2012-07-23T09:49:21.139Z",
+            "slug":"spalovace-tuku"
+        }
+    },
+    {
+        "pk":8,
+        "model":"commerce.catalog",
+        "fields":{
+            "description":"Pr\u00edrodn\u00e9 testoster\u00f3nov\u00e9 stimulanty zlep\u0161uj\u00fa regener\u00e1cia, libido a n\u00e1rast \u010distej svalovej hmoty u mu\u017eov. S\u00fa zlo\u017een\u00e9 z pr\u00edrodn\u00fdch ingredienci\u00ed.",
+            "weight":0,
+            "created":"2012-07-23T09:46:47Z",
+            "title":"Testoster\u00f3nov\u00e9 stimulanty",
+            "modified":"2012-07-23T09:50:34.528Z",
+            "slug":"testorenove-stimulanty"
+        }
+    }
+]

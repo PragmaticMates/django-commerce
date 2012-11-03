@@ -1,0 +1,10 @@
+{% extends 'commerce/sidebar-left.html' %}
+{% load i18n %}
+
+{% block title %}{% trans 'Search' %}{% endblock %}
+
+{% block content %}
+    <h1 class="page-header">{% trans 'Search' %}</h1>
+
+    {% include 'commerce/products/helpers/list.html' %}
+{% endblock %}
