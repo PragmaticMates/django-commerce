@@ -1,4 +1,4 @@
-commerce
+Django Commerce
 ========
 
-E-commerce application
+Experimental project
