@@ -10,6 +10,7 @@ class AbstractProduct(models.Model):
     price = models.DecimalField(_('price'), help_text=commerce_settings.CURRENCY, max_digits=10, decimal_places=2, db_index=True, validators=[MinValueValidator(0)],
                                 blank=True, null=True, default=None)
     # discount = models.DecimalField(_(u'discount (%)'), max_digits=4, decimal_places=1, default=0)
+    awaiting = models.BooleanField(_('awaiting'), default=False)
 
     class Meta:
         abstract = True
