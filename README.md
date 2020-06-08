@@ -1,4 +1,8 @@
-Django Commerce
-========
+# django-commerce
 
-Experimental project
+Simple django commerce app for custom eshop purposes
+
+TODO:
+- orders
+- signals
+- emails

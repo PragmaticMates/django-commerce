@@ -1,5 +1,3 @@
-from django.conf import settings
-
 CART_IDENTIFIER = 'cart'
 
 
