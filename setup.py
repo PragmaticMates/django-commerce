@@ -14,7 +14,7 @@ setup(
     url='https://github.com/PragmaticMates/django-commerce',
     packages=[
         'commerce',
-        'commerce.migrations'
+        # 'commerce.migrations'
     ],
     include_package_data=True,
     install_requires=('django', 'django-invoicing'),
