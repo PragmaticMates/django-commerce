@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
-from commerce.models import Cart, Item
+from commerce.models import Cart, Item, Shipping
 
 
 class ItemInline(admin.StackedInline):
@@ -25,3 +25,8 @@ class CartAdmin(admin.ModelAdmin):
 
     def items(self, obj):
         return ', '.join([str(item) for item in obj.item_set.all()])
+
+
+@admin.register(Shipping)
+class ShippingAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'fee', 'countries')

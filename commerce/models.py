@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.timezone import now
@@ -23,6 +24,23 @@ class AbstractProduct(models.Model):
 
     class Meta:
         abstract = True
+
+
+class Shipping(models.Model):
+    title = models.CharField(_('title'), max_length=50)
+    fee = models.DecimalField(_('fee'), help_text=commerce_settings.CURRENCY, max_digits=10, decimal_places=2, db_index=True, validators=[MinValueValidator(0)],
+                                blank=True, null=True, default=None)
+    countries = ArrayField(verbose_name=_('countries'),
+                           base_field=CountryField(verbose_name=_('country')), size=50,
+                           blank=True, default=list)
+
+    class Meta:
+        verbose_name = _('shipping')
+        verbose_name_plural = _('shippings')
+        ordering = ('fee',)
+
+    def __str__(self):
+        return str(self.title)
 
 
 class Cart(models.Model):
