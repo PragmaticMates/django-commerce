@@ -147,8 +147,9 @@ class Cart(models.Model):
 
         return item
 
-    def convert_to_order(self, status):
-        return Order.objects.create(
+    def to_order(self, status):
+        # create order with cart data
+        order = Order.objects.create(
             user=self.user,
             status=status,
             delivery_name=self.delivery_name,
@@ -171,6 +172,13 @@ class Cart(models.Model):
             payment_method=self.payment_method,
             payment_fee=self.payment_fee,
         )
+
+        if order:
+            # delete not useful cart anymore
+            self.delete()
+        
+        # return order
+        return order
 
 
 class Item(models.Model):
