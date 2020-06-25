@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
-from commerce.models import Cart, Item, Shipping, Payment, Order
+from commerce.models import Cart, Item, Shipping, Payment, Order, PurchasedItem
 
 
 class ItemInline(admin.StackedInline):
@@ -41,11 +41,16 @@ class PaymentAdmin(admin.ModelAdmin):
         return ', '.join([str(shipping) for shipping in obj.shippings.all()])
 
 
+class PurchasedItemInline(admin.StackedInline):
+    model = PurchasedItem
+    extra = 1
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'purchased_items', 'total', 'delivery_country', 'created', 'modified')
     list_select_related = ['user']
-    # inlines = [PurchasedItemInline]
+    inlines = [PurchasedItemInline]
     fieldsets = [
         (None, {'fields': ['user', 'status', 'number']}),
         (_('Delivery address'), {'fields': [('delivery_name', 'delivery_street', 'delivery_postcode', 'delivery_city', 'delivery_country')]}),

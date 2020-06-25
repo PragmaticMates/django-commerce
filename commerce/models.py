@@ -238,8 +238,8 @@ class Order(models.Model):
     def total(self):
         total = 0
 
-        # for item in self.purchaseditem_set.all():
-        #     total += item.subtotal
+        for item in self.purchaseditem_set.all():
+            total += item.subtotal
 
         total += self.shipping_fee
         total += self.payment_fee
@@ -268,3 +268,25 @@ class Order(models.Model):
             self.number = Order.get_next_number()
 
         return super().save(*args, **kwargs)
+
+
+class PurchasedItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    content_type = models.ForeignKey(ContentType, on_delete=models.PROTECT)
+    object_id = models.PositiveIntegerField()
+    product = GenericForeignKey('content_type', 'object_id')
+    quantity = models.PositiveSmallIntegerField(verbose_name=_('quantity'))
+    price = models.DecimalField(_('price'), help_text=commerce_settings.CURRENCY, max_digits=10, decimal_places=2, db_index=True, validators=[MinValueValidator(0)])
+    created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
+    modified = models.DateTimeField(_('modified'), auto_now=True)
+
+    class Meta:
+        verbose_name = _('purchased item')
+        verbose_name_plural = _('purchased items')
+
+    def __str__(self):
+        return str(self.product)
+
+    @property
+    def subtotal(self):
+        return self.quantity * self.price
