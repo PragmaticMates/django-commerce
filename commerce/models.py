@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -14,3 +15,11 @@ class AbstractProduct(models.Model):
 
     class Meta:
         abstract = True
+
+
+class Cart(models.Model):
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _('shopping cart')
+        verbose_name_plural = _('shopping carts')
