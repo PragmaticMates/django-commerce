@@ -1,0 +1,423 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-06-25 18:06+0200\n"
+"PO-Revision-Date: 2020-06-24 18:22+0058\n"
+"Last-Translator: b'Erik Telepovsky <erik.telepovsky@gmail.com>'\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"X-Translated-Using: django-rosetta 0.9.4\n"
+
+#: models.py:10
+msgid "in stock"
+msgstr ""
+
+#: models.py:10
+msgid "empty value means infinite availability"
+msgstr ""
+
+#: models.py:11
+#, fuzzy
+#| msgid "Price"
+msgid "price"
+msgstr "Cena"
+
+#: models.py:14
+msgid "awaiting"
+msgstr ""
+
+#: models.py:24
+#, fuzzy
+#| msgid "Shopping"
+msgid "shopping cart"
+msgstr "Nakupovanie"
+
+#: models.py:25
+#, fuzzy
+#| msgid "Shopping"
+msgid "shopping carts"
+msgstr "Nakupovanie"
+
+#~ msgid "Accept the challenge,<br>receive a medal<br>and do the right thing!"
+#~ msgstr "Prijmi výzvu,<br>získaj medailu<br>a prispej na dobrú vec!"
+
+#~ msgid "I'm on it"
+#~ msgstr "Idem do toho"
+
+#~ msgid "1. step"
+#~ msgstr "1. krok"
+
+#~ msgid "Choose the challenge according your preferences"
+#~ msgstr "Zvoľte si výzvu podľa vlastného výberu"
+
+#~ msgid "2. step"
+#~ msgstr "2. krok"
+
+#~ msgid "Complete a challenge by yourself, with friends or family"
+#~ msgstr "Zdolajte výzvu sami, poprípade s partiou či rodinou"
+
+#~ msgid "3. step"
+#~ msgstr "3. krok"
+
+#~ msgid "Take a picture and get a unique medal in your collection"
+#~ msgstr "Odfoťte sa a získajte unikátnu medailu do zbierky"
+
+#~ msgid "4. step"
+#~ msgstr "4. krok"
+
+#~ msgid "As bonus you will support Slovak paralympic athlets"
+#~ msgstr "Ako bonus podporíte slovenských paralympionikov"
+
+#~ msgid "Wondering what exactly a \"virtual challenge\" is?"
+#~ msgstr "Zaujíma vás, čo presne je “virtuálna výzva”?"
+
+#~ msgid "Learn more"
+#~ msgstr "Zistite viac"
+
+#~ msgid "Categories"
+#~ msgstr "Kategórie"
+
+#~ msgid "Challenges by categories"
+#~ msgstr "Výzvy podľa kategórií"
+
+#~ msgid "Your reviews"
+#~ msgstr "Vaše recenzie"
+
+#~ msgid ""
+#~ "Send a message to us via social networks or e-mail and let us share your "
+#~ "opinions and observations. The best reviews will be rewarded!"
+#~ msgstr ""
+#~ "Ako sa vám páčila naša virtuálna výzva? Podeľte sa s nami o vaše "
+#~ "skúsenosti prostredníctvom recenzie na facebookovej stránke. Tie "
+#~ "najlepšie odmeníme!"
+
+#~ msgid "My profile"
+#~ msgstr "Môj profil"
+
+#~ msgid "Sign out"
+#~ msgstr "Odhlásiť sa"
+
+#~ msgid "Log in"
+#~ msgstr "Prihlásiť sa"
+
+#~ msgid "Challenges"
+#~ msgstr "Výzvy"
+
+#~ msgid ""
+#~ "Choose a challenge according yours preferences. Do you prefer a cycling "
+#~ "to running? Do you like that feeling when you are at the bottom of your "
+#~ "strength? Or are you just trying a new sport activity? We have something "
+#~ "for everyone."
+#~ msgstr ""
+#~ "Chcete si zmerať svoje sily v behu, cyklistike, plávaní či turistike? U "
+#~ "nás si vyberie skutočne každý. S Virtual Challenge máte úplnú flexibilitu "
+#~ "– výzvy môžete absolvovať v čase a na mieste, ktoré vám najviac vyhovujú!"
+
+#~ msgid "Filter"
+#~ msgstr "Filter"
+
+#~ msgid "No data to display"
+#~ msgstr "Nenašli sa žiadne údaje "
+
+#~ msgid "Distance"
+#~ msgstr "Vzdialenosť"
+
+#~ msgctxt "singluar"
+#~ msgid "Category"
+#~ msgstr "Kategória"
+
+#~ msgid "Registration"
+#~ msgstr "Registrácia"
+
+#~ msgid "Soon"
+#~ msgstr "Čoskoro"
+
+#~ msgid "Propositions"
+#~ msgstr "Propozície"
+
+#~ msgid ""
+#~ "With each of your challenge you donate 1€ to the Slovak Paralympic "
+#~ "Committee Foundation."
+#~ msgstr ""
+#~ "Zakúpením si výzvy podporíte jedným eurom nadáciu Slovenského "
+#~ "paralympijského výboru."
+
+#~ msgid "Conditions"
+#~ msgstr "Podmienky"
+
+#~ msgid ""
+#~ "Complete the challenge <strong class=\"text-dark\">within 3 months</"
+#~ "strong> of registraion."
+#~ msgstr ""
+#~ "Na zdolanie výzvy máte <strong class=\"text-dark\">tri mesiace</strong>"
+
+#~ msgid ""
+#~ "Take a <strong class=\"text-dark\">challenge picture</strong> and upload "
+#~ "it to your profile."
+#~ msgstr ""
+#~ "Počas výzvy sa <strong class=\"text-dark\">odfoťte</strong> a tento dôkaz "
+#~ "si následne nahrajte do profilu "
+
+#~ msgid ""
+#~ "As soon as you upload your photo, we will <strong class=\"text-dark"
+#~ "\">send you a medal</strong>"
+#~ msgstr ""
+#~ "Po nahratí fotografie vám obratom <strong class=\"text-dark\">zašleme "
+#~ "medailu</strong>"
+
+#~ msgid ""
+#~ "The standard delivery time is 30 working days. If this time is extended, "
+#~ "we will contact you by email."
+#~ msgstr ""
+#~ "Štandardná doba dodania na Slovensku je 7 pracovných dní. V prípade, že "
+#~ "sa táto doba predĺži, vás budeme kontaktovať e-mailom."
+
+#~ msgid "medal"
+#~ msgstr "Medaila"
+
+#~ msgid "Home"
+#~ msgstr "Domov"
+
+#~ msgid "About project"
+#~ msgstr "O projekte"
+
+#~ msgid "Our virtual blog"
+#~ msgstr "Náš virtuálny blog"
+
+#~ msgid ""
+#~ "Read interesting articles from the world of sports and health. Or are you "
+#~ "more interested in information \"behind the scenes\" of Virtual "
+#~ "Challenge? You can find all this and much more in our blog section."
+#~ msgstr ""
+#~ "Prečítajte si zaujímavé články zo sveta športu a zdravia. Alebo vás viac "
+#~ "zaujímajú informácie „zo zákulisia“ Virtual Challenge? To všetko a ešte "
+#~ "omnoho viac nájdete v našej blogovej sekcii."
+
+#~ msgid "Current challenges."
+#~ msgstr "Aktuálne výzvy."
+
+#~ msgid "Just pick one."
+#~ msgstr "Ktorú si vyberiete vy?"
+
+#~ msgid "Show all"
+#~ msgstr "Zobraziť všetky"
+
+#~ msgid "Previous"
+#~ msgstr "Predchádzajúce"
+
+#~ msgid "Next"
+#~ msgstr "Ďalšie"
+
+#~ msgid "Questions & Answers"
+#~ msgstr "Otázky a odpovede"
+
+#~ msgid "Need help?"
+#~ msgstr "Potrebujete pomôcť?"
+
+#~ msgid "Looking for answer to your question?"
+#~ msgstr "Hľadáte odpoveď na vašu otázku?"
+
+#~ msgid "Gallery"
+#~ msgstr "Galéria"
+
+#~ msgid "Share your successes with us"
+#~ msgstr "Podeľte sa aj vy s nami o svoje úspechy"
+
+#~ msgid "Prices"
+#~ msgstr "Ceny"
+
+#~ msgid "Contest"
+#~ msgstr "Súťaž"
+
+#~ msgid "Join the contest for great prizes!"
+#~ msgstr "Hrajte o skvelé ceny!"
+
+#~ msgid ""
+#~ "Take a picture in the \"Virtual Challenge\" T-shirt or buff and win great "
+#~ "prizes or next entry."
+#~ msgstr ""
+#~ "Zakúpte si naše tričko Virtual Challenge, odfoťte sa v ňom a zapojte sa "
+#~ "do žrebovania o nadupané ceny! Aktuálne sa súťaží o smart <strong class="
+#~ "\"text-dark\">hodinky Xiaomi Amazfit Bip Lite Black</strong>."
+
+#~ msgid "Buy merch"
+#~ msgstr "Kúpiť merch"
+
+#~ msgid "User"
+#~ msgid_plural "Users"
+#~ msgstr[0] "Užívateľ"
+#~ msgstr[1] "Užívatelia"
+#~ msgstr[2] "Užívateľa"
+#~ msgstr[3] "Užívateľov"
+
+#~ msgid "Challenge"
+#~ msgid_plural "Challenges"
+#~ msgstr[0] "Výzva"
+#~ msgstr[1] "Výzvy"
+#~ msgstr[2] "Výzvy"
+#~ msgstr[3] "Výziev"
+
+#~ msgid "Category"
+#~ msgid_plural "Categories"
+#~ msgstr[0] "Kategória"
+#~ msgstr[1] "Kategórie"
+#~ msgstr[2] "Kategórie"
+#~ msgstr[3] "Kategórií"
+
+#~ msgid "Blog"
+#~ msgstr "Blog"
+
+#~ msgid "Our latest news"
+#~ msgstr "Naše posledné novinky"
+
+#~ msgid "My dashboard"
+#~ msgstr "Moja nástenka"
+
+#~ msgid "From the world of sports and health"
+#~ msgstr "Zo sveta športu a zdravia"
+
+#~ msgid ""
+#~ "Do you need an advice on how to beat the challenge? Do you want to "
+#~ "improve your running or swimming technique? Are you looking for a good "
+#~ "hiking trail? Read ours posts."
+#~ msgstr ""
+#~ "Chcete poradiť ako zdolať výzvu? Potrebujete zlepšiť svoju techniku behu "
+#~ "či plávania? Hľadáte dobrú turisticku trasu? Prečítajte si našu tvorbu."
+
+#~ msgid "They wrote about us"
+#~ msgstr "Vaše recenzie"
+
+#~ msgid "Join the contest and win great prizes or a next entry fee"
+#~ msgstr "Zapoj sa do žrebovania o vecné ceny či ďalšie štartovné"
+
+#~ msgid "Contact"
+#~ msgstr "Kontakt"
+
+#~ msgid "Beaten challenges"
+#~ msgstr "Zdolané výzvy"
+
+#~ msgid "Rankings"
+#~ msgstr "Rebríčky"
+
+#~ msgid "Competition"
+#~ msgstr "Súťaž"
+
+#~ msgid "High Tatras and tourism"
+#~ msgstr "Vysoké Tatry a turizmus"
+
+#~ msgid "List of accommodation with direct contact to the owners"
+#~ msgstr "Zoznam ubytovaní s priamym kontaktom na majiteľa"
+
+#~ msgid "Accommodation"
+#~ msgstr "Ubytovanie"
+
+#~ msgid "Gastronomy"
+#~ msgstr "Gastronómia"
+
+#~ msgid "Events"
+#~ msgstr "Podujatia"
+
+#~ msgid "Hiking"
+#~ msgstr "Turistika"
+
+#~ msgid "Relax"
+#~ msgstr "Relax"
+
+#~ msgid "Selected accommodation"
+#~ msgstr "Vybrané ubytovanie"
+
+#~ msgid "Random picks from Hight Tatras"
+#~ msgstr "Náhodné výbery z Tatier"
+
+#~ msgid "Show more"
+#~ msgstr "Zobraziť viac"
+
+#~ msgid "Top wellness, High Tatras and surroundings"
+#~ msgstr "Top wellness, Tatry a okolie"
+
+#~ msgid "Other wellness places having sauna and whirlpool"
+#~ msgstr "Ostatné wellness so saunou a vírivkou"
+
+#~ msgid "Hiking in High Tatras"
+#~ msgstr "Turistika v Tatrách"
+
+#~ msgid "Season is open and welcomes tourists from all over the world."
+#~ msgstr "Sezóna je zahájená a vítame turistov z celého sveta"
+
+#~ msgid "Directory"
+#~ msgstr "Adresár"
+
+#~ msgid ""
+#~ "Check the list of all categories and subcategories available for our "
+#~ "items in directory application"
+#~ msgstr ""
+#~ "Skontrolujte zoznam všetkých kategórií a podkategórií dostupných pre naše "
+#~ "položky v adresárovej aplikácii"
+
+#~ msgid "Localities"
+#~ msgstr "Lokality"
+
+#~ msgid "in Hight Tatras"
+#~ msgstr "vo Vysokých Tatrách"
+
+#~ msgid "Contact us"
+#~ msgstr "Kontaktuj nás"
+
+#~ msgid "Sign In"
+#~ msgstr "Prihlásiť sa"
+
+#~ msgid "Do you have an account already? Log in bellow:"
+#~ msgstr "Už máš účet? Prihlás sa nižšie: "
+
+#~ msgid "Forgot Password?"
+#~ msgstr "Zabudol si heslo?"
+
+#~ msgid "Sign Up"
+#~ msgstr "Registrácia"
+
+#~ msgid "Are you first time here? Create a new account:"
+#~ msgstr "Si tu prvýkrát? Vytvor si nový účet."
+
+#, python-format
+#~ msgid ""
+#~ "Please sign in with one\n"
+#~ "of your existing third party accounts. Or, <a href=\"%(signup_url)s"
+#~ "\">sign up</a>\n"
+#~ "for a %(site_name)s account and sign in below:"
+#~ msgstr ""
+#~ "Prihlás sa existujúcim účtom tretej strany. Alebo sa , <a href="
+#~ "\"%(signup_url)s\">zaregistruj</a>\n"
+#~ " s %(site_name)s účtom a zaregistruj sa nižšie:"
+
+#~ msgid "or"
+#~ msgstr "alebo"
+
+#, python-format
+#~ msgid ""
+#~ "If you have not created an account yet, then please\n"
+#~ "<a href=\"%(signup_url)s\">sign up</a> first."
+#~ msgstr ""
+#~ "Ak ešte nemáš vytvorený účet, tak potom sa najprv <a href=\"%(signup_url)s"
+#~ "\">zaregistruj</a>. "
+
+#, fuzzy
+#~ msgid "Signup"
+#~ msgstr "Registrácia"
+
+#, python-format
+#~ msgid ""
+#~ "Already have an account? Then please <a href=\"%(login_url)s\">sign in</"
+#~ "a>."
+#~ msgstr "Už máš účet? Tak sa <a href=\"%(login_url)s\">prihlás</a>."
