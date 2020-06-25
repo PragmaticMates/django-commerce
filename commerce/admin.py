@@ -10,7 +10,7 @@ class ItemInline(admin.StackedInline):
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'items', 'total', 'created', 'modified', 'open')
+    list_display = ('id', 'user', 'items', 'total', 'delivery_country', 'created', 'modified', 'open')
     list_select_related = ['user']
     inlines = [ItemInline]
     fieldsets = [
@@ -19,6 +19,7 @@ class CartAdmin(admin.ModelAdmin):
         (_('Billing address'), {'fields': [('billing_name', 'billing_street', 'billing_postcode', 'billing_city', 'billing_country')]}),
         (_('Billing details'), {'fields': [('reg_id', 'tax_id', 'vat_id')]}),
         (_('Contact details'), {'fields': [('email', 'phone')]}),
+        (_('Shipping'), {'fields': ['shipping',]}),
         (_('Timestamps'), {'fields': ['created', 'modified']}),
     ]
     readonly_fields = ['created', 'modified']

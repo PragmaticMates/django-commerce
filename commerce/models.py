@@ -45,6 +45,7 @@ class Shipping(models.Model):
 
 class Cart(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
+    shipping = models.ForeignKey(Shipping, on_delete=models.PROTECT, null=True, default=None)
     created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
 
