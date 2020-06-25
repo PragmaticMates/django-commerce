@@ -134,6 +134,19 @@ class Cart(models.Model):
     def open(self):
         return now() - self.created
 
+    def add_item(self, product):
+        item, created = Item.objects.get_or_create(
+            cart=self,
+            content_type=ContentType.objects.get_for_model(product),
+            object_id=product.id,
+        )
+
+        if not created:
+            item.quantity += 1
+            item.save(update_fields=['quantity'])
+
+        return item
+
     def convert_to_order(self, status):
         return Order.objects.create(
             user=self.user,
@@ -165,7 +178,7 @@ class Item(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     product = GenericForeignKey('content_type', 'object_id')
-    quantity = models.PositiveSmallIntegerField(verbose_name=_('quantity'))
+    quantity = models.PositiveSmallIntegerField(verbose_name=_('quantity'), default=1)
     created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
 
