@@ -134,6 +134,31 @@ class Cart(models.Model):
     def open(self):
         return now() - self.created
 
+    def convert_to_order(self, status):
+        return Order.objects.create(
+            user=self.user,
+            status=status,
+            delivery_name=self.delivery_name,
+            delivery_street=self.delivery_street,
+            delivery_postcode=self.delivery_postcode,
+            delivery_city=self.delivery_city,
+            delivery_country=self.delivery_country,
+            billing_name=self.billing_name,
+            billing_street=self.billing_street,
+            billing_postcode=self.billing_postcode,
+            billing_city=self.billing_city,
+            billing_country=self.billing_country,
+            reg_id=self.reg_id,
+            tax_id=self.tax_id,
+            vat_id=self.vat_id,
+            email=self.email,
+            phone=self.phone,
+            shipping_option=self.shipping_option,
+            shipping_fee=self.shipping_fee,
+            payment_method=self.payment_method,
+            payment_fee=self.payment_fee,
+        )
+
 
 class Item(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
