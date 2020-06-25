@@ -5,6 +5,8 @@ from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
+from internationalflavor.countries import CountryField
+from internationalflavor.vat_number import VATNumberField
 
 from commerce import settings as commerce_settings
 
@@ -28,11 +30,30 @@ class Cart(models.Model):
     created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
 
-    # delivery details
-    # contact details
+    # delivery information
+    delivery_name = models.CharField(_('full name or company name'), max_length=30, db_index=True)
+    delivery_street = models.CharField(_('street and number'), max_length=200)
+    delivery_postcode = models.CharField(_('postcode'), max_length=30)
+    delivery_city = models.CharField(_('city'), max_length=50)
+    delivery_country = CountryField(verbose_name=_('country'), db_index=True)
+
     # billing details
-    # shipping details
-    # discount
+    billing_name = models.CharField(_('full name or company name'), max_length=100)
+    billing_street = models.CharField(_('street'), max_length=200)
+    billing_postcode = models.CharField(_('postcode'), max_length=30)
+    billing_city = models.CharField(_('city'), max_length=50)
+    billing_country = CountryField(verbose_name=_('country'), db_index=True)
+
+    reg_id = models.CharField(_('Company Registration No.'), max_length=30, blank=True)
+    tax_id = models.CharField(verbose_name=_('TAX ID'), max_length=30, blank=True)
+    vat_id = VATNumberField(verbose_name=_('VAT ID'), blank=True)
+
+    # Contact details
+    email = models.EmailField(_('email'))
+    phone = models.CharField(_('phone'), max_length=30)
+
+    # TODO: shipping
+    # TODO: discount
 
     class Meta:
         verbose_name = _('shopping cart')
