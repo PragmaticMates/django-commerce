@@ -1,0 +1,20 @@
+{% load i18n %}
+
+<table>
+    <thead>
+        <th>{% trans 'Item' %}</th>
+        <th>{% trans 'Price' %}</th>
+        <th>{% trans 'Quantity' %}</th>
+        <th>{% trans 'Subtotal' %}</th>
+    </thead>
+    <tbody>
+        {% for item in cart.item_set.all %}
+            <tr>
+                <td>{{ item }}</td>
+                <td>{{ item.get_price_display }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.get_subtotal_display }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

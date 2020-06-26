@@ -1,0 +1,7 @@
+{% load i18n %}
+CART:
+<br><br>
+
+{% include 'commerce/cart_items_table.html' %}
+
+{% trans 'Total' %}: {{ cart.get_total_display }}

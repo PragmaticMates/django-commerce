@@ -140,6 +140,9 @@ class Cart(models.Model):
         # TODO - discount
         return total
 
+    def get_total_display(self):
+        return f'{self.total} {commerce_settings.CURRENCY}'
+
     @property
     def open(self):
         return now() - self.created
@@ -218,8 +221,18 @@ class Item(models.Model):
         return str(self.product)
 
     @property
+    def price(self):
+        return self.product.price
+
+    def get_price_display(self):
+        return f'{self.price} {commerce_settings.CURRENCY}'
+
+    @property
     def subtotal(self):
-        return self.quantity * self.product.price
+        return self.quantity * self.price
+
+    def get_subtotal_display(self):
+        return f'{self.subtotal} {commerce_settings.CURRENCY}'
 
 
 class Order(models.Model):
