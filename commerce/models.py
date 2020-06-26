@@ -171,6 +171,10 @@ class Cart(models.Model):
 
     def can_be_finished(self):
         # TODO: check if all fields are set
+
+        if not self.shipping_option or not self.payment_method:
+            return None
+
         return not self.is_empty()
     
     def has_item(self, product):
@@ -233,7 +237,7 @@ class Cart(models.Model):
         if order:
             # delete not useful cart anymore
             self.delete()
-        
+
         # return order
         return order
 
@@ -253,6 +257,9 @@ class Item(models.Model):
 
     def __str__(self):
         return str(self.product)
+
+    def get_absolute_url(self):
+        return self.product.get_absolute_url()
 
     @property
     def price(self):

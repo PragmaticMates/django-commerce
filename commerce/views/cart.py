@@ -47,7 +47,7 @@ class CartDetailView(CartMixin, DetailView):
 
 
 class EmptyCartRedirectMixin(object):
-    def get(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs):
         cart = self.get_object()
 
         if cart.is_empty():
@@ -56,7 +56,7 @@ class EmptyCartRedirectMixin(object):
         return super().dispatch(request, *args, **kwargs)
 
 
-class CheckoutAddressesView(EmptyCartRedirectMixin, CartMixin, UpdateView):
+class CheckoutAddressesView(CartMixin, EmptyCartRedirectMixin, UpdateView):
     template_name = 'commerce/checkout_form.html'
     form_class = AddressesForm
 
@@ -107,7 +107,7 @@ class CheckoutAddressesView(EmptyCartRedirectMixin, CartMixin, UpdateView):
         return redirect('commerce:checkout_shipping_and_payment')
 
 
-class CheckoutShippingAndPaymentView(EmptyCartRedirectMixin, CartMixin, UpdateView):
+class CheckoutShippingAndPaymentView(CartMixin, EmptyCartRedirectMixin, UpdateView):
     template_name = 'commerce/checkout_form.html'
     form_class = ShippingAndPaymentForm
 
@@ -116,7 +116,7 @@ class CheckoutShippingAndPaymentView(EmptyCartRedirectMixin, CartMixin, UpdateVi
         return redirect('commerce:checkout_summary')
 
 
-class CheckoutSummaryView(EmptyCartRedirectMixin, CartMixin, DetailView):
+class CheckoutSummaryView(CartMixin, EmptyCartRedirectMixin, DetailView):
     template_name = 'commerce/checkout_summary.html'
 
 
@@ -129,8 +129,12 @@ class CheckoutFinishView(CartMixin, DetailView):
         if cart.can_be_finished():
             order = cart.to_order(status=order_status)
 
+            if not order.payment_method:
+                messages.error(request, _('Missing payment method'))
+                return redirect(order.get_absolute_url())
+
             if order.payment_method.method == Payment.METHOD_ONLINE_PAYMENT:
-                return order.get_payment_url()
+                return redirect(order.get_payment_url())
 
             return redirect(order.get_absolute_url())
         else:
