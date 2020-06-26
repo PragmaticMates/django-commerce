@@ -1,13 +1,17 @@
 {% load i18n %}
 <h1>{% trans 'Shopping cart' %}</h1>
 
-{% include 'commerce/cart_items_table.html' %}
+{% if cart.is_empty %}
+    {% trans 'Shopping cart is empty' %}
+{% else %}
+    {% include 'commerce/cart_items_table.html' %}
 
-<br>
+    <br>
 
-{# TODO: discount #}
-<strong>{% trans 'Subtotal' %}:</strong> {{ cart.get_subtotal_display }}
+    {# TODO: discount #}
+    <strong>{% trans 'Subtotal' %}:</strong> {{ cart.get_subtotal_display }}
 
-<br><br>
+    <br><br>
 
-<a href="{% url 'commerce:checkout_addresses' %}">{% trans 'Proceed to checkout' %}</a>
+    <a href="{% url 'commerce:checkout_addresses' %}">{% trans 'Proceed to checkout' %}</a>
+{% endif %}

@@ -166,9 +166,12 @@ class Cart(models.Model):
     def items_quantity(self):
         return sum([item.quantity for item in self.item_set.all()])
 
+    def is_empty(self):
+        return self.items_quantity <= 0
+
     def can_be_finished(self):
         # TODO: check if all fields are set
-        return self.items_quantity > 0
+        return not self.is_empty()
     
     def has_item(self, product):
         return self.item_set.filter(

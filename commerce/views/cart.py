@@ -2,7 +2,6 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views import View
 from django.views.generic import DetailView, UpdateView
@@ -12,7 +11,7 @@ from commerce.models import Cart, Order, Payment
 
 
 class AddToCartView(LoginRequiredMixin, View):
-    def dispatch(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         content_type = get_object_or_404(ContentType, id=kwargs['content_type_id'])
         product = get_object_or_404(content_type.model_class(), id=kwargs['object_id'])
         cart = Cart.get_for_user(request.user)
@@ -36,20 +35,30 @@ class AddToCartView(LoginRequiredMixin, View):
         return redirect(back_url)
 
 
-class CartDetailView(LoginRequiredMixin, DetailView):
+class CartMixin(LoginRequiredMixin):
     model = Cart
 
     def get_object(self, queryset=None):
         return self.model.get_for_user(self.request.user)
 
 
-class CheckoutAddressesView(LoginRequiredMixin, UpdateView):
-    model = Cart
+class CartDetailView(CartMixin, DetailView):
+    pass
+
+
+class EmptyCartRedirectMixin(object):
+    def get(self, request, *args, **kwargs):
+        cart = self.get_object()
+
+        if cart.is_empty():
+            return redirect(cart.get_absolute_url())
+
+        return super().dispatch(request, *args, **kwargs)
+
+
+class CheckoutAddressesView(EmptyCartRedirectMixin, CartMixin, UpdateView):
     template_name = 'commerce/checkout_form.html'
     form_class = AddressesForm
-
-    def get_object(self, queryset=None):
-        return self.model.get_for_user(self.request.user)
 
     def get_initial(self):
         initial = super().get_initial()
@@ -98,34 +107,21 @@ class CheckoutAddressesView(LoginRequiredMixin, UpdateView):
         return redirect('commerce:checkout_shipping_and_payment')
 
 
-class CheckoutShippingAndPaymentView(LoginRequiredMixin, UpdateView):
-    model = Cart
+class CheckoutShippingAndPaymentView(EmptyCartRedirectMixin, CartMixin, UpdateView):
     template_name = 'commerce/checkout_form.html'
     form_class = ShippingAndPaymentForm
-
-    def get_object(self, queryset=None):
-        return self.model.get_for_user(self.request.user)
 
     def form_valid(self, form):
         form.save()
         return redirect('commerce:checkout_summary')
 
 
-class CheckoutSummaryView(LoginRequiredMixin, DetailView):
-    model = Cart
+class CheckoutSummaryView(EmptyCartRedirectMixin, CartMixin, DetailView):
     template_name = 'commerce/checkout_summary.html'
 
-    def get_object(self, queryset=None):
-        return self.model.get_for_user(self.request.user)
 
-
-class CheckoutFinishView(LoginRequiredMixin, DetailView):
-    model = Cart
-
-    def get_object(self, queryset=None):
-        return self.model.get_for_user(self.request.user)
-
-    def dispatch(self, request, *args, **kwargs):
+class CheckoutFinishView(CartMixin, DetailView):
+    def get(self, request, *args, **kwargs):
         # TODO: default order status / status by cart / items ...
         cart = self.get_object()
         order_status = Order.STATUS_AWAITING_PAYMENT
