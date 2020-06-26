@@ -101,8 +101,8 @@ class Cart(models.Model):
     phone = models.CharField(_('phone'), max_length=30)
 
     # Shipping and Payment
-    shipping_option = models.ForeignKey(Shipping, on_delete=models.PROTECT, null=True, default=None)
-    payment_method = models.ForeignKey(Payment, on_delete=models.PROTECT, null=True, default=None)
+    shipping_option = models.ForeignKey(Shipping, verbose_name=_('shipping option'), on_delete=models.PROTECT, null=True, default=None)
+    payment_method = models.ForeignKey(Payment, verbose_name=_('payment method'), on_delete=models.PROTECT, null=True, default=None)
 
     created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)

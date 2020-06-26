@@ -2,6 +2,14 @@ from django.db import models
 
 
 class OrderQuerySet(models.QuerySet):
+    def paid_not_cancelled_nor_refunded(self):
+        return self.exclude(status__in=[
+            self.model.STATUS_AWAITING_PAYMENT,
+            self.model.STATUS_CANCELLED,
+            self.model.STATUS_REFUNDED,
+            self.model.STATUS_PARTIALLY_REFUNDED,
+        ])
+
     # TODO: move to some kind of mixin (ideally into django-pragmatic)
     def lock(self):
         """ Lock table.
