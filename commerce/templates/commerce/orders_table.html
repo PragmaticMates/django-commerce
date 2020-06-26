@@ -6,6 +6,7 @@
         <th>{% trans 'Date' %}</th>
         <th>{% trans 'Purchased items' %}</th>
         <th>{% trans 'Total' %}</th>
+        <th>{% trans 'Payment method' %}</th>
         <th>{% trans 'Status' %}</th>
         <th>{% trans 'Invoice' %}</th>
     </thead>
@@ -16,12 +17,20 @@
                 <td>{{ order.created }}</td>
                 <td>{{ order.purchaseditem_set.all|join:', ' }}</td>
                 <td>{{ order.get_total_display }}</td>
-                <td>{{ order.get_status_display }}</td>
+                <td>{{ order.payment_method.get_method_display }}</td>
+                <td>
+                    {{ order.get_status_display }}
+                    {% if order.status == order.STATUS_AWAITING_PAYMENT and order.payment_method.method == order.payment_method.METHOD_ONLINE_PAYMENT %}
+                        <a href="{{ order.get_payment_url }}">{% trans 'Pay' %}</a>
+                    {% endif %}
+                </td>
                 <td>
                     {% for invoice in order.invoices.all %}
                         <a href="{{ invoice.get_absolute_url }}">{{ invoice }}</a><br>
                     {% empty %}
-                        {% trans 'Preparing...' %}
+                        {% if order.status != order.STATUS_AWAITING_PAYMENT %}
+                            {% trans 'Preparing...' %}
+                        {% endif %}
                     {% endfor %}
                 </td>
             </tr>

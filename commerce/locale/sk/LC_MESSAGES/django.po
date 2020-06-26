@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-26 15:13+0200\n"
-"PO-Revision-Date: 2020-06-26 15:28+0058\n"
+"POT-Creation-Date: 2020-06-26 18:04+0200\n"
+"PO-Revision-Date: 2020-06-26 18:04+0058\n"
 "Last-Translator: b'Erik Telepovsky <erik.telepovsky@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -32,7 +32,6 @@ msgid "Billing details"
 msgstr "Fakturačné údaje"
 
 #: admin.py:21 admin.py:59 forms.py:44
-#| msgid "Contact us"
 msgid "Contact details"
 msgstr "Kontaktné údaje"
 
@@ -45,7 +44,6 @@ msgid "Timestamps"
 msgstr "Časové údaje"
 
 #: forms.py:52 forms.py:88
-#| msgid "Contest"
 msgid "Continue"
 msgstr "Pokračovať"
 
@@ -71,8 +69,7 @@ msgstr "skladom"
 msgid "empty value means infinite availability"
 msgstr "prázdna hodnota znamená nekonečná dostupnosť"
 
-#: models.py:20 models.py:407
-#| msgid "Price"
+#: models.py:20 models.py:412
 msgid "price"
 msgstr "cena"
 
@@ -97,12 +94,10 @@ msgid "country"
 msgstr "krajina"
 
 #: models.py:44
-#| msgid "Shopping"
 msgid "shipping option"
 msgstr "možnosť dopravy"
 
 #: models.py:45
-#| msgid "Shopping"
 msgid "shipping options"
 msgstr "možnosti dopravy"
 
@@ -151,7 +146,6 @@ msgid "street"
 msgstr "ulica"
 
 #: models.py:95 models.py:330
-#| msgid "Registration"
 msgid "Company Registration No."
 msgstr "IČO"
 
@@ -171,31 +165,28 @@ msgstr "email"
 msgid "phone"
 msgstr "telefón"
 
-#: models.py:107 models.py:251 models.py:346 models.py:408
+#: models.py:107 models.py:251 models.py:346 models.py:413
 msgid "created"
 msgstr "vytvorené"
 
-#: models.py:108 models.py:252 models.py:347 models.py:409
+#: models.py:108 models.py:252 models.py:347 models.py:414
 msgid "modified"
 msgstr "upravené"
 
 #: models.py:113
-#| msgid "Shopping"
 msgid "shopping cart"
 msgstr "nákupný košík"
 
 #: models.py:114
-#| msgid "Shopping"
 msgid "shopping carts"
 msgstr "nákupné košíky"
 
 #: models.py:117
 #, python-brace-format
-#| msgid "Shopping"
 msgid "Shopping cart of {self.user}"
 msgstr "Nákupný košík užívateľa {self.user}"
 
-#: models.py:250 models.py:406
+#: models.py:250 models.py:411
 msgid "quantity"
 msgstr "počet"
 
@@ -232,7 +223,6 @@ msgid "Shipped"
 msgstr "Expedovaná"
 
 #: models.py:303
-#| msgid "Competition"
 msgid "Completed"
 msgstr "Dokončená"
 
@@ -269,7 +259,6 @@ msgid "number"
 msgstr "číslo"
 
 #: models.py:340
-#| msgid "Shopping"
 msgid "shipping fee"
 msgstr "poplatok za doručenie"
 
@@ -285,21 +274,19 @@ msgstr "objednávka"
 msgid "orders"
 msgstr "objednávky"
 
-#: models.py:412
+#: models.py:417
 msgid "purchased item"
 msgstr "zakúpená položka"
 
-#: models.py:413
+#: models.py:418
 msgid "purchased items"
 msgstr "zakúpené položky"
 
 #: templates/commerce/cart_detail.html:2
-#| msgid "Shopping"
 msgid "Shopping cart"
 msgstr "Nákupný košík"
 
 #: templates/commerce/cart_detail.html:5
-#| msgid "Shopping"
 msgid "Shopping cart is empty"
 msgstr "Košík je prázdny"
 
@@ -318,7 +305,6 @@ msgid "Item"
 msgstr "Položka"
 
 #: templates/commerce/cart_items_table.html:6
-#| msgid "Prices"
 msgid "Price"
 msgstr "Cena"
 
@@ -348,6 +334,7 @@ msgid "Shipping fee"
 msgstr "Poplatok za doručenie"
 
 #: templates/commerce/checkout_summary.html:13
+#: templates/commerce/orders_table.html:9
 msgid "Payment method"
 msgstr "Platobná metóda"
 
@@ -356,6 +343,7 @@ msgid "Payment fee"
 msgstr "Poplatok za platobnú metódu"
 
 #: templates/commerce/checkout_summary.html:15
+#: templates/commerce/orders_table.html:8
 msgid "Total"
 msgstr "Celkom"
 
@@ -366,6 +354,38 @@ msgstr "Dokončiť"
 #: templates/commerce/checkout_summary.html:22 views/cart.py:157
 msgid "Checkout process can not be finished yet"
 msgstr "Nákupný proces ešte nemôže byť ukončený"
+
+#: templates/commerce/order_list.html:2
+msgid "Orders"
+msgstr "Objednávky"
+
+#: templates/commerce/orders_table.html:5
+msgid "Number"
+msgstr "Číslo"
+
+#: templates/commerce/orders_table.html:6
+msgid "Date"
+msgstr "Dátum"
+
+#: templates/commerce/orders_table.html:7
+msgid "Purchased items"
+msgstr "Zakúpené položky"
+
+#: templates/commerce/orders_table.html:10
+msgid "Status"
+msgstr "Stav"
+
+#: templates/commerce/orders_table.html:11
+msgid "Invoice"
+msgstr "Faktúra"
+
+#: templates/commerce/orders_table.html:24
+msgid "Pay"
+msgstr "Uhradiť"
+
+#: templates/commerce/orders_table.html:32
+msgid "Preparing..."
+msgstr "Pripravujeme..."
 
 #: urls.py:10
 msgctxt "url"
@@ -406,6 +426,11 @@ msgstr "nakup/dokoncenie/"
 msgctxt "url"
 msgid "order/<int:number>/payment/"
 msgstr "objednavka/<int:number>/platba/"
+
+#: urls.py:18
+msgctxt "url"
+msgid "orders/"
+msgstr "objednavky/"
 
 #: views/cart.py:26
 #, python-brace-format
