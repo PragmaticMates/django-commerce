@@ -2,8 +2,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres.fields import ArrayField
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import MinValueValidator, EMPTY_VALUES
 from django.db import models, transaction
+from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 from internationalflavor.countries import CountryField
@@ -24,6 +26,10 @@ class AbstractProduct(models.Model):
 
     class Meta:
         abstract = True
+
+    def get_add_to_cart_url(self):
+        content_type = ContentType.objects.get_for_model(self)
+        return reverse('commerce:add_to_cart', args=(content_type.id, self.id))
 
 
 class Shipping(models.Model):
@@ -109,6 +115,10 @@ class Cart(models.Model):
     def __str__(self):
         return str(self.user)
 
+    @classmethod
+    def get_for_user(cls, user):
+        return cls.objects.get_or_create(user=user)[0]
+
     @property
     def shipping_fee(self):
         return self.shipping_option.fee if self.shipping_option else 0
@@ -133,6 +143,12 @@ class Cart(models.Model):
     @property
     def open(self):
         return now() - self.created
+
+    def has_item(self, product):
+        return self.item_set.filter(
+            content_type=ContentType.objects.get_for_model(product),
+            object_id=product.id,
+        ).exists()
 
     def add_item(self, product):
         item, created = Item.objects.get_or_create(
