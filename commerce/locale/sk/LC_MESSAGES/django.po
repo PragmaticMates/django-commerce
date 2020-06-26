@@ -8,47 +8,428 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-25 18:06+0200\n"
-"PO-Revision-Date: 2020-06-24 18:22+0058\n"
+"POT-Creation-Date: 2020-06-26 15:13+0200\n"
+"PO-Revision-Date: 2020-06-26 15:28+0058\n"
 "Last-Translator: b'Erik Telepovsky <erik.telepovsky@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
-">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 "X-Translated-Using: django-rosetta 0.9.4\n"
 
-#: models.py:10
+#: admin.py:18 admin.py:56 forms.py:23
+msgid "Delivery address"
+msgstr "Adresa doručenia"
+
+#: admin.py:19 admin.py:57
+msgid "Billing address"
+msgstr "Fakturačná adresa"
+
+#: admin.py:20 admin.py:58 forms.py:32
+msgid "Billing details"
+msgstr "Fakturačné údaje"
+
+#: admin.py:21 admin.py:59 forms.py:44
+#| msgid "Contact us"
+msgid "Contact details"
+msgstr "Kontaktné údaje"
+
+#: admin.py:22 admin.py:60
+msgid "Shipping"
+msgstr "Doprava"
+
+#: admin.py:23 admin.py:61
+msgid "Timestamps"
+msgstr "Časové údaje"
+
+#: forms.py:52 forms.py:88
+#| msgid "Contest"
+msgid "Continue"
+msgstr "Pokračovať"
+
+#: forms.py:77
+msgid "Select Shipping Option"
+msgstr "Vyberte možnosť dopravy"
+
+#: forms.py:82
+msgid "Choose Payment Type"
+msgstr "Zvoľte typ platby"
+
+#: forms.py:97
+#, python-brace-format
+msgid ""
+"This payment method is not available for shipping option {shipping_option}"
+msgstr "Platobná metóda nie je dostupná pre možnosť dopravy {shipping_option}"
+
+#: models.py:19
 msgid "in stock"
-msgstr ""
+msgstr "skladom"
 
-#: models.py:10
+#: models.py:19
 msgid "empty value means infinite availability"
-msgstr ""
+msgstr "prázdna hodnota znamená nekonečná dostupnosť"
 
-#: models.py:11
-#, fuzzy
+#: models.py:20 models.py:407
 #| msgid "Price"
 msgid "price"
-msgstr "Cena"
+msgstr "cena"
 
-#: models.py:14
+#: models.py:23
 msgid "awaiting"
-msgstr ""
+msgstr "očakávame"
 
-#: models.py:24
-#, fuzzy
+#: models.py:37 models.py:64
+msgid "title"
+msgstr "názov"
+
+#: models.py:38 models.py:66
+msgid "fee"
+msgstr "poplatok"
+
+#: models.py:39
+msgid "countries"
+msgstr "krajiny"
+
+#: models.py:40 models.py:86 models.py:93 models.py:321 models.py:328
+msgid "country"
+msgstr "krajina"
+
+#: models.py:44
+#| msgid "Shopping"
+msgid "shipping option"
+msgstr "možnosť dopravy"
+
+#: models.py:45
+#| msgid "Shopping"
+msgid "shipping options"
+msgstr "možnosti dopravy"
+
+#: models.py:58
+msgid "cash on delivery"
+msgstr "pri prevzatí"
+
+#: models.py:59
+msgid "wire transfer"
+msgstr "bankový prevod"
+
+#: models.py:60
+msgid "online payment"
+msgstr "online platba"
+
+#: models.py:65
+msgid "method"
+msgstr "metóda"
+
+#: models.py:70
+msgid "payment method"
+msgstr "platobná metóda"
+
+#: models.py:71
+msgid "payment methods"
+msgstr "platobné metódy"
+
+#: models.py:82 models.py:89 models.py:317 models.py:324
+msgid "full name or company name"
+msgstr "celé meno alebo názov spoločnosti"
+
+#: models.py:83 models.py:318
+msgid "street and number"
+msgstr "ulica a číslo"
+
+#: models.py:84 models.py:91 models.py:319 models.py:326
+msgid "postcode"
+msgstr "PSČ"
+
+#: models.py:85 models.py:92 models.py:320 models.py:327
+msgid "city"
+msgstr "mesto"
+
+#: models.py:90 models.py:325
+msgid "street"
+msgstr "ulica"
+
+#: models.py:95 models.py:330
+#| msgid "Registration"
+msgid "Company Registration No."
+msgstr "IČO"
+
+#: models.py:96 models.py:331
+msgid "TAX ID"
+msgstr "DIČ"
+
+#: models.py:97 models.py:332
+msgid "VAT ID"
+msgstr "IČ DPH"
+
+#: models.py:100 models.py:335
+msgid "email"
+msgstr "email"
+
+#: models.py:101 models.py:336
+msgid "phone"
+msgstr "telefón"
+
+#: models.py:107 models.py:251 models.py:346 models.py:408
+msgid "created"
+msgstr "vytvorené"
+
+#: models.py:108 models.py:252 models.py:347 models.py:409
+msgid "modified"
+msgstr "upravené"
+
+#: models.py:113
 #| msgid "Shopping"
 msgid "shopping cart"
-msgstr "Nakupovanie"
+msgstr "nákupný košík"
 
-#: models.py:25
-#, fuzzy
+#: models.py:114
 #| msgid "Shopping"
 msgid "shopping carts"
-msgstr "Nakupovanie"
+msgstr "nákupné košíky"
+
+#: models.py:117
+#, python-brace-format
+#| msgid "Shopping"
+msgid "Shopping cart of {self.user}"
+msgstr "Nákupný košík užívateľa {self.user}"
+
+#: models.py:250 models.py:406
+msgid "quantity"
+msgstr "počet"
+
+#: models.py:255
+msgid "item"
+msgstr "položka"
+
+#: models.py:256
+msgid "items"
+msgstr "položky"
+
+#: models.py:297
+msgid "Awaiting Payment"
+msgstr "Čaká na platbu"
+
+#: models.py:298
+msgid "Awaiting Fulfillment"
+msgstr "Očakávame naskladnenie"
+
+#: models.py:299
+msgid "Awaiting Shipment"
+msgstr "Čaká na expedíciu"
+
+#: models.py:300
+msgid "Awaiting Pickup"
+msgstr "Čaká na vyzdvihnutie"
+
+#: models.py:301
+msgid "Partially Shipped"
+msgstr "Čiatočne expedovaná"
+
+#: models.py:302
+msgid "Shipped"
+msgstr "Expedovaná"
+
+#: models.py:303
+#| msgid "Competition"
+msgid "Completed"
+msgstr "Dokončená"
+
+#: models.py:304
+msgid "Cancelled"
+msgstr "Zrušená"
+
+#: models.py:305
+msgid "Declined"
+msgstr "Odmietnutá"
+
+#: models.py:306
+msgid "Refunded"
+msgstr "Refundovaná"
+
+#: models.py:307
+msgid "Partially Refunded"
+msgstr "Čiastočne refundovaná"
+
+#: models.py:308
+msgid "Disputed"
+msgstr "V spore"
+
+#: models.py:309
+msgid "On hold"
+msgstr "Zadržaná"
+
+#: models.py:313
+msgid "status"
+msgstr "stav"
+
+#: models.py:314
+msgid "number"
+msgstr "číslo"
+
+#: models.py:340
+#| msgid "Shopping"
+msgid "shipping fee"
+msgstr "poplatok za doručenie"
+
+#: models.py:344
+msgid "payment fee"
+msgstr "poplatok za platobnú metódu"
+
+#: models.py:352
+msgid "order"
+msgstr "objednávka"
+
+#: models.py:353
+msgid "orders"
+msgstr "objednávky"
+
+#: models.py:412
+msgid "purchased item"
+msgstr "zakúpená položka"
+
+#: models.py:413
+msgid "purchased items"
+msgstr "zakúpené položky"
+
+#: templates/commerce/cart_detail.html:2
+#| msgid "Shopping"
+msgid "Shopping cart"
+msgstr "Nákupný košík"
+
+#: templates/commerce/cart_detail.html:5
+#| msgid "Shopping"
+msgid "Shopping cart is empty"
+msgstr "Košík je prázdny"
+
+#: templates/commerce/cart_detail.html:12
+#: templates/commerce/cart_items_table.html:8
+#: templates/commerce/checkout_summary.html:10
+msgid "Subtotal"
+msgstr "Spolu"
+
+#: templates/commerce/cart_detail.html:16
+msgid "Proceed to checkout"
+msgstr "Pokračovať do pokladne"
+
+#: templates/commerce/cart_items_table.html:5
+msgid "Item"
+msgstr "Položka"
+
+#: templates/commerce/cart_items_table.html:6
+#| msgid "Prices"
+msgid "Price"
+msgstr "Cena"
+
+#: templates/commerce/cart_items_table.html:7
+msgid "Quantity"
+msgstr "Počet"
+
+#: templates/commerce/cart_items_table.html:15
+msgid "Remove"
+msgstr "Odstrániť"
+
+#: templates/commerce/checkout_form.html:2
+#: templates/commerce/checkout_summary.html:2
+msgid "Checkout"
+msgstr "Nákup"
+
+#: templates/commerce/checkout_summary.html:3
+msgid "Summary"
+msgstr "Sumarizácia"
+
+#: templates/commerce/checkout_summary.html:11
+msgid "Shipping option"
+msgstr "Možnosť dopravy"
+
+#: templates/commerce/checkout_summary.html:12
+msgid "Shipping fee"
+msgstr "Poplatok za doručenie"
+
+#: templates/commerce/checkout_summary.html:13
+msgid "Payment method"
+msgstr "Platobná metóda"
+
+#: templates/commerce/checkout_summary.html:14
+msgid "Payment fee"
+msgstr "Poplatok za platobnú metódu"
+
+#: templates/commerce/checkout_summary.html:15
+msgid "Total"
+msgstr "Celkom"
+
+#: templates/commerce/checkout_summary.html:20
+msgid "Finish"
+msgstr "Dokončiť"
+
+#: templates/commerce/checkout_summary.html:22 views/cart.py:157
+msgid "Checkout process can not be finished yet"
+msgstr "Nákupný proces ešte nemôže byť ukončený"
+
+#: urls.py:10
+msgctxt "url"
+msgid "add-to-cart/<int:content_type_id>/<int:object_id>/"
+msgstr "pridat-do-kosika/<int:content_type_id>/<int:object_id>/"
+
+#: urls.py:11
+msgctxt "url"
+msgid "remove-from-cart/<int:item_id>/"
+msgstr "odstranit-z-kosika/<int:item_id>/"
+
+#: urls.py:12
+msgctxt "url"
+msgid "cart/"
+msgstr "kosik/"
+
+#: urls.py:13
+msgctxt "url"
+msgid "checkout/addresses/"
+msgstr "nakup/adresy/"
+
+#: urls.py:14
+msgctxt "url"
+msgid "checkout/shipping-and-payment/"
+msgstr "nakup/doprava-a-platba/"
+
+#: urls.py:15
+msgctxt "url"
+msgid "checkout/summary/"
+msgstr "nakup/sumarizacia/"
+
+#: urls.py:16
+msgctxt "url"
+msgid "checkout/finish/"
+msgstr "nakup/dokoncenie/"
+
+#: urls.py:17
+msgctxt "url"
+msgid "order/<int:number>/payment/"
+msgstr "objednavka/<int:number>/platba/"
+
+#: views/cart.py:26
+#, python-brace-format
+msgid "You can order at most {MAX_ITEMS} items at once"
+msgstr "Môžte objednať naraz najviac {MAX_ITEMS} položiek"
+
+#: views/cart.py:30
+#, python-brace-format
+msgid "{product} was added into cart"
+msgstr "{product} bol pridaný do košíka"
+
+#: views/cart.py:32
+#, python-brace-format
+msgid "{product} is already in cart"
+msgstr "{product} už je v košíku"
+
+#: views/cart.py:48
+#, python-brace-format
+msgid "{item} removed from cart"
+msgstr "{item} bol odstránený z košíka"
+
+#: views/cart.py:149
+msgid "Missing payment method"
+msgstr "Chýba platobná metóda"
 
 #~ msgid "Accept the challenge,<br>receive a medal<br>and do the right thing!"
 #~ msgstr "Prijmi výzvu,<br>získaj medailu<br>a prispej na dobrú vec!"
@@ -99,9 +480,8 @@ msgstr "Nakupovanie"
 #~ "Send a message to us via social networks or e-mail and let us share your "
 #~ "opinions and observations. The best reviews will be rewarded!"
 #~ msgstr ""
-#~ "Ako sa vám páčila naša virtuálna výzva? Podeľte sa s nami o vaše "
-#~ "skúsenosti prostredníctvom recenzie na facebookovej stránke. Tie "
-#~ "najlepšie odmeníme!"
+#~ "Ako sa vám páčila naša virtuálna výzva? Podeľte sa s nami o vaše skúsenosti "
+#~ "prostredníctvom recenzie na facebookovej stránke. Tie najlepšie odmeníme!"
 
 #~ msgid "My profile"
 #~ msgstr "Môj profil"
@@ -116,14 +496,14 @@ msgstr "Nakupovanie"
 #~ msgstr "Výzvy"
 
 #~ msgid ""
-#~ "Choose a challenge according yours preferences. Do you prefer a cycling "
-#~ "to running? Do you like that feeling when you are at the bottom of your "
-#~ "strength? Or are you just trying a new sport activity? We have something "
-#~ "for everyone."
+#~ "Choose a challenge according yours preferences. Do you prefer a cycling to "
+#~ "running? Do you like that feeling when you are at the bottom of your "
+#~ "strength? Or are you just trying a new sport activity? We have something for"
+#~ " everyone."
 #~ msgstr ""
-#~ "Chcete si zmerať svoje sily v behu, cyklistike, plávaní či turistike? U "
-#~ "nás si vyberie skutočne každý. S Virtual Challenge máte úplnú flexibilitu "
-#~ "– výzvy môžete absolvovať v čase a na mieste, ktoré vám najviac vyhovujú!"
+#~ "Chcete si zmerať svoje sily v behu, cyklistike, plávaní či turistike? U nás "
+#~ "si vyberie skutočne každý. S Virtual Challenge máte úplnú flexibilitu – "
+#~ "výzvy môžete absolvovať v čase a na mieste, ktoré vám najviac vyhovujú!"
 
 #~ msgid "Filter"
 #~ msgstr "Filter"
@@ -138,9 +518,6 @@ msgstr "Nakupovanie"
 #~ msgid "Category"
 #~ msgstr "Kategória"
 
-#~ msgid "Registration"
-#~ msgstr "Registrácia"
-
 #~ msgid "Soon"
 #~ msgstr "Čoskoro"
 
@@ -148,8 +525,8 @@ msgstr "Nakupovanie"
 #~ msgstr "Propozície"
 
 #~ msgid ""
-#~ "With each of your challenge you donate 1€ to the Slovak Paralympic "
-#~ "Committee Foundation."
+#~ "With each of your challenge you donate 1€ to the Slovak Paralympic Committee"
+#~ " Foundation."
 #~ msgstr ""
 #~ "Zakúpením si výzvy podporíte jedným eurom nadáciu Slovenského "
 #~ "paralympijského výboru."
@@ -158,31 +535,30 @@ msgstr "Nakupovanie"
 #~ msgstr "Podmienky"
 
 #~ msgid ""
-#~ "Complete the challenge <strong class=\"text-dark\">within 3 months</"
-#~ "strong> of registraion."
-#~ msgstr ""
-#~ "Na zdolanie výzvy máte <strong class=\"text-dark\">tri mesiace</strong>"
+#~ "Complete the challenge <strong class=\"text-dark\">within 3 months</strong> "
+#~ "of registraion."
+#~ msgstr "Na zdolanie výzvy máte <strong class=\"text-dark\">tri mesiace</strong>"
 
 #~ msgid ""
-#~ "Take a <strong class=\"text-dark\">challenge picture</strong> and upload "
-#~ "it to your profile."
+#~ "Take a <strong class=\"text-dark\">challenge picture</strong> and upload it "
+#~ "to your profile."
 #~ msgstr ""
-#~ "Počas výzvy sa <strong class=\"text-dark\">odfoťte</strong> a tento dôkaz "
-#~ "si následne nahrajte do profilu "
+#~ "Počas výzvy sa <strong class=\"text-dark\">odfoťte</strong> a tento dôkaz si"
+#~ " následne nahrajte do profilu "
 
 #~ msgid ""
-#~ "As soon as you upload your photo, we will <strong class=\"text-dark"
-#~ "\">send you a medal</strong>"
+#~ "As soon as you upload your photo, we will <strong class=\"text-dark\">send "
+#~ "you a medal</strong>"
 #~ msgstr ""
 #~ "Po nahratí fotografie vám obratom <strong class=\"text-dark\">zašleme "
 #~ "medailu</strong>"
 
 #~ msgid ""
-#~ "The standard delivery time is 30 working days. If this time is extended, "
-#~ "we will contact you by email."
+#~ "The standard delivery time is 30 working days. If this time is extended, we "
+#~ "will contact you by email."
 #~ msgstr ""
-#~ "Štandardná doba dodania na Slovensku je 7 pracovných dní. V prípade, že "
-#~ "sa táto doba predĺži, vás budeme kontaktovať e-mailom."
+#~ "Štandardná doba dodania na Slovensku je 7 pracovných dní. V prípade, že sa "
+#~ "táto doba predĺži, vás budeme kontaktovať e-mailom."
 
 #~ msgid "medal"
 #~ msgstr "Medaila"
@@ -198,8 +574,8 @@ msgstr "Nakupovanie"
 
 #~ msgid ""
 #~ "Read interesting articles from the world of sports and health. Or are you "
-#~ "more interested in information \"behind the scenes\" of Virtual "
-#~ "Challenge? You can find all this and much more in our blog section."
+#~ "more interested in information \"behind the scenes\" of Virtual Challenge? "
+#~ "You can find all this and much more in our blog section."
 #~ msgstr ""
 #~ "Prečítajte si zaujímavé články zo sveta športu a zdravia. Alebo vás viac "
 #~ "zaujímajú informácie „zo zákulisia“ Virtual Challenge? To všetko a ešte "
@@ -235,12 +611,6 @@ msgstr "Nakupovanie"
 #~ msgid "Share your successes with us"
 #~ msgstr "Podeľte sa aj vy s nami o svoje úspechy"
 
-#~ msgid "Prices"
-#~ msgstr "Ceny"
-
-#~ msgid "Contest"
-#~ msgstr "Súťaž"
-
 #~ msgid "Join the contest for great prizes!"
 #~ msgstr "Hrajte o skvelé ceny!"
 
@@ -248,9 +618,9 @@ msgstr "Nakupovanie"
 #~ "Take a picture in the \"Virtual Challenge\" T-shirt or buff and win great "
 #~ "prizes or next entry."
 #~ msgstr ""
-#~ "Zakúpte si naše tričko Virtual Challenge, odfoťte sa v ňom a zapojte sa "
-#~ "do žrebovania o nadupané ceny! Aktuálne sa súťaží o smart <strong class="
-#~ "\"text-dark\">hodinky Xiaomi Amazfit Bip Lite Black</strong>."
+#~ "Zakúpte si naše tričko Virtual Challenge, odfoťte sa v ňom a zapojte sa do "
+#~ "žrebovania o nadupané ceny! Aktuálne sa súťaží o smart <strong class=\"text-"
+#~ "dark\">hodinky Xiaomi Amazfit Bip Lite Black</strong>."
 
 #~ msgid "Buy merch"
 #~ msgstr "Kúpiť merch"
@@ -289,12 +659,12 @@ msgstr "Nakupovanie"
 #~ msgstr "Zo sveta športu a zdravia"
 
 #~ msgid ""
-#~ "Do you need an advice on how to beat the challenge? Do you want to "
-#~ "improve your running or swimming technique? Are you looking for a good "
-#~ "hiking trail? Read ours posts."
+#~ "Do you need an advice on how to beat the challenge? Do you want to improve "
+#~ "your running or swimming technique? Are you looking for a good hiking trail?"
+#~ " Read ours posts."
 #~ msgstr ""
-#~ "Chcete poradiť ako zdolať výzvu? Potrebujete zlepšiť svoju techniku behu "
-#~ "či plávania? Hľadáte dobrú turisticku trasu? Prečítajte si našu tvorbu."
+#~ "Chcete poradiť ako zdolať výzvu? Potrebujete zlepšiť svoju techniku behu či "
+#~ "plávania? Hľadáte dobrú turisticku trasu? Prečítajte si našu tvorbu."
 
 #~ msgid "They wrote about us"
 #~ msgstr "Vaše recenzie"
@@ -310,9 +680,6 @@ msgstr "Nakupovanie"
 
 #~ msgid "Rankings"
 #~ msgstr "Rebríčky"
-
-#~ msgid "Competition"
-#~ msgstr "Súťaž"
 
 #~ msgid "High Tatras and tourism"
 #~ msgstr "Vysoké Tatry a turizmus"
@@ -360,8 +727,8 @@ msgstr "Nakupovanie"
 #~ msgstr "Adresár"
 
 #~ msgid ""
-#~ "Check the list of all categories and subcategories available for our "
-#~ "items in directory application"
+#~ "Check the list of all categories and subcategories available for our items "
+#~ "in directory application"
 #~ msgstr ""
 #~ "Skontrolujte zoznam všetkých kategórií a podkategórií dostupných pre naše "
 #~ "položky v adresárovej aplikácii"
@@ -371,9 +738,6 @@ msgstr "Nakupovanie"
 
 #~ msgid "in Hight Tatras"
 #~ msgstr "vo Vysokých Tatrách"
-
-#~ msgid "Contact us"
-#~ msgstr "Kontaktuj nás"
 
 #~ msgid "Sign In"
 #~ msgstr "Prihlásiť sa"
@@ -393,12 +757,10 @@ msgstr "Nakupovanie"
 #, python-format
 #~ msgid ""
 #~ "Please sign in with one\n"
-#~ "of your existing third party accounts. Or, <a href=\"%(signup_url)s"
-#~ "\">sign up</a>\n"
+#~ "of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\n"
 #~ "for a %(site_name)s account and sign in below:"
 #~ msgstr ""
-#~ "Prihlás sa existujúcim účtom tretej strany. Alebo sa , <a href="
-#~ "\"%(signup_url)s\">zaregistruj</a>\n"
+#~ "Prihlás sa existujúcim účtom tretej strany. Alebo sa , <a href=\"%(signup_url)s\">zaregistruj</a>\n"
 #~ " s %(site_name)s účtom a zaregistruj sa nižšie:"
 
 #~ msgid "or"
@@ -409,8 +771,8 @@ msgstr "Nakupovanie"
 #~ "If you have not created an account yet, then please\n"
 #~ "<a href=\"%(signup_url)s\">sign up</a> first."
 #~ msgstr ""
-#~ "Ak ešte nemáš vytvorený účet, tak potom sa najprv <a href=\"%(signup_url)s"
-#~ "\">zaregistruj</a>. "
+#~ "Ak ešte nemáš vytvorený účet, tak potom sa najprv <a "
+#~ "href=\"%(signup_url)s\">zaregistruj</a>. "
 
 #, fuzzy
 #~ msgid "Signup"
@@ -418,6 +780,5 @@ msgstr "Nakupovanie"
 
 #, python-format
 #~ msgid ""
-#~ "Already have an account? Then please <a href=\"%(login_url)s\">sign in</"
-#~ "a>."
+#~ "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
 #~ msgstr "Už máš účet? Tak sa <a href=\"%(login_url)s\">prihlás</a>."
