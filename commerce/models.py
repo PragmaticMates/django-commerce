@@ -7,7 +7,7 @@ from django.core.validators import MinValueValidator, EMPTY_VALUES
 from django.db import models, transaction
 from django.urls import reverse
 from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 from internationalflavor.countries import CountryField
 from internationalflavor.vat_number import VATNumberField
 
@@ -113,7 +113,7 @@ class Cart(models.Model):
         verbose_name_plural = _('shopping carts')
 
     def __str__(self):
-        return str(self.user)
+        return ugettext(f'Shopping cart of {self.user}')
 
     def get_absolute_url(self):
         return reverse('commerce:cart')
