@@ -1,0 +1,30 @@
+{% load i18n %}
+
+<table class="table">
+    <thead>
+        <th>{% trans 'Number' %}</th>
+        <th>{% trans 'Date' %}</th>
+        <th>{% trans 'Purchased items' %}</th>
+        <th>{% trans 'Total' %}</th>
+        <th>{% trans 'Status' %}</th>
+        <th>{% trans 'Invoice' %}</th>
+    </thead>
+    <tbody>
+        {% for order in object_list %}
+            <tr>
+                <td><a href="{{ order.get_absolute_url }}">{{ order.number }}</a></td>
+                <td>{{ order.created }}</td>
+                <td>{{ order.purchaseditem_set.all|join:', ' }}</td>
+                <td>{{ order.get_total_display }}</td>
+                <td>{{ order.get_status_display }}</td>
+                <td>
+                    {% for invoice in order.invoices.all %}
+                        <a href="{{ invoice.get_absolute_url }}">{{ invoice }}</a><br>
+                    {% empty %}
+                        {% trans 'Preparing...' %}
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -2,7 +2,7 @@ from django.urls import path
 from django.utils.translation import pgettext_lazy
 from commerce.views.cart import AddToCartView, RemoveFromCartView, CartDetailView, CheckoutAddressesView, \
     CheckoutShippingAndPaymentView, CheckoutSummaryView, CheckoutFinishView
-from commerce.views.order import OrderPaymentView
+from commerce.views.order import OrderPaymentView, OrderListView
 
 app_name = 'commerce'
 
@@ -15,4 +15,5 @@ urlpatterns = [
     path(pgettext_lazy("url", 'checkout/summary/'), CheckoutSummaryView.as_view(), name='checkout_summary'),
     path(pgettext_lazy("url", 'checkout/finish/'), CheckoutFinishView.as_view(), name='checkout_finish'),
     path(pgettext_lazy("url", 'order/<int:number>/payment/'), OrderPaymentView.as_view(), name='order_payment'),
+    path(pgettext_lazy("url", 'orders/'), OrderListView.as_view(), name='orders'),
 ]

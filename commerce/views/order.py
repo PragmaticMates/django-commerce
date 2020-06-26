@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 
 from commerce.models import Order
 
@@ -11,5 +11,11 @@ class OrderPaymentView(LoginRequiredMixin, DetailView):
 
     def dispatch(self, request, *args, **kwargs):
         order = self.get_object()
-        print(order)
         raise NotImplementedError()
+
+
+class OrderListView(LoginRequiredMixin, ListView):
+    model = Order
+
+    def get_queryset(self):
+        return self.request.user.order_set.all()
