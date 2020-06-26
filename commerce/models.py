@@ -143,6 +143,10 @@ class Cart(models.Model):
     @property
     def open(self):
         return now() - self.created
+    
+    @property
+    def total_items(self):
+        return sum([item.quantity for item in self.item_set.all()])
 
     def has_item(self, product):
         return self.item_set.filter(
