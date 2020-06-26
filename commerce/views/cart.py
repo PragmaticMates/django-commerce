@@ -7,7 +7,7 @@ from django.views import View
 from django.views.generic import DetailView, UpdateView
 
 from commerce.forms import AddressesForm, ShippingAndPaymentForm
-from commerce.models import Cart, Order, Payment
+from commerce.models import Cart, Order, Payment, Item
 
 
 class AddToCartView(LoginRequiredMixin, View):
@@ -30,6 +30,22 @@ class AddToCartView(LoginRequiredMixin, View):
                 messages.info(request, _(f'{product} was added into cart'))
             else:
                 messages.warning(request, _(f'{product} is already in cart'))
+
+        back_url = request.GET.get('back_url', cart.get_absolute_url())
+        return redirect(back_url)
+
+
+class RemoveFromCartView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        item = get_object_or_404(Item, id=kwargs['item_id'])
+        cart = Cart.get_for_user(request.user)
+
+        if item in cart.item_set.all():
+            item.quantity -= 1
+            item.save(update_fields=['quantity'])
+            if item.quantity <= 0:
+                item.delete()
+            messages.info(request, _(f'{item} removed from cart'))
 
         back_url = request.GET.get('back_url', cart.get_absolute_url())
         return redirect(back_url)
