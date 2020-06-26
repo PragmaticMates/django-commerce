@@ -8,7 +8,7 @@ from django.views import View
 from django.views.generic import DetailView, UpdateView
 
 from commerce.forms import AddressesForm, ShippingAndPaymentForm
-from commerce.models import Cart
+from commerce.models import Cart, Order, Payment
 
 
 class AddToCartView(LoginRequiredMixin, View):
@@ -23,7 +23,7 @@ class AddToCartView(LoginRequiredMixin, View):
         ALLOW_MULTIPLE_SAME_ITEMS = False
         MAX_ITEMS = 3
 
-        if cart.total_items >= MAX_ITEMS:
+        if cart.items_quantity >= MAX_ITEMS:
             messages.warning(request, _(f'You can order at most {MAX_ITEMS} items at once'))
         else:
             if ALLOW_MULTIPLE_SAME_ITEMS or not cart.has_item(product):
@@ -45,7 +45,7 @@ class CartDetailView(LoginRequiredMixin, DetailView):
 
 class CheckoutAddressesView(LoginRequiredMixin, UpdateView):
     model = Cart
-    template_name = 'commerce/checkout.html'
+    template_name = 'commerce/checkout_form.html'
     form_class = AddressesForm
 
     def get_object(self, queryset=None):
@@ -100,7 +100,7 @@ class CheckoutAddressesView(LoginRequiredMixin, UpdateView):
 
 class CheckoutShippingAndPaymentView(LoginRequiredMixin, UpdateView):
     model = Cart
-    template_name = 'commerce/checkout.html'
+    template_name = 'commerce/checkout_form.html'
     form_class = ShippingAndPaymentForm
 
     def get_object(self, queryset=None):
@@ -109,3 +109,34 @@ class CheckoutShippingAndPaymentView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         form.save()
         return redirect('commerce:checkout_summary')
+
+
+class CheckoutSummaryView(LoginRequiredMixin, DetailView):
+    model = Cart
+    template_name = 'commerce/checkout_summary.html'
+
+    def get_object(self, queryset=None):
+        return self.model.get_for_user(self.request.user)
+
+
+class CheckoutFinishView(LoginRequiredMixin, DetailView):
+    model = Cart
+
+    def get_object(self, queryset=None):
+        return self.model.get_for_user(self.request.user)
+
+    def dispatch(self, request, *args, **kwargs):
+        # TODO: default order status / status by cart / items ...
+        cart = self.get_object()
+        order_status = Order.STATUS_AWAITING_PAYMENT
+
+        if cart.can_be_finished():
+            order = cart.to_order(status=order_status)
+
+            if order.payment_method.method == Payment.METHOD_ONLINE_PAYMENT:
+                return order.get_payment_url()
+
+            return redirect(order.get_absolute_url())
+        else:
+            messages.warning(request, _('Checkout process can not be finished yet'))
+            return redirect(cart.get_absolute_url())

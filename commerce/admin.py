@@ -48,7 +48,7 @@ class PurchasedItemInline(admin.StackedInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'purchased_items', 'total', 'delivery_country', 'created', 'modified')
+    list_display = ('number', 'user', 'purchased_items', 'total', 'delivery_country', 'created', 'modified')
     list_select_related = ['user']
     inlines = [PurchasedItemInline]
     fieldsets = [
@@ -63,5 +63,4 @@ class OrderAdmin(admin.ModelAdmin):
     readonly_fields = ['created', 'modified']
 
     def purchased_items(self, obj):
-        return 'TODO'
-        # return ', '.join([str(item) for item in obj.item_set.all()])
+        return ', '.join([str(item) for item in obj.purchaseditem_set.all()])

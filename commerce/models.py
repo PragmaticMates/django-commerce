@@ -12,6 +12,7 @@ from internationalflavor.countries import CountryField
 from internationalflavor.vat_number import VATNumberField
 
 from commerce import settings as commerce_settings
+from commerce.querysets import OrderQuerySet
 
 
 class AbstractProduct(models.Model):
@@ -126,20 +127,31 @@ class Cart(models.Model):
     def shipping_fee(self):
         return self.shipping_option.fee if self.shipping_option else 0
 
+    def get_subtotal_display(self):
+        return f'{self.subtotal} {commerce_settings.CURRENCY}'
+
+    def get_shipping_fee_display(self):
+        return f'{self.shipping_fee} {commerce_settings.CURRENCY}'
+
     @property
     def payment_fee(self):
         return self.payment_method.fee if self.payment_method else 0
 
+    def get_payment_fee_display(self):
+        return f'{self.payment_fee} {commerce_settings.CURRENCY}'
+
+    @property
+    def subtotal(self):
+        return sum([item.subtotal for item in self.item_set.all()])
+
+    def get_subtotal_display(self):
+        return f'{self.subtotal} {commerce_settings.CURRENCY}'
+
     @property
     def total(self):
-        total = 0
-
-        for item in self.item_set.all():
-            total += item.subtotal
-
+        total = self.subtotal
         total += self.shipping_fee
         total += self.payment_fee
-
         # TODO - discount
         return total
 
@@ -151,9 +163,13 @@ class Cart(models.Model):
         return now() - self.created
     
     @property
-    def total_items(self):
+    def items_quantity(self):
         return sum([item.quantity for item in self.item_set.all()])
 
+    def can_be_finished(self):
+        # TODO: check if all fields are set
+        return self.items_quantity > 0
+    
     def has_item(self, product):
         return self.item_set.filter(
             content_type=ContentType.objects.get_for_model(product),
@@ -174,6 +190,9 @@ class Cart(models.Model):
         return item
 
     def to_order(self, status):
+        if not self.can_be_finished():
+            return None
+
         # create order with cart data
         order = Order.objects.create(
             user=self.user,
@@ -198,6 +217,15 @@ class Cart(models.Model):
             payment_method=self.payment_method,
             payment_fee=self.payment_fee,
         )
+
+        for item in self.item_set.all():
+            PurchasedItem.objects.create(
+                order=order,
+                content_type=item.content_type,
+                object_id=item.object_id,
+                quantity=item.quantity,
+                price=item.price
+            )
 
         if order:
             # delete not useful cart anymore
@@ -308,6 +336,8 @@ class Order(models.Model):
     created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
 
+    objects = OrderQuerySet.as_manager()
+
     class Meta:
         verbose_name = _('order')
         verbose_name_plural = _('orders')
@@ -315,6 +345,12 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.number)
+
+    def get_absolute_url(self):
+        return reverse('commerce:order_detail', args=(self.number,))
+
+    def get_payment_url(self):
+        return reverse('commerce:order_payment', args=(self.number,))
 
     @property
     def total(self):

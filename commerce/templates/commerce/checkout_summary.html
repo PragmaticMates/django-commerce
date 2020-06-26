@@ -1,0 +1,23 @@
+{% load i18n %}
+<h1>{% trans 'Checkout' %}</h1>
+<h2>{% trans 'Summary' %}</h2>
+
+{% include 'commerce/cart_items_table.html' %}
+
+<br>
+
+{# TODO: discount #}
+<strong>{% trans 'Subtotal' %}:</strong> {{ cart.get_subtotal_display }}<br>
+<strong>{% trans 'Shipping option' %}:</strong> {{ cart.shipping_option }}<br>
+<strong>{% trans 'Shipping fee' %}:</strong> {{ cart.get_shipping_fee_display }}<br>
+<strong>{% trans 'Payment method' %}:</strong> {{ cart.payment_method }}<br>
+<strong>{% trans 'Payment fee' %}:</strong> {{ cart.get_payment_fee_display }}<br>
+<strong>{% trans 'Total' %}:</strong> {{ cart.get_total_display }}<br>
+
+<br><br>
+
+{% if cart.can_be_finished %}
+    <a href="{% url 'commerce:checkout_finish' %}">{% trans 'Finish' %}</a>
+{% else %}
+    {% trans 'Checkout process can not be finished yet' %}
+{% endif %}
