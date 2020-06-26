@@ -115,6 +115,9 @@ class Cart(models.Model):
     def __str__(self):
         return str(self.user)
 
+    def get_absolute_url(self):
+        return reverse('commerce:cart')
+
     @classmethod
     def get_for_user(cls, user):
         return cls.objects.get_or_create(user=user)[0]
@@ -268,7 +271,7 @@ class Order(models.Model):
         (STATUS_ON_HOLD, _('On hold')),
     ]
 
-    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)
     status = models.CharField(_('status'), choices=STATUSES, max_length=20)
     number = models.PositiveSmallIntegerField(verbose_name=_('number'), db_index=True, unique=True)
 

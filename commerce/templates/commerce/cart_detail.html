@@ -1,7 +1,13 @@
 {% load i18n %}
-CART:
-<br><br>
+<h1>{% trans 'Shopping cart' %}</h1>
 
 {% include 'commerce/cart_items_table.html' %}
 
-{% trans 'Total' %}: {{ cart.get_total_display }}
+<br>
+
+{# TODO: discount #}
+<strong>{% trans 'Total' %}:</strong> {{ cart.get_total_display }}
+
+<br><br>
+
+<a href="{% url 'commerce:checkout_addresses' %}">{% trans 'Proceed to checkout' %}</a>
