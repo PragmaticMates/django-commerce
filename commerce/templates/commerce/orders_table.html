@@ -20,8 +20,8 @@
                 <td>{{ order.payment_method.get_method_display }}</td>
                 <td>
                     {{ order.get_status_display }}
-                    {% if order.status == order.STATUS_AWAITING_PAYMENT and order.payment_method.method == order.payment_method.METHOD_ONLINE_PAYMENT %}
-                        <a href="{{ order.get_payment_url }}">{% trans 'Pay' %}</a>
+                    {% if order.total > 0 and order.status == order.STATUS_AWAITING_PAYMENT and order.payment_method.method == order.payment_method.METHOD_ONLINE_PAYMENT %}
+                        {{ order.render_payment_button }}
                     {% endif %}
                 </td>
                 <td>

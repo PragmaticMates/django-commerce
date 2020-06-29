@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import MinValueValidator, EMPTY_VALUES
 from django.db import models, transaction
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _, ugettext
 from internationalflavor.countries import CountryField
@@ -363,6 +364,10 @@ class Order(models.Model):
 
     def get_payment_url(self):
         return reverse('commerce:order_payment', args=(self.number,))
+
+    def render_payment_button(self):
+        label = _('Pay')
+        return mark_safe(f'<a href="{self.get_payment_url()}">{label}</a>')
 
     @property
     def total(self):
