@@ -23,13 +23,13 @@ class AddToCartView(LoginRequiredMixin, View):
         MAX_ITEMS = 3
 
         if cart.items_quantity >= MAX_ITEMS:
-            messages.warning(request, _(f'You can order at most {MAX_ITEMS} items at once'))
+            messages.warning(request, _(f'You can order at most %d items at once') % MAX_ITEMS)
         else:
             if ALLOW_MULTIPLE_SAME_ITEMS or not cart.has_item(product):
                 cart.add_item(product)
-                messages.info(request, _(f'{product} was added into cart'))
+                messages.info(request, _('%s was added into cart') % product)
             else:
-                messages.warning(request, _(f'{product} is already in cart'))
+                messages.warning(request, _('%s is already in cart') % product)
 
         back_url = request.GET.get('back_url', cart.get_absolute_url())
         return redirect(back_url)
@@ -45,7 +45,7 @@ class RemoveFromCartView(LoginRequiredMixin, View):
             item.save(update_fields=['quantity'])
             if item.quantity <= 0:
                 item.delete()
-            messages.info(request, _(f'{item} removed from cart'))
+            messages.info(request, _('%s removed from cart') % item)
 
         back_url = request.GET.get('back_url', cart.get_absolute_url())
         return redirect(back_url)

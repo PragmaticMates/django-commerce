@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-26 18:04+0200\n"
-"PO-Revision-Date: 2020-06-26 18:04+0058\n"
+"POT-Creation-Date: 2020-06-29 20:36+0200\n"
+"PO-Revision-Date: 2020-06-29 20:36+0058\n"
 "Last-Translator: b'Erik Telepovsky <erik.telepovsky@gmail.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 "X-Translated-Using: django-rosetta 0.9.4\n"
 
-#: admin.py:18 admin.py:56 forms.py:23
+#: admin.py:18 admin.py:56 forms.py:24
 msgid "Delivery address"
 msgstr "Adresa doručenia"
 
@@ -27,11 +27,11 @@ msgstr "Adresa doručenia"
 msgid "Billing address"
 msgstr "Fakturačná adresa"
 
-#: admin.py:20 admin.py:58 forms.py:32
+#: admin.py:20 admin.py:58 forms.py:39
 msgid "Billing details"
 msgstr "Fakturačné údaje"
 
-#: admin.py:21 admin.py:59 forms.py:44
+#: admin.py:21 admin.py:59
 msgid "Contact details"
 msgstr "Kontaktné údaje"
 
@@ -43,23 +43,24 @@ msgstr "Doprava"
 msgid "Timestamps"
 msgstr "Časové údaje"
 
-#: forms.py:52 forms.py:88
+#: forms.py:56 forms.py:96
 msgid "Continue"
 msgstr "Pokračovať"
 
-#: forms.py:77
+#: forms.py:85
 msgid "Select Shipping Option"
 msgstr "Vyberte možnosť dopravy"
 
-#: forms.py:82
+#: forms.py:90
 msgid "Choose Payment Type"
 msgstr "Zvoľte typ platby"
 
-#: forms.py:97
-#, python-brace-format
-msgid ""
-"This payment method is not available for shipping option {shipping_option}"
-msgstr "Platobná metóda nie je dostupná pre možnosť dopravy {shipping_option}"
+#: forms.py:105
+#, python-format
+#| msgid ""
+#| "This payment method is not available for shipping option {shipping_option}"
+msgid "This payment method is not available for shipping option %s"
+msgstr "Platobná metóda nie je dostupná pre možnosť dopravy %s"
 
 #: models.py:19
 msgid "in stock"
@@ -93,7 +94,7 @@ msgstr "krajiny"
 msgid "country"
 msgstr "krajina"
 
-#: models.py:44
+#: models.py:44 models.py:104
 msgid "shipping option"
 msgstr "možnosť dopravy"
 
@@ -117,7 +118,7 @@ msgstr "online platba"
 msgid "method"
 msgstr "metóda"
 
-#: models.py:70
+#: models.py:70 models.py:105
 msgid "payment method"
 msgstr "platobná metóda"
 
@@ -433,24 +434,26 @@ msgid "orders/"
 msgstr "objednavky/"
 
 #: views/cart.py:26
-#, python-brace-format
-msgid "You can order at most {MAX_ITEMS} items at once"
-msgstr "Môžte objednať naraz najviac {MAX_ITEMS} položiek"
+#, python-format
+#| msgid "You can order at most {MAX_ITEMS} items at once"
+msgid "You can order at most %d items at once"
+msgstr "Môžte objednať naraz najviac %d položiek"
 
 #: views/cart.py:30
-#, python-brace-format
-msgid "{product} was added into cart"
-msgstr "{product} bol pridaný do košíka"
+#, python-format
+msgid "%s was added into cart"
+msgstr "%s bol pridaný do košíka"
 
 #: views/cart.py:32
-#, python-brace-format
-msgid "{product} is already in cart"
-msgstr "{product} už je v košíku"
+#, python-format
+msgid "%s is already in cart"
+msgstr "%s už je v košíku"
 
 #: views/cart.py:48
-#, python-brace-format
-msgid "{item} removed from cart"
-msgstr "{item} bol odstránený z košíka"
+#, python-format
+#| msgid "{item} removed from cart"
+msgid "%s removed from cart"
+msgstr "%s bol odstránený z košíka"
 
 #: views/cart.py:149
 msgid "Missing payment method"

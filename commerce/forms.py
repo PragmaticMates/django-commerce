@@ -102,6 +102,6 @@ class ShippingAndPaymentForm(forms.ModelForm):
         payment_method = self.cleaned_data.get('payment_method', None)
 
         if payment_method and shipping_option and shipping_option not in payment_method.shippings.all():
-            raise ValidationError(_(f'This payment method is not available for shipping option {shipping_option}'))
+            raise ValidationError(_('This payment method is not available for shipping option %s') % shipping_option)
 
         return payment_method
