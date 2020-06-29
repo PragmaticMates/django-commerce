@@ -1,0 +1,15 @@
+{% load i18n %}
+
+{% if url_name == 'checkout_addresses' %}
+    1. <strong>{% trans 'Addresses' %}</strong>
+    2. {% trans 'Shipping and payment' %}
+    3. {% trans 'Summary' %}
+{% elif url_name == 'checkout_shipping_and_payment' %}
+    1. <a href="{% url 'commerce:checkout_addresses' %}">{% trans 'Addresses' %}</a>
+    2. <strong>{% trans 'Shipping and payment' %}</strong>
+    3. {% trans 'Summary' %}
+{% elif url_name == 'checkout_summary' %}
+    1. <a href="{% url 'commerce:checkout_addresses' %}">{% trans 'Addresses' %}</a>
+    2. <a href="{% url 'commerce:checkout_shipping_and_payment' %}">{% trans 'Shipping and payment' %}</a>
+    3. <strong>{% trans 'Summary' %}</strong>
+{% endif %}
