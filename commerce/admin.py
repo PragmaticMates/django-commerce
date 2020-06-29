@@ -48,8 +48,9 @@ class PurchasedItemInline(admin.StackedInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('number', 'user', 'purchased_items', 'total', 'delivery_country', 'created', 'modified')
-    list_select_related = ['user']
+    list_display = ('number', 'status', 'user', 'purchased_items', 'total', 'delivery_country', 'shipping_option', 'payment_method', 'created', 'modified')
+    list_select_related = ['user', 'shipping_option', 'payment_method']
+    list_filter = ['shipping_option', 'payment_method', 'status']
     inlines = [PurchasedItemInline]
     fieldsets = [
         (None, {'fields': ['user', 'status', 'number']}),

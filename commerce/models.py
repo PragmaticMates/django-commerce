@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import MinValueValidator, EMPTY_VALUES
 from django.db import models, transaction
 from django.urls import reverse
+from django.utils.module_loading import import_string
 from django.utils.safestring import mark_safe
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _, ugettext
@@ -366,8 +367,9 @@ class Order(models.Model):
         return reverse('commerce:order_payment', args=(self.number,))
 
     def render_payment_button(self):
-        label = _('Pay')
-        return mark_safe(f'<a href="{self.get_payment_url()}">{label}</a>')
+        manager_class = import_string(commerce_settings.PAYMENT_MANAGER)
+        manager = manager_class(self)
+        return manager.render_payment_button()
 
     @property
     def total(self):

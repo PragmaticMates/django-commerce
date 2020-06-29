@@ -20,7 +20,7 @@
                 <td>{{ order.payment_method.get_method_display }}</td>
                 <td>
                     {{ order.get_status_display }}
-                    {% if order.total > 0 and order.status == order.STATUS_AWAITING_PAYMENT and order.payment_method.method == order.payment_method.METHOD_ONLINE_PAYMENT %}
+                    {% if order.total > 0 and order.status == order.STATUS_AWAITING_PAYMENT %}
                         {{ order.render_payment_button }}
                     {% endif %}
                 </td>
@@ -28,7 +28,7 @@
                     {% for invoice in order.invoices.all %}
                         <a href="{{ invoice.get_absolute_url }}">{{ invoice }}</a><br>
                     {% empty %}
-                        {% if order.status != order.STATUS_AWAITING_PAYMENT %}
+                        {% if order.status != order.STATUS_AWAITING_PAYMENT and order.status != order.STATUS_CANCELLED %}
                             {% trans 'Preparing...' %}
                         {% endif %}
                     {% endfor %}
