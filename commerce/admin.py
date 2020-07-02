@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
+from modeltrans.admin import ActiveLanguageMixin
+
 from commerce.models import Cart, Item, Shipping, Payment, Order, PurchasedItem
 
 
@@ -29,13 +31,13 @@ class CartAdmin(admin.ModelAdmin):
 
 
 @admin.register(Shipping)
-class ShippingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'fee', 'countries')
+class ShippingAdmin(ActiveLanguageMixin, admin.ModelAdmin):
+    list_display = ('id', 'title_i18n', 'fee', 'countries')
 
 
 @admin.register(Payment)
-class PaymentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'fee', 'method', 'shipping_options')
+class PaymentAdmin(ActiveLanguageMixin, admin.ModelAdmin):
+    list_display = ('id', 'title_i18n', 'fee', 'method', 'shipping_options')
 
     def shipping_options(self, obj):
         return ', '.join([str(shipping) for shipping in obj.shippings.all()])

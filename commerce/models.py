@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.indexes import GinIndex
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import MinValueValidator, EMPTY_VALUES
 from django.db import models, transaction
@@ -12,6 +13,7 @@ from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _, ugettext
 from internationalflavor.countries import CountryField
 from internationalflavor.vat_number import VATNumberField
+from modeltrans.fields import TranslationField
 
 from commerce import settings as commerce_settings
 from commerce.querysets import OrderQuerySet
@@ -41,14 +43,16 @@ class Shipping(models.Model):
     countries = ArrayField(verbose_name=_('countries'),
                            base_field=CountryField(verbose_name=_('country')), size=50,
                            blank=True, default=list)
+    i18n = TranslationField(fields=('title',))
 
     class Meta:
         verbose_name = _('shipping option')
         verbose_name_plural = _('shipping options')
         ordering = ('fee',)
+        indexes = [GinIndex(fields=["i18n"]), ]
 
     def __str__(self):
-        return str(self.title)
+        return self.title_i18n
 
 
 class Payment(models.Model):
@@ -67,14 +71,16 @@ class Payment(models.Model):
     method = models.CharField(_('method'), choices=METHODS, max_length=16)
     fee = models.DecimalField(_('fee'), help_text=commerce_settings.CURRENCY, max_digits=10, decimal_places=2, db_index=True, validators=[MinValueValidator(0)])
     shippings = models.ManyToManyField(Shipping)
+    i18n = TranslationField(fields=('title',))
 
     class Meta:
         verbose_name = _('payment method')
         verbose_name_plural = _('payment methods')
         ordering = ('fee',)
+        indexes = [GinIndex(fields=["i18n"]), ]
 
     def __str__(self):
-        return str(self.title)
+        return self.title_i18n
 
 
 class Cart(models.Model):
