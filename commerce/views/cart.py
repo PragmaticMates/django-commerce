@@ -152,7 +152,8 @@ class CheckoutFinishView(CartMixin, DetailView):
 
             if order.payment_method.method == Payment.METHOD_ONLINE_PAYMENT:
                 return redirect(order.get_payment_url())
-
+            elif order.payment_method.method in [Payment.METHOD_WIRE_TRANSFER, Payment.METHOD_CASH_ON_DELIVERY]:
+                order.create_invoice()
             return redirect(order.get_absolute_url())
         else:
             messages.warning(request, _('Checkout process can not be finished yet'))

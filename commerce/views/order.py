@@ -18,4 +18,4 @@ class OrderListView(LoginRequiredMixin, ListView):
     model = Order
 
     def get_queryset(self):
-        return self.request.user.order_set.all()
+        return self.request.user.order_set.all().prefetch_related('invoices', 'purchaseditem_set')

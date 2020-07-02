@@ -1,3 +1,5 @@
+from dateutil.relativedelta import relativedelta
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
@@ -7,6 +9,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import MinValueValidator, EMPTY_VALUES
 from django.db import models, transaction
 from django.urls import reverse
+from django.utils import translation
 from django.utils.module_loading import import_string
 from django.utils.safestring import mark_safe
 from django.utils.timezone import now
@@ -17,6 +20,7 @@ from modeltrans.fields import TranslationField
 
 from commerce import settings as commerce_settings
 from commerce.querysets import OrderQuerySet
+from invoicing.models import Invoice, Item as InvoiceItem
 from pragmatic.mixins import SlugMixin
 
 
@@ -375,6 +379,9 @@ class Order(models.Model):
     payment_method = models.ForeignKey(Payment, on_delete=models.PROTECT, null=True, default=None)
     payment_fee = models.DecimalField(_('payment fee'), help_text=commerce_settings.CURRENCY, max_digits=10, decimal_places=2, db_index=True, validators=[MinValueValidator(0)])
 
+    # Invoices
+    invoices = models.ManyToManyField(to='invoicing.Invoice', verbose_name=_('invoices'), blank=True, related_name='orders')
+
     created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
 
@@ -438,6 +445,75 @@ class Order(models.Model):
             self.number = Order.get_next_number()
 
         return super().save(*args, **kwargs)
+
+    def create_invoice(self, type=Invoice.TYPE.INVOICE, status=Invoice.STATUS.SENT):
+        language = self.user.preferred_language
+
+        translation.activate(language)
+
+        issue_date = now().date()
+        invoice = Invoice.objects.create(
+            type=type,
+            status=status,
+            language=language,
+            date_issue=issue_date,
+            date_tax_point=issue_date,
+            date_due=issue_date+relativedelta(days=7),
+            currency=commerce_settings.CURRENCY,
+            # credit=
+            # already_paid=
+            # payment_method=Invoice.PAYMENT_METHOD.BANK_TRANSFER,
+            # payment_method=Invoice.PAYMENT_METHOD.BANK_TRANSFER if self.payment_method.method == Payment.METHOD_WIRE_TRANSFER
+            # constant_symbol=
+            variable_symbol=self.number,
+            bank_name=settings.INVOICING_BANK['name'],
+            bank_iban=settings.INVOICING_BANK['iban'],
+            bank_swift_bic=settings.INVOICING_BANK['swift_bic'],
+            supplier_name=settings.INVOICING_SUPPLIER['name'],
+            supplier_street=settings.INVOICING_SUPPLIER['street'],
+            supplier_zip=settings.INVOICING_SUPPLIER['zip'],
+            supplier_city=settings.INVOICING_SUPPLIER['city'],
+            supplier_country=settings.INVOICING_SUPPLIER['country_code'],
+            supplier_registration_id=settings.INVOICING_SUPPLIER['registration_id'],
+            supplier_tax_id=settings.INVOICING_SUPPLIER['tax_id'],
+            supplier_vat_id=settings.INVOICING_SUPPLIER['vat_id'],
+            # issuer_name
+            issuer_email=settings.CONTACT_EMAIL,
+            # issuer_phone
+            customer_name=self.billing_name,
+            customer_street=self.billing_street,
+            customer_zip=self.billing_postcode,
+            customer_city=self.billing_city,
+            customer_country=self.billing_country,
+            customer_registration_id=self.reg_id,
+            customer_tax_id=self.tax_id,
+            customer_vat_id=self.vat_id,
+            customer_email=self.user.email,
+            customer_phone=self.user.phone,
+            shipping_name=self.delivery_name,
+            shipping_street=self.delivery_street,
+            shipping_zip=self.delivery_postcode,
+            shipping_city=self.delivery_city,
+            shipping_country=self.delivery_country,
+            # delivery_method=Invoice.DELIVERY_METHOD.
+        )
+
+        for purchaseditem in self.purchaseditem_set.all():
+            title = str(purchaseditem)
+            if purchaseditem.option:
+                title = f'{title} ({purchaseditem.option})'
+
+            item = InvoiceItem.objects.create(
+                invoice=invoice,
+                title=title,
+                quantity=purchaseditem.quantity,
+                # unit=UNIT_PIECES
+                unit_price=purchaseditem.price,
+                # discount=self.discount,  # TODO
+                # tax_rate=#TODO: settings: is price with VAT already?
+            )
+
+        self.invoices.add(invoice)
 
 
 class PurchasedItem(models.Model):

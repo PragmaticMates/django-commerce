@@ -55,6 +55,7 @@ class PurchasedItemInline(admin.StackedInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
+    actions = ['create_invoice']
     list_display = ('number', 'status', 'user', 'purchased_items', 'total', 'delivery_country', 'shipping_option', 'payment_method', 'created', 'modified')
     list_select_related = ['user', 'shipping_option', 'payment_method']
     list_filter = ['shipping_option', 'payment_method', 'status']
@@ -72,3 +73,8 @@ class OrderAdmin(admin.ModelAdmin):
 
     def purchased_items(self, obj):
         return ', '.join([str(item) for item in obj.purchaseditem_set.all()])
+
+    def create_invoice(self, request, queryset):
+        for obj in queryset:
+            obj.create_invoice()
+    create_invoice.short_description = _('Create invoice')
