@@ -67,8 +67,10 @@ class OrderAdmin(admin.ModelAdmin):
         (_('Billing details'), {'fields': [('reg_id', 'tax_id', 'vat_id')]}),
         (_('Contact details'), {'fields': [('email', 'phone')]}),
         (_('Shipping'), {'fields': ['shipping_option', 'shipping_fee', 'payment_method', 'payment_fee']}),
+        (_('Billing'), {'fields': ['invoices']}),
         (_('Timestamps'), {'fields': ['created', 'modified']}),
     ]
+    autocomplete_fields = ['invoices']
     readonly_fields = ['created', 'modified']
 
     def purchased_items(self, obj):

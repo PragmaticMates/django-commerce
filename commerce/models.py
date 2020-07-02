@@ -499,13 +499,9 @@ class Order(models.Model):
         )
 
         for purchaseditem in self.purchaseditem_set.all():
-            title = str(purchaseditem)
-            if purchaseditem.option:
-                title = f'{title} ({purchaseditem.option})'
-
             item = InvoiceItem.objects.create(
                 invoice=invoice,
-                title=title,
+                title=purchaseditem.title_with_option,
                 quantity=purchaseditem.quantity,
                 # unit=UNIT_PIECES
                 unit_price=purchaseditem.price,
@@ -534,6 +530,12 @@ class PurchasedItem(models.Model):
     def __str__(self):
         return str(self.product)
 
+    def title_with_option(self):
+        return f'{self.product} ({self.option})' if self.option else str(self.product)
+
     @property
     def subtotal(self):
         return self.quantity * self.price
+
+    def get_absolute_url(self):
+        return self.product.get_absolute_url()
