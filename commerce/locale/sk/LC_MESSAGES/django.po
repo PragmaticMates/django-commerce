@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-02 21:33+0200\n"
-"PO-Revision-Date: 2020-07-02 21:34+0058\n"
+"POT-Creation-Date: 2020-07-02 22:32+0200\n"
+"PO-Revision-Date: 2020-07-02 22:32+0058\n"
 "Last-Translator: b'Erik Telepovsky <erik@pragmaticmates.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,31 +19,36 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 "X-Translated-Using: django-rosetta 0.9.4\n"
 
-#: admin.py:20 admin.py:64 forms.py:24
+#: admin.py:20 admin.py:65 forms.py:24
 #: templates/commerce/checkout_summary.html:6
 msgid "Delivery address"
 msgstr "Adresa doručenia"
 
-#: admin.py:21 admin.py:65
+#: admin.py:21 admin.py:66
 msgid "Billing address"
 msgstr "Fakturačná adresa"
 
-#: admin.py:22 admin.py:66 forms.py:39
+#: admin.py:22 admin.py:67 forms.py:39
 #: templates/commerce/checkout_summary.html:17
 msgid "Billing details"
 msgstr "Fakturačné údaje"
 
-#: admin.py:23 admin.py:67
+#: admin.py:23 admin.py:68
 msgid "Contact details"
 msgstr "Kontaktné údaje"
 
-#: admin.py:24 admin.py:68
+#: admin.py:24 admin.py:69
 msgid "Shipping"
 msgstr "Doprava"
 
-#: admin.py:25 admin.py:69
+#: admin.py:25 admin.py:70
 msgid "Timestamps"
 msgstr "Časové údaje"
+
+#: admin.py:80
+#| msgid "invoices"
+msgid "Create invoice"
+msgstr "Vystaviť faktúru"
 
 #: forms.py:56 forms.py:96
 msgid "Continue"
@@ -70,7 +75,7 @@ msgstr "skladom"
 msgid "empty value means infinite availability"
 msgstr "prázdna hodnota znamená nekonečná dostupnosť"
 
-#: models.py:29 models.py:522
+#: models.py:29 models.py:526
 msgid "price"
 msgstr "cena"
 
@@ -170,11 +175,11 @@ msgstr "email"
 msgid "phone"
 msgstr "telefón"
 
-#: models.py:121 models.py:287 models.py:385 models.py:523
+#: models.py:121 models.py:287 models.py:385 models.py:527
 msgid "created"
 msgstr "vytvorené"
 
-#: models.py:122 models.py:288 models.py:386 models.py:524
+#: models.py:122 models.py:288 models.py:386 models.py:528
 msgid "modified"
 msgstr "upravené"
 
@@ -199,7 +204,7 @@ msgstr "typ obsahu"
 msgid "option"
 msgstr "možnosť"
 
-#: models.py:286 models.py:521
+#: models.py:286 models.py:525
 msgid "quantity"
 msgstr "počet"
 
@@ -280,7 +285,6 @@ msgid "payment fee"
 msgstr "poplatok za platobnú metódu"
 
 #: models.py:383
-#| msgid "Invoice"
 msgid "invoices"
 msgstr "faktúry"
 
@@ -292,11 +296,11 @@ msgstr "objednávka"
 msgid "orders"
 msgstr "objednávky"
 
-#: models.py:527
+#: models.py:531
 msgid "purchased item"
 msgstr "zakúpená položka"
 
-#: models.py:528
+#: models.py:532
 msgid "purchased items"
 msgstr "zakúpené položky"
 
