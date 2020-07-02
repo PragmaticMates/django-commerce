@@ -10,7 +10,10 @@
     <tbody>
         {% for item in cart.item_set.all %}
             <tr>
-                <td><a href="{{ item.get_absolute_url }}">{{ item }}</a></td>
+                <td>
+                    <a href="{{ item.get_absolute_url }}">{{ item }}</a>
+                    {% if item.option %}<br><small>{{ item.option }}</small>{% endif %}
+                </td>
                 <td>{{ item.get_price_display }}</td>
                 <td>{{ item.quantity }} <a href="{% url 'commerce:remove_from_cart' item.id %}">{% trans 'Remove' %}</a></td>
                 <td>{{ item.get_subtotal_display }}</td>

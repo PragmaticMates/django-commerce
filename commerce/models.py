@@ -17,6 +17,7 @@ from modeltrans.fields import TranslationField
 
 from commerce import settings as commerce_settings
 from commerce.querysets import OrderQuerySet
+from pragmatic.mixins import SlugMixin
 
 
 class AbstractProduct(models.Model):
@@ -250,11 +251,30 @@ class Cart(models.Model):
         return order
 
 
+class Option(SlugMixin, models.Model):
+    slug = models.SlugField(unique=True, max_length=150, blank=True, db_index=True)
+    title = models.CharField(_('title'), max_length=100, unique=True)
+    content_type = models.ForeignKey(
+        ContentType, verbose_name=_('content type'), on_delete=models.SET_NULL,
+        blank=True, null=True, default=None)  # or many to many?
+    i18n = TranslationField(fields=('title',))
+
+    class Meta:
+        verbose_name = _('option')
+        verbose_name_plural = _('options')
+        ordering = ('title',)
+        indexes = [GinIndex(fields=["i18n"]), ]
+
+        def __str__(self):
+            return self.title_i18n
+
+
 class Item(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     product = GenericForeignKey('content_type', 'object_id')
+    option = models.ForeignKey(Option, on_delete=models.PROTECT, blank=True, null=True, default=None)
     quantity = models.PositiveSmallIntegerField(verbose_name=_('quantity'), default=1)
     created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
@@ -421,6 +441,7 @@ class PurchasedItem(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.PROTECT)
     object_id = models.PositiveIntegerField()
     product = GenericForeignKey('content_type', 'object_id')
+    option = models.ForeignKey(Option, on_delete=models.PROTECT, blank=True, null=True, default=None)
     quantity = models.PositiveSmallIntegerField(verbose_name=_('quantity'))
     price = models.DecimalField(_('price'), help_text=commerce_settings.CURRENCY, max_digits=10, decimal_places=2, db_index=True, validators=[MinValueValidator(0)])
     created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
