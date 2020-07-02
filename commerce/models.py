@@ -26,6 +26,7 @@ class AbstractProduct(models.Model):
                                 blank=True, null=True, default=None)
     # discount = models.DecimalField(_(u'discount (%)'), max_digits=4, decimal_places=1, default=0)
     awaiting = models.BooleanField(_('awaiting'), default=False)
+    options = models.ManyToManyField('commerce.Option', verbose_name=_('options'), blank=True)
 
     # WARNING! don't use generic relation in parent classes. Add them into child classes instead
     # cart_items = GenericRelation('commerce.Item', related_query_name='product')
@@ -186,17 +187,19 @@ class Cart(models.Model):
 
         return not self.is_empty()
     
-    def has_item(self, product):
+    def has_item(self, product, option=None):
         return self.item_set.filter(
             content_type=ContentType.objects.get_for_model(product),
             object_id=product.id,
+            option=option
         ).exists()
 
-    def add_item(self, product):
+    def add_item(self, product, option=None):
         item, created = Item.objects.get_or_create(
             cart=self,
             content_type=ContentType.objects.get_for_model(product),
             object_id=product.id,
+            option=option
         )
 
         if not created:
@@ -240,7 +243,8 @@ class Cart(models.Model):
                 content_type=item.content_type,
                 object_id=item.object_id,
                 quantity=item.quantity,
-                price=item.price
+                price=item.price,
+                option=item.option
             )
 
         if order:
@@ -252,12 +256,12 @@ class Cart(models.Model):
 
 
 class Option(SlugMixin, models.Model):
-    slug = models.SlugField(unique=True, max_length=150, blank=True, db_index=True)
     title = models.CharField(_('title'), max_length=100, unique=True)
+    slug = models.SlugField(unique=True, max_length=150, blank=True, db_index=True)
     content_type = models.ForeignKey(
         ContentType, verbose_name=_('content type'), on_delete=models.SET_NULL,
         blank=True, null=True, default=None)  # or many to many?
-    i18n = TranslationField(fields=('title',))
+    i18n = TranslationField(fields=('title', 'slug'))
 
     class Meta:
         verbose_name = _('option')
@@ -265,8 +269,8 @@ class Option(SlugMixin, models.Model):
         ordering = ('title',)
         indexes = [GinIndex(fields=["i18n"]), ]
 
-        def __str__(self):
-            return self.title_i18n
+    def __str__(self):
+        return self.title_i18n
 
 
 class Item(models.Model):

@@ -7,16 +7,17 @@ from django.views import View
 from django.views.generic import DetailView, UpdateView
 
 from commerce.forms import AddressesForm, ShippingAndPaymentForm
-from commerce.models import Cart, Order, Payment, Item
+from commerce.models import Cart, Order, Payment, Item, Option
 
 
 class AddToCartView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         content_type = get_object_or_404(ContentType, id=kwargs['content_type_id'])
         product = get_object_or_404(content_type.model_class(), id=kwargs['object_id'])
+        option = get_object_or_404(Option, slug_i18n=request.GET['option']) if 'option' in request.GET else None
         cart = Cart.get_for_user(request.user)
 
-        # TODO: settings
+        # TODO: settings:
         # TODO: check if product can be added multiple times into cart
         # TODO: max items in cart
         ALLOW_MULTIPLE_SAME_ITEMS = False
@@ -25,8 +26,8 @@ class AddToCartView(LoginRequiredMixin, View):
         if cart.items_quantity >= MAX_ITEMS:
             messages.warning(request, _(f'You can order at most %d items at once') % MAX_ITEMS)
         else:
-            if ALLOW_MULTIPLE_SAME_ITEMS or not cart.has_item(product):
-                cart.add_item(product)
+            if ALLOW_MULTIPLE_SAME_ITEMS or not cart.has_item(product, option):
+                cart.add_item(product, option)
                 messages.info(request, _('%s was added into cart') % product)
             else:
                 messages.warning(request, _('%s is already in cart') % product)

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-30 12:22+0200\n"
-"PO-Revision-Date: 2020-06-30 12:23+0058\n"
-"Last-Translator: b'Erik Telepovsky <erik.telepovsky@gmail.com>'\n"
+"POT-Creation-Date: 2020-07-02 18:00+0200\n"
+"PO-Revision-Date: 2020-07-02 18:00+0058\n"
+"Last-Translator: b'Erik Telepovsky <erik@pragmaticmates.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -19,29 +19,29 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 "X-Translated-Using: django-rosetta 0.9.4\n"
 
-#: admin.py:18 admin.py:57 forms.py:24
+#: admin.py:20 admin.py:64 forms.py:24
 #: templates/commerce/checkout_summary.html:6
 msgid "Delivery address"
 msgstr "Adresa doručenia"
 
-#: admin.py:19 admin.py:58
+#: admin.py:21 admin.py:65
 msgid "Billing address"
 msgstr "Fakturačná adresa"
 
-#: admin.py:20 admin.py:59 forms.py:39
+#: admin.py:22 admin.py:66 forms.py:39
 #: templates/commerce/checkout_summary.html:17
 msgid "Billing details"
 msgstr "Fakturačné údaje"
 
-#: admin.py:21 admin.py:60
+#: admin.py:23 admin.py:67
 msgid "Contact details"
 msgstr "Kontaktné údaje"
 
-#: admin.py:22 admin.py:61
+#: admin.py:24 admin.py:68
 msgid "Shipping"
 msgstr "Doprava"
 
-#: admin.py:23 admin.py:62
+#: admin.py:25 admin.py:69
 msgid "Timestamps"
 msgstr "Časové údaje"
 
@@ -62,224 +62,238 @@ msgstr "Zvoľte typ platby"
 msgid "This payment method is not available for shipping option %s"
 msgstr "Platobná metóda nie je dostupná pre možnosť dopravy %s"
 
-#: models.py:21
+#: models.py:24
 msgid "in stock"
 msgstr "skladom"
 
-#: models.py:21
+#: models.py:24
 msgid "empty value means infinite availability"
 msgstr "prázdna hodnota znamená nekonečná dostupnosť"
 
-#: models.py:22 models.py:419
+#: models.py:25 models.py:447
 msgid "price"
 msgstr "cena"
 
-#: models.py:25
+#: models.py:28
 msgid "awaiting"
 msgstr "očakávame"
 
-#: models.py:39 models.py:66
+#: models.py:29 models.py:265
+#| msgid "Propositions"
+msgid "options"
+msgstr "možnosti"
+
+#: models.py:43 models.py:72 models.py:256
 msgid "title"
 msgstr "názov"
 
-#: models.py:40 models.py:68
+#: models.py:44 models.py:74
 msgid "fee"
 msgstr "poplatok"
 
-#: models.py:41
+#: models.py:45
 msgid "countries"
 msgstr "krajiny"
 
-#: models.py:42 models.py:88 models.py:95 models.py:323 models.py:330
+#: models.py:46 models.py:96 models.py:103 models.py:350 models.py:357
 msgid "country"
 msgstr "krajina"
 
-#: models.py:46 models.py:106
+#: models.py:51 models.py:114
 msgid "shipping option"
 msgstr "možnosť dopravy"
 
-#: models.py:47
+#: models.py:52
 msgid "shipping options"
 msgstr "možnosti dopravy"
 
-#: models.py:60
+#: models.py:66
 msgid "cash on delivery"
 msgstr "pri prevzatí"
 
-#: models.py:61
+#: models.py:67
 msgid "wire transfer"
 msgstr "bankový prevod"
 
-#: models.py:62
+#: models.py:68
 msgid "online payment"
 msgstr "online platba"
 
-#: models.py:67
+#: models.py:73
 msgid "method"
 msgstr "metóda"
 
-#: models.py:72 models.py:107
+#: models.py:79 models.py:115
 msgid "payment method"
 msgstr "platobná metóda"
 
-#: models.py:73
+#: models.py:80
 msgid "payment methods"
 msgstr "platobné metódy"
 
-#: models.py:84 models.py:91 models.py:319 models.py:326
+#: models.py:92 models.py:99 models.py:346 models.py:353
 msgid "full name or company name"
 msgstr "celé meno alebo názov spoločnosti"
 
-#: models.py:85 models.py:320
+#: models.py:93 models.py:347
 msgid "street and number"
 msgstr "ulica a číslo"
 
-#: models.py:86 models.py:93 models.py:321 models.py:328
+#: models.py:94 models.py:101 models.py:348 models.py:355
 msgid "postcode"
 msgstr "PSČ"
 
-#: models.py:87 models.py:94 models.py:322 models.py:329
+#: models.py:95 models.py:102 models.py:349 models.py:356
 msgid "city"
 msgstr "mesto"
 
-#: models.py:92 models.py:327
+#: models.py:100 models.py:354
 msgid "street"
 msgstr "ulica"
 
-#: models.py:97 models.py:332 templates/commerce/checkout_summary.html:22
+#: models.py:105 models.py:359 templates/commerce/checkout_summary.html:22
 msgid "Company Registration No."
 msgstr "IČO"
 
-#: models.py:98 models.py:333 templates/commerce/checkout_summary.html:23
+#: models.py:106 models.py:360 templates/commerce/checkout_summary.html:23
 msgid "TAX ID"
 msgstr "DIČ"
 
-#: models.py:99 models.py:334 templates/commerce/checkout_summary.html:24
+#: models.py:107 models.py:361 templates/commerce/checkout_summary.html:24
 msgid "VAT ID"
 msgstr "IČ DPH"
 
-#: models.py:102 models.py:337
+#: models.py:110 models.py:364
 msgid "email"
 msgstr "email"
 
-#: models.py:103 models.py:338
+#: models.py:111 models.py:365
 msgid "phone"
 msgstr "telefón"
 
-#: models.py:109 models.py:253 models.py:348 models.py:420
+#: models.py:117 models.py:280 models.py:375 models.py:448
 msgid "created"
 msgstr "vytvorené"
 
-#: models.py:110 models.py:254 models.py:349 models.py:421
+#: models.py:118 models.py:281 models.py:376 models.py:449
 msgid "modified"
 msgstr "upravené"
 
-#: models.py:115
+#: models.py:123
 msgid "shopping cart"
 msgstr "nákupný košík"
 
-#: models.py:116
+#: models.py:124
 msgid "shopping carts"
 msgstr "nákupné košíky"
 
-#: models.py:119
+#: models.py:127
 #, python-brace-format
 msgid "Shopping cart of {self.user}"
 msgstr "Nákupný košík užívateľa {self.user}"
 
-#: models.py:252 models.py:418
+#: models.py:259
+msgid "content type"
+msgstr "typ obsahu"
+
+#: models.py:264
+#| msgid "Propositions"
+msgid "option"
+msgstr "možnosť"
+
+#: models.py:279 models.py:446
 msgid "quantity"
 msgstr "počet"
 
-#: models.py:257
+#: models.py:284
 msgid "item"
 msgstr "položka"
 
-#: models.py:258
+#: models.py:285
 msgid "items"
 msgstr "položky"
 
-#: models.py:299
+#: models.py:326
 msgid "Awaiting Payment"
 msgstr "Čaká na platbu"
 
-#: models.py:300
+#: models.py:327
 msgid "Awaiting Fulfillment"
 msgstr "Očakávame naskladnenie"
 
-#: models.py:301
+#: models.py:328
 msgid "Awaiting Shipment"
 msgstr "Čaká na expedíciu"
 
-#: models.py:302
+#: models.py:329
 msgid "Awaiting Pickup"
 msgstr "Čaká na vyzdvihnutie"
 
-#: models.py:303
+#: models.py:330
 msgid "Partially Shipped"
 msgstr "Čiatočne expedovaná"
 
-#: models.py:304
+#: models.py:331
 msgid "Shipped"
 msgstr "Expedovaná"
 
-#: models.py:305
+#: models.py:332
 msgid "Completed"
 msgstr "Dokončená"
 
-#: models.py:306
+#: models.py:333
 msgid "Cancelled"
 msgstr "Zrušená"
 
-#: models.py:307
+#: models.py:334
 msgid "Declined"
 msgstr "Odmietnutá"
 
-#: models.py:308
+#: models.py:335
 msgid "Refunded"
 msgstr "Refundovaná"
 
-#: models.py:309
+#: models.py:336
 msgid "Partially Refunded"
 msgstr "Čiastočne refundovaná"
 
-#: models.py:310
+#: models.py:337
 msgid "Disputed"
 msgstr "V spore"
 
-#: models.py:311
+#: models.py:338
 msgid "On hold"
 msgstr "Zadržaná"
 
-#: models.py:315
+#: models.py:342
 msgid "status"
 msgstr "stav"
 
-#: models.py:316
+#: models.py:343
 msgid "number"
 msgstr "číslo"
 
-#: models.py:342
+#: models.py:369
 msgid "shipping fee"
 msgstr "poplatok za doručenie"
 
-#: models.py:346
+#: models.py:373
 msgid "payment fee"
 msgstr "poplatok za platobnú metódu"
 
-#: models.py:354
+#: models.py:381
 msgid "order"
 msgstr "objednávka"
 
-#: models.py:355
+#: models.py:382
 msgid "orders"
 msgstr "objednávky"
 
-#: models.py:424
+#: models.py:452
 msgid "purchased item"
 msgstr "zakúpená položka"
 
-#: models.py:425
+#: models.py:453
 msgid "purchased items"
 msgstr "zakúpené položky"
 
@@ -313,7 +327,7 @@ msgstr "Cena"
 msgid "Quantity"
 msgstr "Počet"
 
-#: templates/commerce/cart_items_table.html:15
+#: templates/commerce/cart_items_table.html:18
 msgid "Remove"
 msgstr "Odstrániť"
 
@@ -331,8 +345,6 @@ msgstr "Adresy"
 #: templates/commerce/checkout_steps.html:5
 #: templates/commerce/checkout_steps.html:9
 #: templates/commerce/checkout_steps.html:13
-#| msgctxt "url"
-#| msgid "checkout/shipping-and-payment/"
 msgid "Shipping and payment"
 msgstr "Doprava a platba"
 
@@ -347,12 +359,10 @@ msgid "Contact information"
 msgstr "Kontaktné informácie"
 
 #: templates/commerce/checkout_summary.html:13
-#| msgid "phone"
 msgid "Phone"
 msgstr "Telefón"
 
 #: templates/commerce/checkout_summary.html:14
-#| msgid "email"
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -575,9 +585,6 @@ msgstr "Chýba platobná metóda"
 
 #~ msgid "Soon"
 #~ msgstr "Čoskoro"
-
-#~ msgid "Propositions"
-#~ msgstr "Propozície"
 
 #~ msgid ""
 #~ "With each of your challenge you donate 1€ to the Slovak Paralympic Committee"

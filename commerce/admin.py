@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from modeltrans.admin import ActiveLanguageMixin
 
-from commerce.models import Cart, Item, Shipping, Payment, Order, PurchasedItem
+from commerce.models import Cart, Item, Shipping, Payment, Order, PurchasedItem, Option
 
 
 class ItemInline(admin.StackedInline):
@@ -28,6 +28,11 @@ class CartAdmin(admin.ModelAdmin):
 
     def items(self, obj):
         return ', '.join([str(item) for item in obj.item_set.all()])
+
+
+@admin.register(Option)
+class OptionAdmin(ActiveLanguageMixin, admin.ModelAdmin):
+    list_display = ('id', 'title_i18n')  # TODO: content types?
 
 
 @admin.register(Shipping)
