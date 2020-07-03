@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-02 22:32+0200\n"
-"PO-Revision-Date: 2020-07-02 22:32+0058\n"
+"POT-Creation-Date: 2020-07-03 16:15+0200\n"
+"PO-Revision-Date: 2020-07-03 16:17+0058\n"
 "Last-Translator: b'Erik Telepovsky <erik@pragmaticmates.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,34 +19,38 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 "X-Translated-Using: django-rosetta 0.9.4\n"
 
-#: admin.py:20 admin.py:65 forms.py:24
+#: admin.py:20 admin.py:66 forms.py:24
 #: templates/commerce/checkout_summary.html:6
 msgid "Delivery address"
 msgstr "Adresa doručenia"
 
-#: admin.py:21 admin.py:66
+#: admin.py:21 admin.py:67
 msgid "Billing address"
 msgstr "Fakturačná adresa"
 
-#: admin.py:22 admin.py:67 forms.py:39
+#: admin.py:22 admin.py:68 forms.py:39
 #: templates/commerce/checkout_summary.html:17
 msgid "Billing details"
 msgstr "Fakturačné údaje"
 
-#: admin.py:23 admin.py:68
+#: admin.py:23 admin.py:69
 msgid "Contact details"
 msgstr "Kontaktné údaje"
 
-#: admin.py:24 admin.py:69
+#: admin.py:24 admin.py:70
 msgid "Shipping"
 msgstr "Doprava"
 
-#: admin.py:25 admin.py:70
+#: admin.py:25 admin.py:72
 msgid "Timestamps"
 msgstr "Časové údaje"
 
-#: admin.py:80
-#| msgid "invoices"
+#: admin.py:71
+#| msgid "Billing address"
+msgid "Billing"
+msgstr "Fakturácia"
+
+#: admin.py:83
 msgid "Create invoice"
 msgstr "Vystaviť faktúru"
 
@@ -75,7 +79,7 @@ msgstr "skladom"
 msgid "empty value means infinite availability"
 msgstr "prázdna hodnota znamená nekonečná dostupnosť"
 
-#: models.py:29 models.py:526
+#: models.py:29 models.py:522
 msgid "price"
 msgstr "cena"
 
@@ -175,11 +179,11 @@ msgstr "email"
 msgid "phone"
 msgstr "telefón"
 
-#: models.py:121 models.py:287 models.py:385 models.py:527
+#: models.py:121 models.py:287 models.py:385 models.py:523
 msgid "created"
 msgstr "vytvorené"
 
-#: models.py:122 models.py:288 models.py:386 models.py:528
+#: models.py:122 models.py:288 models.py:386 models.py:524
 msgid "modified"
 msgstr "upravené"
 
@@ -204,7 +208,7 @@ msgstr "typ obsahu"
 msgid "option"
 msgstr "možnosť"
 
-#: models.py:286 models.py:525
+#: models.py:286 models.py:521
 msgid "quantity"
 msgstr "počet"
 
@@ -296,23 +300,28 @@ msgstr "objednávka"
 msgid "orders"
 msgstr "objednávky"
 
-#: models.py:531
+#: models.py:527
 msgid "purchased item"
 msgstr "zakúpená položka"
 
-#: models.py:532
+#: models.py:528
 msgid "purchased items"
 msgstr "zakúpené položky"
 
-#: templates/commerce/add_to_cart_form.html:6
+#: tasks.py:12
+#, python-format
+msgid "Status of order %d changed"
+msgstr "Stav objednávky %d zmenený"
+
+#: templates/commerce/add_to_cart_form.html:7
 msgid "Choose option"
 msgstr "Zvoľte možnosť"
 
-#: templates/commerce/add_to_cart_form.html:12
+#: templates/commerce/add_to_cart_form.html:13
 msgid "Purchase"
 msgstr "Zakúpiť"
 
-#: templates/commerce/add_to_cart_form.html:13
+#: templates/commerce/add_to_cart_form.html:14
 msgid "Soon"
 msgstr "Čoskoro"
 
@@ -414,6 +423,26 @@ msgstr "Dokončiť"
 #: templates/commerce/checkout_summary.html:44 views/cart.py:159
 msgid "Checkout process can not be finished yet"
 msgstr "Nákupný proces ešte nemôže byť ukončený"
+
+#: templates/commerce/mails/order_status_changed.txt:1
+#, python-format
+msgid ""
+"Hello %(user)s!\n"
+"\n"
+"Status of your order %(number)s changed to: %(status)s\n"
+msgstr ""
+"Dobrý deň %(user)s!\n"
+"\n"
+"Stav Vašej objednávky %(number)s bol zmenený na: %(status)s\n"
+
+#: templates/commerce/mails/order_status_changed.txt:5
+#, python-format
+msgid ""
+"%(site_name)s team!\n"
+"%(site_domain)s\n"
+msgstr ""
+"Tím %(site_name)s\n"
+"%(site_domain)s\n"
 
 #: templates/commerce/order_list.html:2
 msgid "Orders"
