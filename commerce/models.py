@@ -539,3 +539,6 @@ class PurchasedItem(models.Model):
 
     def get_absolute_url(self):
         return self.product.get_absolute_url()
+
+
+from .signals import *

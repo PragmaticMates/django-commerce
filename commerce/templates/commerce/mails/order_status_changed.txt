@@ -1,0 +1,8 @@
+{% load i18n %}{% autoescape off %}{% blocktrans with user=recipient number=order.number status=order.get_status_display %}Hello {{ user }}!
+
+Status of your order {{ number }} changed to: {{ status }}
+{% endblocktrans %}
+{% blocktrans with site_name=site.name site_domain=site.domain %}{{ site_name }} team!
+{{ site_domain }}
+{% endblocktrans %}
+{% endautoescape %}

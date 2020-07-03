@@ -57,6 +57,7 @@ class PurchasedItemInline(admin.StackedInline):
 class OrderAdmin(admin.ModelAdmin):
     actions = ['create_invoice']
     list_display = ('number', 'status', 'user', 'purchased_items', 'total', 'delivery_country', 'shipping_option', 'payment_method', 'created', 'modified')
+    list_editable = ['status']
     list_select_related = ['user', 'shipping_option', 'payment_method']
     list_filter = ['shipping_option', 'payment_method', 'status']
     inlines = [PurchasedItemInline]
