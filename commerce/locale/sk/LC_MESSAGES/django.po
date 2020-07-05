@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-03 16:15+0200\n"
-"PO-Revision-Date: 2020-07-03 16:17+0058\n"
+"POT-Creation-Date: 2020-07-05 18:40+0200\n"
+"PO-Revision-Date: 2020-07-05 18:40+0058\n"
 "Last-Translator: b'Erik Telepovsky <erik@pragmaticmates.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -46,7 +46,6 @@ msgid "Timestamps"
 msgstr "Časové údaje"
 
 #: admin.py:71
-#| msgid "Billing address"
 msgid "Billing"
 msgstr "Fakturácia"
 
@@ -308,6 +307,50 @@ msgstr "zakúpená položka"
 msgid "purchased items"
 msgstr "zakúpené položky"
 
+#: models.py:546
+msgid "code"
+msgstr "kód"
+
+#: models.py:547
+msgid "amount"
+msgstr "čiastka"
+
+#: models.py:548
+msgid "description"
+msgstr "opis"
+
+#: models.py:549
+msgid "valid until"
+msgstr "platné do"
+
+#: models.py:550
+msgid "promoted"
+msgstr "promované"
+
+#: models.py:550
+msgid "show in topbar"
+msgstr "zobraziť v top bare"
+
+#: models.py:551
+msgid "add to cart"
+msgstr "pridať do košíka"
+
+#: models.py:551
+msgid "automatically"
+msgstr "automaticky"
+
+#: models.py:552
+msgid "content types"
+msgstr "typy obsahu"
+
+#: models.py:557
+msgid "discount"
+msgstr "zľava"
+
+#: models.py:558
+msgid "discounts"
+msgstr "zľavy"
+
 #: tasks.py:12
 #, python-format
 msgid "Status of order %d changed"
@@ -423,6 +466,28 @@ msgstr "Dokončiť"
 #: templates/commerce/checkout_summary.html:44 views/cart.py:159
 msgid "Checkout process can not be finished yet"
 msgstr "Nákupný proces ešte nemôže byť ukončený"
+
+#: templates/commerce/discount_topbar.html:7
+msgid "Use code"
+msgstr "Použiť kód"
+
+#: templates/commerce/discount_topbar.html:8
+msgid "Ends in"
+msgstr "Končí o"
+
+#: templates/commerce/discount_topbar.html:16
+#: templates/commerce/discount_topbar.html:17
+#| msgid "ms|s|m|h|d|t|m|r"
+msgid "ms|s|m|h|d|w|m|y"
+msgstr "ms|s|m|h|d|t|m|r"
+
+#: templates/commerce/discount_topbar.html:20
+msgid "now"
+msgstr "teraz"
+
+#: templates/commerce/discount_topbar.html:30
+msgid "Expired"
+msgstr "Expirované"
 
 #: templates/commerce/mails/order_status_changed.txt:1
 #, python-format
