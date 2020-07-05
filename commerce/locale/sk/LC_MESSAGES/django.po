@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-05 18:40+0200\n"
-"PO-Revision-Date: 2020-07-05 18:40+0058\n"
+"PO-Revision-Date: 2020-07-05 18:50+0058\n"
 "Last-Translator: b'Erik Telepovsky <erik@pragmaticmates.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -469,7 +469,7 @@ msgstr "Nákupný proces ešte nemôže byť ukončený"
 
 #: templates/commerce/discount_topbar.html:7
 msgid "Use code"
-msgstr "Použiť kód"
+msgstr "Použite kód"
 
 #: templates/commerce/discount_topbar.html:8
 msgid "Ends in"
