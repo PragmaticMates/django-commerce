@@ -6,7 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.indexes import GinIndex
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.validators import MinValueValidator, EMPTY_VALUES
+from django.core.validators import MinValueValidator, EMPTY_VALUES, MaxValueValidator
 from django.db import models, transaction
 from django.urls import reverse
 from django.utils import translation
@@ -19,7 +19,7 @@ from internationalflavor.vat_number import VATNumberField
 from modeltrans.fields import TranslationField
 
 from commerce import settings as commerce_settings
-from commerce.querysets import OrderQuerySet
+from commerce.querysets import OrderQuerySet, DiscountCodeQuerySet
 from invoicing.models import Invoice, Item as InvoiceItem
 from pragmatic.mixins import SlugMixin
 
@@ -539,6 +539,28 @@ class PurchasedItem(models.Model):
 
     def get_absolute_url(self):
         return self.product.get_absolute_url()
+
+
+class Discount(models.Model):
+    # TODO: usage: one-time, infinity
+    code = models.CharField(_('code'), max_length=10)
+    amount = models.PositiveSmallIntegerField(verbose_name=_('amount'), help_text='%', validators=[MinValueValidator(0), MaxValueValidator(100)])
+    description = models.CharField(_('description'), max_length=100)
+    valid_until = models.DateTimeField(_('valid until'), db_index=True)
+    promoted = models.BooleanField(_('promoted'), default=False, help_text=_('show in topbar'))
+    add_to_cart = models.BooleanField(_('add to cart'), default=False, help_text=_('automatically'))
+    content_types = models.ManyToManyField(ContentType, verbose_name=_('content types'))
+    i18n = TranslationField(fields=('description',))
+    objects = DiscountCodeQuerySet.as_manager()
+
+    class Meta:
+        verbose_name = _('discount')
+        verbose_name_plural = _('discounts')
+        ordering = ('-amount', )
+        indexes = [GinIndex(fields=["i18n"]), ]
+
+    def __str__(self):
+        return str(self.code)
 
 
 from .signals import *

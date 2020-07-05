@@ -1,0 +1,44 @@
+{% load i18n static %}
+
+{% if valid_promoted_discount_codes %}
+<div id="commerce-discount-codes">
+    {% with valid_promoted_discount_codes.first as discount %}
+        <p>
+            {{ discount.description_i18n }}: <strong>{{ discount.amount }}%</strong>. {% trans 'Use code' %}: <strong>{{ discount }}</strong>
+            {% if discount.valid_until %}<br><small>{% trans 'Ends in' %} <strong class="discount-valid-until" data-valid-until="{{ discount.valid_until.isoformat }}"></strong></small>{% endif %}
+        </p>
+    {% endwith %}
+</div>
+
+<script src="{% static 'node_modules/countdown/countdown.js' %}"></script>
+<script>
+    countdown.setLabels(
+        '{% trans 'ms|s|m|h|d|t|m|r' %}',
+        '{% trans 'ms|s|m|h|d|t|m|r' %}',
+        ' ',
+        ' ',
+        '{% trans 'now' %}'
+    );
+
+    function update() {
+        $(".discount-valid-until").each(function () {
+            var date = $(this).attr('data-valid-until');
+
+            if (date != null && date !== "") {
+                var ts = countdown(null, new Date(date.trim()));
+                if (ts.value < 0) {
+                    $(this).html("{% trans 'Expired' %}");
+                } else {
+                    $(this).html(ts.toString());
+                }
+            } else {
+                $(this).html('-')
+            }
+        });
+        {#requestAnimationFrame(update);#}
+    }
+
+    setInterval(update, 500) {# in ms #}
+    {#update();#}
+</script>
+{% endif %}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.timezone import now
 
 
 class OrderQuerySet(models.QuerySet):
@@ -28,3 +29,14 @@ class OrderQuerySet(models.QuerySet):
         cursor = connection.cursor()
         table = self.model._meta.db_table
         cursor.execute("LOCK TABLE %s" % table)
+
+
+class DiscountCodeQuerySet(models.QuerySet):
+    def valid(self):
+        return self.filter(valid_until__gte=now())
+
+    def promoted(self):
+        return self.filter(promoted=True)
+
+    def add_to_cart(self):
+        return self.filter(add_to_cart=True)

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from modeltrans.admin import ActiveLanguageMixin
 
-from commerce.models import Cart, Item, Shipping, Payment, Order, PurchasedItem, Option
+from commerce.models import Cart, Item, Shipping, Payment, Order, PurchasedItem, Option, Discount
 
 
 class ItemInline(admin.StackedInline):
@@ -81,3 +81,12 @@ class OrderAdmin(admin.ModelAdmin):
         for obj in queryset:
             obj.create_invoice()
     create_invoice.short_description = _('Create invoice')
+
+
+@admin.register(Discount)
+class DiscountAdmin(admin.ModelAdmin):
+    list_display = ('code', 'description', 'amount', 'valid_until', 'promoted', 'add_to_cart', 'product_types')
+    list_filter = ['promoted', 'add_to_cart']
+
+    def product_types(self, obj):
+        return ', '.join([str(type) for type in obj.content_types.all()])
