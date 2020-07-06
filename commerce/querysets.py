@@ -40,3 +40,6 @@ class DiscountCodeQuerySet(models.QuerySet):
 
     def add_to_cart(self):
         return self.filter(add_to_cart=True)
+
+    def for_content_types(self, content_types):
+        return self.filter(content_types__in=content_types)

@@ -556,7 +556,7 @@ class Discount(models.Model):
     class Meta:
         verbose_name = _('discount')
         verbose_name_plural = _('discounts')
-        ordering = ('-amount', )
+        ordering = ('valid_until', )
         indexes = [GinIndex(fields=["i18n"]), ]
 
     def __str__(self):
