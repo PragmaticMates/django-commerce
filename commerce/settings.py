@@ -6,3 +6,4 @@ PAYMENT_MANAGER = getattr(settings, 'COMMERCE_PAYMENT_MANAGER', 'commerce.manage
 IBAN = getattr(settings, 'COMMERCE_IBAN', '')
 USE_RQ = getattr(settings, 'COMMERCE_USE_RQ', True)
 REDIS_QUEUE = getattr(settings, 'COMMERCE_REDIS_QUEUE', 'default')
+ORDER_NUMBER_STARTS_FROM = getattr(settings, 'COMMERCE_ORDER_NUMBER_STARTS_FROM', 1)

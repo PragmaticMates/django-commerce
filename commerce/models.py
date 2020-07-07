@@ -510,8 +510,7 @@ class Order(models.Model):
 
             last_order = Order.objects.all().order_by('number').last()
 
-            last_number = last_order.number if last_order else 0
-            next_number = last_number + 1
+            next_number = last_order.number + 1 if last_order else int(commerce_settings.ORDER_NUMBER_STARTS_FROM)
 
             # order number has to be unique
             while Order.objects.filter(number=next_number).exists():
