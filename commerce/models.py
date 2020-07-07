@@ -115,6 +115,10 @@ class Discount(models.Model):
     def get_amount_display(self):
         return f'-{self.amount}%'
 
+    @property
+    def is_valid(self):
+        return self.valid_until > now()
+
 
 class Cart(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)

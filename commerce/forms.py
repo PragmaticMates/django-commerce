@@ -2,16 +2,53 @@ from crispy_forms.bootstrap import PrependedText, FormActions
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Fieldset, Div, Submit
 from django import forms
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
+from django.core.validators import EMPTY_VALUES
 from django.utils.translation import ugettext_lazy as _
 
-from commerce.models import Cart
+from commerce.models import Cart, Discount
+
+
+class DiscountCodeForm(forms.ModelForm):
+    discount = forms.CharField(label='', required=False)
+
+    class Meta:
+        model = Cart
+        fields = ['discount']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-inline'
+        self.helper.layout = Layout(
+            'discount',
+            FormActions(
+                Submit('submit', _('Apply'), css_class='btn-primary')
+            )
+        )
+
+    def clean_discount(self):
+        discount = None
+        code = self.cleaned_data.get('discount', None)
+
+        if code not in EMPTY_VALUES:
+            try:
+                discount = Discount.objects.get(code=code)
+
+                if not discount.is_valid:
+                    raise ValidationError(_('Discount code %s is not valid anymore') % discount.code)
+
+            except ObjectDoesNotExist:
+                raise ValidationError(_('There is no such discount code'))
+
+        return discount
 
 
 class AddressesForm(forms.ModelForm):
     class Meta:
         model = Cart
-        exclude = ['user', 'shipping_option', 'payment_method']
+        exclude = ['user', 'shipping_option', 'payment_method', 'discount']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

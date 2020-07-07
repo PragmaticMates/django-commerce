@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views import View
 from django.views.generic import DetailView, UpdateView
 
-from commerce.forms import AddressesForm, ShippingAndPaymentForm
+from commerce.forms import AddressesForm, ShippingAndPaymentForm, DiscountCodeForm
 from commerce.models import Cart, Order, Payment, Item, Option
 from commerce.templatetags.commerce import discount_for_product
 
@@ -49,6 +49,15 @@ class AddToCartView(LoginRequiredMixin, View):
             cart.save(update_fields=['discount'])
 
 
+class UnapplyDiscountCartView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        cart = Cart.get_for_user(request.user)
+        cart.discount = None
+        cart.save(update_fields=['discount'])
+        back_url = request.GET.get('back_url', cart.get_absolute_url())
+        return redirect(back_url)
+
+
 class RemoveFromCartView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         item = get_object_or_404(Item, id=kwargs['item_id'])
@@ -72,8 +81,9 @@ class CartMixin(LoginRequiredMixin):
         return self.model.get_for_user(self.request.user)
 
 
-class CartDetailView(CartMixin, DetailView):
-    pass
+class CartDetailView(CartMixin, UpdateView):
+    form_class = DiscountCodeForm
+    template_name = 'commerce/cart_detail.html'
 
 
 class EmptyCartRedirectMixin(object):
