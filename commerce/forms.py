@@ -40,6 +40,9 @@ class DiscountCodeForm(forms.ModelForm):
                 if not discount.is_valid:
                     raise ValidationError(_('Discount code %s is not valid anymore') % discount.code)
 
+                if discount.is_used:
+                    raise ValidationError(_('Discount code %s was used already') % discount.code)
+
             except ObjectDoesNotExist:
                 raise ValidationError(_('There is no such discount code'))
 

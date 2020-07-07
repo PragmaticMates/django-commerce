@@ -86,8 +86,8 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(Discount)
 class DiscountAdmin(admin.ModelAdmin):
-    list_display = ('code', 'description', 'amount', 'valid_until', 'promoted', 'add_to_cart', 'product_types')
-    list_filter = ['promoted', 'add_to_cart']
+    list_display = ('code', 'usage', 'description', 'amount', 'valid_until', 'promoted', 'add_to_cart', 'product_types')
+    list_filter = ['usage', 'promoted', 'add_to_cart']
 
     def product_types(self, obj):
         return ', '.join([str(type) for type in obj.content_types.all()])

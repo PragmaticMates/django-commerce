@@ -11,6 +11,11 @@ class OrderQuerySet(models.QuerySet):
             self.model.STATUS_PARTIALLY_REFUNDED,
         ])
 
+    def not_cancelled(self):
+        return self.exclude(status__in=[
+            self.model.STATUS_CANCELLED,
+        ])
+
     # TODO: move to some kind of mixin (ideally into django-pragmatic)
     def lock(self):
         """ Lock table.

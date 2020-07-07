@@ -98,9 +98,15 @@ class Payment(models.Model):
 
 
 class Discount(models.Model):
-    # TODO: usage: one-time, infinity
-    code = models.CharField(_('code'), max_length=10)
+    USAGE_ONE_TIME = 'ONE_TIME'
+    USAGE_INFINITE = 'INFINITE'
+    USAGES = [
+        (USAGE_ONE_TIME, _('one-time only')),
+        (USAGE_INFINITE, _('infinite')),
+    ]
+    code = models.CharField(_('code'), max_length=10, unique=True)
     amount = models.PositiveSmallIntegerField(verbose_name=_('amount'), help_text='%', validators=[MinValueValidator(0), MaxValueValidator(100)])
+    usage = models.CharField(_('usage'), choices=USAGES, max_length=8)
     description = models.CharField(_('description'), max_length=100)
     valid_until = models.DateTimeField(_('valid until'), db_index=True)
     promoted = models.BooleanField(_('promoted'), default=False, help_text=_('show in topbar'))
@@ -124,6 +130,20 @@ class Discount(models.Model):
     @property
     def is_valid(self):
         return self.valid_until > now()
+
+    @property
+    def is_used(self):
+        if self.usage == self.USAGE_INFINITE:
+            return False
+
+        in_cart = Cart.objects.filter(discount=self).exists()
+
+        if in_cart:
+            return True
+
+        in_order = Order.objects.filter(discount=self).exists()
+
+        return in_order
 
 
 class Cart(models.Model):
@@ -279,6 +299,7 @@ class Cart(models.Model):
             shipping_fee=self.shipping_fee,
             payment_method=self.payment_method,
             payment_fee=self.payment_fee,
+            discount=self.discount
         )
 
         for item in self.item_set.all():
@@ -436,6 +457,9 @@ class Order(models.Model):
 
     # Invoices
     invoices = models.ManyToManyField(to='invoicing.Invoice', verbose_name=_('invoices'), blank=True, related_name='orders')
+
+    # Discount
+    discount = models.ForeignKey(Discount, verbose_name=_('discount'), on_delete=models.PROTECT, blank=True, null=True, default=None)
 
     created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
