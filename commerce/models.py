@@ -526,12 +526,7 @@ class Order(models.Model):
         return super().save(*args, **kwargs)
 
     def create_invoice(self, type=Invoice.TYPE.INVOICE, status=Invoice.STATUS.SENT):
-        if self.total == 0:
-            return
-
         language = self.user.preferred_language
-
-        translation.activate(language)
 
         with override(language):
             issue_date = now().date()
