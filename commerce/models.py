@@ -16,6 +16,7 @@ from django.utils.module_loading import import_string
 from django.utils.safestring import mark_safe
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _, ugettext, override
+from filer.models import File
 from internationalflavor.countries import CountryField
 from internationalflavor.vat_number import VATNumberField
 from modeltrans.fields import TranslationField
@@ -598,6 +599,7 @@ class PurchasedItem(models.Model):
     option = models.ForeignKey(Option, on_delete=models.PROTECT, blank=True, null=True, default=None)
     quantity = models.PositiveSmallIntegerField(verbose_name=_('quantity'))
     price = models.DecimalField(_('price'), help_text=commerce_settings.CURRENCY, max_digits=10, decimal_places=2, db_index=True, validators=[MinValueValidator(0)])
+    files = models.ManyToManyField(to=File, verbose_name=_('files'), blank=True)
     created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
 

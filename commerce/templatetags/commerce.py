@@ -12,7 +12,7 @@ register = template.Library()
 @register.simple_tag()
 def discount_for_product(product):
     ct = ContentType.objects.get_for_model(product.__class__)
-    discounts = Discount.objects.valid().order_by('valid_until').for_content_types([ct])
+    discounts = Discount.objects.valid().infinite().order_by('valid_until').for_content_types([ct])
     discount = discounts.first()
     return discount
 

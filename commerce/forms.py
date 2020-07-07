@@ -4,6 +4,7 @@ from crispy_forms.layout import Layout, Row, Fieldset, Div, Submit, HTML
 from django import forms
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.validators import EMPTY_VALUES
+from django.forms import Form
 from django.template import Template, Context, loader
 from django.utils.translation import ugettext_lazy as _
 
@@ -149,3 +150,8 @@ class ShippingAndPaymentForm(forms.ModelForm):
             raise ValidationError(_('This payment method is not available for shipping option %s') % shipping_option)
 
         return payment_method
+
+
+class PurchasedItemFileForm(Form):
+    purchased_item_id = forms.IntegerField()
+    file = forms.FileField()

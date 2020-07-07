@@ -40,6 +40,9 @@ class DiscountCodeQuerySet(models.QuerySet):
     def valid(self):
         return self.filter(valid_until__gte=now())
 
+    def infinite(self):
+        return self.filter(usage=self.model.USAGE_INFINITE)
+
     def promoted(self):
         return self.filter(promoted=True)
 

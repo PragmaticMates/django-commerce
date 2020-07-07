@@ -52,6 +52,7 @@ class PaymentAdmin(ActiveLanguageMixin, admin.ModelAdmin):
 class PurchasedItemInline(admin.StackedInline):
     model = PurchasedItem
     extra = 1
+    autocomplete_fields = ['files']
 
 
 @admin.register(Order)
@@ -88,6 +89,7 @@ class OrderAdmin(admin.ModelAdmin):
 class DiscountAdmin(admin.ModelAdmin):
     list_display = ('code', 'usage', 'description', 'amount', 'valid_until', 'promoted', 'add_to_cart', 'product_types')
     list_filter = ['usage', 'promoted', 'add_to_cart']
+    # autocomplete_fields = ['content_types']
 
     def product_types(self, obj):
         return ', '.join([str(type) for type in obj.content_types.all()])
