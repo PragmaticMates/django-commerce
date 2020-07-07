@@ -1,9 +1,10 @@
 from crispy_forms.bootstrap import PrependedText, FormActions
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Fieldset, Div, Submit
+from crispy_forms.layout import Layout, Row, Fieldset, Div, Submit, HTML
 from django import forms
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.validators import EMPTY_VALUES
+from django.template import Template, Context, loader
 from django.utils.translation import ugettext_lazy as _
 
 from commerce.models import Cart, Discount
@@ -117,20 +118,23 @@ class ShippingAndPaymentForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_class = 'checkout-form checkout-shipping-and-payment'
         self.helper.layout = Layout(
-            Row(
+            Div(
                 Fieldset(
                     _('Select Shipping Option'),
                     'shipping_option',
+                    HTML(loader.get_template('commerce/fees.html').render({'fees': self.fields['shipping_option'].queryset})),
                     css_class='col-md-6'
                 ),
                 Fieldset(
                     _('Choose Payment Type'),
                     'payment_method',
+                    HTML(loader.get_template('commerce/fees.html').render({'fees': self.fields['payment_method'].queryset})),
                     css_class='col-md-6'
                 ),
+                css_class='row'
             ),
             FormActions(
-                Submit('submit', _('Continue'), css_class='btn-primary')
+                Submit('submit', _('Continue'), css_class='btn-primary mt-3')
             )
         )
 

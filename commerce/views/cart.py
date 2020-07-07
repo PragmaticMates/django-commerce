@@ -44,7 +44,7 @@ class AddToCartView(LoginRequiredMixin, View):
     def apply_discount_by_product(self, cart, product):
         discount = discount_for_product(product)
 
-        if discount.add_to_cart:
+        if discount and discount.add_to_cart:
             cart.discount = discount
             cart.save(update_fields=['discount'])
 

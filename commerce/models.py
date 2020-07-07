@@ -15,7 +15,7 @@ from django.utils import translation
 from django.utils.module_loading import import_string
 from django.utils.safestring import mark_safe
 from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import ugettext_lazy as _, ugettext, override
 from internationalflavor.countries import CountryField
 from internationalflavor.vat_number import VATNumberField
 from modeltrans.fields import TranslationField
@@ -62,6 +62,9 @@ class Shipping(models.Model):
     def __str__(self):
         return self.title_i18n
 
+    def get_fee_display(self):
+        return f'{self.fee} {commerce_settings.CURRENCY}'
+
 
 class Payment(models.Model):
     METHOD_CASH_ON_DELIVERY = 'CASH_ON_DELIVERY'
@@ -89,6 +92,9 @@ class Payment(models.Model):
 
     def __str__(self):
         return self.title_i18n
+
+    def get_fee_display(self):
+        return f'{self.fee} {commerce_settings.CURRENCY}'
 
 
 class Discount(models.Model):
@@ -445,9 +451,10 @@ class Order(models.Model):
         return str(self.number)
 
     def get_absolute_url(self):
-        return '#'
+        # return '#'
         # TODO
         # return reverse('commerce:order_detail', args=(self.number,))
+        return reverse('commerce:orders')
 
     def get_payment_url(self):
         return reverse('commerce:order_payment', args=(self.number,))
@@ -500,65 +507,66 @@ class Order(models.Model):
 
         translation.activate(language)
 
-        issue_date = now().date()
-        invoice = Invoice.objects.create(
-            type=type,
-            status=status,
-            language=language,
-            date_issue=issue_date,
-            date_tax_point=issue_date,
-            date_due=issue_date+relativedelta(days=7),
-            currency=commerce_settings.CURRENCY,
-            # credit=
-            # already_paid=
-            # payment_method=Invoice.PAYMENT_METHOD.BANK_TRANSFER,
-            # payment_method=Invoice.PAYMENT_METHOD.BANK_TRANSFER if self.payment_method.method == Payment.METHOD_WIRE_TRANSFER
-            # constant_symbol=
-            variable_symbol=self.number,
-            bank_name=settings.INVOICING_BANK['name'],
-            bank_iban=settings.INVOICING_BANK['iban'],
-            bank_swift_bic=settings.INVOICING_BANK['swift_bic'],
-            supplier_name=settings.INVOICING_SUPPLIER['name'],
-            supplier_street=settings.INVOICING_SUPPLIER['street'],
-            supplier_zip=settings.INVOICING_SUPPLIER['zip'],
-            supplier_city=settings.INVOICING_SUPPLIER['city'],
-            supplier_country=settings.INVOICING_SUPPLIER['country_code'],
-            supplier_registration_id=settings.INVOICING_SUPPLIER['registration_id'],
-            supplier_tax_id=settings.INVOICING_SUPPLIER['tax_id'],
-            supplier_vat_id=settings.INVOICING_SUPPLIER['vat_id'],
-            # issuer_name
-            issuer_email=settings.CONTACT_EMAIL,
-            # issuer_phone
-            customer_name=self.billing_name,
-            customer_street=self.billing_street,
-            customer_zip=self.billing_postcode,
-            customer_city=self.billing_city,
-            customer_country=self.billing_country,
-            customer_registration_id=self.reg_id,
-            customer_tax_id=self.tax_id,
-            customer_vat_id=self.vat_id,
-            customer_email=self.user.email,
-            customer_phone=self.user.phone,
-            shipping_name=self.delivery_name,
-            shipping_street=self.delivery_street,
-            shipping_zip=self.delivery_postcode,
-            shipping_city=self.delivery_city,
-            shipping_country=self.delivery_country,
-            # delivery_method=Invoice.DELIVERY_METHOD.
-        )
-
-        for purchaseditem in self.purchaseditem_set.all():
-            item = InvoiceItem.objects.create(
-                invoice=invoice,
-                title=purchaseditem.title_with_option,
-                quantity=purchaseditem.quantity,
-                # unit=UNIT_PIECES
-                unit_price=purchaseditem.price,
-                # discount=self.discount,  # TODO
-                # tax_rate=#TODO: settings: is price with VAT already?
+        with override(language):
+            issue_date = now().date()
+            invoice = Invoice.objects.create(
+                type=type,
+                status=status,
+                language=language,
+                date_issue=issue_date,
+                date_tax_point=issue_date,
+                date_due=issue_date+relativedelta(days=7),
+                currency=commerce_settings.CURRENCY,
+                # credit=
+                # already_paid=
+                # payment_method=Invoice.PAYMENT_METHOD.BANK_TRANSFER,
+                # payment_method=Invoice.PAYMENT_METHOD.BANK_TRANSFER if self.payment_method.method == Payment.METHOD_WIRE_TRANSFER
+                # constant_symbol=
+                variable_symbol=self.number,
+                bank_name=settings.INVOICING_BANK['name'],
+                bank_iban=settings.INVOICING_BANK['iban'],
+                bank_swift_bic=settings.INVOICING_BANK['swift_bic'],
+                supplier_name=settings.INVOICING_SUPPLIER['name'],
+                supplier_street=settings.INVOICING_SUPPLIER['street'],
+                supplier_zip=settings.INVOICING_SUPPLIER['zip'],
+                supplier_city=settings.INVOICING_SUPPLIER['city'],
+                supplier_country=settings.INVOICING_SUPPLIER['country_code'],
+                supplier_registration_id=settings.INVOICING_SUPPLIER['registration_id'],
+                supplier_tax_id=settings.INVOICING_SUPPLIER['tax_id'],
+                supplier_vat_id=settings.INVOICING_SUPPLIER['vat_id'],
+                # issuer_name
+                issuer_email=settings.CONTACT_EMAIL,
+                # issuer_phone
+                customer_name=self.billing_name,
+                customer_street=self.billing_street,
+                customer_zip=self.billing_postcode,
+                customer_city=self.billing_city,
+                customer_country=self.billing_country,
+                customer_registration_id=self.reg_id,
+                customer_tax_id=self.tax_id,
+                customer_vat_id=self.vat_id,
+                customer_email=self.user.email,
+                customer_phone=self.user.phone,
+                shipping_name=self.delivery_name,
+                shipping_street=self.delivery_street,
+                shipping_zip=self.delivery_postcode,
+                shipping_city=self.delivery_city,
+                shipping_country=self.delivery_country,
+                # delivery_method=Invoice.DELIVERY_METHOD.
             )
 
-        self.invoices.add(invoice)
+            for purchaseditem in self.purchaseditem_set.all():
+                item = InvoiceItem.objects.create(
+                    invoice=invoice,
+                    title=purchaseditem.title_with_option,
+                    quantity=purchaseditem.quantity,
+                    # unit=UNIT_PIECES
+                    unit_price=purchaseditem.price,
+                    # discount=self.discount,  # TODO
+                    # tax_rate=#TODO: settings: is price with VAT already?
+                )
+
+            self.invoices.add(invoice)
 
 
 class PurchasedItem(models.Model):
@@ -579,6 +587,7 @@ class PurchasedItem(models.Model):
     def __str__(self):
         return str(self.product)
 
+    @property
     def title_with_option(self):
         return f'{self.product} ({self.option})' if self.option else str(self.product)
 

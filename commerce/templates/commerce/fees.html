@@ -1,0 +1,12 @@
+{% load i18n %}
+{% if fees %}
+    <strong>{% trans 'Fees' %}:</strong>
+    <table class="w-100">
+    {% for fee in fees %}
+        <tr>
+            <td>{{ fee }}</td>
+            <td class="text-right"><i>{{ fee.get_fee_display }}</i></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endif %}
