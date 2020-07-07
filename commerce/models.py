@@ -101,7 +101,7 @@ class Cart(models.Model):
 
     # billing details
     billing_name = models.CharField(_('full name or company name'), max_length=100)
-    billing_street = models.CharField(_('street'), max_length=200)
+    billing_street = models.CharField(_('street and number'), max_length=200)
     billing_postcode = models.CharField(_('postcode'), max_length=30)
     billing_city = models.CharField(_('city'), max_length=50)
     billing_country = CountryField(verbose_name=_('country'), db_index=True)
