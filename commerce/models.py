@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -89,6 +91,31 @@ class Payment(models.Model):
         return self.title_i18n
 
 
+class Discount(models.Model):
+    # TODO: usage: one-time, infinity
+    code = models.CharField(_('code'), max_length=10)
+    amount = models.PositiveSmallIntegerField(verbose_name=_('amount'), help_text='%', validators=[MinValueValidator(0), MaxValueValidator(100)])
+    description = models.CharField(_('description'), max_length=100)
+    valid_until = models.DateTimeField(_('valid until'), db_index=True)
+    promoted = models.BooleanField(_('promoted'), default=False, help_text=_('show in topbar'))
+    add_to_cart = models.BooleanField(_('add to cart'), default=False, help_text=_('automatically'))
+    content_types = models.ManyToManyField(ContentType, verbose_name=_('content types'))
+    i18n = TranslationField(fields=('description',))
+    objects = DiscountCodeQuerySet.as_manager()
+
+    class Meta:
+        verbose_name = _('discount')
+        verbose_name_plural = _('discounts')
+        ordering = ('valid_until', )
+        indexes = [GinIndex(fields=["i18n"]), ]
+
+    def __str__(self):
+        return str(self.code)
+
+    def get_amount_display(self):
+        return f'-{self.amount}%'
+
+
 class Cart(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
 
@@ -99,13 +126,14 @@ class Cart(models.Model):
     delivery_city = models.CharField(_('city'), max_length=50)
     delivery_country = CountryField(verbose_name=_('country'), db_index=True)
 
-    # billing details
+    # billing address
     billing_name = models.CharField(_('full name or company name'), max_length=100)
     billing_street = models.CharField(_('street and number'), max_length=200)
     billing_postcode = models.CharField(_('postcode'), max_length=30)
     billing_city = models.CharField(_('city'), max_length=50)
     billing_country = CountryField(verbose_name=_('country'), db_index=True)
 
+    # billing company details
     reg_id = models.CharField(_('Company Registration No.'), max_length=30, blank=True)
     tax_id = models.CharField(verbose_name=_('TAX ID'), max_length=30, blank=True)
     vat_id = VATNumberField(verbose_name=_('VAT ID'), blank=True)
@@ -118,10 +146,12 @@ class Cart(models.Model):
     shipping_option = models.ForeignKey(Shipping, verbose_name=_('shipping option'), on_delete=models.PROTECT, null=True, default=None)
     payment_method = models.ForeignKey(Payment, verbose_name=_('payment method'), on_delete=models.PROTECT, null=True, default=None)
 
+    # Discount
+    discount = models.ForeignKey(Discount, verbose_name=_('discount'), on_delete=models.PROTECT, blank=True, null=True, default=None)
+
+    # Datetimes
     created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
-
-    # TODO: discount
 
     class Meta:
         verbose_name = _('shopping cart')
@@ -298,8 +328,23 @@ class Item(models.Model):
         return self.product.get_absolute_url()
 
     @property
-    def price(self):
+    def regular_price(self):
         return self.product.price
+
+    def get_regular_price_display(self):
+        return f'{self.regular_price} {commerce_settings.CURRENCY}'
+
+    @property
+    def price(self):
+        product = self.product
+        discount = self.cart.discount
+
+        if discount:
+            ct = ContentType.objects.get_for_model(product)
+            if ct in discount.content_types.all():
+                from commerce.templatetags.commerce import discount_price
+                return Decimal(discount_price(product.price, discount.amount))
+        return self.regular_price
 
     def get_price_display(self):
         return f'{self.price} {commerce_settings.CURRENCY}'
@@ -539,28 +584,6 @@ class PurchasedItem(models.Model):
 
     def get_absolute_url(self):
         return self.product.get_absolute_url()
-
-
-class Discount(models.Model):
-    # TODO: usage: one-time, infinity
-    code = models.CharField(_('code'), max_length=10)
-    amount = models.PositiveSmallIntegerField(verbose_name=_('amount'), help_text='%', validators=[MinValueValidator(0), MaxValueValidator(100)])
-    description = models.CharField(_('description'), max_length=100)
-    valid_until = models.DateTimeField(_('valid until'), db_index=True)
-    promoted = models.BooleanField(_('promoted'), default=False, help_text=_('show in topbar'))
-    add_to_cart = models.BooleanField(_('add to cart'), default=False, help_text=_('automatically'))
-    content_types = models.ManyToManyField(ContentType, verbose_name=_('content types'))
-    i18n = TranslationField(fields=('description',))
-    objects = DiscountCodeQuerySet.as_manager()
-
-    class Meta:
-        verbose_name = _('discount')
-        verbose_name_plural = _('discounts')
-        ordering = ('valid_until', )
-        indexes = [GinIndex(fields=["i18n"]), ]
-
-    def __str__(self):
-        return str(self.code)
 
 
 from .signals import *

@@ -22,6 +22,7 @@ class CartAdmin(admin.ModelAdmin):
         (_('Billing details'), {'fields': [('reg_id', 'tax_id', 'vat_id')]}),
         (_('Contact details'), {'fields': [('email', 'phone')]}),
         (_('Shipping'), {'fields': ['shipping_option', 'payment_method']}),
+        (_('Others'), {'fields': ['discount', ]}),
         (_('Timestamps'), {'fields': ['created', 'modified']}),
     ]
     readonly_fields = ['created', 'modified']

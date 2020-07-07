@@ -22,12 +22,8 @@ def discount_price(price, amount):
     if price in EMPTY_VALUES or price == 0:
         return 0
 
-    print(price, amount)
-
     percentage = Decimal(100-amount)/100
-    print(percentage)
     discount_price = round(price * percentage, 2)
-    print(discount_price)
     discount_price = str(discount_price)
 
     if discount_price.endswith('.00'):

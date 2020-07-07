@@ -4,7 +4,7 @@
 <div id="commerce-discount-codes">
     {% with valid_promoted_discount_codes.first as discount %}
         <p>
-            {{ discount.description_i18n }}: <strong>{{ discount.amount }}%</strong> {% trans 'discount' %}. {% trans 'Use code' %}: <strong>{{ discount }}</strong>
+            {{ discount.description_i18n }}: <strong>{{ discount.get_amount_display }}</strong> {% trans 'discount' %}. {% trans 'Use code' %}: <strong>{{ discount }}</strong>
             {% if discount.valid_until %}<br><small>{% trans 'Ends in' %} <strong class="discount-valid-until" data-valid-until="{{ discount.valid_until.isoformat }}"></strong></small>{% endif %}
         </p>
     {% endwith %}

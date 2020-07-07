@@ -8,6 +8,7 @@ from django.views.generic import DetailView, UpdateView
 
 from commerce.forms import AddressesForm, ShippingAndPaymentForm
 from commerce.models import Cart, Order, Payment, Item, Option
+from commerce.templatetags.commerce import discount_for_product
 
 
 class AddToCartView(LoginRequiredMixin, View):
@@ -28,12 +29,24 @@ class AddToCartView(LoginRequiredMixin, View):
         else:
             if ALLOW_MULTIPLE_SAME_ITEMS or not cart.has_item(product, option):
                 cart.add_item(product, option)
+
+                # discount
+                if not cart.discount:
+                    self.apply_discount_by_product(cart, product)
+
                 messages.info(request, _('%s was added into cart') % product)
             else:
                 messages.warning(request, _('%s is already in cart') % product)
 
         back_url = request.GET.get('back_url', cart.get_absolute_url())
         return redirect(back_url)
+
+    def apply_discount_by_product(self, cart, product):
+        discount = discount_for_product(product)
+
+        if discount.add_to_cart:
+            cart.discount = discount
+            cart.save(update_fields=['discount'])
 
 
 class RemoveFromCartView(LoginRequiredMixin, View):
