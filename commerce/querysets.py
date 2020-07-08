@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.utils.timezone import now
 
 
@@ -48,7 +49,7 @@ class PurchasedItemQuerySet(models.QuerySet):
 
 class DiscountCodeQuerySet(models.QuerySet):
     def valid(self):
-        return self.filter(valid_until__gte=now())
+        return self.filter(Q(valid_until=None) | Q(valid_until__gte=now()))
 
     def infinite(self):
         return self.filter(usage=self.model.USAGE_INFINITE)

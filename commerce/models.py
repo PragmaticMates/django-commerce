@@ -145,7 +145,7 @@ class Discount(models.Model):
     amount = models.PositiveSmallIntegerField(verbose_name=_('amount'), help_text='%', validators=[MinValueValidator(0), MaxValueValidator(100)])
     usage = models.CharField(_('usage'), choices=USAGES, max_length=8)
     description = models.CharField(_('description'), max_length=100)
-    valid_until = models.DateTimeField(_('valid until'), db_index=True)
+    valid_until = models.DateTimeField(_('valid until'), db_index=True, blank=True, null=True, default=None)
     promoted = models.BooleanField(_('promoted'), default=False, help_text=_('show in topbar'))
     add_to_cart = models.BooleanField(_('add to cart'), default=False, help_text=_('automatically'))
     content_types = models.ManyToManyField(ContentType, verbose_name=_('content types'))
@@ -166,7 +166,7 @@ class Discount(models.Model):
 
     @property
     def is_valid(self):
-        return self.valid_until > now()
+        return self.valid_until is None or self.valid_until > now()
 
     @property
     def is_used(self):
