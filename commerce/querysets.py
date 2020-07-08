@@ -36,6 +36,16 @@ class OrderQuerySet(models.QuerySet):
         cursor.execute("LOCK TABLE %s" % table)
 
 
+class PurchasedItemQuerySet(models.QuerySet):
+    def of_not_cancelled_nor_refunded_orders(self):
+        from commerce.models import Order
+        return self.exclude(order__status__in=[
+            Order.STATUS_CANCELLED,
+            Order.STATUS_REFUNDED,
+            Order.STATUS_PARTIALLY_REFUNDED,
+        ])
+
+
 class DiscountCodeQuerySet(models.QuerySet):
     def valid(self):
         return self.filter(valid_until__gte=now())

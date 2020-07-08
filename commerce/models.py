@@ -10,8 +10,10 @@ from django.contrib.postgres.indexes import GinIndex
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import MinValueValidator, EMPTY_VALUES, MaxValueValidator
 from django.db import models, transaction
+from django.db.models import Sum
 from django.urls import reverse
 from django.utils import translation
+from django.utils.functional import cached_property
 from django.utils.module_loading import import_string
 from django.utils.safestring import mark_safe
 from django.utils.timezone import now
@@ -22,13 +24,22 @@ from internationalflavor.vat_number import VATNumberField
 from modeltrans.fields import TranslationField
 
 from commerce import settings as commerce_settings
-from commerce.querysets import OrderQuerySet, DiscountCodeQuerySet
+from commerce.querysets import OrderQuerySet, PurchasedItemQuerySet, DiscountCodeQuerySet
 from invoicing.models import Invoice, Item as InvoiceItem
 from pragmatic.mixins import SlugMixin
 
 
 class AbstractProduct(models.Model):
-    in_stock = models.SmallIntegerField(_('in stock'), help_text=_('empty value means infinite availability'), validators=[MinValueValidator(0)], blank=True, null=True, default=None)
+    AVAILABILITY_STOCK = 'STOCK'
+    AVAILABILITY_INFINITE = 'INFINITE'
+    AVAILABILITIES = [
+        (AVAILABILITY_STOCK, _('stock')),
+        (AVAILABILITY_INFINITE, _('infinite')),
+    ]
+    availability = models.CharField(_('availability'), choices=AVAILABILITIES, max_length=8, default=AVAILABILITY_STOCK)
+
+    # TODO: is_stock is deprecated: use property to retrieve stock by supplies and orders
+    # in_stock = models.SmallIntegerField(_('in stock'), help_text=_('empty value means infinite availability'), validators=[MinValueValidator(0)], blank=True, null=True, default=None)
     price = models.DecimalField(_('price'), help_text=commerce_settings.CURRENCY, max_digits=10, decimal_places=2, db_index=True, validators=[MinValueValidator(0)],
                                 blank=True, null=True, default=None)
     # discount = models.DecimalField(_(u'discount (%)'), max_digits=4, decimal_places=1, default=0)
@@ -37,6 +48,8 @@ class AbstractProduct(models.Model):
 
     # WARNING! don't use generic relation in parent classes. Add them into child classes instead
     # cart_items = GenericRelation('commerce.Item', related_query_name='product')
+    # purchased_items = GenericRelation('commerce.PurchasedItem', content_type_field='content_type', object_id_field='object_pk',
+    #                            related_query_name='product')
 
     class Meta:
         abstract = True
@@ -44,6 +57,29 @@ class AbstractProduct(models.Model):
     def get_add_to_cart_url(self):
         content_type = ContentType.objects.get_for_model(self)
         return reverse('commerce:add_to_cart', args=(content_type.id, self.id))
+
+    @cached_property
+    def total_supplies(self):
+        total_supplies = self.supplies.all().aggregate(sum=Sum('quantity'))['sum']
+        return total_supplies or 0
+
+    @cached_property
+    def purchased(self):
+        # count order items of not cancelled orders
+        purchased_items = PurchasedItem.objects.filter(
+            # product=self
+            content_type=ContentType.objects.get_for_model(self),
+            object_id=self.id
+        ).of_not_cancelled_nor_refunded_orders()
+        quantity = purchased_items.aggregate(sum=Sum('quantity'))['sum']
+        return quantity or 0
+
+    @cached_property
+    def in_stock(self):
+        if self.availability == self.AVAILABILITY_INFINITE:
+            return 99999  # TODO: more sofisticated solution
+
+        return self.total_supplies - self.purchased
 
 
 class Shipping(models.Model):
@@ -602,6 +638,7 @@ class PurchasedItem(models.Model):
     files = models.ManyToManyField(to=File, verbose_name=_('files'), blank=True)
     created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
+    objects = PurchasedItemQuerySet.as_manager()
 
     class Meta:
         verbose_name = _('purchased item')
@@ -620,6 +657,33 @@ class PurchasedItem(models.Model):
 
     def get_absolute_url(self):
         return self.product.get_absolute_url()
+
+
+class Supply(models.Model):
+    content_type = models.ForeignKey(ContentType, on_delete=models.PROTECT)
+    object_id = models.PositiveIntegerField()
+    product = GenericForeignKey('content_type', 'object_id')  # does not work with parent class
+    # TODO: option?
+    quantity = models.PositiveSmallIntegerField(verbose_name=_('quantity'), default=1)
+    datetime = models.DateTimeField(_('datetime'))
+
+    class Meta:
+        verbose_name = _('supply')
+        verbose_name_plural = _('supplies')
+        ordering = ('datetime',)
+
+    @property
+    def real_product(self):
+        # print('real product is:')
+        return self.content_type.get_object_for_this_type(id=self.object_id)
+
+    def __str__(self):
+        # print(self.content_type)
+        # print(self.object_id)
+        # print(self.product)
+        # print(self.real_product)
+        # return f'{self.product}: {self.quantity} [{self.datetime}]'
+        return f'{self.real_product}: {self.quantity} [{self.datetime}]'
 
 
 from .signals import *

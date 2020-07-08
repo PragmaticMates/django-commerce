@@ -1,13 +1,27 @@
 from django.contrib import admin
+from django.contrib.contenttypes.admin import GenericStackedInline
+from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 from modeltrans.admin import ActiveLanguageMixin
 
-from commerce.models import Cart, Item, Shipping, Payment, Order, PurchasedItem, Option, Discount
+from commerce.models import Cart, Item, Shipping, Payment, Order, PurchasedItem, Option, Discount, Supply
+
+
+if not admin.site.is_registered(ContentType):
+    @admin.register(ContentType)
+    class ContentTypeAdmin(admin.ModelAdmin):
+        search_fields = ['app_label', 'model']
 
 
 class ItemInline(admin.StackedInline):
     model = Item
     extra = 1
+
+
+class SupplyInline(GenericStackedInline):
+    model = Supply
+    extra = 1
+    max_num = 1
 
 
 @admin.register(Cart)
@@ -93,3 +107,10 @@ class DiscountAdmin(admin.ModelAdmin):
 
     def product_types(self, obj):
         return ', '.join([str(type) for type in obj.content_types.all()])
+
+
+@admin.register(Supply)
+class SupplyAdmin(admin.ModelAdmin):
+    date_hierarchy = 'datetime'
+    list_display = ('datetime', 'real_product', 'quantity')
+    autocomplete_fields = ['content_type']
