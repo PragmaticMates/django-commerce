@@ -621,11 +621,31 @@ class Order(models.Model):
                     invoice=invoice,
                     title=purchaseditem.title_with_option,
                     quantity=purchaseditem.quantity,
-                    # unit=UNIT_PIECES
+                    unit=InvoiceItem.UNIT_PIECES,
                     unit_price=purchaseditem.price,
                     # discount=self.discount,  # TODO
                     # tax_rate=#TODO: settings: is price with VAT already?
                 )
+
+            shipping_item = InvoiceItem.objects.create(
+                invoice=invoice,
+                title=_('Shipping fee'),
+                quantity=1,
+                unit=InvoiceItem.UNIT_EMPTY,
+                unit_price=self.shipping_fee,
+                # discount=self.discount,  # TODO
+                # tax_rate=#TODO: settings: is price with VAT already?
+            )
+
+            payment_item = InvoiceItem.objects.create(
+                invoice=invoice,
+                title=_('Payment fee'),
+                quantity=1,
+                unit=InvoiceItem.UNIT_EMPTY,
+                unit_price=self.payment_fee,
+                # discount=self.discount,  # TODO
+                # tax_rate=#TODO: settings: is price with VAT already?
+            )
 
             self.invoices.add(invoice)
 

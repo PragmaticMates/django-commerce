@@ -12,6 +12,13 @@ class OrderQuerySet(models.QuerySet):
             self.model.STATUS_PARTIALLY_REFUNDED,
         ])
 
+    def not_cancelled_nor_refunded(self):
+        return self.exclude(status__in=[
+            self.model.STATUS_CANCELLED,
+            self.model.STATUS_REFUNDED,
+            self.model.STATUS_PARTIALLY_REFUNDED,
+        ])
+
     def not_cancelled(self):
         return self.exclude(status__in=[
             self.model.STATUS_CANCELLED,
