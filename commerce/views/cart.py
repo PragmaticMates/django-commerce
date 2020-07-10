@@ -164,7 +164,7 @@ class CheckoutFinishView(CartMixin, DetailView):
     def get(self, request, *args, **kwargs):
         # TODO: default order status / status by cart / items ...
         cart = self.get_object()
-        order_status = Order.STATUS_AWAITING_PAYMENT
+        order_status = Order.STATUS_AWAITING_PAYMENT if cart.total > 0 else Order.STATUS_AWAITING_FULFILLMENT
 
         if cart.can_be_finished():
             order = cart.to_order(status=order_status)
