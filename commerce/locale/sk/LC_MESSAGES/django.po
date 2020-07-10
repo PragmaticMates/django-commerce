@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-10 12:14+0200\n"
-"PO-Revision-Date: 2020-07-10 12:16+0058\n"
+"POT-Creation-Date: 2020-07-10 13:34+0200\n"
+"PO-Revision-Date: 2020-07-10 13:35+0058\n"
 "Last-Translator: b'Erik Telepovsky <erik@pragmaticmates.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -93,7 +93,6 @@ msgid "This payment method is not available for shipping option %s"
 msgstr "Platobná metóda nie je dostupná pre možnosť dopravy %s"
 
 #: models.py:39
-#| msgid "in stock"
 msgid "stock"
 msgstr "sklad"
 
@@ -105,7 +104,7 @@ msgstr "nekonečné"
 msgid "availability"
 msgstr "dostupnosť"
 
-#: models.py:46 models.py:640
+#: models.py:46 models.py:660
 msgid "price"
 msgstr "cena"
 
@@ -254,11 +253,11 @@ msgstr "email"
 msgid "phone"
 msgstr "telefón"
 
-#: models.py:223 models.py:388 models.py:504 models.py:642
+#: models.py:223 models.py:388 models.py:504 models.py:662
 msgid "created"
 msgstr "vytvorené"
 
-#: models.py:224 models.py:389 models.py:505 models.py:643
+#: models.py:224 models.py:389 models.py:505 models.py:663
 msgid "modified"
 msgstr "upravené"
 
@@ -283,7 +282,7 @@ msgstr "typ obsahu"
 msgid "option"
 msgstr "možnosť"
 
-#: models.py:387 models.py:639 models.py:670
+#: models.py:387 models.py:659 models.py:690
 msgid "quantity"
 msgstr "počet"
 
@@ -379,35 +378,58 @@ msgstr "objednávka"
 msgid "orders"
 msgstr "objednávky"
 
-#: models.py:641
+#: models.py:632 templates/commerce/checkout_summary.html:34
+msgid "Shipping fee"
+msgstr "Poplatok za doručenie"
+
+#: models.py:642 templates/commerce/checkout_summary.html:36
+msgid "Payment fee"
+msgstr "Poplatok za platobnú metódu"
+
+#: models.py:661
 msgid "files"
 msgstr "súbory"
 
-#: models.py:647
+#: models.py:667
 msgid "purchased item"
 msgstr "zakúpená položka"
 
-#: models.py:648
+#: models.py:668
 msgid "purchased items"
 msgstr "zakúpené položky"
 
-#: models.py:671
+#: models.py:691
 msgid "datetime"
 msgstr "dátum a čas"
 
-#: models.py:674
-#| msgid "Apply"
+#: models.py:694
 msgid "supply"
 msgstr "zásobovanie"
 
-#: models.py:675
+#: models.py:695
 msgid "supplies"
 msgstr "zásobovanie"
 
-#: tasks.py:12
+#: tasks.py:13
 #, python-format
 msgid "Status of order %d changed"
 msgstr "Stav objednávky %d zmenený"
+
+#: tasks.py:21
+msgid "New file uploaded"
+msgstr "Nahraný nový súbor"
+
+#: tasks.py:34
+msgid "File approved"
+msgstr "Súbor schválený"
+
+#: tasks.py:34
+msgid "File rejected"
+msgstr "Súbor zamietnutý"
+
+#: tasks.py:46
+msgid "File deleted"
+msgstr "Súbor zmazaný"
 
 #: templates/commerce/add_to_cart_form.html:7
 msgid "Choose option"
@@ -499,18 +521,10 @@ msgstr "E-mail"
 msgid "Shipping option"
 msgstr "Možnosť dopravy"
 
-#: templates/commerce/checkout_summary.html:34
-msgid "Shipping fee"
-msgstr "Poplatok za doručenie"
-
 #: templates/commerce/checkout_summary.html:35
 #: templates/commerce/orders_table.html:9
 msgid "Payment method"
 msgstr "Platobná metóda"
-
-#: templates/commerce/checkout_summary.html:36
-msgid "Payment fee"
-msgstr "Poplatok za platobnú metódu"
 
 #: templates/commerce/checkout_summary.html:37
 #: templates/commerce/orders_table.html:8
@@ -550,6 +564,67 @@ msgstr "Expirované"
 msgid "Fees"
 msgstr "Poplatky"
 
+#: templates/commerce/mails/file_deleted.txt:1
+#, python-format
+msgid ""
+"Hello %(user)s!\n"
+"\n"
+"Your file %(file)s was deleted.\n"
+msgstr ""
+"Dobrý deň %(user)s!\n"
+"\n"
+"Váš súbor %(file)s bol zmazaný.\n"
+
+#: templates/commerce/mails/file_deleted.txt:5
+#: templates/commerce/mails/file_folder_changed.txt:8
+#: templates/commerce/mails/file_uploaded.txt:10
+#: templates/commerce/mails/order_status_changed.txt:5
+#, python-format
+msgid ""
+"%(site_name)s team!\n"
+"%(site_domain)s\n"
+msgstr ""
+"Tím %(site_name)s\n"
+"%(site_domain)s\n"
+
+#: templates/commerce/mails/file_folder_changed.txt:1
+#, python-format
+msgid ""
+"Hello %(user)s!\n"
+"\n"
+"File folder changed:\n"
+"\n"
+"Filename: %(file)s\n"
+"Folder: %(folder)s\n"
+msgstr ""
+"Dobrý deň %(user)s!\n"
+"\n"
+"Adresár súboru bol zmenený:\n"
+"\n"
+"Názov súboru: %(file)s\n"
+"Adresár: %(folder)s\n"
+
+#: templates/commerce/mails/file_uploaded.txt:1
+#, python-format
+msgid ""
+"Hello %(user)s!\n"
+"\n"
+"New file uploaded:\n"
+"\n"
+"Filename: %(file)s\n"
+"Folder: %(folder)s\n"
+"Owner: %(owner)s\n"
+"Description: %(description)s\n"
+msgstr ""
+"Dobrý deň %(user)s!\n"
+"\n"
+"Bol nahraný nový súbor:\n"
+"\n"
+"Názov súboru: %(file)s\n"
+"Adresár: %(folder)s\n"
+"Vlastník: %(owner)s\n"
+"Popis: %(description)s\n"
+
 #: templates/commerce/mails/order_status_changed.txt:1
 #, python-format
 msgid ""
@@ -560,15 +635,6 @@ msgstr ""
 "Dobrý deň %(user)s!\n"
 "\n"
 "Stav Vašej objednávky %(number)s bol zmenený na: %(status)s\n"
-
-#: templates/commerce/mails/order_status_changed.txt:5
-#, python-format
-msgid ""
-"%(site_name)s team!\n"
-"%(site_domain)s\n"
-msgstr ""
-"Tím %(site_name)s\n"
-"%(site_domain)s\n"
 
 #: templates/commerce/order_list.html:2
 msgid "Orders"
