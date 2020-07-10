@@ -25,12 +25,10 @@ class UploadFileToPurchasedItem(FormView):
         file_obj = form.cleaned_data['file']
         folder = None  # unsorted
 
-        f = self.import_file(file_obj, folder)
+        description = f'{self.purchased_item.order}: {self.purchased_item}'
+        owner = self.request.user
 
-        # f.name = str(file_obj)
-        f.description = f'{self.purchased_item.order}: {self.purchased_item}'
-        f.owner = self.request.user
-        f.save(update_fields=['description', 'owner'])
+        f = self.import_file(file_obj, folder, owner, description)
 
         # thumbnail_180_options = {
         #     'size': (180, 180),
@@ -47,7 +45,7 @@ class UploadFileToPurchasedItem(FormView):
         messages.error(self.request, _('Error during upload'))
         return redirect(self.get_back_url())
 
-    def import_file(self, file_obj, folder):
+    def import_file(self, file_obj, folder, owner, description):
         """
         Create a File or an Image into the given folder
         """
@@ -60,11 +58,15 @@ class UploadFileToPurchasedItem(FormView):
                 original_filename=file_obj.name,
                 file=file_obj,
                 folder=folder,
+                owner=owner,
+                description=description,
                 is_public=FILER_IS_PUBLIC_DEFAULT)
         else:
             obj, created = File.objects.get_or_create(
                 original_filename=file_obj.name,
                 file=file_obj,
                 folder=folder,
+                owner=owner,
+                description=description,
                 is_public=FILER_IS_PUBLIC_DEFAULT)
         return obj
