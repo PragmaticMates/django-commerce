@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from dateutil.relativedelta import relativedelta
+from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
@@ -11,6 +12,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import MinValueValidator, EMPTY_VALUES, MaxValueValidator
 from django.db import models, transaction
 from django.db.models import Sum
+from django.forms import CheckboxSelectMultiple
 from django.urls import reverse
 from django.utils import translation
 from django.utils.functional import cached_property
@@ -26,6 +28,7 @@ from modeltrans.fields import TranslationField
 from commerce import settings as commerce_settings
 from commerce.querysets import OrderQuerySet, PurchasedItemQuerySet, DiscountCodeQuerySet
 from invoicing.models import Invoice, Item as InvoiceItem
+from pragmatic.fields import ChoiceArrayField
 from pragmatic.mixins import SlugMixin
 
 
@@ -85,7 +88,7 @@ class AbstractProduct(models.Model):
 class Shipping(models.Model):
     title = models.CharField(_('title'), max_length=50)
     fee = models.DecimalField(_('fee'), help_text=commerce_settings.CURRENCY, max_digits=10, decimal_places=2, db_index=True, validators=[MinValueValidator(0)])
-    countries = ArrayField(verbose_name=_('countries'),
+    countries = ChoiceArrayField(verbose_name=_('countries'),
                            base_field=CountryField(verbose_name=_('country')), size=50,
                            blank=True, default=list)
     i18n = TranslationField(fields=('title',))

@@ -1,7 +1,9 @@
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericStackedInline
 from django.contrib.contenttypes.models import ContentType
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
+from internationalflavor.countries._cldr_data import COUNTRY_NAMES
 from modeltrans.admin import ActiveLanguageMixin
 
 from commerce.models import Cart, Item, Shipping, Payment, Order, PurchasedItem, Option, Discount, Supply
@@ -52,7 +54,11 @@ class OptionAdmin(ActiveLanguageMixin, admin.ModelAdmin):
 
 @admin.register(Shipping)
 class ShippingAdmin(ActiveLanguageMixin, admin.ModelAdmin):
-    list_display = ('id', 'title_i18n', 'fee', 'countries')
+    list_display = ('id', 'title_i18n', 'fee', 'country_names')
+
+    def country_names(self, obj):
+        # return ', '.join([f'{c} - {str(COUNTRY_NAMES[c])}' for c in obj.countries])
+        return mark_safe('<br>'.join([f'{c} - {str(COUNTRY_NAMES[c])}' for c in obj.countries]))
 
 
 @admin.register(Payment)
