@@ -3,8 +3,16 @@ from django.dispatch import receiver
 from filer.models import File, Image
 
 from commerce.models import Order
-from commerce.tasks import notify_about_changed_order_status, notify_about_new_file, notify_about_changed_file_folder, notify_about_deleted_file
+from commerce.tasks import notify_about_new_order, notify_about_changed_order_status, notify_about_new_file, notify_about_changed_file_folder, notify_about_deleted_file
 from pragmatic.signals import apm_custom_context, SignalsHelper
+
+
+@receiver(post_save, sender=Order)
+@apm_custom_context('signals')
+def order_created(sender, instance, created, **kwargs):
+    if created:
+        # TODO: schedule in few seconds (to save m2m related objects)
+        notify_about_new_order(instance)
 
 
 @receiver(pre_save, sender=Order)

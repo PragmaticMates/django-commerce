@@ -6,6 +6,13 @@ from pragmatic.signals import apm_custom_context
 
 
 @apm_custom_context('tasks')
+def notify_about_new_order(order):
+    for user in get_user_model().objects.active().superusers():
+        with override_language(user.preferred_language):
+            return EmailManager.send_mail(user, 'ORDER_CREATED', _('New order'), data={'order': order}, request=None)
+
+
+@apm_custom_context('tasks')
 def notify_about_changed_order_status(order):
     user = order.user
 

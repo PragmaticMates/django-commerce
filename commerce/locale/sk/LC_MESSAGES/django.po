@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-10 13:34+0200\n"
-"PO-Revision-Date: 2020-07-10 13:35+0058\n"
+"POT-Creation-Date: 2020-07-12 20:45+0200\n"
+"PO-Revision-Date: 2020-07-12 20:46+0058\n"
 "Last-Translator: b'Erik Telepovsky <erik@pragmaticmates.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -410,24 +410,29 @@ msgstr "zásobovanie"
 msgid "supplies"
 msgstr "zásobovanie"
 
-#: tasks.py:13
+#: tasks.py:12
+#| msgid "order"
+msgid "New order"
+msgstr "Nová objednávka"
+
+#: tasks.py:20
 #, python-format
 msgid "Status of order %d changed"
 msgstr "Stav objednávky %d zmenený"
 
-#: tasks.py:21
+#: tasks.py:27
 msgid "New file uploaded"
 msgstr "Nahraný nový súbor"
 
-#: tasks.py:34
+#: tasks.py:38
 msgid "File approved"
 msgstr "Súbor schválený"
 
-#: tasks.py:34
+#: tasks.py:38
 msgid "File rejected"
 msgstr "Súbor zamietnutý"
 
-#: tasks.py:46
+#: tasks.py:48
 msgid "File deleted"
 msgstr "Súbor zmazaný"
 
@@ -527,6 +532,7 @@ msgid "Payment method"
 msgstr "Platobná metóda"
 
 #: templates/commerce/checkout_summary.html:37
+#: templates/commerce/mails/order_created.txt:13
 #: templates/commerce/orders_table.html:8
 msgid "Total"
 msgstr "Celkom"
@@ -578,6 +584,7 @@ msgstr ""
 #: templates/commerce/mails/file_deleted.txt:5
 #: templates/commerce/mails/file_folder_changed.txt:8
 #: templates/commerce/mails/file_uploaded.txt:10
+#: templates/commerce/mails/order_created.txt:15
 #: templates/commerce/mails/order_status_changed.txt:5
 #, python-format
 msgid ""
@@ -624,6 +631,30 @@ msgstr ""
 "Adresár: %(folder)s\n"
 "Vlastník: %(owner)s\n"
 "Popis: %(description)s\n"
+
+#: templates/commerce/mails/order_created.txt:1
+#, python-format
+#| msgid ""
+#| "Hello %(user)s!\n"
+#| "\n"
+#| "File folder changed:\n"
+#| "\n"
+#| "Filename: %(file)s\n"
+#| "Folder: %(folder)s\n"
+msgid ""
+"Hello %(user)s!\n"
+"\n"
+"New order created:\n"
+"\n"
+"Number: %(number)s\n"
+"Customer: %(customer)s\n"
+msgstr ""
+"Dobrý deň %(user)s!\n"
+"\n"
+"Bola vytvorená nová objednávka:\n"
+"\n"
+"Číslo: %(number)s\n"
+"Zákazník: %(customer)s\n"
 
 #: templates/commerce/mails/order_status_changed.txt:1
 #, python-format
@@ -743,7 +774,7 @@ msgstr "%s bol odstránený z košíka"
 msgid "Missing payment method"
 msgstr "Chýba platobná metóda"
 
-#: views/purchaseditem.py:47
+#: views/purchaseditem.py:45
 msgid "Error during upload"
 msgstr "Chyba počas nahrávania"
 
