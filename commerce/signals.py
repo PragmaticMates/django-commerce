@@ -1,18 +1,19 @@
+import django.dispatch
 from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 from filer.models import File, Image
 
-from commerce.models import Order
+from commerce.models import Order, Cart
 from commerce.tasks import notify_about_new_order, notify_about_changed_order_status, notify_about_new_file, notify_about_changed_file_folder, notify_about_deleted_file
 from pragmatic.signals import apm_custom_context, SignalsHelper
 
+checkout_finished = django.dispatch.Signal(providing_args=["order"])
 
-@receiver(post_save, sender=Order)
+
+@receiver(checkout_finished, sender=Cart)
 @apm_custom_context('signals')
-def order_created(sender, instance, created, **kwargs):
-    if created:
-        # TODO: schedule in few seconds (to save m2m related objects)
-        notify_about_new_order(instance)
+def order_created(sender, order, **kwargs):
+    notify_about_new_order(order)
 
 
 @receiver(pre_save, sender=Order)

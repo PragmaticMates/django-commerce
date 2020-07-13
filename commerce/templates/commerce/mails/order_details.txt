@@ -1,14 +1,15 @@
-{% load i18n %}{% autoescape off %}{% blocktrans with user=recipient order=order customer=order.user number=order.number %}Hello {{ user }}!
+{% load i18n %}{% autoescape off %}{% blocktrans with user=recipient %}Hello {{ user }}!{% endblocktrans %}
 
-New order created:
+{% trans 'Thank you for your order.' %}
 
-Number: {{ number }}
-Customer: {{ customer }}
-{% endblocktrans %}{% for item in order.purchaseditem_set.all %}
+{% trans 'Purchased items' %}:{% for item in order.purchaseditem_set.all %}
 {{ item }} ({{ item.quantity }}x): {{ item.get_subtotal_display }}{% endfor %}
 {% trans 'Shipping' %}: {{ order.shipping_option }}
 {% trans 'Payment method' %}: {{ order.payment_method }}
 {% trans 'Total' %}: {{ order.get_total_display }}
+
+{% trans 'Payment information' %}:
+{{ order.render_payment_information|striptags }}
 
 {% blocktrans with site_name=site.name site_domain=site.domain %}{{ site_name }} team!
 {{ site_domain }}

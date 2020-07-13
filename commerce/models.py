@@ -356,6 +356,9 @@ class Cart(models.Model):
             # delete not useful cart anymore
             self.delete()
 
+        # call custom signal
+        checkout_finished.send(sender=self.__class__, order=order)
+
         # return order
         return order
 
@@ -528,6 +531,11 @@ class Order(models.Model):
         manager = manager_class(self)
         return manager.render_payment_button()
 
+    def render_payment_information(self):
+        manager_class = import_string(commerce_settings.PAYMENT_MANAGER)
+        manager = manager_class(self)
+        return manager.render_payment_information()
+
     @property
     def total(self):
         total = 0
@@ -677,6 +685,9 @@ class PurchasedItem(models.Model):
     @property
     def subtotal(self):
         return self.quantity * self.price
+
+    def get_subtotal_display(self):
+        return f'{self.subtotal} {commerce_settings.CURRENCY}'
 
     def get_absolute_url(self):
         return self.product.get_absolute_url()

@@ -61,7 +61,7 @@ class AddressesForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_class = 'checkout-form checkout-form-addresses'
         self.helper.layout = Layout(
-            Row(
+            Div(
                 Fieldset(
                     _('Delivery address'),
                     'delivery_name',
@@ -92,7 +92,8 @@ class AddressesForm(forms.ModelForm):
                         Div('vat_id', css_class='col-md-4')
                     ),
                     css_class='col-md-6'
-                )
+                ),
+                css_class='row'
             ),
             FormActions(
                 Submit('submit', _('Continue'), css_class='btn-primary')
