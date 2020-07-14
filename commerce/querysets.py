@@ -1,9 +1,14 @@
+from datetime import timedelta
+
 from django.db import models
 from django.db.models import Q
 from django.utils.timezone import now
 
 
 class OrderQuerySet(models.QuerySet):
+    def awaiting_payment(self):
+        return self.filter(status=self.model.STATUS_AWAITING_PAYMENT)
+
     def paid_not_cancelled_nor_refunded(self):
         return self.exclude(status__in=[
             self.model.STATUS_AWAITING_PAYMENT,
@@ -23,6 +28,15 @@ class OrderQuerySet(models.QuerySet):
         return self.exclude(status__in=[
             self.model.STATUS_CANCELLED,
         ])
+
+    def not_reminded(self):
+        return self.filter(reminder_sent=None)
+
+    def old(self, days=7):
+        # now - created > days
+        # created < now - days
+        threshold = now() - timedelta(days=days)
+        return self.filter(created__lte=threshold)
 
     # TODO: move to some kind of mixin (ideally into django-pragmatic)
     def lock(self):
