@@ -19,8 +19,8 @@ class Config(AppConfig):
 
         # Cron task to send order reminders
         scheduler.cron(
-            # "0 9 * * *",  # Run every day at 9
-            "* * * * *",  # Run every minute (DEBUG)
+            "0 10 * * *",  # Run every day at 10
+            # "* * * * *",  # Run every minute (DEBUG)
             func=send_order_reminders,
             timeout=settings.RQ_QUEUES['cron']['DEFAULT_TIMEOUT']
         )
