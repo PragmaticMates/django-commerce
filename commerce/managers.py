@@ -43,7 +43,8 @@ class EmailManager(object):
             'event': event,
             'subject': subject,
             'request': request,
-            'site': site
+            'site': site,
+            'settings': settings
         }
 
         if data:

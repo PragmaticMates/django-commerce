@@ -1,25 +1,19 @@
 from decimal import Decimal
 
 from dateutil.relativedelta import relativedelta
-from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.indexes import GinIndex
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import MinValueValidator, EMPTY_VALUES, MaxValueValidator
 from django.db import models, transaction
 from django.db.models import Sum
-from django.forms import CheckboxSelectMultiple
 from django.urls import reverse
-from django.utils import translation
 from django.utils.functional import cached_property
 from django.utils.module_loading import import_string
-from django.utils.safestring import mark_safe
 from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _, ugettext, override
+from django.utils.translation import ugettext_lazy as _, ugettext, override as override_language
 from filer.models import File
 from internationalflavor.countries import CountryField
 from internationalflavor.vat_number import VATNumberField
@@ -30,6 +24,7 @@ from commerce.querysets import OrderQuerySet, PurchasedItemQuerySet, DiscountCod
 from invoicing.models import Invoice, Item as InvoiceItem
 from pragmatic.fields import ChoiceArrayField
 from pragmatic.mixins import SlugMixin
+from .managers import EmailManager
 
 
 class AbstractProduct(models.Model):
@@ -504,6 +499,8 @@ class Order(models.Model):
     # Discount
     discount = models.ForeignKey(Discount, verbose_name=_('discount'), on_delete=models.PROTECT, blank=True, null=True, default=None)
 
+    # Timestamps
+    reminder_sent = models.DateTimeField(_('reminder sent'), blank=True, null=True, default=None)
     created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
 
@@ -576,7 +573,7 @@ class Order(models.Model):
     def create_invoice(self, type=Invoice.TYPE.INVOICE, status=Invoice.STATUS.SENT):
         language = self.user.preferred_language
 
-        with override(language):
+        with override_language(language):
             issue_date = now().date()
             invoice = Invoice.objects.create(
                 type=type,
@@ -656,6 +653,23 @@ class Order(models.Model):
             )
 
             self.invoices.add(invoice)
+
+    def send_details(self):
+        with override_language(self.user.preferred_language):
+            EmailManager.send_mail(self.user, 'ORDER_DETAILS', _('Order details: %d') % self.number, data={'order': self}, request=None)
+
+    def send_reminder(self, force=False):
+        if self.total <= 0:
+            return
+
+        if self.reminder_sent and not force:
+            return
+        
+        with override_language(self.user.preferred_language):
+            EmailManager.send_mail(self.user, 'ORDER_REMINDER', _('Order reminder: %d') % self.number, data={'order': self}, request=None)
+
+        self.reminder_sent = now()
+        self.save(update_fields=['reminder_sent'])
 
 
 class PurchasedItem(models.Model):

@@ -77,7 +77,8 @@ class PurchasedItemInline(admin.StackedInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    actions = ['create_invoice']
+    actions = ['create_invoice', 'send_details', 'send_reminder']
+    search_fields = ['number', 'user__email', 'user__first_name', 'user__last_name']
     list_display = ('number', 'status', 'user', 'purchased_items', 'total', 'delivery_country', 'shipping_option', 'payment_method', 'created', 'modified')
     list_editable = ['status']
     list_select_related = ['user', 'shipping_option', 'payment_method']
@@ -91,10 +92,13 @@ class OrderAdmin(admin.ModelAdmin):
         (_('Contact details'), {'fields': [('email', 'phone')]}),
         (_('Shipping'), {'fields': ['shipping_option', 'shipping_fee', 'payment_method', 'payment_fee']}),
         (_('Billing'), {'fields': ['invoices']}),
-        (_('Timestamps'), {'fields': ['created', 'modified']}),
+        (_('Timestamps'), {'fields': ['reminder_sent', 'created', 'modified']}),
     ]
     autocomplete_fields = ['invoices']
     readonly_fields = ['created', 'modified']
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('purchaseditem_set')
 
     def purchased_items(self, obj):
         return ', '.join([str(item) for item in obj.purchaseditem_set.all()])
@@ -103,6 +107,16 @@ class OrderAdmin(admin.ModelAdmin):
         for obj in queryset:
             obj.create_invoice()
     create_invoice.short_description = _('Create invoice')
+
+    def send_details(self, request, queryset):
+        for obj in queryset:
+            obj.send_details()
+    send_details.short_description = _('Send details')
+
+    def send_reminder(self, request, queryset):
+        for obj in queryset:
+            obj.send_reminder(force=True)
+    send_reminder.short_description = _('Send reminder')
 
 
 @admin.register(Discount)

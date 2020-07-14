@@ -11,10 +11,7 @@ def notify_about_new_order(order):
         with override_language(user.preferred_language):
             EmailManager.send_mail(user, 'ORDER_CREATED', _('New order'), data={'order': order}, request=None)
 
-    user = order.user
-
-    with override_language(user.preferred_language):
-        EmailManager.send_mail(user, 'ORDER_DETAILS', _('Order details: %d') % order.number, data={'order': order}, request=None)
+    order.send_details()
 
 
 @apm_custom_context('tasks')

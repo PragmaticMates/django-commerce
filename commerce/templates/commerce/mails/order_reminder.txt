@@ -1,16 +1,21 @@
 {% load i18n %}{% autoescape off %}{% blocktrans with user=recipient %}Hello {{ user }}!{% endblocktrans %}
 
-{% trans 'Thank you for your order.' %}
+{% blocktrans with date=order.created %}On {{ date }} you ordered following items but we do not register payment to the associated order.{% endblocktrans %}
 
 {% trans 'Purchased items' %}:{% for item in order.purchaseditem_set.all %}
 {{ item }} ({{ item.quantity }}x): {{ item.get_subtotal_display }}{% endfor %}
 {% trans 'Shipping' %}: {{ order.shipping_option }}
 {% trans 'Payment method' %}: {{ order.payment_method }}
 {% trans 'Total' %}: {{ order.get_total_display }}
-{% if order.total > 0 %}
+
 {% trans 'Payment information' %}:
 {{ order.render_payment_information|striptags }}
-{% endif %}
+
+{% trans 'Payment due is 14 days since checkout. Orders without payments after due date will be cancelled automatically.' %}
+{% trans "If you already paid for your order and its status hasn't changed, please double check the entered variable symbol for your payment or contact us." %}
+
+{% trans 'Thank you for understanding.' %}
+
 {% blocktrans with site_name=site.name site_domain=site.domain %}{{ site_name }} team!
 {{ site_domain }}
 {% endblocktrans %}
