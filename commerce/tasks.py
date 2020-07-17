@@ -26,7 +26,7 @@ def notify_about_changed_order_status(order):
 def notify_about_new_file(file):
     for user in get_user_model().objects.active().with_perm('filer.view_file'):
         with override_language(user.preferred_language):
-            return EmailManager.send_mail(user, 'FILE_UPLOADED', _('New file uploaded'), data={'file': file}, request=None)
+            EmailManager.send_mail(user, 'FILE_UPLOADED', _('New file uploaded'), data={'file': file}, request=None)
 
 
 @apm_custom_context('tasks')
