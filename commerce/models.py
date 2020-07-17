@@ -618,7 +618,7 @@ class Order(models.Model):
                 shipping_zip=self.delivery_postcode,
                 shipping_city=self.delivery_city,
                 shipping_country=self.delivery_country,
-                # delivery_method=Invoice.DELIVERY_METHOD.
+                delivery_method=Invoice.DELIVERY_METHOD.MAILING  # TODO: check shipping
             )
 
             for purchaseditem in self.purchaseditem_set.all():

@@ -7,7 +7,7 @@ from pragmatic.signals import apm_custom_context
 
 @apm_custom_context('tasks')
 def notify_about_new_order(order):
-    for user in get_user_model().objects.active().superusers():
+    for user in get_user_model().objects.active().with_perm('commerce.view_order'):
         with override_language(user.preferred_language):
             EmailManager.send_mail(user, 'ORDER_CREATED', _('New order'), data={'order': order}, request=None)
 
@@ -24,7 +24,7 @@ def notify_about_changed_order_status(order):
 
 @apm_custom_context('tasks')
 def notify_about_new_file(file):
-    for user in get_user_model().objects.active().superusers():
+    for user in get_user_model().objects.active().with_perm('filer.view_file'):
         with override_language(user.preferred_language):
             return EmailManager.send_mail(user, 'FILE_UPLOADED', _('New file uploaded'), data={'file': file}, request=None)
 

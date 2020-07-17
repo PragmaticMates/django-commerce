@@ -13,6 +13,11 @@ checkout_finished = django.dispatch.Signal(providing_args=["order"])
 @receiver(checkout_finished, sender=Cart)
 @apm_custom_context('signals')
 def order_created(sender, order, **kwargs):
+    # create invoice if paid
+    if order.status not in [Order.STATUS_AWAITING_PAYMENT, Order.STATUS_CANCELLED]:
+        order.create_invoice()
+
+    # notify stuff
     notify_about_new_order(order)
 
 
@@ -20,7 +25,12 @@ def order_created(sender, order, **kwargs):
 @apm_custom_context('signals')
 def order_status_changed(sender, instance, **kwargs):
     if instance.pk and SignalsHelper.attribute_changed(instance, ['status']):
+        # notify customer
         notify_about_changed_order_status(instance)
+
+        # create invoice if paid
+        if instance.status not in [Order.STATUS_AWAITING_PAYMENT, Order.STATUS_CANCELLED]:
+            instance.create_invoice()
 
 
 @receiver(post_save, sender=File)
