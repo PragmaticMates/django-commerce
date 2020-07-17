@@ -575,13 +575,15 @@ class Order(models.Model):
 
         with override_language(language):
             issue_date = now().date()
+            due_days = 0 if status == Invoice.STATUS.PAID else 7  # TODO: default due days
+
             invoice = Invoice.objects.create(
                 type=type,
                 status=status,
                 language=language,
                 date_issue=issue_date,
                 date_tax_point=issue_date,
-                date_due=issue_date+relativedelta(days=7),
+                date_due=issue_date+relativedelta(days=due_days),
                 currency=commerce_settings.CURRENCY,
                 # credit=
                 # already_paid=

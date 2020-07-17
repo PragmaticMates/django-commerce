@@ -18,3 +18,28 @@ def send_order_reminders():
     for order in unpaid_old_orders:
         print(order, order.created.date(), order.total, order.user)
         order.send_reminder()
+
+
+@job(commerce_settings.REDIS_QUEUE)
+def cancel_unpaid_orders():
+    from commerce.models import Order
+    from invoicing.models import Invoice
+
+    unpaid_old_orders = Order.objects.awaiting_payment().old(days=14)
+    total_orders = unpaid_old_orders.count()
+    print(f'Found {total_orders} old unpaid orders')
+
+    for order in unpaid_old_orders:
+        print(order, order.created.date(), order.total, order.user)
+        order.status = Order.STATUS_CANCELLED
+        order.save(update_fields=['status'])
+
+        # cancel invoices
+        for invoice in order.invoices.filter(
+                type=Invoice.TYPE.INVOICE,
+                status__in=[
+                    Invoice.STATUS.NEW,
+                    Invoice.STATUS.SENT,
+                    Invoice.STATUS.RETURNED]):
+            invoice.status = Invoice.STATUS.CANCELED
+            invoice.save(update_fields='status')

@@ -2,6 +2,7 @@ import django.dispatch
 from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 from filer.models import File, Image
+from invoicing.models import Invoice
 
 from commerce.models import Order, Cart
 from commerce.tasks import notify_about_new_order, notify_about_changed_order_status, notify_about_new_file, notify_about_changed_file_folder, notify_about_deleted_file
@@ -14,8 +15,8 @@ checkout_finished = django.dispatch.Signal(providing_args=["order"])
 @apm_custom_context('signals')
 def order_created(sender, order, **kwargs):
     # create invoice if paid
-    if order.status not in [Order.STATUS_AWAITING_PAYMENT, Order.STATUS_CANCELLED]:
-        order.create_invoice()
+    if order.status not in [Order.STATUS_AWAITING_PAYMENT, Order.STATUS_CANCELLED] and not order.invoices.all().exists():
+        order.create_invoice(status=Invoice.STATUS.PAID)
 
     # notify stuff
     notify_about_new_order(order)
@@ -29,8 +30,8 @@ def order_status_changed(sender, instance, **kwargs):
         notify_about_changed_order_status(instance)
 
         # create invoice if paid
-        if instance.status not in [Order.STATUS_AWAITING_PAYMENT, Order.STATUS_CANCELLED]:
-            instance.create_invoice()
+        if instance.status not in [Order.STATUS_AWAITING_PAYMENT, Order.STATUS_CANCELLED] and not instance.invoices.all().exists():
+            instance.create_invoice(status=Invoice.STATUS.PAID)
 
 
 @receiver(post_save, sender=File)
