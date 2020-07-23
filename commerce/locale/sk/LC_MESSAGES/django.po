@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-23 13:40+0200\n"
-"PO-Revision-Date: 2020-07-23 13:41+0058\n"
+"POT-Creation-Date: 2020-07-23 14:50+0200\n"
+"PO-Revision-Date: 2020-07-23 14:51+0058\n"
 "Last-Translator: b'Erik Telepovsky <erik@pragmaticmates.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -308,12 +308,15 @@ msgstr "položka"
 msgid "items"
 msgstr "položky"
 
-#: models.py:449
+#: models.py:448
 msgid "Awaiting Payment"
 msgstr "Čaká na platbu"
 
+#: models.py:449
+msgid "Pending"
+msgstr "Nevybavená"
+
 #: models.py:450
-#| msgid "Payment fee"
 msgid "Payment received"
 msgstr "Prijatá platba"
 
