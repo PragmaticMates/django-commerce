@@ -37,6 +37,10 @@ class UploadFileToPurchasedItem(FormView):
         # }
         # thumbnail_180 = f.file.get_thumbnail(thumbnail_180_options)
 
+        # TODO: run in background task
+        # generate thumbnail by accessing icons property
+        icons = f.icons
+
         self.purchased_item.files.add(f)
 
         return redirect(self.get_back_url())
