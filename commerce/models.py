@@ -429,6 +429,8 @@ class Item(models.Model):
 class Order(models.Model):
     # STATUS_PENDING = 'PENDING'                              # Customer started the checkout process but did not complete it. Incomplete orders are assigned a "Pending" status
     STATUS_AWAITING_PAYMENT = 'AWAITING_PAYMENT'            # Customer has completed the checkout process, but payment has yet to be confirmed. Authorize only transactions that are not yet captured have this status.
+    STATUS_PAYMENT_RECEIVED = 'PAYMENT_RECEIVED'            # Customer paid order and merchant received the successful transaction.
+    STATUS_PROCESSING = 'PROCESSING'                        # Customer paid order and merchant received the successful transaction.
     STATUS_AWAITING_FULFILLMENT = 'AWAITING_FULFILLMENT'    # Customer has completed the checkout process and payment has been confirmed.
     STATUS_AWAITING_SHIPMENT = 'AWAITING_SHIPMENT'          # Order has been pulled and packaged and is awaiting collection from a shipping provider.
     STATUS_AWAITING_PICKUP = 'AWAITING_PICKUP'              # Order has been packaged and is awaiting customer pickup from a seller-specified location.
@@ -445,6 +447,8 @@ class Order(models.Model):
     STATUSES = [
         # (STATUS_PENDING, _('Pending')),
         (STATUS_AWAITING_PAYMENT, _('Awaiting Payment')),
+        (STATUS_PAYMENT_RECEIVED, _('Payment received')),
+        (STATUS_PROCESSING, _('Processing')),
         (STATUS_AWAITING_FULFILLMENT, _('Awaiting Fulfillment')),
         (STATUS_AWAITING_SHIPMENT, _('Awaiting Shipment')),
         (STATUS_AWAITING_PICKUP, _('Awaiting Pickup')),
