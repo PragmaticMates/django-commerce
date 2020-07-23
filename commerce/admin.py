@@ -96,6 +96,7 @@ class OrderAdmin(admin.ModelAdmin):
     ]
     autocomplete_fields = ['invoices']
     readonly_fields = ['created', 'modified']
+    ordering = ['-number']
 
     def get_queryset(self, request):
         return super().get_queryset(request).prefetch_related('purchaseditem_set')
