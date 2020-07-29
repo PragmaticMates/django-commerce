@@ -3,14 +3,14 @@
 {% with object.in_stock|default:0 as in_stock %}
     <form action="{{ product.get_add_to_cart_url }}" method="get" class="form-inline">
         {% if product.options.all.exists %}
-            <select name="option" class="custom-select mr-3" required="required">
+            <select name="option" class="custom-select mr-sm-3" required="required">
                 <option value="">{% trans 'Choose option' %}</option>
                 {% for option in product.options.all %}
                     <option value="{{ option.slug_i18n }}">{{ option.title_i18n }}</option>
                 {% endfor %}
             </select>
         {% endif %}
-        <input type="submit" value="{% trans 'Purchase' %}" class="btn btn-primary" {% if product.awaiting or in_stock <= 0 %}disabled{% endif %}>
+        <input type="submit" value="{% trans 'Purchase' %}" class="btn btn-primary mx-sm-0 mx-auto my-3" {% if product.awaiting or in_stock <= 0 %}disabled{% endif %}>
         {% if product.awaiting %}<small>{% trans 'Soon' %}</small>{% endif %}
     </form>
 {% endwith %}
