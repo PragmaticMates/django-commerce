@@ -1,8 +1,0 @@
-{% load i18n %}{% autoescape off %}{% blocktrans with user=recipient file=file %}Hello {{ user }}!
-
-Your file {{ file }} was deleted.
-{% endblocktrans %}
-{% blocktrans with site_name=site.name site_domain=site.domain %}{{ site_name }} team!
-{{ site_domain }}
-{% endblocktrans %}
-{% endautoescape %}

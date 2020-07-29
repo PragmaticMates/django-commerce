@@ -23,8 +23,8 @@ from commerce import settings as commerce_settings
 from commerce.querysets import OrderQuerySet, PurchasedItemQuerySet, DiscountCodeQuerySet
 from invoicing.models import Invoice, Item as InvoiceItem
 from pragmatic.fields import ChoiceArrayField
+from pragmatic.managers import EmailManager
 from pragmatic.mixins import SlugMixin
-from .managers import EmailManager
 
 
 class AbstractProduct(models.Model):
@@ -662,7 +662,7 @@ class Order(models.Model):
 
     def send_details(self):
         with override_language(self.user.preferred_language):
-            EmailManager.send_mail(self.user, 'ORDER_DETAILS', _('Order details: %d') % self.number, data={'order': self}, request=None)
+            EmailManager.send_mail(self.user, 'commerce/mails/order_details', _('Order details: %d') % self.number, data={'order': self}, request=None)
 
     def send_reminder(self, force=False):
         if self.total <= 0:
@@ -672,7 +672,7 @@ class Order(models.Model):
             return
         
         with override_language(self.user.preferred_language):
-            EmailManager.send_mail(self.user, 'ORDER_REMINDER', _('Order reminder: %d') % self.number, data={'order': self}, request=None)
+            EmailManager.send_mail(self.user, 'commerce/mails/order_reminder', _('Order reminder: %d') % self.number, data={'order': self}, request=None)
 
         self.reminder_sent = now()
         self.save(update_fields=['reminder_sent'])
