@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-23 14:50+0200\n"
+"POT-Creation-Date: 2020-07-29 11:00+0200\n"
 "PO-Revision-Date: 2020-07-23 14:51+0058\n"
 "Last-Translator: b'Erik Telepovsky <erik@pragmaticmates.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,28 +16,29 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 "X-Translated-Using: django-rosetta 0.9.4\n"
 
-#: admin.py:36 admin.py:89 forms.py:66
+#: admin.py:36 admin.py:90 forms.py:66
 #: templates/commerce/checkout_summary.html:6
 msgid "Delivery address"
 msgstr "Adresa doručenia"
 
-#: admin.py:37 admin.py:90
+#: admin.py:37 admin.py:91
 msgid "Billing address"
 msgstr "Fakturačná adresa"
 
-#: admin.py:38 admin.py:91 forms.py:81
+#: admin.py:38 admin.py:92 forms.py:81
 #: templates/commerce/checkout_summary.html:17
 msgid "Billing details"
 msgstr "Fakturačné údaje"
 
-#: admin.py:39 admin.py:92
+#: admin.py:39 admin.py:93
 msgid "Contact details"
 msgstr "Kontaktné údaje"
 
-#: admin.py:40 admin.py:93 templates/commerce/mails/order_created.txt:9
+#: admin.py:40 admin.py:94 templates/commerce/mails/order_created.txt:9
 #: templates/commerce/mails/order_details.txt:7
 #: templates/commerce/mails/order_reminder.txt:7
 msgid "Shipping"
@@ -47,23 +48,23 @@ msgstr "Doprava"
 msgid "Others"
 msgstr "Iné"
 
-#: admin.py:42 admin.py:95
+#: admin.py:42 admin.py:96
 msgid "Timestamps"
 msgstr "Časové údaje"
 
-#: admin.py:94
+#: admin.py:95
 msgid "Billing"
 msgstr "Fakturácia"
 
-#: admin.py:119
+#: admin.py:120
 msgid "Create invoice"
 msgstr "Vystaviť faktúru"
 
-#: admin.py:124
+#: admin.py:125
 msgid "Send details"
 msgstr "Odoslať detaily"
 
-#: admin.py:129
+#: admin.py:130
 msgid "Send reminder"
 msgstr "Odoslať pripomienku"
 
@@ -450,11 +451,11 @@ msgstr "zásobovanie"
 msgid "supplies"
 msgstr "zásobovanie"
 
-#: tasks.py:12
+#: tasks.py:16
 msgid "New order"
 msgstr "Nová objednávka"
 
-#: tasks.py:22
+#: tasks.py:27
 #, python-format
 msgid "Status of order %d changed"
 msgstr "Stav objednávky %d zmenený"
@@ -598,18 +599,6 @@ msgstr "Expirované"
 msgid "Fees"
 msgstr "Poplatky"
 
-#: templates/commerce/mails/order_created.txt:13
-#: templates/commerce/mails/order_details.txt:14
-#: templates/commerce/mails/order_reminder.txt:19
-#: templates/commerce/mails/order_status_changed.txt:5
-#, python-format
-msgid ""
-"%(site_name)s team!\n"
-"%(site_domain)s\n"
-msgstr ""
-"Tím %(site_name)s\n"
-"%(site_domain)s\n"
-
 #: templates/commerce/mails/order_created.txt:1
 #, python-format
 msgid ""
@@ -626,6 +615,18 @@ msgstr ""
 "\n"
 "Číslo: %(number)s\n"
 "Zákazník: %(customer)s\n"
+
+#: templates/commerce/mails/order_created.txt:13
+#: templates/commerce/mails/order_details.txt:14
+#: templates/commerce/mails/order_reminder.txt:19
+#: templates/commerce/mails/order_status_changed.txt:5
+#, python-format
+msgid ""
+"%(site_name)s team!\n"
+"%(site_domain)s\n"
+msgstr ""
+"Tím %(site_name)s\n"
+"%(site_domain)s\n"
 
 #: templates/commerce/mails/order_details.txt:1
 #: templates/commerce/mails/order_reminder.txt:1
@@ -662,8 +663,8 @@ msgid ""
 "Payment due is 14 days since checkout. Orders without payments after due "
 "date will be cancelled automatically."
 msgstr ""
-"Dátum splatnosti je 14 dní odo dňa vytvorenia objednávky. Ak do tohto dátumu"
-" nebudeme evidovať vašu platbu, objednávka bude automaticky stornovaná."
+"Dátum splatnosti je 14 dní odo dňa vytvorenia objednávky. Ak do tohto dátumu "
+"nebudeme evidovať vašu platbu, objednávka bude automaticky stornovaná."
 
 #: templates/commerce/mails/order_reminder.txt:15
 msgid ""
@@ -713,52 +714,52 @@ msgstr "Faktúra"
 msgid "Preparing..."
 msgstr "Pripravujeme..."
 
-#: urls.py:11
+#: urls.py:10
 msgctxt "url"
 msgid "add-to-cart/<int:content_type_id>/<int:object_id>/"
 msgstr "pridat-do-kosika/<int:content_type_id>/<int:object_id>/"
 
-#: urls.py:12
+#: urls.py:11
 msgctxt "url"
 msgid "remove-from-cart/<int:item_id>/"
 msgstr "odstranit-z-kosika/<int:item_id>/"
 
-#: urls.py:13
+#: urls.py:12
 msgctxt "url"
 msgid "unapply-discount/"
 msgstr "odstranit-zlavu/"
 
-#: urls.py:14
+#: urls.py:13
 msgctxt "url"
 msgid "cart/"
 msgstr "kosik/"
 
-#: urls.py:15
+#: urls.py:14
 msgctxt "url"
 msgid "checkout/addresses/"
 msgstr "nakup/adresy/"
 
-#: urls.py:16
+#: urls.py:15
 msgctxt "url"
 msgid "checkout/shipping-and-payment/"
 msgstr "nakup/doprava-a-platba/"
 
-#: urls.py:17
+#: urls.py:16
 msgctxt "url"
 msgid "checkout/summary/"
 msgstr "nakup/sumarizacia/"
 
-#: urls.py:18
+#: urls.py:17
 msgctxt "url"
 msgid "checkout/finish/"
 msgstr "nakup/dokoncenie/"
 
-#: urls.py:19
+#: urls.py:18
 msgctxt "url"
 msgid "order/<int:number>/payment/"
 msgstr "objednavka/<int:number>/platba/"
 
-#: urls.py:20
+#: urls.py:19
 msgctxt "url"
 msgid "orders/"
 msgstr "objednavky/"
@@ -787,6 +788,5 @@ msgstr "%s bol odstránený z košíka"
 msgid "Missing payment method"
 msgstr "Chýba platobná metóda"
 
-#: views/purchaseditem.py:45
-msgid "Error during upload"
-msgstr "Chyba počas nahrávania"
+#~ msgid "Error during upload"
+#~ msgstr "Chyba počas nahrávania"
