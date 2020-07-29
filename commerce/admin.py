@@ -132,12 +132,15 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(Discount)
 class DiscountAdmin(admin.ModelAdmin):
-    list_display = ('code', 'usage', 'description', 'amount', 'valid_until', 'promoted', 'add_to_cart', 'product_types')
+    list_display = ('code', 'usage', 'description', 'amount', 'valid_until', 'promoted', 'add_to_cart', 'product_types', 'is_used_in_order')
     list_filter = ['usage', 'promoted', 'add_to_cart']
     autocomplete_fields = ['content_types']
 
     def product_types(self, obj):
         return ', '.join([str(type) for type in obj.content_types.all()])
+
+    # def get_queryset(self, request):
+    # TODO: annotate is_used_in_order
 
 
 @admin.register(Supply)

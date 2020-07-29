@@ -180,6 +180,10 @@ class Discount(models.Model):
 
         return in_order
 
+    @property
+    def is_used_in_order(self):
+        return Order.objects.filter(discount=self).exists()
+
 
 class Cart(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
