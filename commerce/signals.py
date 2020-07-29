@@ -19,7 +19,7 @@ def order_created(sender, order, **kwargs):
         order.create_invoice(status=Invoice.STATUS.PAID)
 
     # notify stuff
-    notify_about_new_order(order)
+    notify_about_new_order.delay(order)
 
 
 @receiver(pre_save, sender=Order)
@@ -27,7 +27,7 @@ def order_created(sender, order, **kwargs):
 def order_status_changed(sender, instance, **kwargs):
     if instance.pk and SignalsHelper.attribute_changed(instance, ['status']):
         # notify customer
-        notify_about_changed_order_status(instance)
+        notify_about_changed_order_status.delay(instance)
 
         # only if order status == payment received? (NO!, because we need to create invoice for orders with total = 0 and status pending as well)
         if instance.status not in [Order.STATUS_AWAITING_PAYMENT, Order.STATUS_CANCELLED] and not instance.invoices.all().exists():
