@@ -78,11 +78,12 @@ class PurchasedItemInline(admin.StackedInline):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     actions = ['create_invoice', 'send_details', 'send_reminder']
+    date_hierarchy = 'created'
     search_fields = ['number', 'user__email', 'user__first_name', 'user__last_name', 'delivery_name', 'delivery_street', 'delivery_postcode', 'delivery_city', 'delivery_country']
     list_display = ('number', 'status', 'delivery_address', 'purchased_items', 'total', 'delivery_country', 'shipping_option', 'payment_method', 'created', 'modified')
     list_editable = ['status']
     list_select_related = ['user', 'shipping_option', 'payment_method']
-    list_filter = ['shipping_option', 'payment_method', 'status']
+    list_filter = ['shipping_option', 'payment_method', 'status', 'reminder_sent']
     inlines = [PurchasedItemInline]
     fieldsets = [
         (None, {'fields': ['user', 'status', 'number']}),
