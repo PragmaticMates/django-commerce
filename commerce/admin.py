@@ -164,6 +164,10 @@ class OrderAdmin(admin.ModelAdmin):
             messages.error(request, _(f'Bank API {commerce_settings.BANK_API} not implemented'))
             return
 
+        numbers_of_selected_orders = list(queryset.values_list('number', flat=True))
+
+        transactions = list(filter(lambda tr: str(tr['variable_symbol']) in list(map(str, numbers_of_selected_orders)), transactions))
+
         for transaction in transactions:
             transaction['errors'] = []
 
