@@ -1,12 +1,17 @@
-from django.contrib import admin
+import requests
+from django.contrib import admin, messages
 from django.contrib.contenttypes.admin import GenericStackedInline
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.validators import EMPTY_VALUES
+from django.shortcuts import render
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from internationalflavor.countries._cldr_data import COUNTRY_NAMES
 from modeltrans.admin import ActiveLanguageMixin
 
 from commerce.models import Cart, Item, Shipping, Payment, Order, PurchasedItem, Option, Discount, Supply
+from commerce import settings as commerce_settings
 
 
 if not admin.site.is_registered(ContentType):
@@ -77,7 +82,7 @@ class PurchasedItemInline(admin.StackedInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    actions = ['create_invoice', 'send_details', 'send_reminder']
+    actions = ['sync_transactions', 'create_invoice', 'send_details', 'send_reminder']
     date_hierarchy = 'created'
     search_fields = ['number', 'user__email', 'user__first_name', 'user__last_name', 'delivery_name', 'delivery_street', 'delivery_postcode', 'delivery_city', 'delivery_country']
     list_display = ('number', 'status', 'delivery_address', 'purchased_items', 'total', 'delivery_country', 'shipping_option', 'payment_method', 'created', 'modified')
@@ -113,6 +118,87 @@ class OrderAdmin(admin.ModelAdmin):
 
     def purchased_items(self, obj):
         return ', '.join([str(item) for item in obj.purchaseditem_set.all()])
+
+    def sync_transactions(self, request, queryset):
+        if commerce_settings.BANK_API_TOKEN in EMPTY_VALUES:
+            messages.error(request, _('Missing bank API token'))
+            return
+
+        if commerce_settings.BANK_API in EMPTY_VALUES:
+            messages.error(request, _('Missing bank API'))
+            return
+
+        transactions = []
+
+        if commerce_settings.BANK_API == 'FIO':
+            date_from = '1993-01-01'
+            date_to = '2993-12-31'  # TODO
+            url = f'https://www.fio.cz/ib_api/rest/periods/{commerce_settings.BANK_API_TOKEN}/{date_from}/{date_to}/transactions.json'
+            r = requests.get(url)
+            data = r.json()
+            transaction_list = data['accountStatement']['transactionList']['transaction']
+
+            mapping = {
+                'date': 'column0',  # Datum
+                'value': 'column1',  # Objem
+                'sender': 'column10',  # Název protiúčtu
+                'sender_bank': 'column12',  # Název banky
+                'sender_account': 'column2',  # Protiúčet
+                'currency': 'column14',  # Měna
+                'information': 'column16',  # Zpráva pro příjemce
+                'variable_symbol': 'column5',  # VS
+                'type': 'column8',  # Typ
+                'issued_by': 'column9',  # Provedl
+            }
+
+            for t in transaction_list:
+                transaction = {}
+
+                for key, column in mapping.items():
+                    value = t[column]['value'] if t[column] is not None else None
+                    transaction[key] = value
+
+                transactions.append(transaction)
+
+        else:
+            messages.error(request, _(f'Bank API {commerce_settings.BANK_API} not implemented'))
+            return
+
+        for transaction in transactions:
+            transaction['errors'] = []
+
+            variable_symbol = transaction['variable_symbol']
+
+            if variable_symbol and variable_symbol.isdigit():
+                variable_symbol = int(variable_symbol)
+
+                try:
+                    order = Order.objects.get(number=variable_symbol)
+                except ObjectDoesNotExist:
+                    transaction['errors'].append(_('Order not found'))
+                    continue
+
+                transaction['order'] = order
+                transaction['order_status_before'] = order.status
+                transaction['order_status_before_display'] = order.get_status_display()
+                transaction['order_status_after'] = order.status
+                transaction['order_status_after_display'] = order.get_status_display()
+
+                if order in queryset and order.status == Order.STATUS_AWAITING_PAYMENT:
+                    if transaction['currency'] != commerce_settings.CURRENCY:
+                        transaction['errors'].append(_('Currency mismatch'))
+                    elif transaction['value'] != order.total:
+                        transaction['errors'].append(_('Total value mismatch'))
+                    else:
+                        order.status = Order.STATUS_PAYMENT_RECEIVED
+                        order.save(update_fields=['status'])
+                        transaction['order_status_after'] = order.status
+                        transaction['order_status_after_display'] = order.get_status_display()
+            else:
+                transaction['errors'].append(_('Missing variable symbol'))
+
+        return render(request, 'commerce/admin/sync_transactions.html', context={'transactions': transactions})
+    sync_transactions.short_description = _('Sync transactions')
 
     def create_invoice(self, request, queryset):
         for obj in queryset:

@@ -1,0 +1,46 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+    <h1>{% trans 'Transactions' %}</h1>
+
+    {% if transactions %}
+        <table>
+            <thead>
+                <th>{% trans 'Date' %}</th>
+                <th>{% trans 'Value' %}</th>
+                <th>{% trans 'Variable symbol' %}</th>
+                <th>{% trans 'Order details' %}</th>
+                <th>{% trans 'Sender' %}</th>
+                <th>{% trans 'Information' %}</th>
+                <th>{% trans 'Errors' %}</th>
+            </thead>
+            {% for transaction in transactions reversed %}
+                <tr>
+                    <td style="white-space: nowrap;">{{ transaction.date }}</td>
+                    <td style="white-space: nowrap;">
+                        <span style="color:{% if transaction.value > 0 %}green{% else %}red{% endif %}">{{ transaction.value }} {{ transaction.currency }}</span><br>
+                        {{ transaction.type }}
+                    </td>
+                    <td style="color:#00a7ff">{{ transaction.variable_symbol|default:'' }}</td>
+                    <td style="white-space: nowrap;">
+                        {% if transaction.order %}
+                            {{ transaction.order }} ({{ transaction.order.get_total_display }})<br>
+                            <strong>{% trans 'Status before' %}:</strong> <span style="color:{% if transaction.order_status_before == transaction.order.STATUS_AWAITING_PAYMENT %}orange{% else %}{% endif %}">{{ transaction.order_status_before_display }}</span><br>
+                            <strong>{% trans 'Status after' %}:</strong> <span style="color:{% if transaction.order_status_after == transaction.order.STATUS_AWAITING_PAYMENT %}red{% else %}green{% endif %}">{{ transaction.order_status_after_display }}</span><br>
+                        {% endif %}
+                    </td>
+                    <td style="white-space: nowrap;">
+                        {{ transaction.sender|default:'' }}<br>
+                        {{ transaction.sender_account|default:'' }}<br>
+                        {{ transaction.sender_bank|default:'' }}
+                    </td>
+                    <td>{{ transaction.information|default:'' }}</td>
+                    <td style="white-space: nowrap;"><span style="color:red">{{ transaction.errors|join:'<br>' }}</span></td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        {% trans 'No transactions' %}
+    {% endif %}
+{% endblock %}
