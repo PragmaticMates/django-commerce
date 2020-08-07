@@ -113,7 +113,7 @@ class OrderAdmin(admin.ModelAdmin):
             obj.delivery_street,
             obj.delivery_postcode,
             obj.delivery_city,
-            obj.delivery_country,
+            obj.get_delivery_country_display(),
         ]]))
 
     def purchased_items(self, obj):

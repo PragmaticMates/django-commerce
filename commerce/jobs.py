@@ -19,7 +19,7 @@ def cancel_unpaid_orders():
     from commerce.models import Order
     from invoicing.models import Invoice
 
-    unpaid_old_orders = Order.objects.awaiting_payment().old(days=30)
+    unpaid_old_orders = Order.objects.awaiting_payment().old(days=14)
     total_orders = unpaid_old_orders.count()
     print(f'Found {total_orders} old unpaid orders')
 
@@ -36,4 +36,4 @@ def cancel_unpaid_orders():
                     Invoice.STATUS.SENT,
                     Invoice.STATUS.RETURNED]):
             invoice.status = Invoice.STATUS.CANCELED
-            invoice.save(update_fields='status')
+            invoice.save(update_fields=['status'])
