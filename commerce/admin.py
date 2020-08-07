@@ -105,7 +105,7 @@ class OrderAdmin(admin.ModelAdmin):
     ordering = ['-number']
 
     def get_queryset(self, request):
-        return super().get_queryset(request).prefetch_related('purchaseditem_set')
+        return super().get_queryset(request).prefetch_related('purchaseditem_set', 'invoices')
 
     def delivery_address(self, obj):
         return mark_safe('<br>'.join([str(item) for item in [
