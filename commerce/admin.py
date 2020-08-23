@@ -238,3 +238,20 @@ class SupplyAdmin(admin.ModelAdmin):
     date_hierarchy = 'datetime'
     list_display = ('datetime', 'real_product', 'quantity')
     autocomplete_fields = ['content_type']
+
+
+@admin.register(PurchasedItem)
+class PurchasedItemAdmin(admin.ModelAdmin):
+    date_hierarchy = 'created'
+    search_fields = ['order__number', 'order__user__email', 'order__user__first_name', 'order__user__last_name', 'order__delivery_name', 'order__delivery_street', 'order__delivery_postcode', 'order__delivery_city', 'order__delivery_country']
+    list_display = ('id', '__str__', 'get_subtotal_display', 'order_number', 'order_status', 'option', 'created', 'modified')
+    list_select_related = ['order', 'order__user', 'option']
+    list_filter = ['order__status', 'option']
+    autocomplete_fields = ['order']
+    readonly_fields = ['created', 'modified']
+
+    def order_number(self, obj):
+        return obj.order.number
+    
+    def order_status(self, obj):
+        return obj.order.get_status_display()
