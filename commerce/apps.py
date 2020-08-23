@@ -32,3 +32,4 @@ class Config(AppConfig):
             func=cancel_unpaid_orders,
             timeout=settings.RQ_QUEUES['cron']['DEFAULT_TIMEOUT']
         )
+        print('Commerce jobs scheduled.')
