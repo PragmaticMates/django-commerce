@@ -468,7 +468,7 @@ class Order(models.Model):
     ]
 
     user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)
-    status = models.CharField(_('status'), choices=STATUSES, max_length=20)
+    status = models.CharField(_('status'), choices=STATUSES, max_length=20, db_index=True)
     number = models.PositiveSmallIntegerField(verbose_name=_('number'), db_index=True, unique=True)
 
     # delivery information
