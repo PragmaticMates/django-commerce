@@ -189,7 +189,7 @@ class Cart(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
 
     # delivery information
-    delivery_name = models.CharField(_('full name or company name'), max_length=30, db_index=True)
+    delivery_name = models.CharField(_('full name or company name'), max_length=100, db_index=True)
     delivery_street = models.CharField(_('street and number'), max_length=200)
     delivery_postcode = models.CharField(_('postcode'), max_length=30)
     delivery_city = models.CharField(_('city'), max_length=50)
@@ -472,7 +472,7 @@ class Order(models.Model):
     number = models.PositiveSmallIntegerField(verbose_name=_('number'), db_index=True, unique=True)
 
     # delivery information
-    delivery_name = models.CharField(_('full name or company name'), max_length=30, db_index=True)
+    delivery_name = models.CharField(_('full name or company name'), max_length=100, db_index=True)
     delivery_street = models.CharField(_('street and number'), max_length=200)
     delivery_postcode = models.CharField(_('postcode'), max_length=30)
     delivery_city = models.CharField(_('city'), max_length=50)
