@@ -523,13 +523,15 @@ class Order(models.Model):
         return str(self.number)
 
     def get_absolute_url(self):
-        # return '#'
         # TODO
         # return reverse('commerce:order_detail', args=(self.number,))
         return reverse('commerce:orders')
 
     def get_payment_url(self):
         return reverse('commerce:order_payment', args=(self.number,))
+
+    def get_payment_return_url(self):
+        return reverse('commerce:order_payment_return', args=(self.number,))
 
     def render_payment_button(self):
         manager_class = import_string(commerce_settings.PAYMENT_MANAGER)
@@ -552,6 +554,10 @@ class Order(models.Model):
         total += self.payment_fee
         # TODO - discount
         return total
+
+    @property
+    def total_in_cents(self):
+        return int(self.total * 100)
 
     def get_total_display(self):
         return f'{self.total} {commerce_settings.CURRENCY}'
