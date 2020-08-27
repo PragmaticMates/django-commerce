@@ -8,8 +8,8 @@
 {% trans 'Payment method' %}: {{ order.payment_method }}
 {% trans 'Total' %}: {{ order.get_total_display }}
 
-{% trans 'Payment information' %}:
-{{ order.render_payment_information|striptags }}
+{% trans 'Payment' %}:
+{{ order.render_payment_button }}
 
 {% trans 'Payment due is 14 days since checkout. Orders without payments after due date will be cancelled automatically.' %}
 {% trans "If you already paid for your order and its status hasn't changed, please double check the entered variable symbol for your payment or contact us." %}
