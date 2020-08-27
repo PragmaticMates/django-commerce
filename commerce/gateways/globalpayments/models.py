@@ -39,7 +39,7 @@ class Result(models.Model):
     order = models.ForeignKey(Order, verbose_name=_('order'), on_delete=models.CASCADE)
     operation = models.CharField(_('operation'), max_length=20)
     ordernumber = models.PositiveIntegerField(_('order number'))
-    meordernum = models.PositiveIntegerField(_('my order number'), blank=True, null=True, default=None)
+    merordernum = models.PositiveIntegerField(_('merchant order number'), blank=True, null=True, default=None)
     md = models.CharField(_('md'), max_length=255, default='', blank=True)
     prcode = models.PositiveIntegerField(_('primary code'))
     srcode = models.PositiveIntegerField(_('secondary code'))

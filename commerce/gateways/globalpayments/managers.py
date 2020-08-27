@@ -78,7 +78,7 @@ class PaymentManager(CommercePaymentManager):
             order_id=data['ORDERNUMBER'],
             operation=data['OPERATION'],
             ordernumber=int(data['ORDERNUMBER']),
-            meordernum=int(data['MEORDERNUM']) if 'MEORDERNUM' in data else None,
+            merordernum=int(data['MERORDERNUM']) if 'MERORDERNUM' in data else None,
             md=data.get('MD', ''),
             prcode=int(data['PRCODE']),
             srcode=int(data['SRCODE']),
