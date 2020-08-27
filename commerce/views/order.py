@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
+from django.urls import reverse
 from django.utils.module_loading import import_string
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DetailView, ListView
@@ -20,10 +21,11 @@ class OrderPaymentView(LoginRequiredMixin, DetailView):
     def dispatch(self, request, *args, **kwargs):
         order = self.get_object()
 
-        manager_class = import_string(commerce_settings.PAYMENT_MANAGER)
-        manager = manager_class(self)
-        payment_url = manager.get_online_payment_url(order)
-        return redirect(payment_url)
+        if order.status != Order.STATUS_AWAITING_PAYMENT:
+            messages.error(request, _('It is not possible to pay this order anymore.'))
+            return redirect(order.get_absolute_url())
+
+        return redirect(order.get_payment_gateway_url())
 
 
 class OrderPaymentReturnView(LoginRequiredMixin, DetailView):

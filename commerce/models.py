@@ -522,6 +522,16 @@ class Order(models.Model):
     def __str__(self):
         return str(self.number)
 
+    @property
+    def payment_manager(self):
+        manager_class_path = commerce_settings.PAYMENT_MANAGERS.get(self.payment_method.method, None)
+
+        if not manager_class_path:
+            raise NotImplementedError()
+
+        manager_class = import_string(manager_class_path)
+        return manager_class(self)
+
     def get_absolute_url(self):
         # TODO
         # return reverse('commerce:order_detail', args=(self.number,))
@@ -533,15 +543,14 @@ class Order(models.Model):
     def get_payment_return_url(self):
         return reverse('commerce:order_payment_return', args=(self.number,))
 
+    def get_payment_gateway_url(self):
+        return self.payment_manager.get_payment_url()
+
     def render_payment_button(self):
-        manager_class = import_string(commerce_settings.PAYMENT_MANAGER)
-        manager = manager_class(self)
-        return manager.render_payment_button()
+        return self.payment_manager.render_payment_button()
 
     def render_payment_information(self):
-        manager_class = import_string(commerce_settings.PAYMENT_MANAGER)
-        manager = manager_class(self)
-        return manager.render_payment_information()
+        return self.payment_manager.render_payment_information()
 
     @property
     def total(self):

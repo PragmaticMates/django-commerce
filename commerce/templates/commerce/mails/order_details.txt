@@ -8,8 +8,8 @@
 {% trans 'Payment method' %}: {{ order.payment_method }}
 {% trans 'Total' %}: {{ order.get_total_display }}
 {% if order.total > 0 %}
-{% trans 'Payment information' %}:
-{{ order.render_payment_information|striptags }}
+{% trans 'Payment' %}:
+{{ order.get_payment_url }}
 {% endif %}
 {% blocktrans with site_name=site.name site_domain=site.domain %}{{ site_name }} team!
 {{ site_domain }}
