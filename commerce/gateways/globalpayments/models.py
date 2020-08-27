@@ -27,7 +27,44 @@ class Order(models.Model):
 
     class Meta:
         verbose_name = _('order')
-        verbose_name_plural = _('order')
+        verbose_name_plural = _('orders')
+        ordering = ('created',)
+        get_latest_by = 'created'
+
+    def __str__(self):
+        return str(self.id)
+
+
+class Result(models.Model):
+    order = models.ForeignKey(Order, verbose_name=_('order'), on_delete=models.CASCADE)
+    operation = models.CharField(_('operation'), max_length=20)
+    ordernumber = models.PositiveIntegerField(_('order number'))
+    meordernum = models.PositiveIntegerField(_('my order number'), blank=True, null=True, default=None)
+    md = models.CharField(_('md'), max_length=255, default='', blank=True)
+    prcode = models.PositiveIntegerField(_('primary code'))
+    srcode = models.PositiveIntegerField(_('secondary code'))
+    resulttext = models.CharField(_('result text'), max_length=255, default='', blank=True)
+    userparam1 = models.CharField(_('user param 1'), max_length=64, default='', blank=True)
+    addinfo = models.CharField(_('additional information'), max_length=255, default='', blank=True)
+    token = models.CharField(_('token'), max_length=64, default='', blank=True)
+    expiry = models.CharField(_('expiration'), max_length=4, default='', blank=True)
+    acsres = models.CharField(_('authorisation centre result'), max_length=1, default='', blank=True)
+    accode = models.CharField(_('authorisation centre code'), max_length=6, default='', blank=True)
+    panpattern = models.CharField(_('masked cart number'), max_length=19, default='', blank=True)
+    daytocapture = models.CharField(_('day to capture'), max_length=8, default='', blank=True)
+    tokenregstatus = models.CharField(_('token registration status'), max_length=10, default='', blank=True)
+    acrc = models.CharField(_('authorisation centre result code'), max_length=2, default='', blank=True)
+    rrn = models.CharField(_('retrieval reference number'), max_length=12, default='', blank=True)
+    par = models.CharField(_('payment account reference'), max_length=29, default='', blank=True)
+    traceid = models.CharField(_('trace ID'), max_length=15, default='', blank=True)
+    digest = models.TextField(_('digest'))
+    digest1 = models.TextField(_('digest 1'))
+    created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
+    modified = models.DateTimeField(_('modified'), auto_now=True)
+
+    class Meta:
+        verbose_name = _('result')
+        verbose_name_plural = _('results')
         ordering = ('created',)
         get_latest_by = 'created'
 

@@ -3,6 +3,9 @@ from OpenSSL import crypto
 from django.utils.http import urlencode
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
+
+from commerce.gateways.globalpayments.models import Result
+from commerce.models import Order
 from inventor.templatetags.inventor import uri
 from commerce import settings as commerce_settings
 from commerce.managers import PaymentManager as CommercePaymentManager
@@ -38,7 +41,7 @@ class PaymentManager(CommercePaymentManager):
         payment_data.update({'DIGEST': digest})
 
         params = urlencode(payment_data)
-        url = commerce_settings.GATEWAY_GP_URL_TEST
+        url = self.get_gateway_url()
         payment_url = f'{url}?{params}'
         return payment_url
 
@@ -67,3 +70,60 @@ class PaymentManager(CommercePaymentManager):
         data_base64 = base64.b64encode(sign)
         digest = data_base64.decode("utf-8")
         return digest
+
+    def handle_payment_result(self, data):
+        # TODO: validation of signature
+
+        result, created = Result.objects.get_or_create(
+            order_id=data['ORDERNUMBER'],
+            operation=data['OPERATION'],
+            ordernumber=int(data['ORDERNUMBER']),
+            meordernum=int(data['MEORDERNUM']) if 'MEORDERNUM' in data else None,
+            md=data.get('MD', ''),
+            prcode=int(data['PRCODE']),
+            srcode=int(data['SRCODE']),
+            resulttext=data.get('RESULTTEXT', ''),
+            userparam1=data.get('USERPARAM1', ''),
+            addinfo=data.get('ADDINFO', ''),
+            token=data.get('TOKEN', ''),
+            expiry=data.get('EXPIRY', ''),
+            acsres=data.get('ACSRES', ''),
+            accode=data.get('ACCODE', ''),
+            panpattern=data.get('PANPATTERN', ''),
+            daytocapture=data.get('DAYTOCAPTURE', ''),
+            tokenregstatus=data.get('TOKENREGSTATUS', ''),
+            acrc=data.get('ACRC', ''),
+            rrn=data.get('RRN', ''),
+            par=data.get('PAR', ''),
+            traceid=data.get('TRACEID', ''),
+            digest=data['DIGEST'],
+            digest1=data['DIGEST1'],
+        )
+
+        if result.prcode == 50:
+            # The cardholder canceled the payment
+            return False, None
+
+        # check primary result code
+        if result.prcode != 0:
+            return False, '{} {}'.format(_('Payment failed. Error detail:'), result.resulttext)
+
+        # check if order order/transaction id is correct
+        if not self.order.order_set.filter(id=result.ordernumber).exists():
+            return False, _('Transaction not recognised')
+
+        # PRCODE = 0 => OK
+        if result.prcode == 0:
+            from commerce.gateways.globalpayments.models import Order as GPOrder
+            gporder = GPOrder.objects.get(pk=result.ordernumber)
+            gporder.status = GPOrder.STATUS_PAID
+            gporder.save(update_fields=['status'])
+
+            if self.order.status == Order.STATUS_AWAITING_PAYMENT:
+                # TODO: check order total
+                self.order.status = Order.STATUS_PAYMENT_RECEIVED
+                self.order.save(update_fields=['status'])
+                return True, _('Order successfully paid.')
+            # TODO: check different order statuses
+
+        return False, _('Payment without result.')

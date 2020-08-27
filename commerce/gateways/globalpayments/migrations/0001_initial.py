@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'order',
-                'verbose_name_plural': 'order',
+                'verbose_name_plural': 'orders',
                 'ordering': ('created',),
             },
         ),

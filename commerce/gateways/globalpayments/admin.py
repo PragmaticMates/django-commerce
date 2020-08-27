@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from commerce.gateways.globalpayments.models import Order
+from commerce.gateways.globalpayments.models import Order, Result
 
 
 @admin.register(Order)
@@ -23,3 +23,14 @@ class OrderAdmin(admin.ModelAdmin):
 
     def get_order_display(self, obj):
         return obj.order.get_total_display()
+
+
+@admin.register(Result)
+class ResultAdmin(admin.ModelAdmin):
+    date_hierarchy = 'created'
+    list_display = ('id', 'ordernumber', 'meordernum', 'prcode', 'srcode', 'resulttext', 'token', 'panpattern', 'created', 'modified')
+    list_select_related = ['order']
+    list_filter = ['prcode', 'srcode', 'resulttext']
+    autocomplete_fields = ['order']
+    readonly_fields = ['created', 'modified']
+    ordering = ['-created']

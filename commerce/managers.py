@@ -10,3 +10,6 @@ class PaymentManager(object):
 
     def render_payment_information(self):
         raise NotImplementedError()
+
+    def handle_payment_result(self, data):
+        raise NotImplementedError()
