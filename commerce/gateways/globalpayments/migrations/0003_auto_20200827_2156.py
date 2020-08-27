@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('expiry', models.CharField(blank=True, default='', max_length=4, verbose_name='expiration')),
                 ('acsres', models.CharField(blank=True, default='', max_length=1, verbose_name='authorisation centre result')),
                 ('accode', models.CharField(blank=True, default='', max_length=6, verbose_name='authorisation centre code')),
-                ('panpattern', models.CharField(blank=True, default='', max_length=19, verbose_name='masked cart number')),
+                ('panpattern', models.CharField(blank=True, default='', max_length=19, verbose_name='masked card number')),
                 ('daytocapture', models.CharField(blank=True, default='', max_length=8, verbose_name='day to capture')),
                 ('tokenregstatus', models.CharField(blank=True, default='', max_length=10, verbose_name='token registration status')),
                 ('acrc', models.CharField(blank=True, default='', max_length=2, verbose_name='authorisation centre result code')),

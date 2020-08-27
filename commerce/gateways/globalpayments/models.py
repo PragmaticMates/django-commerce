@@ -50,7 +50,7 @@ class Result(models.Model):
     expiry = models.CharField(_('expiration'), max_length=4, default='', blank=True)
     acsres = models.CharField(_('authorisation centre result'), max_length=1, default='', blank=True)
     accode = models.CharField(_('authorisation centre code'), max_length=6, default='', blank=True)
-    panpattern = models.CharField(_('masked cart number'), max_length=19, default='', blank=True)
+    panpattern = models.CharField(_('masked card number'), max_length=19, default='', blank=True)
     daytocapture = models.CharField(_('day to capture'), max_length=8, default='', blank=True)
     tokenregstatus = models.CharField(_('token registration status'), max_length=10, default='', blank=True)
     acrc = models.CharField(_('authorisation centre result code'), max_length=2, default='', blank=True)
