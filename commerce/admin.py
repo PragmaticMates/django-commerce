@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from internationalflavor.countries._cldr_data import COUNTRY_NAMES
 from modeltrans.admin import ActiveLanguageMixin
 
-from commerce.models import Cart, Item, Shipping, Payment, Order, PurchasedItem, Option, Discount, Supply
+from commerce.models import Cart, Item, ShippingOption, PaymentMethod, Order, PurchasedItem, Option, Discount, Supply
 from commerce import settings as commerce_settings
 
 
@@ -57,7 +57,7 @@ class OptionAdmin(ActiveLanguageMixin, admin.ModelAdmin):
     list_display = ('id', 'title_i18n')  # TODO: content types?
 
 
-@admin.register(Shipping)
+@admin.register(ShippingOption)
 class ShippingAdmin(ActiveLanguageMixin, admin.ModelAdmin):
     list_display = ('id', 'title_i18n', 'fee', 'country_names')
 
@@ -66,7 +66,7 @@ class ShippingAdmin(ActiveLanguageMixin, admin.ModelAdmin):
         return mark_safe('<br>'.join([f'{c} - {str(COUNTRY_NAMES[c])}' for c in obj.countries]))
 
 
-@admin.register(Payment)
+@admin.register(PaymentMethod)
 class PaymentAdmin(ActiveLanguageMixin, admin.ModelAdmin):
     list_display = ('id', 'title_i18n', 'fee', 'method', 'shipping_options')
 

@@ -80,7 +80,7 @@ class AbstractProduct(models.Model):
         return self.total_supplies - self.purchased
 
 
-class Shipping(models.Model):
+class ShippingOption(models.Model):
     title = models.CharField(_('title'), max_length=50)
     fee = models.DecimalField(_('fee'), help_text=commerce_settings.CURRENCY, max_digits=10, decimal_places=2, db_index=True, validators=[MinValueValidator(0)])
     countries = ChoiceArrayField(verbose_name=_('countries'),
@@ -101,7 +101,7 @@ class Shipping(models.Model):
         return f'{self.fee} {commerce_settings.CURRENCY}'
 
 
-class Payment(models.Model):
+class PaymentMethod(models.Model):
     METHOD_CASH_ON_DELIVERY = 'CASH_ON_DELIVERY'
     METHOD_WIRE_TRANSFER = 'WIRE_TRANSFER'
     METHOD_ONLINE_PAYMENT = 'ONLINE_PAYMENT'
@@ -116,7 +116,7 @@ class Payment(models.Model):
     title = models.CharField(_('title'), max_length=50)
     method = models.CharField(_('method'), choices=METHODS, max_length=16)
     fee = models.DecimalField(_('fee'), help_text=commerce_settings.CURRENCY, max_digits=10, decimal_places=2, db_index=True, validators=[MinValueValidator(0)])
-    shippings = models.ManyToManyField(Shipping)
+    shippings = models.ManyToManyField(ShippingOption)
     i18n = TranslationField(fields=('title',))
 
     class Meta:
@@ -212,8 +212,8 @@ class Cart(models.Model):
     phone = models.CharField(_('phone'), max_length=30)
 
     # Shipping and Payment
-    shipping_option = models.ForeignKey(Shipping, verbose_name=_('shipping option'), on_delete=models.PROTECT, null=True, default=None)
-    payment_method = models.ForeignKey(Payment, verbose_name=_('payment method'), on_delete=models.PROTECT, null=True, default=None)
+    shipping_option = models.ForeignKey(ShippingOption, verbose_name=_('shipping option'), on_delete=models.PROTECT, null=True, default=None)
+    payment_method = models.ForeignKey(PaymentMethod, verbose_name=_('payment method'), on_delete=models.PROTECT, null=True, default=None)
 
     # Discount
     discount = models.ForeignKey(Discount, verbose_name=_('discount'), on_delete=models.PROTECT, blank=True, null=True, default=None)
@@ -494,11 +494,11 @@ class Order(models.Model):
     phone = models.CharField(_('phone'), max_length=30)
 
     # Shipping
-    shipping_option = models.ForeignKey(Shipping, on_delete=models.PROTECT, null=True, default=None)
+    shipping_option = models.ForeignKey(ShippingOption, on_delete=models.PROTECT, null=True, default=None)
     shipping_fee = models.DecimalField(_('shipping fee'), help_text=commerce_settings.CURRENCY, max_digits=10, decimal_places=2, db_index=True, validators=[MinValueValidator(0)])
 
     # Payment method
-    payment_method = models.ForeignKey(Payment, on_delete=models.PROTECT, null=True, default=None)
+    payment_method = models.ForeignKey(PaymentMethod, on_delete=models.PROTECT, null=True, default=None)
     payment_fee = models.DecimalField(_('payment fee'), help_text=commerce_settings.CURRENCY, max_digits=10, decimal_places=2, db_index=True, validators=[MinValueValidator(0)])
 
     # Invoices

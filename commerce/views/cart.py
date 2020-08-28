@@ -7,7 +7,7 @@ from django.views import View
 from django.views.generic import DetailView, UpdateView
 
 from commerce.forms import AddressesForm, ShippingAndPaymentForm, DiscountCodeForm
-from commerce.models import Cart, Order, Payment, Item, Option
+from commerce.models import Cart, Order, PaymentMethod, Item, Option
 from commerce.templatetags.commerce import discount_for_product
 
 
@@ -173,7 +173,7 @@ class CheckoutFinishView(CartMixin, DetailView):
                 messages.error(request, _('Missing payment method'))
                 return redirect(order.get_absolute_url())
 
-            if order.payment_method.method == Payment.METHOD_ONLINE_PAYMENT:
+            if order.payment_method.method == PaymentMethod.METHOD_ONLINE_PAYMENT:
                 return redirect(order.get_payment_url())
             # elif order.payment_method.method in [Payment.METHOD_WIRE_TRANSFER, Payment.METHOD_CASH_ON_DELIVERY]:
             #     order.create_invoice()  # TODO: create invoice after successful payment
