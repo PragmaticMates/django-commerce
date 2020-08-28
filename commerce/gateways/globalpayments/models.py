@@ -37,7 +37,7 @@ class Order(models.Model):
 
 
 class Result(models.Model):
-    order = models.ForeignKey(Order, verbose_name=_('order'), on_delete=models.CASCADE)
+    order = models.ForeignKey('globalpayments.Order', verbose_name=_('order'), on_delete=models.CASCADE)
     operation = models.CharField(_('operation'), max_length=20)
     ordernumber = models.PositiveIntegerField(_('order number'))
     merordernum = models.PositiveIntegerField(_('merchant order number'), blank=True, null=True, default=None)

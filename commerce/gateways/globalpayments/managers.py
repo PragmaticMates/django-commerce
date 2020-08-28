@@ -1,5 +1,6 @@
 import base64
 
+import unidecode
 from Crypto.Hash import SHA1
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
@@ -8,11 +9,10 @@ from django.utils.http import urlencode
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 
-from commerce.gateways.globalpayments.models import Result
-from commerce.models import Order
-from inventor.templatetags.inventor import uri
 from commerce import settings as commerce_settings
 from commerce.managers import PaymentManager as CommercePaymentManager
+
+from inventor.templatetags.inventor import uri
 
 
 class PaymentManager(CommercePaymentManager):
@@ -47,6 +47,9 @@ class PaymentManager(CommercePaymentManager):
         from commerce.gateways.globalpayments.models import Order as GPOrder
         gporder = GPOrder.objects.create(order=self.order)
 
+        description = ', '.join([str(item) for item in self.order.purchaseditem_set.all()])
+        description = unidecode.unidecode(description)
+
         return {
             'order': self.order,
             'MERCHANTNUMBER': commerce_settings.GATEWAY_GP_MERCHANT_NUMBER,
@@ -57,6 +60,7 @@ class PaymentManager(CommercePaymentManager):
             'DEPOSITFLAG': 1,
             'MERORDERNUM': self.order.number,
             'URL': uri({}, self.order.get_payment_return_url()),  # absolute URL
+            'DESCRIPTION': description[:255],
             'REFERENCENUMBER': self.order.id
         }
 
@@ -64,7 +68,7 @@ class PaymentManager(CommercePaymentManager):
         d = payment_data or self.payment_data
 
         # MERCHANTNUMBER + | + OPERATION + | + ORDERNUMBER + | + AMOUNT + | + CURRENCY + | + DEPOSITFLAG + | + MERORDERNUM + | + URL + | + REFERENCENUMBER
-        digest_input = f'{d["MERCHANTNUMBER"]}|{d["OPERATION"]}|{d["ORDERNUMBER"]}|{d["AMOUNT"]}|{d["CURRENCY"]}|{d["DEPOSITFLAG"]}|{d["MERORDERNUM"]}|{d["URL"]}|{d["REFERENCENUMBER"]}'
+        digest_input = f'{d["MERCHANTNUMBER"]}|{d["OPERATION"]}|{d["ORDERNUMBER"]}|{d["AMOUNT"]}|{d["CURRENCY"]}|{d["DEPOSITFLAG"]}|{d["MERORDERNUM"]}|{d["URL"]}|{d["DESCRIPTION"]}|{d["REFERENCENUMBER"]}'
 
         # sign
         digest = self.sign(digest_input)
@@ -102,7 +106,7 @@ class PaymentManager(CommercePaymentManager):
         return signer.verify(digest, base64.b64decode(signature))
 
     def handle_payment_result(self, data):
-        # TODO: validation of signature
+        from commerce.gateways.globalpayments.models import Result
 
         result, created = Result.objects.get_or_create(
             order_id=data['ORDERNUMBER'],
@@ -149,13 +153,15 @@ class PaymentManager(CommercePaymentManager):
         # PRCODE = 0 => OK
         if result.prcode == 0:
             from commerce.gateways.globalpayments.models import Order as GPOrder
+            from commerce.models import Order as CommerceOrder
+
             gporder = GPOrder.objects.get(pk=result.ordernumber)
             gporder.status = GPOrder.STATUS_PAID
             gporder.save(update_fields=['status'])
 
-            if self.order.status == Order.STATUS_AWAITING_PAYMENT:
+            if self.order.status == CommerceOrder.STATUS_AWAITING_PAYMENT:
                 # TODO: check order total
-                self.order.status = Order.STATUS_PAYMENT_RECEIVED
+                self.order.status = CommerceOrder.STATUS_PAYMENT_RECEIVED
                 self.order.save(update_fields=['status'])
                 return True, _('Order successfully paid.')
             # TODO: check different order statuses
