@@ -20,6 +20,7 @@ BANK_API = getattr(settings, 'COMMERCE_BANK_API', None)
 GATEWAY_GP_MERCHANT_NUMBER = getattr(settings, 'COMMERCE_GATEWAY_GP_MERCHANT_NUMBER', None)
 GATEWAY_GP_PRIVATE_KEY_PASSWORD = getattr(settings, 'COMMERCE_GATEWAY_GP_PRIVATE_KEY_PASSWORD', None)
 GATEWAY_GP_PRIVATE_KEY_PATH = getattr(settings, 'COMMERCE_GATEWAY_GP_PRIVATE_KEY_PATH', None)
+GATEWAY_GP_PUBLIC_KEY_PATH = getattr(settings, 'COMMERCE_GATEWAY_GP_PUBLIC_KEY_PATH', None)
 GATEWAY_GP_DEBUG = getattr(settings, 'COMMERCE_GATEWAY_GP_DEBUG', False)
 GATEWAY_GP_URL = 'https://3dsecure.gpwebpay.com/pgw/order.do'
 GATEWAY_GP_URL_TEST = 'https://test.3dsecure.gpwebpay.com/pgw/order.do'

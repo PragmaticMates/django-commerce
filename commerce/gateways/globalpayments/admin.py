@@ -28,7 +28,7 @@ class OrderAdmin(admin.ModelAdmin):
 @admin.register(Result)
 class ResultAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
-    list_display = ('id', 'ordernumber', 'merordernum', 'user', 'prcode', 'srcode', 'resulttext', 'created')
+    list_display = ('id', 'ordernumber', 'merordernum', 'user', 'prcode', 'srcode', 'resulttext', 'is_valid', 'created')
     list_select_related = ['order__order__user']
     list_filter = ['prcode', 'srcode', 'resulttext']
     autocomplete_fields = ['order']

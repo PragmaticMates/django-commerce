@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from commerce import settings as commerce_settings
 
 
 class Order(models.Model):
@@ -40,23 +41,23 @@ class Result(models.Model):
     operation = models.CharField(_('operation'), max_length=20)
     ordernumber = models.PositiveIntegerField(_('order number'))
     merordernum = models.PositiveIntegerField(_('merchant order number'), blank=True, null=True, default=None)
-    md = models.CharField(_('md'), max_length=255, default='', blank=True)
+    md = models.CharField(_('md'), max_length=255, blank=True, null=True, default=None)
     prcode = models.PositiveIntegerField(_('primary code'))
     srcode = models.PositiveIntegerField(_('secondary code'))
-    resulttext = models.CharField(_('result text'), max_length=255, default='', blank=True)
-    userparam1 = models.CharField(_('user param 1'), max_length=64, default='', blank=True)
-    addinfo = models.CharField(_('additional information'), max_length=255, default='', blank=True)
-    token = models.CharField(_('token'), max_length=64, default='', blank=True)
-    expiry = models.CharField(_('expiration'), max_length=4, default='', blank=True)
-    acsres = models.CharField(_('authorisation centre result'), max_length=1, default='', blank=True)
-    accode = models.CharField(_('authorisation centre code'), max_length=6, default='', blank=True)
-    panpattern = models.CharField(_('masked card number'), max_length=19, default='', blank=True)
-    daytocapture = models.CharField(_('day to capture'), max_length=8, default='', blank=True)
-    tokenregstatus = models.CharField(_('token registration status'), max_length=10, default='', blank=True)
-    acrc = models.CharField(_('authorisation centre result code'), max_length=2, default='', blank=True)
-    rrn = models.CharField(_('retrieval reference number'), max_length=12, default='', blank=True)
-    par = models.CharField(_('payment account reference'), max_length=29, default='', blank=True)
-    traceid = models.CharField(_('trace ID'), max_length=15, default='', blank=True)
+    resulttext = models.CharField(_('result text'), max_length=255, blank=True, null=True, default=None)
+    userparam1 = models.CharField(_('user param 1'), max_length=64, blank=True, null=True, default=None)
+    addinfo = models.CharField(_('additional information'), max_length=255, blank=True, null=True, default=None)
+    token = models.CharField(_('token'), max_length=64, blank=True, null=True, default=None)
+    expiry = models.CharField(_('expiration'), max_length=4, blank=True, null=True, default=None)
+    acsres = models.CharField(_('authorisation centre result'), max_length=1, blank=True, null=True, default=None)
+    accode = models.CharField(_('authorisation centre code'), max_length=6, blank=True, null=True, default=None)
+    panpattern = models.CharField(_('masked card number'), max_length=19, blank=True, null=True, default=None)
+    daytocapture = models.CharField(_('day to capture'), max_length=8, blank=True, null=True, default=None)
+    tokenregstatus = models.CharField(_('token registration status'), max_length=10, blank=True, null=True, default=None)
+    acrc = models.CharField(_('authorisation centre result code'), max_length=2, blank=True, null=True, default=None)
+    rrn = models.CharField(_('retrieval reference number'), max_length=12, blank=True, null=True, default=None)
+    par = models.CharField(_('payment account reference'), max_length=29, blank=True, null=True, default=None)
+    traceid = models.CharField(_('trace ID'), max_length=15, blank=True, null=True, default=None)
     digest = models.TextField(_('digest'))
     digest1 = models.TextField(_('digest 1'))
     created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
@@ -70,3 +71,16 @@ class Result(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+    def is_valid(self):
+        payment_manager = self.order.order.payment_manager
+
+        data_to_verify = f'{self.operation}'
+        for attr in ['ordernumber', 'merordernum', 'md', 'prcode', 'srcode', 'resulttext', 'userparam1', 'addinfo', 'token', 'expiry', 'acsres', 'accode', 'panpattern', 'daytocapture', 'tokenregstatus', 'acrc', 'rrn', 'par', 'traceid']:
+            value = getattr(self, attr)
+            if value is not None:
+                data_to_verify += f'|{value}'
+
+        digest_verified = payment_manager.verify(self.digest, data_to_verify)
+        digest1_verified = payment_manager.verify(self.digest1, data_to_verify + f'|{commerce_settings.GATEWAY_GP_MERCHANT_NUMBER}')
+        return digest_verified and digest1_verified
