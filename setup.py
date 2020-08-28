@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-from setuptools import setup
-
+from setuptools import setup, find_packages
 
 setup(
     name='django-commerce',
@@ -12,10 +11,14 @@ setup(
     maintainer='Pragmatic Mates',
     maintainer_email='info@pragmaticmates.com',
     url='https://github.com/PragmaticMates/django-commerce',
-    packages=[
-        'commerce',
-        # 'commerce.migrations'
-    ],
+    packages=find_packages(),
+    # [
+    #     'commerce',
+    #     'commerce.migrations',
+    #     'commerce.gateways.globalpayments',
+    #     'commerce.gateways.globalpayments.migrations',
+    #     'commerce.gateways.wiretransfer',
+    # ],
     include_package_data=True,
     install_requires=('django', 'django-invoicing'),
     classifiers=[
