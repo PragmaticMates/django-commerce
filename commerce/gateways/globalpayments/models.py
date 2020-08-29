@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from commerce import settings as commerce_settings
 
 
-class Order(models.Model):
+class Payment(models.Model):
     STATUS_PROCESSING = 'PROCESSING'
     STATUS_APPROVED = 'APPROVED'
     STATUS_PAID = 'PAID'
@@ -27,8 +27,8 @@ class Order(models.Model):
     modified = models.DateTimeField(_('modified'), auto_now=True)
 
     class Meta:
-        verbose_name = _('order')
-        verbose_name_plural = _('orders')
+        verbose_name = _('payment')
+        verbose_name_plural = _('payments')
         ordering = ('created',)
         get_latest_by = 'created'
 
@@ -37,7 +37,7 @@ class Order(models.Model):
 
 
 class Result(models.Model):
-    order = models.ForeignKey('globalpayments.Order', verbose_name=_('order'), on_delete=models.CASCADE)
+    payment = models.ForeignKey(Payment, verbose_name=_('order'), on_delete=models.CASCADE)
     operation = models.CharField(_('operation'), max_length=20)
     ordernumber = models.PositiveIntegerField(_('order number'))
     merordernum = models.PositiveIntegerField(_('merchant order number'), blank=True, null=True, default=None)
@@ -73,7 +73,7 @@ class Result(models.Model):
         return str(self.id)
 
     def is_valid(self):
-        payment_manager = self.order.order.payment_manager
+        payment_manager = self.payment.order.payment_manager
 
         data_to_verify = f'{self.operation}'
         for attr in ['ordernumber', 'merordernum', 'md', 'prcode', 'srcode', 'resulttext', 'userparam1', 'addinfo', 'token', 'expiry', 'acsres', 'accode', 'panpattern', 'daytocapture', 'tokenregstatus', 'acrc', 'rrn', 'par', 'traceid']:

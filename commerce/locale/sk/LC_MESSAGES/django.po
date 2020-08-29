@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-28 11:24+0200\n"
-"PO-Revision-Date: 2020-08-28 11:34+0058\n"
+"POT-Creation-Date: 2020-08-29 20:20+0200\n"
+"PO-Revision-Date: 2020-08-29 20:21+0058\n"
 "Last-Translator: b'Erik Telepovsky <erik@pragmaticmates.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -143,28 +143,27 @@ msgstr "Platobná metóda nie je dostupná pre možnosť dopravy %s"
 msgid "Pay"
 msgstr "Zaplatiť"
 
-#: gateways/globalpayments/managers.py:135
+#: gateways/globalpayments/managers.py:139
 msgid "Invalid payment signature."
 msgstr "Nesprávny podpis platby."
 
-#: gateways/globalpayments/managers.py:143
+#: gateways/globalpayments/managers.py:147
 msgid "Payment failed. Error detail:"
 msgstr "Platba zlyhala. Chyba:"
 
-#: gateways/globalpayments/managers.py:147
+#: gateways/globalpayments/managers.py:151
 msgid "Transaction not recognised"
 msgstr "Transakcia nebola rozoznaná"
 
-#: gateways/globalpayments/managers.py:160
+#: gateways/globalpayments/managers.py:166
 msgid "Order successfully paid."
 msgstr "Objednávka úspešne uhradená."
 
-#: gateways/globalpayments/managers.py:163
+#: gateways/globalpayments/managers.py:169
 msgid "Payment without result."
 msgstr "Platba bez výsledku."
 
 #: gateways/globalpayments/models.py:16
-#| msgid "Processing"
 msgid "processing"
 msgstr "spracovávaná"
 
@@ -181,7 +180,6 @@ msgid "partial"
 msgstr "čiastočne zaplatená"
 
 #: gateways/globalpayments/models.py:20
-#| msgid "Cancelled"
 msgid "canceled"
 msgstr "zrušená"
 
@@ -193,8 +191,8 @@ msgstr "nezaplatená"
 msgid "returned"
 msgstr "vrátená"
 
-#: gateways/globalpayments/models.py:24 gateways/globalpayments/models.py:30
-#: gateways/globalpayments/models.py:40 models.py:518
+#: gateways/globalpayments/models.py:24 gateways/globalpayments/models.py:40
+#: models.py:518
 msgid "order"
 msgstr "objednávka"
 
@@ -212,17 +210,21 @@ msgstr "vytvorené"
 msgid "modified"
 msgstr "upravené"
 
-#: gateways/globalpayments/models.py:31 models.py:519
-msgid "orders"
-msgstr "objednávky"
+#: gateways/globalpayments/models.py:30
+#| msgid "Payment"
+msgid "payment"
+msgstr "platba"
+
+#: gateways/globalpayments/models.py:31
+#| msgid "Payment"
+msgid "payments"
+msgstr "platby"
 
 #: gateways/globalpayments/models.py:41
-#| msgid "option"
 msgid "operation"
 msgstr "operácia"
 
 #: gateways/globalpayments/models.py:42
-#| msgid "number"
 msgid "order number"
 msgstr "číslo objednávky"
 
@@ -239,7 +241,6 @@ msgid "primary code"
 msgstr "primárny kód"
 
 #: gateways/globalpayments/models.py:46
-#| msgid "Discount code"
 msgid "secondary code"
 msgstr "sekundárny kód"
 
@@ -252,7 +253,6 @@ msgid "user param 1"
 msgstr "užívateľský parameter 1"
 
 #: gateways/globalpayments/models.py:49
-#| msgid "Contact information"
 msgid "additional information"
 msgstr "dodatočné informácie"
 
@@ -261,7 +261,6 @@ msgid "token"
 msgstr "token"
 
 #: gateways/globalpayments/models.py:51
-#| msgid "option"
 msgid "expiration"
 msgstr "expirácia"
 
@@ -274,17 +273,14 @@ msgid "authorisation centre code"
 msgstr "kód z autorizačného centra"
 
 #: gateways/globalpayments/models.py:54
-#| msgid "street and number"
 msgid "masked card number"
 msgstr "zamaskované číslo karty"
 
 #: gateways/globalpayments/models.py:55
-#| msgid "add to cart"
 msgid "day to capture"
 msgstr "zachytiť dňa"
 
 #: gateways/globalpayments/models.py:56
-#| msgid "Company Registration No."
 msgid "token registration status"
 msgstr "registračný status tokenu"
 
@@ -297,7 +293,6 @@ msgid "retrieval reference number"
 msgstr "vyhľadávacie referenčné číslo"
 
 #: gateways/globalpayments/models.py:59
-#| msgid "payment fee"
 msgid "payment account reference"
 msgstr "referencia platobného účtu"
 
@@ -603,6 +598,10 @@ msgstr "faktúry"
 msgid "reminder sent"
 msgstr "pripomienka zaslaná"
 
+#: models.py:519
+msgid "orders"
+msgstr "objednávky"
+
 #: models.py:662 templates/commerce/checkout_summary.html:34
 msgid "Shipping fee"
 msgstr "Poplatok za doručenie"
@@ -684,17 +683,14 @@ msgid "Variable symbol"
 msgstr "Variabilný symbol"
 
 #: templates/commerce/admin/sync_transactions.html:13
-#| msgid "Order details: %d"
 msgid "Order details"
 msgstr "Detaily objednávky"
 
 #: templates/commerce/admin/sync_transactions.html:14
-#| msgid "Send reminder"
 msgid "Sender"
 msgstr "Odosielateľ"
 
 #: templates/commerce/admin/sync_transactions.html:15
-#| msgid "Contact information"
 msgid "Information"
 msgstr "Informácie"
 
@@ -703,12 +699,10 @@ msgid "Errors"
 msgstr "Chyby"
 
 #: templates/commerce/admin/sync_transactions.html:29
-#| msgid "Status"
 msgid "Status before"
 msgstr "Stav pred"
 
 #: templates/commerce/admin/sync_transactions.html:30
-#| msgid "Status"
 msgid "Status after"
 msgstr "Stav po"
 
@@ -890,7 +884,6 @@ msgstr "Zakúpené položky"
 
 #: templates/commerce/mails/order_details.txt:11
 #: templates/commerce/mails/order_reminder.txt:11
-#| msgid "Payment fee"
 msgid "Payment"
 msgstr "Platba"
 
@@ -1001,8 +994,6 @@ msgid "order/<int:number>/payment/"
 msgstr "objednavka/<int:number>/platba/"
 
 #: urls.py:19
-#| msgctxt "url"
-#| msgid "order/<int:number>/payment/"
 msgctxt "url"
 msgid "order/<int:number>/payment/return/"
 msgstr "objednavka/<int:number>/platba/navrat/"

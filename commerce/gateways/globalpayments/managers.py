@@ -10,7 +10,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 
 from commerce import settings as commerce_settings
+from commerce.gateways.globalpayments.models import Payment
 from commerce.managers import PaymentManager as CommercePaymentManager
+from commerce.models import Order
 
 from inventor.templatetags.inventor import uri
 
@@ -44,8 +46,7 @@ class PaymentManager(CommercePaymentManager):
 
     @property
     def payment_data(self):
-        from commerce.gateways.globalpayments.models import Order as GPOrder
-        gporder = GPOrder.objects.create(order=self.order)
+        payment = Payment.objects.create(order=self.order)
 
         description = ', '.join([str(item) for item in self.order.purchaseditem_set.all()])
         description = unidecode.unidecode(description)
@@ -54,7 +55,7 @@ class PaymentManager(CommercePaymentManager):
             'order': self.order,
             'MERCHANTNUMBER': commerce_settings.GATEWAY_GP_MERCHANT_NUMBER,
             'OPERATION': 'CREATE_ORDER',
-            'ORDERNUMBER': gporder.id,
+            'ORDERNUMBER': payment.id,
             'AMOUNT': self.order.total_in_cents,
             'CURRENCY': '',  # empty value is default value of payment gateway merchant eshop
             'DEPOSITFLAG': 1,
@@ -109,7 +110,7 @@ class PaymentManager(CommercePaymentManager):
         from commerce.gateways.globalpayments.models import Result
 
         result, created = Result.objects.get_or_create(
-            order_id=data['ORDERNUMBER'],
+            payment_id=int(data['ORDERNUMBER']),
             operation=data['OPERATION'],
             ordernumber=int(data['ORDERNUMBER']),
             merordernum=int(data['MERORDERNUM']) if 'MERORDERNUM' in data else None,
@@ -147,21 +148,18 @@ class PaymentManager(CommercePaymentManager):
             return False, '{} {}'.format(_('Payment failed. Error detail:'), result.resulttext)
 
         # check if order order/transaction id is correct
-        if not self.order.order_set.filter(id=result.ordernumber).exists():
+        if not self.order.payment_set.filter(id=result.ordernumber).exists():
             return False, _('Transaction not recognised')
 
         # PRCODE = 0 => OK
         if result.prcode == 0:
-            from commerce.gateways.globalpayments.models import Order as GPOrder
-            from commerce.models import Order as CommerceOrder
+            payment = Payment.objects.get(pk=result.ordernumber)
+            payment.status = Payment.STATUS_PAID
+            payment.save(update_fields=['status'])
 
-            gporder = GPOrder.objects.get(pk=result.ordernumber)
-            gporder.status = GPOrder.STATUS_PAID
-            gporder.save(update_fields=['status'])
-
-            if self.order.status == CommerceOrder.STATUS_AWAITING_PAYMENT:
+            if self.order.status == Order.STATUS_AWAITING_PAYMENT:
                 # TODO: check order total
-                self.order.status = CommerceOrder.STATUS_PAYMENT_RECEIVED
+                self.order.status = Order.STATUS_PAYMENT_RECEIVED
                 self.order.save(update_fields=['status'])
                 return True, _('Order successfully paid.')
             # TODO: check different order statuses

@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from commerce.gateways.globalpayments.models import Order, Result
+from commerce.gateways.globalpayments.models import Payment, Result
 
 
-@admin.register(Order)
+@admin.register(Payment)
 class OrderAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
     search_fields = ['order__number', 'order__user__email', 'order__user__first_name', 'order__user__last_name', 'order__delivery_name', 'order__delivery_street', 'order__delivery_postcode',
@@ -29,11 +29,11 @@ class OrderAdmin(admin.ModelAdmin):
 class ResultAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
     list_display = ('id', 'ordernumber', 'merordernum', 'user', 'prcode', 'srcode', 'resulttext', 'is_valid', 'created')
-    list_select_related = ['order__order__user']
+    list_select_related = ['payment__order__user', 'payment__order__payment_method']
     list_filter = ['prcode', 'srcode', 'resulttext']
-    autocomplete_fields = ['order']
+    autocomplete_fields = ['payment']
     readonly_fields = ['created', 'modified']
     ordering = ['-created']
 
     def user(self, obj):
-        return obj.order.order.user
+        return obj.payment.order.user
