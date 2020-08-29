@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 
 from commerce import settings as commerce_settings
-from commerce.gateways.globalpayments.models import Payment
+from commerce.gateways.globalpayments.models import Payment, Result
 from commerce.managers import PaymentManager as CommercePaymentManager
 from commerce.models import Order
 
@@ -55,7 +55,7 @@ class PaymentManager(CommercePaymentManager):
             'order': self.order,
             'MERCHANTNUMBER': commerce_settings.GATEWAY_GP_MERCHANT_NUMBER,
             'OPERATION': 'CREATE_ORDER',
-            'ORDERNUMBER': payment.id,
+            'ORDERNUMBER': self.get_order_number_from_payment_id(payment.id),
             'AMOUNT': self.order.total_in_cents,
             'CURRENCY': '',  # empty value is default value of payment gateway merchant eshop
             'DEPOSITFLAG': 1,
@@ -106,11 +106,17 @@ class PaymentManager(CommercePaymentManager):
         digest.update(data.encode("utf-8"))
         return signer.verify(digest, base64.b64decode(signature))
 
+    def get_payment_id_from_order_number(self, order_number):
+        return order_number - commerce_settings.GATEWAY_GP_ORDER_NUMBER_STARTS_FROM + 1
+
+    def get_order_number_from_payment_id(self, payment_id):
+        return payment_id + commerce_settings.GATEWAY_GP_ORDER_NUMBER_STARTS_FROM - 1
+
     def handle_payment_result(self, data):
-        from commerce.gateways.globalpayments.models import Result
+        payment_id = self.get_payment_id_from_order_number(int(data['ORDERNUMBER']))
 
         result, created = Result.objects.get_or_create(
-            payment_id=int(data['ORDERNUMBER']),
+            payment_id=payment_id,
             operation=data['OPERATION'],
             ordernumber=int(data['ORDERNUMBER']),
             merordernum=int(data['MERORDERNUM']) if 'MERORDERNUM' in data else None,
@@ -148,12 +154,12 @@ class PaymentManager(CommercePaymentManager):
             return False, '{} {}'.format(_('Payment failed. Error detail:'), result.resulttext)
 
         # check if order order/transaction id is correct
-        if not self.order.payment_set.filter(id=result.ordernumber).exists():
+        if not self.order.payment_set.filter(id=payment_id).exists():
             return False, _('Transaction not recognised')
 
         # PRCODE = 0 => OK
         if result.prcode == 0:
-            payment = Payment.objects.get(pk=result.ordernumber)
+            payment = Payment.objects.get(pk=payment_id)
             payment.status = Payment.STATUS_PAID
             payment.save(update_fields=['status'])
 
