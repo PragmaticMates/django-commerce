@@ -8,7 +8,7 @@ from django.forms import Form
 from django.template import Template, Context, loader
 from django.utils.translation import ugettext_lazy as _
 
-from commerce.models import Cart, Discount
+from commerce.models import Cart, Discount, ShippingOption
 
 
 class DiscountCodeForm(forms.ModelForm):
@@ -113,11 +113,7 @@ class ShippingAndPaymentForm(forms.ModelForm):
         self.fields['payment_method'].label = ''
 
         # shipping options
-        delivery_country = self.instance.delivery_country
-        shipping_options = self.fields['shipping_option'].queryset
-        country_shipping_options = shipping_options.filter(countries__contains=[delivery_country])
-        shipping_options = country_shipping_options if country_shipping_options.exists() else shipping_options.filter(countries=[])
-        self.fields['shipping_option'].queryset = shipping_options
+        self.fields['shipping_option'].queryset = ShippingOption.objects.for_country(self.instance.delivery_country)
 
         # form
         self.helper = FormHelper()

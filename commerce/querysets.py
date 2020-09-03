@@ -83,3 +83,15 @@ class DiscountCodeQuerySet(models.QuerySet):
 
     def for_content_types(self, content_types):
         return self.filter(content_types__in=content_types)
+
+
+class ShippingOptionQuerySet(models.QuerySet):
+    def for_country(self, country):
+        country_shipping_options = self.filter(countries__contains=[country])
+
+        if country_shipping_options.exists():
+            # country specific shipping options
+            return country_shipping_options
+
+        # shipping options for all countries (general)
+        return self.filter(countries=[])

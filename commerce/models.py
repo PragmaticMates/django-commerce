@@ -20,7 +20,7 @@ from internationalflavor.vat_number import VATNumberField
 from modeltrans.fields import TranslationField
 
 from commerce import settings as commerce_settings
-from commerce.querysets import OrderQuerySet, PurchasedItemQuerySet, DiscountCodeQuerySet
+from commerce.querysets import OrderQuerySet, PurchasedItemQuerySet, DiscountCodeQuerySet, ShippingOptionQuerySet
 from invoicing.models import Invoice, Item as InvoiceItem
 from pragmatic.fields import ChoiceArrayField
 from pragmatic.managers import EmailManager
@@ -87,6 +87,7 @@ class ShippingOption(models.Model):
                            base_field=CountryField(verbose_name=_('country')), size=50,
                            blank=True, default=list)
     i18n = TranslationField(fields=('title',))
+    objects = ShippingOptionQuerySet.as_manager()
 
     class Meta:
         verbose_name = _('shipping option')
@@ -600,6 +601,14 @@ class Order(models.Model):
             self.number = Order.get_next_number()
 
         return super().save(*args, **kwargs)
+
+    def has_item_of_type(self, model):
+        return self.items_of_type(model).exists()
+
+    def items_of_type(self, model):
+        return self.purchaseditem_set.filter(
+            content_type=ContentType.objects.get_for_model(model),
+        )
 
     def create_invoice(self, type=Invoice.TYPE.INVOICE, status=Invoice.STATUS.SENT):
         language = self.user.preferred_language

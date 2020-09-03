@@ -41,7 +41,7 @@ class OrderPaymentReturnView(LoginRequiredMixin, DetailView):
 
         if success:
             messages.success(request, message)
-            return redirect('inventor:accounts:user_dashboard')  # TODO: add new setting: COMMERCE_SUCCESSFUL_PAYMENT_REDIRECT_URL
+            return redirect(commerce_settings.SUCCESSFUL_PAYMENT_REDIRECT_URL)
         else:
             messages.error(request, message)
             return redirect('commerce:orders')  # TODO: add new setting: COMMERCE_FAILED_PAYMENT_REDIRECT_URL

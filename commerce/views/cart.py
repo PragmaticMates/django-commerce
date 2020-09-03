@@ -7,7 +7,7 @@ from django.views import View
 from django.views.generic import DetailView, UpdateView
 
 from commerce.forms import AddressesForm, ShippingAndPaymentForm, DiscountCodeForm
-from commerce.models import Cart, Order, PaymentMethod, Item, Option
+from commerce.models import Cart, Order, PaymentMethod, Item, Option, ShippingOption
 from commerce.templatetags.commerce import discount_for_product
 
 
@@ -154,6 +154,25 @@ class CheckoutShippingAndPaymentView(CartMixin, EmptyCartRedirectMixin, UpdateVi
     def form_valid(self, form):
         form.save()
         return redirect('commerce:checkout_summary')
+
+    def get_initial(self):
+        initial = super().get_initial()
+
+        shipping_options = ShippingOption.objects.for_country(self.object.delivery_country)
+
+        if shipping_options.count() == 1:
+            initial.update({
+                'shipping_option': shipping_options.first()
+            })
+
+        payment_methods = PaymentMethod.objects.all()
+
+        if payment_methods.count() == 1:
+            initial.update({
+                'payment_method': payment_methods.first()
+            })
+
+        return initial
 
 
 class CheckoutSummaryView(CartMixin, EmptyCartRedirectMixin, DetailView):

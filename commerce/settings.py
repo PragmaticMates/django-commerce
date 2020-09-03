@@ -6,6 +6,7 @@ PAYMENT_MANAGERS = getattr(settings, 'COMMERCE_PAYMENT_MANAGERS', {
     'WIRE_TRANSFER': 'commerce.gateways.wiretransfer.managers.PaymentManager',
     'ONLINE_PAYMENT': 'commerce.gateways.globalpayments.managers.PaymentManager'
 })
+SUCCESSFUL_PAYMENT_REDIRECT_URL = getattr(settings, 'COMMERCE_SUCCESSFUL_PAYMENT_REDIRECT_URL', '/')
 IBAN = getattr(settings, 'COMMERCE_IBAN', '')
 BIC_SWIFT = getattr(settings, 'COMMERCE_BIC_SWIFT', '')
 BANK_NAME = getattr(settings, 'COMMERCE_BANK_NAME', '')
