@@ -8,6 +8,7 @@ from commerce.tasks import notify_about_new_order, notify_about_changed_order_st
 from pragmatic.signals import apm_custom_context, SignalsHelper
 
 checkout_finished = django.dispatch.Signal(providing_args=["order"])
+cart_updated = django.dispatch.Signal(providing_args=["item"])
 
 
 @receiver(checkout_finished, sender=Cart)

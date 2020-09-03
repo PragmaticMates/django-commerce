@@ -29,6 +29,7 @@ class SupplyInline(GenericStackedInline):
     model = Supply
     extra = 1
     max_num = 1
+    inlines = None
 
 
 @admin.register(Cart)

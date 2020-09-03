@@ -297,6 +297,11 @@ class Cart(models.Model):
             option=option
         ).exists()
 
+    def has_item_of_type(self, model):
+        return self.item_set.filter(
+            content_type=ContentType.objects.get_for_model(model),
+        ).exists()
+
     def add_item(self, product, option=None):
         item, created = Item.objects.get_or_create(
             cart=self,
@@ -308,6 +313,9 @@ class Cart(models.Model):
         if not created:
             item.quantity += 1
             item.save(update_fields=['quantity'])
+
+        # call custom signal
+        cart_updated.send(sender=self.__class__, item=item)
 
         return item
 
