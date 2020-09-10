@@ -5,11 +5,13 @@ from django.db.models import Q
 from django.utils.timezone import now
 
 
-
 class CartQuerySet(models.QuerySet):
     def old(self, days=1):
         threshold = now() - timedelta(days=days)
         return self.filter(created__lte=threshold)
+
+    def empty(self):
+        return self.filter(item__isnull=True)
 
 
 class OrderQuerySet(models.QuerySet):

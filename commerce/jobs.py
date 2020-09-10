@@ -37,3 +37,13 @@ def cancel_unpaid_orders():
                     Invoice.STATUS.RETURNED]):
             invoice.status = Invoice.STATUS.CANCELED
             invoice.save(update_fields=['status'])
+
+
+@job(commerce_settings.REDIS_QUEUE)
+def delete_old_empty_carts():
+    from commerce.models import Cart
+
+    empty_old_carts = Cart.objects.old().empty()
+    total_carts = empty_old_carts.count()
+    print(f'Found {total_carts} old empty carts')
+    empty_old_carts.delete()

@@ -8,4 +8,6 @@ def cancel_unpaid_orders():
     jobs.cancel_unpaid_orders.delay()
 
 
-# TODO: delete old empty carts
+def delete_old_empty_carts():
+    from commerce import jobs
+    jobs.delete_old_empty_carts.delay()
