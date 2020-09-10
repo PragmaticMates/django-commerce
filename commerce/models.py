@@ -75,7 +75,7 @@ class AbstractProduct(models.Model):
     @cached_property
     def in_stock(self):
         if self.availability == self.AVAILABILITY_INFINITE:
-            return 99999  # TODO: more sofisticated solution
+            return 99999  # TODO: more sophisticated solution
 
         return self.total_supplies - self.purchased
 
@@ -84,7 +84,7 @@ class ShippingOption(models.Model):
     title = models.CharField(_('title'), max_length=50)
     fee = models.DecimalField(_('fee'), help_text=commerce_settings.CURRENCY, max_digits=10, decimal_places=2, db_index=True, validators=[MinValueValidator(0)])
     countries = ChoiceArrayField(verbose_name=_('countries'),
-                           base_field=CountryField(verbose_name=_('country')), size=50,
+                           base_field=CountryField(verbose_name=_('country')), size=100,
                            blank=True, default=list)
     i18n = TranslationField(fields=('title',))
     objects = ShippingOptionQuerySet.as_manager()

@@ -41,4 +41,7 @@ class Config(AppConfig):
             timeout=settings.RQ_QUEUES['cron']['DEFAULT_TIMEOUT']
         )
 
+        # TODO: delete old abandoned carts (not empty, but youngest item is old already)
+        # TODO: notify not empty abandoned carts
+
         print('Commerce jobs scheduled.')
