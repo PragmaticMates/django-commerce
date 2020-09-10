@@ -37,7 +37,8 @@ class AddToCartView(LoginRequiredMixin, View):
                     if not cart.discount.is_valid:
                         cart.discount = None
                         cart.save(update_fields=['discount'])
-                else:
+
+                if not cart.discount:
                     # if no discount is applied yet, check if there is a valid discount available for product
                     self.apply_discount_by_product(cart, product)
 
