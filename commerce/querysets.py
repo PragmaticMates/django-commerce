@@ -5,6 +5,13 @@ from django.db.models import Q
 from django.utils.timezone import now
 
 
+
+class CartQuerySet(models.QuerySet):
+    def old(self, days=1):
+        threshold = now() - timedelta(days=days)
+        return self.filter(created__lte=threshold)
+
+
 class OrderQuerySet(models.QuerySet):
     def awaiting_payment(self):
         return self.filter(status=self.model.STATUS_AWAITING_PAYMENT)
@@ -33,8 +40,6 @@ class OrderQuerySet(models.QuerySet):
         return self.filter(reminder_sent=None)
 
     def old(self, days=7):
-        # now - created > days
-        # created < now - days
         threshold = now() - timedelta(days=days)
         return self.filter(created__lte=threshold)
 

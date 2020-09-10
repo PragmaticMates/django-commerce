@@ -28,10 +28,17 @@ class AddToCartView(LoginRequiredMixin, View):
             messages.warning(request, _(f'You can order at most %d items at once') % MAX_ITEMS)
         else:
             if ALLOW_MULTIPLE_SAME_ITEMS or not cart.has_item(product, option):
+                # add item into cart
                 cart.add_item(product, option)
 
                 # discount
-                if not cart.discount:
+                if cart.discount:
+                    # remove discount if it is not valid anymore
+                    if not cart.discount.is_valid:
+                        cart.discount = None
+                        cart.save(update_fields=['discount'])
+                else:
+                    # if no discount is applied yet, check if there is a valid discount available for product
                     self.apply_discount_by_product(cart, product)
 
                 messages.info(request, _('%s was added into cart') % product)
@@ -69,6 +76,10 @@ class RemoveFromCartView(LoginRequiredMixin, View):
             if item.quantity <= 0:
                 item.delete()
             messages.info(request, _('%s removed from cart') % item)
+
+        # delete empty cart
+        if not cart.item_set.exists():
+            cart.delete()
 
         back_url = request.GET.get('back_url', cart.get_absolute_url())
         return redirect(back_url)
