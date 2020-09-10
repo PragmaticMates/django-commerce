@@ -19,7 +19,7 @@ class Config(AppConfig):
 
         # Cron task to cancel unpaid orders
         scheduler.cron(
-            "0 9 * * *",  # Run every day at 9:00
+            "0 9 * * *",  # Run every day at 9:00 [UTC]
             # "* * * * *",  # Run every minute (DEBUG)
             func=cancel_unpaid_orders,
             timeout=settings.RQ_QUEUES['cron']['DEFAULT_TIMEOUT']
@@ -27,7 +27,7 @@ class Config(AppConfig):
 
         # Cron task to send order reminders
         scheduler.cron(
-            "0 10 * * *",  # Run every day at 10:00
+            "0 10 * * *",  # Run every day at 10:00 [UTC]
             # "* * * * *",  # Run every minute (DEBUG)
             func=send_order_reminders,
             timeout=settings.RQ_QUEUES['cron']['DEFAULT_TIMEOUT']
@@ -35,7 +35,7 @@ class Config(AppConfig):
 
         # Cron task to delete old empty carts
         scheduler.cron(
-            "0 1 * * *",  # Run every day at 01:00
+            "0 1 * * *",  # Run every day at 01:00 [UTC]
             # "* * * * *",  # Run every minute (DEBUG)
             func=delete_old_empty_carts,
             timeout=settings.RQ_QUEUES['cron']['DEFAULT_TIMEOUT']
