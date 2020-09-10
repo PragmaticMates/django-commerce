@@ -77,6 +77,13 @@ class RemoveFromCartView(LoginRequiredMixin, View):
                 item.delete()
             messages.info(request, _('%s removed from cart') % item)
 
+        # discount
+        if cart.discount:
+            # remove discount if it is not valid anymore
+            if not cart.discount.is_valid:
+                cart.discount = None
+                cart.save(update_fields=['discount'])
+
         # delete empty cart
         if not cart.item_set.exists():
             cart.delete()
