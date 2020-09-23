@@ -748,7 +748,7 @@ class PurchasedItem(models.Model):
         return f'{self.subtotal} {commerce_settings.CURRENCY}'
 
     def get_absolute_url(self):
-        return self.product.get_absolute_url()
+        return self.product.get_absolute_url() if self.product else None
 
 
 class Supply(models.Model):
