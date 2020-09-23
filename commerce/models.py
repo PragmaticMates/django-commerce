@@ -734,11 +734,19 @@ class PurchasedItem(models.Model):
         verbose_name_plural = _('purchased items')
 
     def __str__(self):
-        return str(self.product)
+        try:
+            return str(self.product)
+        except AttributeError:
+            return 'Product deleted'
 
     @property
     def title_with_option(self):
-        return f'{self.product} ({self.option})' if self.option else str(self.product)
+        try:
+            product_display = str(self.product)
+        except AttributeError:
+            product_display = 'Product deleted'
+
+        return f'{product_display} ({self.option})' if self.option else product_display
 
     @property
     def subtotal(self):
@@ -748,7 +756,10 @@ class PurchasedItem(models.Model):
         return f'{self.subtotal} {commerce_settings.CURRENCY}'
 
     def get_absolute_url(self):
-        return self.product.get_absolute_url() if self.product else None
+        try:
+            return self.product.get_absolute_url()
+        except AttributeError:
+            return None
 
 
 class Supply(models.Model):
