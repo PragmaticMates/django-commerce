@@ -84,8 +84,8 @@ class ShippingOption(models.Model):
     title = models.CharField(_('title'), max_length=50)
     fee = models.DecimalField(_('fee'), help_text=commerce_settings.CURRENCY, max_digits=10, decimal_places=2, db_index=True, validators=[MinValueValidator(0)])
     countries = ChoiceArrayField(verbose_name=_('countries'),
-                           base_field=CountryField(verbose_name=_('country')), size=100,
-                           blank=True, default=list)
+                                 base_field=CountryField(verbose_name=_('country')), size=100,
+                                 blank=True, default=list)
     i18n = TranslationField(fields=('title',))
     objects = ShippingOptionQuerySet.as_manager()
 
@@ -154,7 +154,7 @@ class Discount(models.Model):
     class Meta:
         verbose_name = _('discount')
         verbose_name_plural = _('discounts')
-        ordering = ('valid_until', )
+        ordering = ('valid_until',)
         indexes = [GinIndex(fields=["i18n"]), ]
 
     def __str__(self):
@@ -277,7 +277,7 @@ class Cart(models.Model):
     @property
     def open(self):
         return now() - self.created
-    
+
     @property
     def items_quantity(self):
         return sum([item.quantity for item in self.item_set.all()])
@@ -292,7 +292,7 @@ class Cart(models.Model):
             return None
 
         return not self.is_empty()
-    
+
     def has_item(self, product, option=None):
         return self.item_set.filter(
             content_type=ContentType.objects.get_for_model(product),
@@ -442,22 +442,22 @@ class Item(models.Model):
 
 
 class Order(models.Model):
-    STATUS_AWAITING_PAYMENT = 'AWAITING_PAYMENT'            # Customer has completed the checkout process, but payment has yet to be confirmed. Authorize only transactions that are not yet captured have this status.
-    STATUS_PENDING = 'PENDING'                              # Customer finished checkout process and didn't have to pay for it, because total price <= 0
-    STATUS_PAYMENT_RECEIVED = 'PAYMENT_RECEIVED'            # Customer paid order and merchant received the successful transaction.
-    STATUS_PROCESSING = 'PROCESSING'                        # Customer paid order and merchant received the successful transaction.
-    STATUS_AWAITING_FULFILLMENT = 'AWAITING_FULFILLMENT'    # Customer has completed the checkout process and payment has been confirmed.
-    STATUS_AWAITING_SHIPMENT = 'AWAITING_SHIPMENT'          # Order has been pulled and packaged and is awaiting collection from a shipping provider.
-    STATUS_AWAITING_PICKUP = 'AWAITING_PICKUP'              # Order has been packaged and is awaiting customer pickup from a seller-specified location.
-    STATUS_PARTIALLY_SHIPPED = 'PARTIALLY_SHIPPED'          # Only some items in the order have been shipped, due to some products being pre-order only or other reasons.
-    STATUS_SHIPPED = 'SHIPPED'                              # Order has been shipped, but receipt has not been confirmed; seller has used the Ship Items action.
-    STATUS_COMPLETED = 'COMPLETED'                          # Order has been shipped/picked up, and receipt is confirmed; client has paid for their digital product, and their file(s) are available for download.
-    STATUS_CANCELLED = 'CANCELLED'                          # Seller has cancelled an order, due to a stock inconsistency or other reasons. Stock levels will automatically update depending on your Inventory Settings. Cancelling an order will not refund the order.
-    STATUS_DECLINED = 'DECLINED'                            # Seller has marked the order as declined for lack of manual payment, or other reasons
-    STATUS_REFUNDED = 'REFUNDED'                            # Seller has used the Refund action.
-    STATUS_PARTIALLY_REFUNDED = 'PARTIALLY_REFUNDED'        # Seller has partially refunded the order.
-    STATUS_DISPUTED = 'DISPUTED'                            # Customer has initiated a dispute resolution process for the transaction that paid for the order.
-    STATUS_ON_HOLD = 'ON_HOLD'                              # Order on hold while some aspect (e.g. tax-exempt documentation) needs to be manually confirmed. Orders with this status must be updated manually. Capturing funds or other order actions will not automatically update the status of an order.
+    STATUS_AWAITING_PAYMENT = 'AWAITING_PAYMENT'  # Customer has completed the checkout process, but payment has yet to be confirmed. Authorize only transactions that are not yet captured have this status.
+    STATUS_PENDING = 'PENDING'  # Customer finished checkout process and didn't have to pay for it, because total price <= 0
+    STATUS_PAYMENT_RECEIVED = 'PAYMENT_RECEIVED'  # Customer paid order and merchant received the successful transaction.
+    STATUS_PROCESSING = 'PROCESSING'  # Customer paid order and merchant received the successful transaction.
+    STATUS_AWAITING_FULFILLMENT = 'AWAITING_FULFILLMENT'  # Customer has completed the checkout process and payment has been confirmed.
+    STATUS_AWAITING_SHIPMENT = 'AWAITING_SHIPMENT'  # Order has been pulled and packaged and is awaiting collection from a shipping provider.
+    STATUS_AWAITING_PICKUP = 'AWAITING_PICKUP'  # Order has been packaged and is awaiting customer pickup from a seller-specified location.
+    STATUS_PARTIALLY_SHIPPED = 'PARTIALLY_SHIPPED'  # Only some items in the order have been shipped, due to some products being pre-order only or other reasons.
+    STATUS_SHIPPED = 'SHIPPED'  # Order has been shipped, but receipt has not been confirmed; seller has used the Ship Items action.
+    STATUS_COMPLETED = 'COMPLETED'  # Order has been shipped/picked up, and receipt is confirmed; client has paid for their digital product, and their file(s) are available for download.
+    STATUS_CANCELLED = 'CANCELLED'  # Seller has cancelled an order, due to a stock inconsistency or other reasons. Stock levels will automatically update depending on your Inventory Settings. Cancelling an order will not refund the order.
+    STATUS_DECLINED = 'DECLINED'  # Seller has marked the order as declined for lack of manual payment, or other reasons
+    STATUS_REFUNDED = 'REFUNDED'  # Seller has used the Refund action.
+    STATUS_PARTIALLY_REFUNDED = 'PARTIALLY_REFUNDED'  # Seller has partially refunded the order.
+    STATUS_DISPUTED = 'DISPUTED'  # Customer has initiated a dispute resolution process for the transaction that paid for the order.
+    STATUS_ON_HOLD = 'ON_HOLD'  # Order on hold while some aspect (e.g. tax-exempt documentation) needs to be manually confirmed. Orders with this status must be updated manually. Capturing funds or other order actions will not automatically update the status of an order.
 
     STATUSES = [
         (STATUS_AWAITING_PAYMENT, _('Awaiting Payment')),
@@ -528,7 +528,7 @@ class Order(models.Model):
     class Meta:
         verbose_name = _('order')
         verbose_name_plural = _('orders')
-        ordering = ('created', )
+        ordering = ('created',)
 
     def __str__(self):
         return str(self.number)
@@ -625,7 +625,7 @@ class Order(models.Model):
                 language=language,
                 date_issue=issue_date,
                 date_tax_point=issue_date,
-                date_due=issue_date+relativedelta(days=due_days),
+                date_due=issue_date + relativedelta(days=due_days),
                 currency=commerce_settings.CURRENCY,
                 # credit=
                 # already_paid=
@@ -665,15 +665,23 @@ class Order(models.Model):
                 delivery_method=Invoice.DELIVERY_METHOD.MAILING  # TODO: check shipping
             )
 
+            def check_tax_and_get_price(price):
+                unit_price_is_with_tax = True  # TODO: settings
+                tax_rate = getattr(settings, 'INVOICING_TAX_RATE', None)  # TODO: taxation policy
+
+                if unit_price_is_with_tax and tax_rate is not None and tax_rate > 0:
+                    return price / Decimal(100 + Decimal(tax_rate)) * 100
+
+                return price
+
             for purchaseditem in self.purchaseditem_set.all():
                 item = InvoiceItem.objects.create(
                     invoice=invoice,
                     title=purchaseditem.title_with_option,
                     quantity=purchaseditem.quantity,
                     unit=InvoiceItem.UNIT_PIECES,
-                    unit_price=purchaseditem.price,
+                    unit_price=check_tax_and_get_price(purchaseditem.price),
                     # discount=self.discount,  # TODO
-                    # tax_rate=#TODO: settings: is price with VAT already?
                 )
 
             shipping_item = InvoiceItem.objects.create(
@@ -681,9 +689,8 @@ class Order(models.Model):
                 title=_('Shipping fee'),
                 quantity=1,
                 unit=InvoiceItem.UNIT_EMPTY,
-                unit_price=self.shipping_fee,
+                unit_price=check_tax_and_get_price(self.shipping_fee),
                 # discount=self.discount,  # TODO
-                # tax_rate=#TODO: settings: is price with VAT already?
             )
 
             payment_item = InvoiceItem.objects.create(
@@ -691,9 +698,8 @@ class Order(models.Model):
                 title=_('Payment fee'),
                 quantity=1,
                 unit=InvoiceItem.UNIT_EMPTY,
-                unit_price=self.payment_fee,
+                unit_price=check_tax_and_get_price(self.payment_fee),
                 # discount=self.discount,  # TODO
-                # tax_rate=#TODO: settings: is price with VAT already?
             )
 
             self.invoices.add(invoice)
@@ -708,7 +714,7 @@ class Order(models.Model):
 
         if self.reminder_sent and not force:
             return
-        
+
         with override_language(self.user.preferred_language):
             EmailManager.send_mail(self.user, 'commerce/mails/order_reminder', _('Order reminder: %d') % self.number, data={'order': self}, request=None)
 
