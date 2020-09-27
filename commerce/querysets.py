@@ -21,6 +21,9 @@ class OrderQuerySet(models.QuerySet):
     def with_earned_loyalty_points(self):
         return self.paid_not_cancelled_nor_refunded()
 
+    def with_spent_loyalty_points(self):
+        return self.not_cancelled_nor_refunded()
+
     def paid_not_cancelled_nor_refunded(self):
         return self.exclude(status__in=[
             self.model.STATUS_AWAITING_PAYMENT,

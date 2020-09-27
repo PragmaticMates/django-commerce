@@ -87,9 +87,8 @@ class RemoveFromCartView(LoginRequiredMixin, View):
                 cart.save(update_fields=['discount'])
 
         # unset loyalty points
-        # if cart.total <= 0 and cart.loyalty_points > 0:
-        #     cart.loyalty_points = 0
-        #     cart.save(update_fields=['loyalty_points'])
+        if cart.subtotal < 0 < cart.loyalty_points:
+            cart.update_loyalty_points()
 
         # delete empty cart
         if not cart.item_set.exists():
@@ -109,6 +108,13 @@ class CartMixin(LoginRequiredMixin):
 class CartDetailView(CartMixin, UpdateView):
     form_class = DiscountCodeForm
     template_name = 'commerce/cart_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data.update({
+            'loyalty_program_enabled': commerce_settings.LOYALTY_PROGRAM_ENABLED,
+        })
+        return context_data
 
 
 class EmptyCartRedirectMixin(object):
@@ -213,7 +219,6 @@ class CheckoutSummaryView(CartMixin, EmptyCartRedirectMixin, DetailView):
 
 class CheckoutFinishView(CartMixin, DetailView):
     def get(self, request, *args, **kwargs):
-        # TODO: default order status / status by cart / items ...
         cart = self.get_object()
 
         if cart.can_be_finished():
@@ -224,10 +229,12 @@ class CheckoutFinishView(CartMixin, DetailView):
                 messages.error(request, _('Missing payment method'))
                 return redirect(order.get_absolute_url())
 
+            if order.status != Order.STATUS_AWAITING_PAYMENT:
+                return redirect(order.get_absolute_url())
+
             if order.payment_method.method == PaymentMethod.METHOD_ONLINE_PAYMENT:
                 return redirect(order.get_payment_url())
-            # elif order.payment_method.method in [Payment.METHOD_WIRE_TRANSFER, Payment.METHOD_CASH_ON_DELIVERY]:
-            #     order.create_invoice()  # TODO: create invoice after successful payment
+
             return redirect(order.get_absolute_url())
         else:
             messages.warning(request, _('Checkout process can not be finished yet'))

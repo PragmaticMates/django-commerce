@@ -29,7 +29,11 @@
 <br>
 
 {# TODO: discount #}
-<strong>{% trans 'Subtotal' %}:</strong> {{ cart.get_subtotal_display }}<br>
+
+<strong>{% trans 'Sum' %}:</strong> {{ cart.get_items_subtotal_display }}<br>
+{% if loyalty_program_enabled %}
+    <strong>{% trans 'Loyalty points' %}:</strong> {{ cart.get_loyalty_points_display }}<br>
+{% endif %}
 <strong>{% trans 'Shipping option' %}:</strong> {{ cart.shipping_option }}<br>
 <strong>{% trans 'Shipping fee' %}:</strong> {{ cart.get_shipping_fee_display }}<br>
 <strong>{% trans 'Payment method' %}:</strong> {{ cart.payment_method }}<br>

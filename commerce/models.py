@@ -240,11 +240,14 @@ class Cart(models.Model):
     def save(self, *args, **kwargs):
         result = super().save(*args, **kwargs)
 
-        if self.loyalty_points > 0 and self.subtotal < 0:
-            self.loyalty_points = available_points(self)
-            result = super().save(update_fields=['loyalty_points'])
+        if self.subtotal < 0 < self.loyalty_points:
+            self.update_loyalty_points()
 
         return result
+
+    def update_loyalty_points(self):
+        self.loyalty_points = available_points(self)
+        super().save(update_fields=['loyalty_points'])
 
     def get_absolute_url(self):
         return reverse('commerce:cart')
@@ -687,7 +690,7 @@ class Order(models.Model):
                 date_tax_point=issue_date,
                 date_due=issue_date + relativedelta(days=due_days),
                 currency=commerce_settings.CURRENCY,
-                # credit=
+                credit=points_to_currency_unit(self.loyalty_points_used),
                 # already_paid=
                 # payment_method=Invoice.PAYMENT_METHOD.BANK_TRANSFER,
                 # payment_method=Invoice.PAYMENT_METHOD.BANK_TRANSFER if self.payment_method.method == Payment.METHOD_WIRE_TRANSFER
