@@ -6,6 +6,7 @@ from django.utils.module_loading import import_string
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DetailView, ListView
 
+from commerce.loyalty import unused_points, points_to_currency_unit
 from commerce.models import Order
 from commerce import settings as commerce_settings
 
@@ -52,3 +53,19 @@ class OrderListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return self.request.user.order_set.all().prefetch_related('invoices', 'purchaseditem_set')
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data.update({
+            'loyalty_program_enabled': commerce_settings.LOYALTY_PROGRAM_ENABLED,
+        })
+
+        if commerce_settings.LOYALTY_PROGRAM_ENABLED:
+            unused_points_of_user = unused_points(self.request.user)
+            context_data.update({
+                'unused_points': unused_points_of_user,
+                'unused_points_in_currency_unit': points_to_currency_unit(unused_points_of_user),
+                'currency': commerce_settings.CURRENCY
+            })
+
+        return context_data

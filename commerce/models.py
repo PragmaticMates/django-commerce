@@ -20,6 +20,7 @@ from internationalflavor.vat_number import VATNumberField
 from modeltrans.fields import TranslationField
 
 from commerce import settings as commerce_settings
+from commerce.loyalty import points_to_currency_unit
 from commerce.querysets import OrderQuerySet, PurchasedItemQuerySet, DiscountCodeQuerySet, ShippingOptionQuerySet, CartQuerySet
 from invoicing.models import Invoice, Item as InvoiceItem
 from pragmatic.fields import ChoiceArrayField
@@ -219,6 +220,9 @@ class Cart(models.Model):
     # Discount
     discount = models.ForeignKey(Discount, verbose_name=_('discount'), on_delete=models.PROTECT, blank=True, null=True, default=None)
 
+    # Loyalty program
+    loyalty_points = models.PositiveSmallIntegerField(_('loyalty points'), help_text=_('used to lower the total price'), blank=True, default=0)
+
     # Datetimes
     created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
     modified = models.DateTimeField(_('modified'), auto_now=True)
@@ -262,13 +266,26 @@ class Cart(models.Model):
 
     def get_subtotal_display(self):
         return f'{self.subtotal} {commerce_settings.CURRENCY}'
+    
+    @property
+    def loyalty_points_earned(self):
+        return int(self.total * commerce_settings.LOYALTY_POINTS_PER_CURRENCY_UNIT)
+
+    @property
+    def loyalty_points_used(self):
+        return self.loyalty_points
 
     @property
     def total(self):
         total = self.subtotal
         total += self.shipping_fee
         total += self.payment_fee
-        # TODO - discount
+
+        # Note: discount is already calculated in subtotal (item price)
+
+        # loyalty program
+        total -= points_to_currency_unit(self.loyalty_points_used)
+
         return total
 
     def get_total_display(self):
@@ -289,7 +306,10 @@ class Cart(models.Model):
         # TODO: check if all fields are set
 
         if not self.shipping_option or not self.payment_method:
-            return None
+            return False
+
+        if self.total < 0:
+            return False
 
         return not self.is_empty()
 
@@ -349,7 +369,8 @@ class Cart(models.Model):
             shipping_fee=self.shipping_fee,
             payment_method=self.payment_method,
             payment_fee=self.payment_fee,
-            discount=self.discount
+            discount=self.discount,
+            loyalty_points=self.loyalty_points
         )
 
         for item in self.item_set.all():
@@ -443,7 +464,7 @@ class Item(models.Model):
 
 class Order(models.Model):
     STATUS_AWAITING_PAYMENT = 'AWAITING_PAYMENT'  # Customer has completed the checkout process, but payment has yet to be confirmed. Authorize only transactions that are not yet captured have this status.
-    STATUS_PENDING = 'PENDING'  # Customer finished checkout process and didn't have to pay for it, because total price <= 0
+    STATUS_PENDING = 'PENDING'  # Customer finished checkout process and didn't have to pay for it, because total price = 0
     STATUS_PAYMENT_RECEIVED = 'PAYMENT_RECEIVED'  # Customer paid order and merchant received the successful transaction.
     STATUS_PROCESSING = 'PROCESSING'  # Customer paid order and merchant received the successful transaction.
     STATUS_AWAITING_FULFILLMENT = 'AWAITING_FULFILLMENT'  # Customer has completed the checkout process and payment has been confirmed.
@@ -518,6 +539,9 @@ class Order(models.Model):
     # Discount
     discount = models.ForeignKey(Discount, verbose_name=_('discount'), on_delete=models.PROTECT, blank=True, null=True, default=None)
 
+    # Loyalty program
+    loyalty_points = models.PositiveSmallIntegerField(_('loyalty points'), help_text=_('used to lower the total price'), blank=True, default=0)
+
     # Timestamps
     reminder_sent = models.DateTimeField(_('reminder sent'), blank=True, null=True, default=None)
     created = models.DateTimeField(_('created'), auto_now_add=True, db_index=True)
@@ -564,6 +588,14 @@ class Order(models.Model):
         return self.payment_manager.render_payment_information()
 
     @property
+    def loyalty_points_earned(self):
+        return int(self.total * commerce_settings.LOYALTY_POINTS_PER_CURRENCY_UNIT)
+
+    @property
+    def loyalty_points_used(self):
+        return self.loyalty_points
+
+    @property
     def total(self):
         total = 0
 
@@ -572,7 +604,12 @@ class Order(models.Model):
 
         total += self.shipping_fee
         total += self.payment_fee
-        # TODO - discount
+
+        # Note: discount is already calculated in subtotal (item price)
+
+        # loyalty program
+        total -= points_to_currency_unit(self.loyalty_points_used)
+
         return total
 
     @property

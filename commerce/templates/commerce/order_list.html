@@ -1,4 +1,8 @@
 {% load i18n %}
 <h1>{% trans 'Orders' %}</h1>
 
+{% if loyalty_program_enabled and unused_points > 0 %}
+    {% blocktrans count points=unused_points %}You have {{ points }} unused point in total value of {{ unused_points_in_currency_unit }} {{ currency }}.{% plural %}You have {{ points }} unused points in total value of {{ unused_points_in_currency_unit }} {{ currency }}.{% endblocktrans %}
+{% endif %}
+
 {% include 'commerce/orders_table.html' %}

@@ -85,6 +85,11 @@ class RemoveFromCartView(LoginRequiredMixin, View):
                 cart.discount = None
                 cart.save(update_fields=['discount'])
 
+        # unset loyalty points
+        # if cart.total <= 0 and cart.loyalty_points > 0:
+        #     cart.loyalty_points = 0
+        #     cart.save(update_fields=['loyalty_points'])
+
         # delete empty cart
         if not cart.item_set.exists():
             cart.delete()
@@ -202,9 +207,9 @@ class CheckoutFinishView(CartMixin, DetailView):
     def get(self, request, *args, **kwargs):
         # TODO: default order status / status by cart / items ...
         cart = self.get_object()
-        order_status = Order.STATUS_AWAITING_PAYMENT if cart.total > 0 else Order.STATUS_PENDING
 
         if cart.can_be_finished():
+            order_status = Order.STATUS_AWAITING_PAYMENT if cart.total > 0 else Order.STATUS_PENDING
             order = cart.to_order(status=order_status)
 
             if not order.payment_method:
