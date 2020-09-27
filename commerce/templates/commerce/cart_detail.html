@@ -8,20 +8,7 @@
 
     <br>
 
-    <strong>{% trans 'Discount code' %}:</strong><br>
-    {% if cart.discount %}
-        {% with cart.discount as discount %}
-            <i>{{ discount.code }}</i> = {{ discount.get_amount_display }}
-
-            {% if discount.content_types.all.exists %}
-                ({{ discount.content_types.all|join:', ' }})
-            {% endif %}
-            <br>
-            <a href="{% url 'commerce:unapply_discount' %}">{% trans 'Remove' %}</a>
-        {% endwith %}
-    {% else %}
-        {% crispy form %}
-    {% endif %}
+    {% crispy form %}
 
     <strong>{% trans 'Subtotal' %}:</strong> {{ cart.get_subtotal_display }}
 

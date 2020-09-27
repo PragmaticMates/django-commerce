@@ -4,30 +4,61 @@ from crispy_forms.layout import Layout, Row, Fieldset, Div, Submit, HTML
 from django import forms
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.validators import EMPTY_VALUES
-from django.forms import Form
+from django.forms import Form, HiddenInput
 from django.template import Template, Context, loader
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
+from commerce import settings as commerce_settings
 from commerce.models import Cart, Discount, ShippingOption
+from commerce.loyalty import available_points
 
 
 class DiscountCodeForm(forms.ModelForm):
-    discount = forms.CharField(label='', required=False)
+    discount = forms.CharField(label=_('Discount code'), required=False)
+    loyalty_points = forms.IntegerField(label=_('Loyalty points'), required=False)
 
     class Meta:
         model = Cart
-        fields = ['discount']
+        fields = ['discount', 'loyalty_points']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.helper = FormHelper()
-        self.helper.form_class = 'form-inline'
+        self.helper.form_class = 'discount-and-loyalty-points'
+
+        # Discount
+        discount_form_input = 'discount'
+        if self.instance.discount:
+            discount = self.instance.discount
+            types = discount.content_types.all()
+            discount_form_input = HTML('<label>%(label)s</label><br><i>%(code)s</i> = %(amount)s %(content_types)s<br>%(link)s' % {
+                'label': _('Discount code'),
+                'code': discount.code,
+                'amount': discount.get_amount_display(),
+                'content_types': '(%s)' % ', '.join([str(t) for t in types]) if types.all().exists() else '',
+                'link': f"<a href=\"{reverse('commerce:unapply_discount')}\">{_('Remove')}</a>"
+            })
+
+        # Loyalty program
+        if commerce_settings.LOYALTY_PROGRAM_ENABLED:
+            self.available_points_to_use = available_points(self.instance)
+            self.fields['loyalty_points'].help_text = _('You can use %d points') % self.available_points_to_use
+            loyalty_points_form_input = Div('loyalty_points', css_class='col-md')
+        else:
+            self.fields['loyalty_points'].widget = HiddenInput()
+            loyalty_points_form_input = ''
+
         self.helper.layout = Layout(
-            'discount',
-            FormActions(
-                Submit('submit', _('Apply'), css_class='btn-primary')
-            )
+            Row(
+                Div(discount_form_input, css_class='col-md'),
+                loyalty_points_form_input,
+                FormActions(
+                    Submit('submit', _('Apply'), css_class='btn-secondary'),
+                    css_class='col-md mt-4 pt-2'
+                ) if commerce_settings.LOYALTY_PROGRAM_ENABLED or not self.instance.discount else ''
+            ),
         )
 
     def clean_discount(self):
@@ -48,6 +79,10 @@ class DiscountCodeForm(forms.ModelForm):
                 raise ValidationError(_('There is no such discount code'))
 
         return discount
+
+    def clean_loyalty_points(self):
+        loyalty_points = self.cleaned_data.get('loyalty_points', 0) or 0
+        return min(loyalty_points, self.available_points_to_use) if commerce_settings.LOYALTY_PROGRAM_ENABLED else 0
 
 
 class AddressesForm(forms.ModelForm):

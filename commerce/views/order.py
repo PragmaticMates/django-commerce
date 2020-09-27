@@ -52,7 +52,9 @@ class OrderListView(LoginRequiredMixin, ListView):
     model = Order
 
     def get_queryset(self):
-        return self.request.user.order_set.all().prefetch_related('invoices', 'purchaseditem_set')
+        return self.request.user.order_set\
+            .all()\
+            .prefetch_related('invoices', 'purchaseditem_set')\
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)

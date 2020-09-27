@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views import View
 from django.views.generic import DetailView, UpdateView
 
+from commerce import settings as commerce_settings
 from commerce.forms import AddressesForm, ShippingAndPaymentForm, DiscountCodeForm
 from commerce.models import Cart, Order, PaymentMethod, Item, Option, ShippingOption
 from commerce.templatetags.commerce import discount_for_product
@@ -201,6 +202,13 @@ class CheckoutShippingAndPaymentView(CartMixin, EmptyCartRedirectMixin, UpdateVi
 
 class CheckoutSummaryView(CartMixin, EmptyCartRedirectMixin, DetailView):
     template_name = 'commerce/checkout_summary.html'
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data.update({
+            'loyalty_program_enabled': commerce_settings.LOYALTY_PROGRAM_ENABLED,
+        })
+        return context_data
 
 
 class CheckoutFinishView(CartMixin, DetailView):

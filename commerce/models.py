@@ -20,7 +20,7 @@ from internationalflavor.vat_number import VATNumberField
 from modeltrans.fields import TranslationField
 
 from commerce import settings as commerce_settings
-from commerce.loyalty import points_to_currency_unit
+from commerce.loyalty import points_to_currency_unit, currency_units_to_points, available_points
 from commerce.querysets import OrderQuerySet, PurchasedItemQuerySet, DiscountCodeQuerySet, ShippingOptionQuerySet, CartQuerySet
 from invoicing.models import Invoice, Item as InvoiceItem
 from pragmatic.fields import ChoiceArrayField
@@ -236,6 +236,16 @@ class Cart(models.Model):
     def __str__(self):
         return ugettext(f'Shopping cart of {self.user}')
 
+    @transaction.atomic
+    def save(self, *args, **kwargs):
+        result = super().save(*args, **kwargs)
+
+        if self.loyalty_points > 0 and self.subtotal < 0:
+            self.loyalty_points = available_points(self)
+            result = super().save(update_fields=['loyalty_points'])
+
+        return result
+
     def get_absolute_url(self):
         return reverse('commerce:cart')
 
@@ -250,6 +260,12 @@ class Cart(models.Model):
     def get_subtotal_display(self):
         return f'{self.subtotal} {commerce_settings.CURRENCY}'
 
+    def get_items_subtotal_display(self):
+        return f'{self.items_subtotal} {commerce_settings.CURRENCY}'
+
+    def get_loyalty_points_display(self):
+        return f'{self.loyalty_points} (-{points_to_currency_unit(self.loyalty_points)} {commerce_settings.CURRENCY})'
+
     def get_shipping_fee_display(self):
         return f'{self.shipping_fee} {commerce_settings.CURRENCY}'
 
@@ -261,15 +277,21 @@ class Cart(models.Model):
         return f'{self.payment_fee} {commerce_settings.CURRENCY}'
 
     @property
-    def subtotal(self):
+    def items_subtotal(self):
         return sum([item.subtotal for item in self.item_set.all()])
 
-    def get_subtotal_display(self):
-        return f'{self.subtotal} {commerce_settings.CURRENCY}'
+    @property
+    def subtotal(self):
+        subtotal = self.items_subtotal
+
+        # loyalty program
+        subtotal -= points_to_currency_unit(self.loyalty_points_used)
+
+        return subtotal
     
     @property
     def loyalty_points_earned(self):
-        return int(self.total * commerce_settings.LOYALTY_POINTS_PER_CURRENCY_UNIT)
+        return currency_units_to_points(self.total)
 
     @property
     def loyalty_points_used(self):
@@ -282,9 +304,6 @@ class Cart(models.Model):
         total += self.payment_fee
 
         # Note: discount is already calculated in subtotal (item price)
-
-        # loyalty program
-        total -= points_to_currency_unit(self.loyalty_points_used)
 
         return total
 
@@ -589,26 +608,30 @@ class Order(models.Model):
 
     @property
     def loyalty_points_earned(self):
-        return int(self.total * commerce_settings.LOYALTY_POINTS_PER_CURRENCY_UNIT)
+        if self not in self.user.order_set.with_earned_loyalty_points():
+            return 0
+        return currency_units_to_points(self.total)
 
     @property
     def loyalty_points_used(self):
         return self.loyalty_points
 
     @property
+    def subtotal(self):
+        subtotal = sum([item.subtotal for item in self.purchaseditem_set.all()])
+
+        # loyalty program
+        subtotal -= points_to_currency_unit(self.loyalty_points_used)
+
+        return subtotal
+
+    @property
     def total(self):
-        total = 0
-
-        for item in self.purchaseditem_set.all():
-            total += item.subtotal
-
+        total = self.subtotal
         total += self.shipping_fee
         total += self.payment_fee
 
         # Note: discount is already calculated in subtotal (item price)
-
-        # loyalty program
-        total -= points_to_currency_unit(self.loyalty_points_used)
 
         return total
 
