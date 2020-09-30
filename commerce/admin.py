@@ -239,7 +239,7 @@ class OrderAdmin(admin.ModelAdmin):
                 user, points = result
                 messages.success(request, _(f'User %s has %d loyalty points') % (user, points))
 
-        messages.info(request, _('Loyalty program sent to %d users') % counter)
+        messages.info(request, _('Loyalty reminder sent to %d users') % counter)
     send_loyalty_reminder.short_description = _('Send loyalty reminder')
 
 
