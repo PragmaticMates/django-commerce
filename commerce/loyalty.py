@@ -1,8 +1,9 @@
 from decimal import Decimal
 
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.utils.translation import ugettext_lazy as _, override as override_language
 from commerce import settings as commerce_settings
+from pragmatic.managers import EmailManager
 
 
 def earned_points(user):
@@ -49,3 +50,19 @@ def points_to_currency_unit(points):
 
 def currency_units_to_points(value):
     return int(value * commerce_settings.LOYALTY_POINTS_PER_CURRENCY_UNIT)
+
+
+def send_loyalty_reminder(user):
+    if not commerce_settings.LOYALTY_PROGRAM_ENABLED:
+        return None
+
+    points = unused_points(user)
+    print(f'User {user} has {points} loyalty points')
+
+    if points <= 0:
+        return None
+
+    with override_language(user.preferred_language):
+        EmailManager.send_mail(user, 'commerce/mails/order_loyalty_reminder', _('Loyalty points'), data={'points': points}, request=None)
+
+    return user, points

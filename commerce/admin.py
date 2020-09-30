@@ -1,5 +1,6 @@
 import requests
 from django.contrib import admin, messages
+from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.admin import GenericStackedInline
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
@@ -10,6 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from internationalflavor.countries._cldr_data import COUNTRY_NAMES
 from modeltrans.admin import ActiveLanguageMixin
 
+from commerce.loyalty import send_loyalty_reminder
 from commerce.models import Cart, Item, ShippingOption, PaymentMethod, Order, PurchasedItem, Option, Discount, Supply
 from commerce import settings as commerce_settings
 
@@ -83,7 +85,7 @@ class PurchasedItemInline(admin.StackedInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    actions = ['sync_transactions', 'create_invoice', 'send_details', 'send_reminder']
+    actions = ['sync_transactions', 'create_invoice', 'send_details', 'send_reminder', 'send_loyalty_reminder']
     date_hierarchy = 'created'
     search_fields = ['number', 'user__email', 'user__first_name', 'user__last_name', 'delivery_name', 'delivery_street', 'delivery_postcode', 'delivery_city', 'delivery_country']
     list_display = ('number', 'status', 'delivery_address', 'purchased_items', 'total', 'delivery_country', 'shipping_option', 'payment_method', 'created', 'modified')
@@ -219,6 +221,26 @@ class OrderAdmin(admin.ModelAdmin):
         for obj in queryset:
             obj.send_reminder(force=True)
     send_reminder.short_description = _('Send reminder')
+
+    def send_loyalty_reminder(self, request, queryset):
+        if not commerce_settings.LOYALTY_PROGRAM_ENABLED:
+            messages.error(request, _('Loyalty program is disabled'))
+            return
+
+        counter = 0
+
+        users = get_user_model().objects.filter(id__in=queryset.values('user')).distinct()
+
+        for user in users:
+            result = send_loyalty_reminder(user)
+
+            if result is not None:
+                counter += 1
+                user, points = result
+                messages.success(request, _(f'User %s has %d loyalty points') % (user, points))
+
+        messages.info(request, _('Loyalty program sent to %d users') % counter)
+    send_loyalty_reminder.short_description = _('Send loyalty reminder')
 
 
 @admin.register(Discount)

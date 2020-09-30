@@ -47,9 +47,18 @@ class OrderQuerySet(models.QuerySet):
     def not_reminded(self):
         return self.filter(reminder_sent=None)
 
-    def old(self, days=7):
+    def old(self, days=7, interval='open'):
         threshold = now() - timedelta(days=days)
-        return self.filter(created__lte=threshold)
+
+        if interval == 'open':
+            return self.filter(created__lte=threshold)
+
+        if interval == 'exact':
+            return self.filter(
+                created__date=threshold.date(),
+            )
+
+        raise NotImplementedError(interval)
 
     # TODO: move to some kind of mixin (ideally into django-pragmatic)
     def lock(self):

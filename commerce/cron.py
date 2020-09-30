@@ -11,3 +11,8 @@ def cancel_unpaid_orders():
 def delete_old_empty_carts():
     from commerce import jobs
     jobs.delete_old_empty_carts.delay()
+
+
+def send_loyalty_reminders():
+    from commerce import jobs
+    jobs.send_loyalty_reminders.delay()

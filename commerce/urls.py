@@ -3,6 +3,8 @@ from django.utils.translation import pgettext_lazy
 from commerce.views.cart import AddToCartView, RemoveFromCartView, CartDetailView, CheckoutAddressesView, \
     CheckoutShippingAndPaymentView, CheckoutSummaryView, CheckoutFinishView, UnapplyDiscountCartView
 from commerce.views.order import OrderPaymentView, OrderPaymentReturnView, OrderListView
+from commerce.views.loyalty import LoyaltyProgramView
+from commerce import settings as commerce_settings
 
 app_name = 'commerce'
 
@@ -19,3 +21,8 @@ urlpatterns = [
     path(pgettext_lazy("url", 'order/<int:number>/payment/return/'), OrderPaymentReturnView.as_view(), name='order_payment_return'),
     path(pgettext_lazy("url", 'orders/'), OrderListView.as_view(), name='orders'),
 ]
+
+if commerce_settings.LOYALTY_PROGRAM_ENABLED:
+    urlpatterns += [
+        path(pgettext_lazy("url", 'loyalty-program/'), LoyaltyProgramView.as_view(), name='loyalty'),
+    ]

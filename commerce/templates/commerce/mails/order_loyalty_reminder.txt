@@ -1,0 +1,12 @@
+{% load i18n %}{% autoescape off %}{% blocktrans with user=recipient %}Hello {{ user }}!{% endblocktrans %}
+
+{% blocktrans with points=points %}We would like to remind you that you have {{ points }} unspent loyalty points you can use as a discount for your next order!{% endblocktrans %}
+
+{% trans 'You can read more about our loyalty program at following URL:' %}
+
+{{ site.domain }}{% url 'commerce:loyalty' %}
+
+{% blocktrans with site_name=site.name site_domain=site.domain %}{{ site_name }} team!
+{{ site_domain }}
+{% endblocktrans %}
+{% endautoescape %}
