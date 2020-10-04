@@ -15,7 +15,7 @@
                     {% if item.option %}<br><small>{{ item.option }}</small>{% endif %}
                 </td>
                 <td>
-                    {% if item.regular_price != item.price %}<span class="regular-price">{{ item.get_regular_price_display }}</span>{% endif %}
+                    {% if item.regular_price and item.regular_price != item.price %}<span class="regular-price">{{ item.get_regular_price_display }}</span>{% endif %}
                     {{ item.get_price_display }}
                 </td>
                 <td>{{ item.quantity }} <a href="{% url 'commerce:remove_from_cart' item.id %}">{% trans 'Remove' %}</a></td>
