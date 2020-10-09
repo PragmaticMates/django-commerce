@@ -93,6 +93,32 @@ class AddressesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        billing_details_fieldset = None
+
+        if self.instance.billing_details_required:
+            billing_details_fieldset = Fieldset(
+                _('Billing details'),
+                'billing_name',
+                'billing_street',
+                Row(
+                    Div('billing_postcode', css_class='col-md-6'),
+                    Div('billing_city', css_class='col-md-6')
+                ),
+                'billing_country',
+                Row(
+                    Div('reg_id', css_class='col-md-4'),
+                    Div('tax_id', css_class='col-md-4'),
+                    Div('vat_id', css_class='col-md-4')
+                ),
+                css_class='col-md-6'
+            )
+        else:
+            self.fields['billing_name'].required = False
+            self.fields['billing_street'].required = False
+            self.fields['billing_postcode'].required = False
+            self.fields['billing_city'].required = False
+            self.fields['billing_country'].required = False
+
         self.helper = FormHelper()
         self.helper.form_class = 'checkout-form checkout-form-addresses'
         self.helper.layout = Layout(
@@ -112,28 +138,30 @@ class AddressesForm(forms.ModelForm):
                     ),
                     css_class='col-md-6'
                 ),
-                Fieldset(
-                    _('Billing details'),
-                    'billing_name',
-                    'billing_street',
-                    Row(
-                        Div('billing_postcode', css_class='col-md-6'),
-                        Div('billing_city', css_class='col-md-6')
-                    ),
-                    'billing_country',
-                    Row(
-                        Div('reg_id', css_class='col-md-4'),
-                        Div('tax_id', css_class='col-md-4'),
-                        Div('vat_id', css_class='col-md-4')
-                    ),
-                    css_class='col-md-6'
-                ),
-                css_class='row'
+                billing_details_fieldset,
+                css_class='row justify-content-center'
             ),
             FormActions(
                 Submit('submit', _('Continue'), css_class='btn-primary')
             )
         )
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        if not self.instance.billing_details_required:
+            cleaned_data.update({
+                'billing_name': cleaned_data.get('delivery_name', ''),
+                'billing_street': cleaned_data.get('delivery_street', ''),
+                'billing_postcode': cleaned_data.get('delivery_postcode', ''),
+                'billing_city': cleaned_data.get('delivery_city', ''),
+                'billing_country': cleaned_data.get('delivery_country', ''),
+                'reg_id': '',
+                'tax_id': '',
+                'vat_id': '',
+            })
+            
+        return cleaned_data
 
 
 class ShippingAndPaymentForm(forms.ModelForm):
@@ -148,7 +176,19 @@ class ShippingAndPaymentForm(forms.ModelForm):
         self.fields['payment_method'].label = ''
 
         # shipping options
-        self.fields['shipping_option'].queryset = ShippingOption.objects.for_country(self.instance.delivery_country)
+        self.fields['shipping_option'].queryset = self.instance.shipping_options
+
+        payment_method_fieldset = None
+
+        if self.instance.billing_details_required:
+            payment_method_fieldset = Fieldset(
+                _('Choose Payment Type'),
+                'payment_method',
+                HTML(loader.get_template('commerce/fees.html').render({'fees': self.fields['payment_method'].queryset})),
+                css_class='col-md-6'
+            )
+        else:
+            self.fields['payment_method'].required = False
 
         # form
         self.helper = FormHelper()
@@ -161,13 +201,8 @@ class ShippingAndPaymentForm(forms.ModelForm):
                     HTML(loader.get_template('commerce/fees.html').render({'fees': self.fields['shipping_option'].queryset})),
                     css_class='col-md-6'
                 ),
-                Fieldset(
-                    _('Choose Payment Type'),
-                    'payment_method',
-                    HTML(loader.get_template('commerce/fees.html').render({'fees': self.fields['payment_method'].queryset})),
-                    css_class='col-md-6'
-                ),
-                css_class='row'
+                payment_method_fieldset,
+                css_class='row justify-content-center'
             ),
             FormActions(
                 Submit('submit', _('Continue'), css_class='btn-primary mt-3')

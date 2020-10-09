@@ -13,16 +13,18 @@
     <strong>{% trans 'Phone' %}:</strong> {{ cart.phone }}<br>
     <strong>{% trans 'E-mail' %}:</strong> {{ cart.email }}
 </p>
-<p>
-    <h2>{% trans 'Billing details' %}</h2>
-    {{ cart.billing_name }}<br>
-    {{ cart.billing_street }}<br>
-    {{ cart.billing_postcode }} {{ cart.billing_city }}<br>
-    {{ cart.get_billing_country_display }}<br><br>
-    {% if cart.reg_id %}<strong>{% trans 'Company Registration No.' %}:</strong> {{ cart.reg_id }}<br>{% endif %}
-    {% if cart.tax_id %}<strong>{% trans 'TAX ID' %}:</strong> {{ cart.tax_id }}<br>{% endif %}
-    {% if cart.vat_id %}<strong>{% trans 'VAT ID' %}:</strong> {{ cart.vat_id }}{% endif %}
-</p>
+{% if cart.billing_details_required %}
+    <p>
+        <h2>{% trans 'Billing details' %}</h2>
+        {{ cart.billing_name }}<br>
+        {{ cart.billing_street }}<br>
+        {{ cart.billing_postcode }} {{ cart.billing_city }}<br>
+        {{ cart.get_billing_country_display }}<br><br>
+        {% if cart.reg_id %}<strong>{% trans 'Company Registration No.' %}:</strong> {{ cart.reg_id }}<br>{% endif %}
+        {% if cart.tax_id %}<strong>{% trans 'TAX ID' %}:</strong> {{ cart.tax_id }}<br>{% endif %}
+        {% if cart.vat_id %}<strong>{% trans 'VAT ID' %}:</strong> {{ cart.vat_id }}{% endif %}
+    </p>
+{% endif %}
 
 {% include 'commerce/cart_items_table.html' %}
 
@@ -36,8 +38,12 @@
 {% endif %}
 <strong>{% trans 'Shipping option' %}:</strong> {{ cart.shipping_option }}<br>
 <strong>{% trans 'Shipping fee' %}:</strong> {{ cart.get_shipping_fee_display }}<br>
-<strong>{% trans 'Payment method' %}:</strong> {{ cart.payment_method }}<br>
-<strong>{% trans 'Payment fee' %}:</strong> {{ cart.get_payment_fee_display }}<br>
+
+{% if cart.payment_method %}
+    <strong>{% trans 'Payment method' %}:</strong> {{ cart.payment_method }}<br>
+    <strong>{% trans 'Payment fee' %}:</strong> {{ cart.get_payment_fee_display }}<br>
+{% endif %}
+
 <strong>{% trans 'Total' %}:</strong> {{ cart.get_total_display }}<br>
 
 <br><br>

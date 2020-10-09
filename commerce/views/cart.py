@@ -225,11 +225,11 @@ class CheckoutFinishView(CartMixin, DetailView):
             order_status = Order.STATUS_AWAITING_PAYMENT if cart.total > 0 else Order.STATUS_PENDING
             order = cart.to_order(status=order_status)
 
-            if not order.payment_method:
-                messages.error(request, _('Missing payment method'))
+            if order.status != Order.STATUS_AWAITING_PAYMENT:
                 return redirect(order.get_absolute_url())
 
-            if order.status != Order.STATUS_AWAITING_PAYMENT:
+            if not order.payment_method:
+                messages.error(request, _('Missing payment method'))
                 return redirect(order.get_absolute_url())
 
             if order.payment_method.method == PaymentMethod.METHOD_ONLINE_PAYMENT:

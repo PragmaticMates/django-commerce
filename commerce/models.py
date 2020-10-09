@@ -257,6 +257,18 @@ class Cart(models.Model):
         return cls.objects.get_or_create(user=user)[0]
 
     @property
+    def shipping_options(self):
+        return ShippingOption.objects.for_country(self.delivery_country)
+
+    @property
+    def has_only_free_shipping_options(self):
+        return not self.shipping_options.not_free().exists()
+
+    @property
+    def billing_details_required(self):
+        return self.total != 0 or not self.has_only_free_shipping_options
+
+    @property
     def shipping_fee(self):
         return self.shipping_option.fee if self.shipping_option else 0
 
@@ -327,10 +339,13 @@ class Cart(models.Model):
     def can_be_finished(self):
         # TODO: check if all fields are set
 
-        if not self.shipping_option or not self.payment_method:
+        if not self.shipping_option:
             return False
 
         if self.total < 0:
+            return False
+
+        if self.total > 0 and not self.payment_method:
             return False
 
         return not self.is_empty()

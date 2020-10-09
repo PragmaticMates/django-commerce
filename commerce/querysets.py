@@ -117,3 +117,9 @@ class ShippingOptionQuerySet(models.QuerySet):
 
         # shipping options for all countries (general)
         return self.filter(countries=[])
+
+    def free(self):
+        return self.filter(fee=0)
+
+    def not_free(self):
+        return self.exclude(fee=0)
