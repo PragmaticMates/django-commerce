@@ -858,11 +858,15 @@ class Supply(models.Model):
         verbose_name = _('supply')
         verbose_name_plural = _('supplies')
         ordering = ('datetime',)
+        get_latest_by = 'datetime'
 
     @property
     def real_product(self):
         # print('real product is:')
         return self.content_type.get_object_for_this_type(id=self.object_id)
+
+    def is_past_due(self):
+        return self.datetime < now()
 
     def __str__(self):
         # print(self.content_type)
