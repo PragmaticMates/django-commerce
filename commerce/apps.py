@@ -10,11 +10,7 @@ class Config(AppConfig):
     name = 'commerce'
     verbose_name = _('Commerce')
 
-    def ready(self):
-        self.schedule_jobs()
-
     def schedule_jobs(self):
-        print('Scheduling commerce jobs...')
         scheduler = django_rq.get_scheduler('cron')
 
         # Cron task to cancel unpaid orders
@@ -47,5 +43,3 @@ class Config(AppConfig):
 
         # TODO: delete old abandoned carts (not empty, but youngest item is old already)
         # TODO: notify not empty abandoned carts
-
-        print('Commerce jobs scheduled.')
