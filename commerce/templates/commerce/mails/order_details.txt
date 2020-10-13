@@ -5,9 +5,9 @@
 {% trans 'Purchased items' %}:{% for item in order.purchaseditem_set.all %}
 {{ item }} ({{ item.quantity }}x): {{ item.get_subtotal_display }}{% endfor %}
 {% trans 'Shipping' %}: {{ order.shipping_option }}
+{% if order.total > 0 %}
 {% trans 'Payment method' %}: {{ order.payment_method }}
 {% trans 'Total' %}: {{ order.get_total_display }}
-{% if order.total > 0 %}
 {% trans 'Payment' %}:
 {{ order.get_payment_url }}
 {% endif %}
