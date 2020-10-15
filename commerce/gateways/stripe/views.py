@@ -151,119 +151,29 @@ class StripeWebhookView(View):
 
         # Handle the event
         if event.type == 'customer.created':
+            print('Customer was created!')
             customer = event.data.object
             user = get_user_model().objects.get(email=customer.email)
-            stripe_id = customer.id
-            Customer.objects.get_or_create(user=user, stripe_id=stripe_id)
+            Customer.objects.update_or_create(user=user, defaults={'stripe_id': customer.id})
+
+        elif event.type == 'payment_intent.created':
+            print('PaymentIntent was created!')
+
         elif event.type == 'payment_intent.succeeded':
-            payment_intent = event.data.object  # contains a stripe.PaymentIntent
-            print('payment_intent')
-            print(payment_intent)
             print('PaymentIntent was successful!')
+
         elif event.type == 'payment_method.attached':
-            payment_method = event.data.object  # contains a stripe.PaymentMethod
-            print('payment_method')
-            print(payment_method)
             print('PaymentMethod was attached to a Customer!')
-        # ... handle other event types
+
         elif event.type == 'charge.succeeded':
+            print('Charge was successful!')
             charge = event.data.object  # contains a stripe.PaymentIntent
-            print('charge')
-            print(charge)
-            # {
-            #   "amount": 1234,
-            #   "amount_captured": 1234,
-            #   "amount_refunded": 0,
-            #   "application": null,
-            #   "application_fee": null,
-            #   "application_fee_amount": null,
-            #   "balance_transaction": "txn_0HcaIdrkd6LGXRyRAfzadtYz",
-            #   "billing_details": {
-            #     "address": {
-            #       "city": null,
-            #       "country": "SK",
-            #       "line1": null,
-            #       "line2": null,
-            #       "postal_code": null,
-            #       "state": null
-            #     },
-            #     "email": "erik.telepovsky@gmail.com",
-            #     "name": "Erik TEST",
-            #     "phone": null
-            #   },
-            #   "calculated_statement_descriptor": "PRAGMATIC MATES S.R.O.",
-            #   "captured": true,
-            #   "created": 1602783095,
-            #   "currency": "eur",
-            #   "customer": "cus_ID0JIfOv7N4nrC",
-            #   "description": null,
-            #   "destination": null,
-            #   "dispute": null,
-            #   "disputed": false,
-            #   "failure_code": null,
-            #   "failure_message": null,
-            #   "fraud_details": {},
-            #   "id": "ch_0HcaIdrkd6LGXRyRzeL8mH39",
-            #   "invoice": null,
-            #   "livemode": false,
-            #   "metadata": {},
-            #   "object": "charge",
-            #   "on_behalf_of": null,
-            #   "order": null,
-            #   "outcome": {
-            #     "network_status": "approved_by_network",
-            #     "reason": null,
-            #     "risk_level": "normal",
-            #     "risk_score": 0,
-            #     "seller_message": "Payment complete.",
-            #     "type": "authorized"
-            #   },
-            #   "paid": true,
-            #   "payment_intent": "pi_0HcaHlrkd6LGXRyRy79xrrXb",
-            #   "payment_method": "pm_0HcaIcrkd6LGXRyRAkg7pppP",
-            #   "payment_method_details": {
-            #     "card": {
-            #       "brand": "visa",
-            #       "checks": {
-            #         "address_line1_check": null,
-            #         "address_postal_code_check": null,
-            #         "cvc_check": "pass"
-            #       },
-            #       "country": "US",
-            #       "exp_month": 12,
-            #       "exp_year": 2021,
-            #       "fingerprint": "f5Ecosg12vyKOSgO",
-            #       "funding": "credit",
-            #       "installments": null,
-            #       "last4": "4242",
-            #       "network": "visa",
-            #       "three_d_secure": null,
-            #       "wallet": null
-            #     },
-            #     "type": "card"
-            #   },
-            #   "receipt_email": null,
-            #   "receipt_number": null,
-            #   "receipt_url": "https://pay.stripe.com/receipts/acct_0cnprkd6LGXRyR9vKKmQ/ch_0HcaIdrkd6LGXRyRzeL8mH39/rcpt_ID0Jnz9PEQ3kBrXlGNGteqIfZXwPtNK",
-            #   "refunded": false,
-            #   "refunds": {
-            #     "data": [],
-            #     "has_more": false,
-            #     "object": "list",
-            #     "total_count": 0,
-            #     "url": "/v1/charges/ch_0HcaIdrkd6LGXRyRzeL8mH39/refunds"
-            #   },
-            #   "review": null,
-            #   "shipping": null,
-            #   "source": null,
-            #   "source_transfer": null,
-            #   "statement_descriptor": null,
-            #   "statement_descriptor_suffix": null,
-            #   "status": "succeeded",
-            #   "transfer_data": null,
-            #   "transfer_group": null
-            # }
+            customer = Customer.objects.get(stripe_id=charge.customer)
+            customer.payment_method = charge.payment_method
+            customer.save(update_fields=['payment_method'])
+
         elif event.type == 'checkout.session.completed':
+            print('Checkout Session was completed!')
             session = event.data.object
 
             if session.payment_status == 'paid':
@@ -273,7 +183,5 @@ class StripeWebhookView(View):
                 order.save(update_fields=['status'])
         else:
             print('Unhandled event type {}'.format(event.type))
-            # payment_intent.created
-            # checkout.session.completed
 
         return HttpResponse(status=200)
