@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.urls import path
 from django.utils.translation import pgettext_lazy
 from commerce.views.cart import AddToCartView, RemoveFromCartView, CartDetailView, CheckoutAddressesView, \
@@ -5,6 +6,7 @@ from commerce.views.cart import AddToCartView, RemoveFromCartView, CartDetailVie
 from commerce.views.order import OrderPaymentView, OrderPaymentReturnView, OrderListView
 from commerce.views.loyalty import LoyaltyProgramView
 from commerce import settings as commerce_settings
+from commerce.gateways.stripe.views import StripeCreateSessionView, StripeSuccessPaymentView, StripeCancelPaymentView, StripeWebhookView
 
 app_name = 'commerce'
 
@@ -21,6 +23,14 @@ urlpatterns = [
     path(pgettext_lazy("url", 'order/<int:number>/payment/return/'), OrderPaymentReturnView.as_view(), name='order_payment_return'),
     path(pgettext_lazy("url", 'orders/'), OrderListView.as_view(), name='orders'),
 ]
+
+if 'commerce.gateways.stripe' in settings.INSTALLED_APPS:
+    urlpatterns += [
+        path(pgettext_lazy("url", 'stripe/create-session/<int:pk>/'), StripeCreateSessionView.as_view(), name='stripe_create_session'),
+        path(pgettext_lazy("url", 'stripe/success/'), StripeSuccessPaymentView.as_view(), name='stripe_success_payment'),
+        path(pgettext_lazy("url", 'stripe/cancel/'), StripeCancelPaymentView.as_view(), name='stripe_cancel_payment'),
+        path(pgettext_lazy("url", 'stripe/webhook/'), StripeWebhookView.as_view(), name='stripe_webhook'),
+    ]
 
 if commerce_settings.LOYALTY_PROGRAM_ENABLED:
     urlpatterns += [
