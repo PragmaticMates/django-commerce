@@ -14,7 +14,7 @@ from commerce.gateways.globalpayments.models import Payment, Result
 from commerce.managers import PaymentManager as CommercePaymentManager
 from commerce.models import Order
 
-from inventor.templatetags.inventor import uri
+from inventor.templatetags.inventor import uri  # TODO: move to pragmatic
 
 
 class PaymentManager(CommercePaymentManager):
