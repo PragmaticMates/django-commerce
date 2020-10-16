@@ -68,38 +68,41 @@ class StripeCreateSessionView(DetailView):
                     'quantity': purchaseditem.quantity,
                 })
 
-            line_items.append({
-                'price_data': {
-                    'currency': commerce_settings.CURRENCY.lower(),
-                    'unit_amount': int(order.shipping_fee * 100),
-                    'product_data': {
-                        'name': _('Shipping fee'),
+            if order.shipping_fee > 0:
+                line_items.append({
+                    'price_data': {
+                        'currency': commerce_settings.CURRENCY.lower(),
+                        'unit_amount': int(order.shipping_fee * 100),
+                        'product_data': {
+                            'name': _('Shipping fee'),
+                        },
                     },
-                },
-                'quantity': 1,
-            })
+                    'quantity': 1,
+                })
 
-            line_items.append({
-                'price_data': {
-                    'currency': commerce_settings.CURRENCY.lower(),
-                    'unit_amount': int(order.payment_fee * 100),
-                    'product_data': {
-                        'name': _('Payment fee'),
+            if order.payment_fee > 0:
+                line_items.append({
+                    'price_data': {
+                        'currency': commerce_settings.CURRENCY.lower(),
+                        'unit_amount': int(order.payment_fee * 100),
+                        'product_data': {
+                            'name': _('Payment fee'),
+                        },
                     },
-                },
-                'quantity': 1,
-            })
+                    'quantity': 1,
+                })
 
-            line_items.append({
-                'price_data': {
-                    'currency': commerce_settings.CURRENCY.lower(),
-                    'unit_amount': -int(points_to_currency_unit(order.loyalty_points_used) * 100),
-                    'product_data': {
-                        'name': _('Credit'),
+            if order.loyalty_points_used > 0:
+                line_items.append({
+                    'price_data': {
+                        'currency': commerce_settings.CURRENCY.lower(),
+                        'unit_amount': -int(points_to_currency_unit(order.loyalty_points_used) * 100),
+                        'product_data': {
+                            'name': _('Credit'),
+                        },
                     },
-                },
-                'quantity': 1,
-            })
+                    'quantity': 1,
+                })
 
         try:
             # TODO: billing
@@ -138,12 +141,15 @@ class StripeWebhookView(View):
     @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         payload = request.body
-        sig_header = request.META['HTTP_STRIPE_SIGNATURE']
 
         try:
+            sig_header = request.META['HTTP_STRIPE_SIGNATURE']
             event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
         except ValueError as e:
             # Invalid payload
+            return HttpResponse(status=400)
+        except ValueError as e:
+            # Missing signature
             return HttpResponse(status=400)
         except stripe.error.SignatureVerificationError as e:
             # Invalid signature

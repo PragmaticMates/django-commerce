@@ -18,8 +18,11 @@ class CustomerAdmin(admin.ModelAdmin):
 
     def charge(self, request, queryset):
         for customer in queryset:
+            # Setup intent: https://stripe.com/docs/payments/save-and-reuse#checkout
             # setup_intent = stripe.SetupIntent.retrieve('ID')
 
+            # Payment intents
+            # https://stripe.com/docs/api/payment_intents/object#payment_intent_object-setup_future_usage
             payment_intent = stripe.PaymentIntent.create(
                 amount=100,
                 currency='eur',
@@ -33,3 +36,6 @@ class CustomerAdmin(admin.ModelAdmin):
             stripe.PaymentIntent.confirm(payment_intent.id,
                 # payment_method="pm_card_visa",
             )
+
+            # SCA
+            # https://stripe.com/docs/billing/migration/strong-customer-authentication
