@@ -156,26 +156,32 @@ class StripeWebhookView(View):
             return HttpResponse(status=400)
 
         # Handle the event
-        if event.type == 'customer.created':
-            print('Customer was created!')
-            customer = event.data.object
-            user = get_user_model().objects.get(email=customer.email)
-            Customer.objects.update_or_create(user=user, defaults={'stripe_id': customer.id})
-
-        elif event.type == 'payment_intent.created':
+        if event.type == 'payment_intent.created':
             print('PaymentIntent was created!')
-
-        elif event.type == 'payment_intent.succeeded':
-            print('PaymentIntent was successful!')
 
         elif event.type == 'payment_method.attached':
             print('PaymentMethod was attached to a Customer!')
 
         elif event.type == 'charge.succeeded':
             print('Charge was successful!')
-            charge = event.data.object  # contains a stripe.PaymentIntent
-            customer = Customer.objects.get(stripe_id=charge.customer)
-            customer.payment_method = charge.payment_method
+
+            # customer doesn't have to be created yet!
+            # charge = event.data.object  # contains a stripe.Charge
+            # customer = Customer.objects.get(stripe_id=charge.customer)
+            # customer.payment_method = charge.payment_method
+            # customer.save(update_fields=['payment_method'])
+
+        elif event.type == 'customer.created':
+            print('Customer was created!')
+            customer = event.data.object
+            user = get_user_model().objects.get(email=customer.email)
+            Customer.objects.update_or_create(user=user, defaults={'stripe_id': customer.id})
+
+        elif event.type == 'payment_intent.succeeded':
+            print('PaymentIntent was successful!')
+            intent = event.data.object  # contains a stripe.PaymentIntent
+            customer = Customer.objects.get(stripe_id=intent.customer)
+            customer.payment_method = intent.payment_method
             customer.save(update_fields=['payment_method'])
 
         elif event.type == 'checkout.session.completed':
