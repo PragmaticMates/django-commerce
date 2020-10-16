@@ -148,7 +148,7 @@ class StripeWebhookView(View):
         except ValueError as e:
             # Invalid payload
             return HttpResponse(status=400)
-        except ValueError as e:
+        except KeyError as e:
             # Missing signature
             return HttpResponse(status=400)
         except stripe.error.SignatureVerificationError as e:
