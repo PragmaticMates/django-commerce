@@ -8,6 +8,7 @@ Customer: {{ customer }}
 {{ item }} ({{ item.quantity }}x): {{ item.get_subtotal_display }}{% endfor %}
 {% trans 'Shipping' %}: {{ order.shipping_option }}
 {% trans 'Payment method' %}: {{ order.payment_method }}
+{% if order.loyalty_points > 0 %}{% trans 'Loyalty points' %}: {{ order.get_loyalty_points_display }}{% endif %}
 {% trans 'Total' %}: {{ order.get_total_display }}
 
 {% blocktrans with site_name=site.name site_domain=site.domain %}{{ site_name }} team!

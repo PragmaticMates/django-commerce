@@ -634,6 +634,9 @@ class Order(models.Model):
     def loyalty_points_used(self):
         return self.loyalty_points
 
+    def get_loyalty_points_display(self):
+        return f'{self.loyalty_points} (-{points_to_currency_unit(self.loyalty_points)} {commerce_settings.CURRENCY})'
+
     @property
     def subtotal(self):
         subtotal = sum([item.subtotal for item in self.purchaseditem_set.all()])

@@ -58,7 +58,7 @@ def send_loyalty_reminders():
     orders = Order.objects.with_earned_loyalty_points().old(days=days, interval='exact')
     total_orders = orders.count()
 
-    print(f'Found {total_orders} orders wit loyalty points {days} old exactly days')
+    print(f'Found {total_orders} orders with loyalty points {days} old exactly days')
     users = get_user_model().objects.filter(id__in=orders.values('user')).distinct()
 
     for user in users:
