@@ -56,7 +56,7 @@ class DiscountCodeForm(forms.ModelForm):
                 loyalty_points_form_input,
                 FormActions(
                     Submit('submit', _('Apply'), css_class='btn-secondary'),
-                    css_class='col-md mt-4 pt-2'
+                    css_class='col-md'
                 ) if commerce_settings.LOYALTY_PROGRAM_ENABLED or not self.instance.discount else ''
             ),
         )
