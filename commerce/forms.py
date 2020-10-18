@@ -93,8 +93,40 @@ class AddressesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        billing_details_fieldset = None
+        # Delivery details
+        if self.instance.delivery_details_required:
+            delivery_details_fieldset = Fieldset(
+                _('Delivery address'),
+                'delivery_name',
+                'delivery_street',
+                Row(
+                    Div('delivery_postcode', css_class='col-md-6'),
+                    Div('delivery_city', css_class='col-md-6')
+                ),
+                'delivery_country',
+                Row(
+                    Div(PrependedText('email', '<i class="fas fa-at"></i>'), css_class='col-md-7'),
+                    Div(PrependedText('phone', '<i class="far fa-mobile"></i>'), css_class='col-md-5'),
+                ),
+                css_class='col-md-6'
+            )
+        else:
+            self.fields['delivery_name'].required = False
+            self.fields['delivery_street'].required = False
+            self.fields['delivery_postcode'].required = False
+            self.fields['delivery_city'].required = False
+            self.fields['delivery_country'].required = False
 
+            delivery_details_fieldset = Fieldset(
+                _('Contact details'),
+                Row(
+                    Div(PrependedText('email', '<i class="fas fa-at"></i>'), css_class='col-md-7'),
+                    Div(PrependedText('phone', '<i class="far fa-mobile"></i>'), css_class='col-md-5'),
+                ),
+                css_class='col-md-6'
+            )
+
+        # Billing details
         if self.instance.billing_details_required:
             billing_details_fieldset = Fieldset(
                 _('Billing details'),
@@ -113,6 +145,7 @@ class AddressesForm(forms.ModelForm):
                 css_class='col-md-6'
             )
         else:
+            billing_details_fieldset = None
             self.fields['billing_name'].required = False
             self.fields['billing_street'].required = False
             self.fields['billing_postcode'].required = False
@@ -123,21 +156,7 @@ class AddressesForm(forms.ModelForm):
         self.helper.form_class = 'checkout-form checkout-form-addresses'
         self.helper.layout = Layout(
             Div(
-                Fieldset(
-                    _('Delivery address'),
-                    'delivery_name',
-                    'delivery_street',
-                    Row(
-                        Div('delivery_postcode', css_class='col-md-6'),
-                        Div('delivery_city', css_class='col-md-6')
-                    ),
-                    'delivery_country',
-                    Row(
-                        Div(PrependedText('email', '<i class="fas fa-at"></i>'), css_class='col-md-7'),
-                        Div(PrependedText('phone', '<i class="far fa-mobile"></i>'), css_class='col-md-5'),
-                    ),
-                    css_class='col-md-6'
-                ),
+                delivery_details_fieldset,
                 billing_details_fieldset,
                 css_class='row justify-content-center'
             ),

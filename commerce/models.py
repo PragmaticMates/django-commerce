@@ -31,11 +31,13 @@ from pragmatic.mixins import SlugMixin
 class AbstractProduct(models.Model):
     AVAILABILITY_STOCK = 'STOCK'
     AVAILABILITY_INFINITE = 'INFINITE'
+    AVAILABILITY_DIGITAL_GOODS = 'DIGITAL_GOODS'
     AVAILABILITIES = [
         (AVAILABILITY_STOCK, _('stock')),
         (AVAILABILITY_INFINITE, _('infinite')),
+        (AVAILABILITY_DIGITAL_GOODS, _('digital goods')),
     ]
-    availability = models.CharField(_('availability'), choices=AVAILABILITIES, max_length=8, default=AVAILABILITY_STOCK)
+    availability = models.CharField(_('availability'), choices=AVAILABILITIES, max_length=13, default=AVAILABILITY_STOCK)
 
     # TODO: is_stock is deprecated: use property to retrieve stock by supplies and orders
     # in_stock = models.SmallIntegerField(_('in stock'), help_text=_('empty value means infinite availability'), validators=[MinValueValidator(0)], blank=True, null=True, default=None)
@@ -265,6 +267,10 @@ class Cart(models.Model):
         return not self.shipping_options.not_free().exists()
 
     @property
+    def delivery_details_required(self):
+        return not self.has_only_digital_goods()
+
+    @property
     def billing_details_required(self):
         return self.total != 0 or not self.has_only_free_shipping_options
 
@@ -361,6 +367,13 @@ class Cart(models.Model):
         return self.item_set.filter(
             content_type=ContentType.objects.get_for_model(model),
         ).exists()
+
+    def has_only_digital_goods(self):
+        not_digital_goods = filter(
+            lambda i: i.product.availability != AbstractProduct.AVAILABILITY_DIGITAL_GOODS,
+            self.item_set.all()
+        )
+        return len(list(not_digital_goods)) == 0
 
     def add_item(self, product, option=None):
         item, created = Item.objects.get_or_create(
@@ -693,13 +706,24 @@ class Order(models.Model):
             content_type=ContentType.objects.get_for_model(model),
         )
 
+    def has_only_digital_goods(self):
+        not_digital_goods = filter(
+            lambda i: i.product.availability != AbstractProduct.AVAILABILITY_DIGITAL_GOODS,
+            self.purchaseditem_set.all()
+        )
+        return len(list(not_digital_goods)) == 0
+
+    @property
+    def delivery_details_required(self):
+        return not self.has_only_digital_goods()
+
     def create_invoice(self, type=Invoice.TYPE.INVOICE, status=Invoice.STATUS.SENT):
         language = self.user.preferred_language
 
         with override_language(language):
             issue_date = now().date()
             due_days = 0 if status == Invoice.STATUS.PAID else 7  # TODO: default due days
-
+            delivery_method = Invoice.DELIVERY_METHOD.MAILING if self.delivery_details_required else Invoice.DELIVERY_METHOD.DIGITAL
             invoice = Invoice.objects.create(
                 type=type,
                 status=status,
@@ -743,7 +767,7 @@ class Order(models.Model):
                 shipping_zip=self.delivery_postcode,
                 shipping_city=self.delivery_city,
                 shipping_country=self.delivery_country,
-                delivery_method=Invoice.DELIVERY_METHOD.MAILING  # TODO: check shipping
+                delivery_method=delivery_method
             )
 
             def check_tax_and_get_price(price):
