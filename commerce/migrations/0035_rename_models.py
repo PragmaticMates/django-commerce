@@ -35,7 +35,5 @@ class Migration(migrations.Migration):
             model_name='shippingoption',
             index=django.contrib.postgres.indexes.GinIndex(fields=['i18n'], name='commerce_sh_i18n_a10d2b_gin'),
         ),
-
-        # TODO:
-        # alter table commerce_paymentmethod_shippings rename column shipping_id to shippingoption_id
+        migrations.RunSQL("alter table commerce_paymentmethod_shippings rename column shipping_id to shippingoption_id;")
     ]
