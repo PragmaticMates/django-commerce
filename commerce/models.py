@@ -146,6 +146,8 @@ class Discount(models.Model):
     code = models.CharField(_('code'), max_length=10, unique=True)
     amount = models.PositiveSmallIntegerField(verbose_name=_('amount'), help_text='%', validators=[MinValueValidator(0), MaxValueValidator(100)])
     usage = models.CharField(_('usage'), choices=USAGES, max_length=8)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('user'), on_delete=models.SET_NULL,
+                             blank=True, null=True, default=None)
     description = models.CharField(_('description'), max_length=100)
     valid_until = models.DateTimeField(_('valid until'), db_index=True, blank=True, null=True, default=None)
     promoted = models.BooleanField(_('promoted'), default=False, help_text=_('show in topbar'))

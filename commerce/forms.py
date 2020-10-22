@@ -22,8 +22,9 @@ class DiscountCodeForm(forms.ModelForm):
         model = Cart
         fields = ['discount', 'loyalty_points']
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.user = user
 
         self.helper = FormHelper()
         self.helper.form_class = 'discount-and-loyalty-points'
@@ -68,6 +69,9 @@ class DiscountCodeForm(forms.ModelForm):
         if code not in EMPTY_VALUES:
             try:
                 discount = Discount.objects.get(code=code)
+
+                if discount.user and discount.user != self.user:
+                    raise ValidationError(_('Discount code %s is not assigned to you') % discount.code)
 
                 if not discount.is_valid:
                     raise ValidationError(_('Discount code %s is not valid anymore') % discount.code)

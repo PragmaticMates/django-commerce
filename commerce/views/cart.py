@@ -116,6 +116,13 @@ class CartDetailView(CartMixin, UpdateView):
         })
         return context_data
 
+    def get_form_kwargs(self):
+        form_kwargs = super().get_form_kwargs()
+        form_kwargs.update({
+            'user': self.request.user
+        })
+        return form_kwargs
+
 
 class EmptyCartRedirectMixin(object):
     def dispatch(self, request, *args, **kwargs):

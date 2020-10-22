@@ -246,7 +246,7 @@ class OrderAdmin(admin.ModelAdmin):
 class DiscountAdmin(admin.ModelAdmin):
     list_display = ('code', 'usage', 'description', 'amount', 'valid_until', 'promoted', 'add_to_cart', 'product_types', 'is_used_in_order')
     list_filter = ['usage', 'promoted', 'add_to_cart']
-    autocomplete_fields = ['content_types']
+    autocomplete_fields = ['content_types', 'user']
 
     def product_types(self, obj):
         return ', '.join([str(type) for type in obj.content_types.all()])
