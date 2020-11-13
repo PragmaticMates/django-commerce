@@ -17,22 +17,5 @@ class Migration(migrations.Migration):
             model_name='cart',
             name='phone',
             field=models.CharField(blank=True, max_length=30, verbose_name='phone'),
-        ),
-        migrations.CreateModel(
-            name='Customer',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('stripe_id', models.CharField(db_index=True, max_length=255, verbose_name='Stripe ID')),
-                ('payment_method', models.CharField(blank=True, db_index=True, max_length=255, verbose_name='Payment method ID')),
-                ('created', models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='created')),
-                ('modified', models.DateTimeField(auto_now=True, verbose_name='modified')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='user')),
-            ],
-            options={
-                'verbose_name': 'customer',
-                'verbose_name_plural': 'customers',
-                'ordering': ('created',),
-                'get_latest_by': 'created',
-            },
-        ),
+        )
     ]
