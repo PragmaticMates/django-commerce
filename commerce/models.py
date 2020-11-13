@@ -575,7 +575,7 @@ class Order(models.Model):
 
     # Contact details
     email = models.EmailField(_('email'))
-    phone = models.CharField(_('phone'), max_length=30)
+    phone = models.CharField(_('phone'), max_length=30, blank=True)
 
     # Shipping
     shipping_option = models.ForeignKey(ShippingOption, on_delete=models.PROTECT, null=True, default=None)
