@@ -1,44 +1,44 @@
 {% load i18n static %}
 
-{% if valid_promoted_discount_codes %}
-<div id="commerce-discount-codes">
-    {% with valid_promoted_discount_codes.first as discount %}
-        <p>
-            {{ discount.description_i18n }}: <strong>{{ discount.get_amount_display }}</strong> {% trans 'discount' %}. {% trans 'Use code' %}: <strong>{{ discount }}</strong>
-            {% if discount.valid_until %}<br><small>{% trans 'Ends in' %} <strong class="discount-valid-until" data-valid-until="{{ discount.valid_until.isoformat }}"></strong></small>{% endif %}
-        </p>
-    {% endwith %}
-</div>
+{% if valid_promoted_discount_codes.exists %}
+    <div id="commerce-discount-codes" class="row">
+        {% for discount in valid_promoted_discount_codes %}
+            <p class="col-lg">
+                {{ discount.description_i18n }}: <strong>{{ discount.get_amount_display }}</strong> {% trans 'discount' %}. {% trans 'Use code' %}: <strong>{{ discount }}</strong>
+                {% if discount.valid_until %}<br><small>{% trans 'Ends in' %} <strong class="discount-valid-until" data-valid-until="{{ discount.valid_until.isoformat }}"></strong></small>{% endif %}
+            </p>
+        {% endfor %}
+    </div>
 
-<script src="{% static 'node_modules/countdown/countdown.js' %}"></script>
-<script>
-    countdown.setLabels(
-        '{% trans 'ms|s|m|h|d|w|m|y' %}',
-        '{% trans 'ms|s|m|h|d|w|m|y' %}',
-        ' ',
-        ' ',
-        '{% trans 'now' %}'
-    );
+    <script src="{% static 'node_modules/countdown/countdown.js' %}"></script>
+    <script>
+        countdown.setLabels(
+            '{% trans 'ms|s|m|h|d|w|m|y' %}',
+            '{% trans 'ms|s|m|h|d|w|m|y' %}',
+            ' ',
+            ' ',
+            '{% trans 'now' %}'
+        );
 
-    function update() {
-        $(".discount-valid-until").each(function () {
-            var date = $(this).attr('data-valid-until');
+        function update() {
+            $(".discount-valid-until").each(function () {
+                var date = $(this).attr('data-valid-until');
 
-            if (date != null && date !== "") {
-                var ts = countdown(null, new Date(date.trim()));
-                if (ts.value < 0) {
-                    $(this).html("{% trans 'Expired' %}");
+                if (date != null && date !== "") {
+                    var ts = countdown(null, new Date(date.trim()));
+                    if (ts.value < 0) {
+                        $(this).html("{% trans 'Expired' %}");
+                    } else {
+                        $(this).html(ts.toString());
+                    }
                 } else {
-                    $(this).html(ts.toString());
+                    $(this).html('-')
                 }
-            } else {
-                $(this).html('-')
-            }
-        });
-        {#requestAnimationFrame(update);#}
-    }
+            });
+            {#requestAnimationFrame(update);#}
+        }
 
-    setInterval(update, 500) {# in ms #}
-    {#update();#}
-</script>
+        setInterval(update, 500) {# in ms #}
+        {#update();#}
+    </script>
 {% endif %}
