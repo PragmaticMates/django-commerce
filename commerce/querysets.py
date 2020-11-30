@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import Q
 from django.utils.timezone import now
@@ -105,6 +106,14 @@ class DiscountCodeQuerySet(models.QuerySet):
 
     def for_content_types(self, content_types):
         return self.filter(content_types__in=content_types)
+
+    def for_product(self, product):
+        ct = ContentType.objects.get_for_model(product.__class__)
+
+        return self.filter(
+            Q(content_types__in=[ct]) |
+            Q(id__in=product.discounts.all())
+        )
 
 
 class ShippingOptionQuerySet(models.QuerySet):

@@ -51,7 +51,7 @@ class AddToCartView(LoginRequiredMixin, View):
         return redirect(back_url)
 
     def apply_discount_by_product(self, cart, product):
-        discount = discount_for_product(product)
+        discount = discount_for_product({'request': self.request}, product)
 
         if discount and discount.add_to_cart:
             cart.discount = discount

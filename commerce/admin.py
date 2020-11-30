@@ -244,15 +244,20 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(Discount)
 class DiscountAdmin(admin.ModelAdmin):
-    list_display = ('code', 'usage', 'description', 'amount', 'valid_until', 'promoted', 'add_to_cart', 'product_types', 'is_used_in_order')
+    list_display = ('code', 'usage', 'description', 'amount', 'valid_until', 'promoted', 'add_to_cart', 'product_types', 'products_qs', 'is_used_in_order')
     list_filter = ['usage', 'promoted', 'add_to_cart']
     autocomplete_fields = ['content_types', 'user']
 
     def product_types(self, obj):
         return ', '.join([str(type) for type in obj.content_types.all()])
 
-    # def get_queryset(self, request):
-    # TODO: annotate is_used_in_order
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('content_types', 'products')
+        # TODO: annotate is_used_in_order
+
+    def products_qs(self, obj):
+        return ', '.join([str(product) for product in obj.products.all()])
+    products_qs.short_description = _('Products')
 
 
 @admin.register(Supply)

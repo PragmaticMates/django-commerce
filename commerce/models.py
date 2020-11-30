@@ -15,6 +15,7 @@ from django.utils.module_loading import import_string
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _, ugettext, override as override_language
 from filer.models import File
+from gm2m import GM2MField
 from internationalflavor.countries import CountryField
 from internationalflavor.vat_number import VATNumberField
 from modeltrans.fields import TranslationField
@@ -152,7 +153,8 @@ class Discount(models.Model):
     valid_until = models.DateTimeField(_('valid until'), db_index=True, blank=True, null=True, default=None)
     promoted = models.BooleanField(_('promoted'), default=False, help_text=_('show in topbar'))
     add_to_cart = models.BooleanField(_('add to cart'), default=False, help_text=_('automatically'))
-    content_types = models.ManyToManyField(ContentType, verbose_name=_('content types'))
+    content_types = models.ManyToManyField(ContentType, verbose_name=_('content types'), blank=True)
+    products = GM2MField(verbose_name=_('products'), blank=True, related_name='discounts')
     i18n = TranslationField(fields=('description',))
     objects = DiscountCodeQuerySet.as_manager()
 
@@ -497,8 +499,7 @@ class Item(models.Model):
         discount = self.cart.discount
 
         if discount:
-            ct = ContentType.objects.get_for_model(product)
-            if ct in discount.content_types.all():
+            if Discount.objects.for_product(product).filter(id=discount.id).exists():
                 from commerce.templatetags.commerce import discount_price
                 return Decimal(discount_price(product.price, discount.amount))
         return self.regular_price

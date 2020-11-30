@@ -1,20 +1,38 @@
 from decimal import Decimal
 
 from django import template
-from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import EMPTY_VALUES
 
+from commerce.context_processors import discount_codes
 from commerce.models import Discount
 
 register = template.Library()
 
 
-@register.simple_tag()
-def discount_for_product(product):
-    ct = ContentType.objects.get_for_model(product.__class__)
-    discounts = Discount.objects.valid().infinite().order_by('valid_until').for_content_types([ct])
-    discount = discounts.first()
-    return discount
+@register.simple_tag(takes_context=True)
+def discount_for_product(context, product):
+    discounts = Discount.objects.for_product(product)
+
+    # promoted discount
+    valid_promoted_infinite_codes = discount_codes(context['request'])['valid_promoted_discount_codes']
+    discount = valid_promoted_infinite_codes.first()
+
+    try:
+        # cart discount
+        user = context['request'].user
+
+        if user.cart.discount:
+            discount = user.cart.discount
+    except (ObjectDoesNotExist, AttributeError):
+        pass
+
+    if discount:
+        discounts = discounts.filter(id=discount.id)
+        discount = discounts.first()
+        return discount
+
+    return None
 
 
 @register.filter()
