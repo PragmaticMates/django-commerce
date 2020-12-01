@@ -1,13 +1,15 @@
 {% load i18n static %}
 
 {% if valid_promoted_discount_codes.exists %}
-    <div id="commerce-discount-codes" class="row">
-        {% for discount in valid_promoted_discount_codes %}
-            <p class="col-lg">
-                {{ discount.description_i18n }}: <strong>{{ discount.get_amount_display }}</strong> {% trans 'discount' %}. {% trans 'Use code' %}: <strong>{{ discount }}</strong>
-                {% if discount.valid_until %}<br><small>{% trans 'Ends in' %} <strong class="discount-valid-until" data-valid-until="{{ discount.valid_until.isoformat }}"></strong></small>{% endif %}
-            </p>
-        {% endfor %}
+    <div class="container-fluid">
+        <div id="commerce-discount-codes" class="row">
+            {% for discount in valid_promoted_discount_codes %}
+                <p class="col-lg">
+                    {{ discount.description_i18n }}: <strong>{{ discount.get_amount_display }}</strong> {% trans 'discount' %}. {% trans 'Use code' %}: <strong>{{ discount }}</strong>
+                    {% if discount.valid_until %}<br><small>{% trans 'Ends in' %} <strong class="discount-valid-until" data-valid-until="{{ discount.valid_until.isoformat }}"></strong></small>{% endif %}
+                </p>
+            {% endfor %}
+        </div>
     </div>
 
     <script src="{% static 'node_modules/countdown/countdown.js' %}"></script>
