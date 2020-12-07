@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 import requests
 from django.contrib import admin, messages
 from django.contrib.auth import get_user_model
@@ -158,7 +160,7 @@ class OrderAdmin(admin.ModelAdmin):
 
                 for key, column in mapping.items():
                     value = t[column]['value'] if t[column] is not None else None
-                    transaction[key] = value
+                    transaction[key] = Decimal(str(value)) if key == 'value' else value
 
                 transactions.append(transaction)
 
