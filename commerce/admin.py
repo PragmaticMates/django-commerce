@@ -3,7 +3,7 @@ from decimal import Decimal
 import requests
 from django.contrib import admin, messages
 from django.contrib.auth import get_user_model
-from django.contrib.contenttypes.admin import GenericStackedInline
+from django.contrib.contenttypes.admin import GenericTabularInline
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import EMPTY_VALUES
@@ -29,7 +29,7 @@ class ItemInline(admin.StackedInline):
     extra = 1
 
 
-class SupplyInline(GenericStackedInline):
+class SupplyInline(GenericTabularInline):
     model = Supply
     extra = 1
     inlines = None
