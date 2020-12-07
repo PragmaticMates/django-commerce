@@ -881,8 +881,9 @@ class Supply(models.Model):
     object_id = models.PositiveIntegerField()
     product = GenericForeignKey('content_type', 'object_id')  # does not work with parent class
     # TODO: option?
-    quantity = models.PositiveSmallIntegerField(verbose_name=_('quantity'), default=1)
+    quantity = models.SmallIntegerField(verbose_name=_('quantity'), default=1)
     datetime = models.DateTimeField(_('datetime'))
+    description = models.CharField(_('description'), max_length=50, blank=True)
 
     class Meta:
         verbose_name = _('supply')
