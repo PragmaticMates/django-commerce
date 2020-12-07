@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-commerce',
-    version='0.0.1',
+    version='0.1.0',
     description='Basic e-shop app for Django',
     long_description=open('README.md').read(),
     author='Pragmatic Mates',
