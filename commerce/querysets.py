@@ -110,9 +110,14 @@ class DiscountCodeQuerySet(models.QuerySet):
     def for_product(self, product):
         ct = ContentType.objects.get_for_model(product.__class__)
 
+        try:
+            product_discounts = product.discounts.all()
+        except AttributeError:
+            product_discounts = self.none()
+
         return self.filter(
             Q(content_types__in=[ct]) |
-            Q(id__in=product.discounts.all())
+            Q(id__in=product_discounts)
         )
 
 
