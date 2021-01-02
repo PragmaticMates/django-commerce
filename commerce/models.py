@@ -465,6 +465,31 @@ class Option(SlugMixin, models.Model):
     def __str__(self):
         return self.title_i18n
 
+    def total_supplies(self, product):
+        total_supplies = product.supplies.filter(
+            # product=product,  # AbstractModel
+            content_type=ContentType.objects.get_for_model(product),
+            object_id=product.id,
+            option=self).aggregate(sum=Sum('quantity'))['sum']
+        return total_supplies or 0
+
+    def purchased(self, product):
+        # count order items of not cancelled orders
+        purchased_items = PurchasedItem.objects.filter(
+            # product=self  # AbstractModel
+            content_type=ContentType.objects.get_for_model(product),
+            object_id=product.id,
+            option=self
+        ).of_not_cancelled_nor_refunded_orders()
+        quantity = purchased_items.aggregate(sum=Sum('quantity'))['sum']
+        return quantity or 0
+
+    def in_stock(self, product):
+        if product.availability == AbstractProduct.AVAILABILITY_INFINITE:
+            return 99999  # TODO: more sophisticated solution
+
+        return self.total_supplies(product) - self.purchased(product)
+
 
 class Item(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
@@ -880,7 +905,7 @@ class Supply(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.PROTECT)
     object_id = models.PositiveIntegerField()
     product = GenericForeignKey('content_type', 'object_id')  # does not work with parent class
-    # TODO: option?
+    option = models.ForeignKey(Option, on_delete=models.PROTECT, blank=True, null=True, default=None)
     quantity = models.SmallIntegerField(verbose_name=_('quantity'), default=1)
     datetime = models.DateTimeField(_('datetime'))
     description = models.CharField(_('description'), max_length=50, blank=True)

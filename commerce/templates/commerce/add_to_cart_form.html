@@ -1,4 +1,4 @@
-{% load i18n crispy_forms_tags %}
+{% load i18n crispy_forms_tags commerce %}
 
 {% with object.in_stock|default:0 as in_stock %}
     <form action="{{ product.get_add_to_cart_url }}" method="get" class="form-inline">
@@ -6,7 +6,9 @@
             <select name="option" class="custom-select mr-sm-3" required="required">
                 <option value="">{% trans 'Choose option' %}</option>
                 {% for option in product.options.all %}
-                    <option value="{{ option.slug_i18n }}">{{ option.title_i18n }}</option>
+                    {% with object|in_stock:option as option_in_stock %}
+                        <option value="{{ option.slug_i18n }}" {% if option_in_stock <= 0 %}disabled{% endif %}>{{ option.title_i18n }} ({% trans 'in stock' %}: {{ option_in_stock }})</option>
+                    {% endwith %}
                 {% endfor %}
             </select>
         {% endif %}

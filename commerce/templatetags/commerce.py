@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import EMPTY_VALUES
 
 from commerce.context_processors import discount_codes
-from commerce.models import Discount
+from commerce.models import Discount, AbstractProduct
 
 register = template.Library()
 
@@ -48,3 +48,8 @@ def discount_price(price, amount):
         discount_price = discount_price[:-3]
 
     return discount_price
+
+
+@register.filter()
+def in_stock(product, option):
+    return option.in_stock(product)
