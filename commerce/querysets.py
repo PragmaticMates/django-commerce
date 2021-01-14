@@ -90,6 +90,9 @@ class PurchasedItemQuerySet(models.QuerySet):
             Order.STATUS_PARTIALLY_REFUNDED,
         ])
 
+    def of_content_types(self, content_types):
+        return self.filter(content_type__in=content_types)
+
 
 class DiscountCodeQuerySet(models.QuerySet):
     def valid(self):
