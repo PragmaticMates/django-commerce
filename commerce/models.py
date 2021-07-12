@@ -33,10 +33,12 @@ class AbstractProduct(models.Model):
     AVAILABILITY_STOCK = 'STOCK'
     AVAILABILITY_INFINITE = 'INFINITE'
     AVAILABILITY_DIGITAL_GOODS = 'DIGITAL_GOODS'
+    AVAILABILITY_SALE_ENDED = 'SALE_ENDED'
     AVAILABILITIES = [
         (AVAILABILITY_STOCK, _('stock')),
         (AVAILABILITY_INFINITE, _('infinite')),
         (AVAILABILITY_DIGITAL_GOODS, _('digital goods')),
+        (AVAILABILITY_SALE_ENDED, _('sale ended')),
     ]
     availability = models.CharField(_('availability'), choices=AVAILABILITIES, max_length=13, default=AVAILABILITY_STOCK)
 
@@ -45,7 +47,7 @@ class AbstractProduct(models.Model):
     price = models.DecimalField(_('price'), help_text=commerce_settings.CURRENCY, max_digits=10, decimal_places=2, db_index=True, validators=[MinValueValidator(0)],
                                 blank=True, null=True, default=None)
     # discount = models.DecimalField(_(u'discount (%)'), max_digits=4, decimal_places=1, default=0)
-    awaiting = models.BooleanField(_('awaiting'), default=False)
+    awaiting = models.BooleanField(_('awaiting'), default=False)  # TODO: move to availability?
     options = models.ManyToManyField('commerce.Option', verbose_name=_('options'), blank=True)
 
     # WARNING! don't use generic relation in parent classes. Add them into child classes instead
