@@ -119,8 +119,9 @@ class DiscountCodeQuerySet(models.QuerySet):
             product_discounts = self.none()
 
         return self.filter(
-            Q(content_types__in=[ct]) |
-            Q(id__in=product_discounts)
+            Q(content_types__in=[ct]) |  # content type discounts
+            Q(content_types=None) |      # general discounts
+            Q(id__in=product_discounts)  # specific product discounts
         )
 
 

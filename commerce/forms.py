@@ -79,6 +79,9 @@ class DiscountCodeForm(forms.ModelForm):
                 if discount.is_used:
                     raise ValidationError(_('Discount code %s was used already') % discount.code)
 
+                if discount.max_items is not None and self.instance.item_set.count() > discount.max_items:
+                    raise ValidationError(_('Discount code %s can be applied to at most %d items') % (discount.code, discount.max_items))
+
             except ObjectDoesNotExist:
                 raise ValidationError(_('There is no such discount code'))
 

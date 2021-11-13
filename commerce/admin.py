@@ -37,8 +37,8 @@ class SupplyInline(GenericTabularInline):
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'items', 'total', 'delivery_country', 'created', 'modified', 'open')
-    list_select_related = ['user']
+    list_display = ('id', 'user', 'items', 'discount', 'total', 'delivery_country', 'created', 'modified', 'open')
+    list_select_related = ['user', 'discount']
     inlines = [ItemInline]
     fieldsets = [
         (None, {'fields': ['user']}),

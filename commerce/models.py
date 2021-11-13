@@ -156,6 +156,7 @@ class Discount(models.Model):
     promoted = models.BooleanField(_('promoted'), default=False, help_text=_('show in topbar'))
     add_to_cart = models.BooleanField(_('add to cart'), default=False, help_text=_('automatically'))
     content_types = models.ManyToManyField(ContentType, verbose_name=_('content types'), blank=True)
+    max_items = models.PositiveSmallIntegerField(_('max items in cart'), blank=True, null=True, default=None)
     products = GM2MField(verbose_name=_('products'), blank=True, related_name='discounts')
     i18n = TranslationField(fields=('description',))
     objects = DiscountCodeQuerySet.as_manager()
@@ -193,6 +194,15 @@ class Discount(models.Model):
     @property
     def is_used_in_order(self):
         return Order.objects.filter(discount=self).exists()
+
+    def can_be_used_in_cart(self, cart):
+        if not self.is_valid:
+            return False
+
+        if self.max_items is not None and cart.item_set.count() > self.max_items:
+            return False
+
+        return True
 
 
 class Cart(models.Model):
@@ -529,6 +539,7 @@ class Item(models.Model):
             if Discount.objects.for_product(product).filter(id=discount.id).exists():
                 from commerce.templatetags.commerce import discount_price
                 return Decimal(discount_price(product.price, discount.amount))
+
         return self.regular_price
 
     def get_price_display(self):

@@ -33,15 +33,20 @@ class AddToCartView(LoginRequiredMixin, View):
                 cart.add_item(product, option)
 
                 # discount
+                removed_cart_discount = None
+
                 if cart.discount:
                     # remove discount if it is not valid anymore
-                    if not cart.discount.is_valid:
+                    if not cart.discount.can_be_used_in_cart(cart):
+                        removed_cart_discount = cart.discount
                         cart.discount = None
                         cart.save(update_fields=['discount'])
-
-                if not cart.discount:
+                else:
                     # if no discount is applied yet, check if there is a valid discount available for product
                     self.apply_discount_by_product(cart, product)
+
+                if removed_cart_discount is not None:
+                    messages.warning(request, _('Discount %s was removed from cart') % removed_cart_discount)
 
                 messages.info(request, _('%s was added into cart') % product)
             else:
