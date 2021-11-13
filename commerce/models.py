@@ -190,7 +190,7 @@ class Discount(models.Model):
             raise ValidationError(_('Amount of percentage has to be from interval 0-100.'))
 
         # TODO: content types (m2m) are added after instance save().
-        if self.unit == self.UNIT_CURRENCY and self.content_types.exists():
+        if self.unit == self.UNIT_CURRENCY and self.id and self.content_types.exists():
             raise ValidationError(_("Content types can't be used together with currency type"))
 
         return super().clean()
