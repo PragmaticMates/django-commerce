@@ -6,9 +6,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres.indexes import GinIndex
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, EMPTY_VALUES, MaxValueValidator
 from django.db import models, transaction
-from django.db.models import Sum
+from django.db.models import Sum, CheckConstraint, Q
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.module_loading import import_string
@@ -146,8 +147,15 @@ class Discount(models.Model):
         (USAGE_ONE_TIME, _('one-time only')),
         (USAGE_INFINITE, _('infinite')),
     ]
+    UNIT_PERCENTAGE = 'PERCENTAGE'
+    UNIT_CURRENCY = 'CURRENCY'
+    UNITS = [
+        (UNIT_PERCENTAGE, _('percentage')),
+        (UNIT_CURRENCY, _('currency')),
+    ]
     code = models.CharField(_('code'), max_length=10, unique=True)
-    amount = models.PositiveSmallIntegerField(verbose_name=_('amount'), help_text='%', validators=[MinValueValidator(0), MaxValueValidator(100)])
+    amount = models.PositiveSmallIntegerField(verbose_name=_('amount'))
+    unit = models.CharField(_('unit'), max_length=10, choices=UNITS, default=UNIT_PERCENTAGE)
     usage = models.CharField(_('usage'), choices=USAGES, max_length=8)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('user'), on_delete=models.SET_NULL,
                              blank=True, null=True, default=None)
@@ -166,12 +174,32 @@ class Discount(models.Model):
         verbose_name_plural = _('discounts')
         ordering = ('valid_until',)
         indexes = [GinIndex(fields=["i18n"]), ]
+        constraints = [
+            CheckConstraint(
+                check=Q(amount__gte=0, amount__lte=100, unit='PERCENTAGE') |
+                      Q(unit='CURRENCY'),
+                name='percentage'
+            )
+        ]
 
     def __str__(self):
         return str(self.code)
 
+    def clean(self):
+        if self.unit == self.UNIT_PERCENTAGE and (self.amount < 0 or self.amount > 100):
+            raise ValidationError(_('Amount of percentage has to be from interval 0-100.'))
+
+        # TODO: content types (m2m) are added after instance save().
+        if self.unit == self.UNIT_CURRENCY and self.content_types.exists():
+            raise ValidationError(_("Content types can't be used together with currency type"))
+
+        return super().clean()
+
+    def get_unit_display(self):
+        return '%' if self.unit == self.UNIT_PERCENTAGE else commerce_settings.CURRENCY
+
     def get_amount_display(self):
-        return f'-{self.amount}%'
+        return f'-{self.amount} {self.get_unit_display()}'
 
     @property
     def is_valid(self):
@@ -321,10 +349,14 @@ class Cart(models.Model):
     def subtotal(self):
         subtotal = self.items_subtotal
 
+        # discount
+        if self.discount and self.discount.unit == Discount.UNIT_CURRENCY:
+            subtotal -= self.discount.amount
+
         # loyalty program
         subtotal -= points_to_currency_unit(self.loyalty_points_used)
 
-        return subtotal
+        return max(subtotal, 0)
     
     @property
     def loyalty_points_earned(self):
@@ -695,10 +727,14 @@ class Order(models.Model):
     def subtotal(self):
         subtotal = sum([item.subtotal for item in self.purchaseditem_set.all()])
 
+        # discount
+        if self.discount and self.discount.unit == Discount.UNIT_CURRENCY:
+            subtotal -= self.discount.amount
+
         # loyalty program
         subtotal -= points_to_currency_unit(self.loyalty_points_used)
 
-        return subtotal
+        return max(subtotal, 0)
 
     @property
     def total(self):
@@ -765,6 +801,7 @@ class Order(models.Model):
             issue_date = now().date()
             due_days = 0 if status == Invoice.STATUS.PAID else 7  # TODO: default due days
             delivery_method = Invoice.DELIVERY_METHOD.MAILING if self.delivery_details_required else Invoice.DELIVERY_METHOD.DIGITAL
+
             invoice = Invoice.objects.create(
                 type=type,
                 status=status,
@@ -773,7 +810,6 @@ class Order(models.Model):
                 date_tax_point=issue_date,
                 date_due=issue_date + relativedelta(days=due_days),
                 currency=commerce_settings.CURRENCY,
-                credit=points_to_currency_unit(self.loyalty_points_used),
                 # already_paid=
                 # payment_method=Invoice.PAYMENT_METHOD.BANK_TRANSFER,
                 # payment_method=Invoice.PAYMENT_METHOD.BANK_TRANSFER if self.payment_method.method == Payment.METHOD_WIRE_TRANSFER
@@ -829,6 +865,19 @@ class Order(models.Model):
                     unit_price=check_tax_and_get_price(purchaseditem.price),
                     # discount=self.discount,  # TODO
                 )
+
+            # calculate credit (it's important to add it after items and invoice creation)
+            credit = points_to_currency_unit(self.loyalty_points_used)
+
+            if self.discount and self.discount.unit == Discount.UNIT_CURRENCY:
+                credit += self.discount.amount
+
+            # credit can't be more ten sum of items
+            credit = min(credit, invoice.subtotal)
+
+            # update invoice credit
+            invoice.credit = credit
+            invoice.save(update_fields=['credit'])
 
             shipping_item = InvoiceItem.objects.create(
                 invoice=invoice,

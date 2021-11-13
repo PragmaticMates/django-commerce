@@ -32,11 +32,12 @@
 
 <br>
 
-{# TODO: discount #}
-
 <strong>{% trans 'Sum' %}:</strong> {{ cart.get_items_subtotal_display }}<br>
 {% if loyalty_program_enabled %}
     <strong>{% trans 'Loyalty points' %}:</strong> {{ cart.get_loyalty_points_display }}<br>
+{% endif %}
+{% if cart.discount and cart.discount.unit == cart.discount.UNIT_CURRENCY %}
+    <strong>{% trans 'Discount' %}:</strong> {{ cart.discount.get_amount_display }}<br>
 {% endif %}
 <strong>{% trans 'Shipping option' %}:</strong> {{ cart.shipping_option }}<br>
 <strong>{% trans 'Shipping fee' %}:</strong> {{ cart.get_shipping_fee_display }}<br>

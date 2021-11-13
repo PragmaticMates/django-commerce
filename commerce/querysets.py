@@ -118,7 +118,7 @@ class DiscountCodeQuerySet(models.QuerySet):
         except AttributeError:
             product_discounts = self.none()
 
-        return self.filter(
+        return self.filter(Q(unit=self.model.UNIT_PERCENTAGE),
             Q(content_types__in=[ct]) |  # content type discounts
             Q(content_types=None) |      # general discounts
             Q(id__in=product_discounts)  # specific product discounts
