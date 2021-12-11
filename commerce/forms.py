@@ -82,6 +82,12 @@ class DiscountCodeForm(forms.ModelForm):
                 if discount.max_items is not None and self.instance.item_set.count() > discount.max_items:
                     raise ValidationError(_('Discount code %s can be applied to at most %d items') % (discount.code, discount.max_items))
 
+                if discount.products.exists():
+                    cart = Cart.get_for_user(self.user)
+
+                    if not cart.has_item(list(discount.products.all())):
+                        raise ValidationError(_('Discount product is not in the cart'))
+
             except ObjectDoesNotExist:
                 raise ValidationError(_('There is no such discount code'))
 

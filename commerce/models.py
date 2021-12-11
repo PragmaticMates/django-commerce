@@ -230,6 +230,10 @@ class Discount(models.Model):
         if self.max_items is not None and cart.item_set.count() > self.max_items:
             return False
 
+        if self.products.exists():
+            if not cart.has_item(list(self.products.all())):
+                return False
+
         return True
 
 
@@ -404,7 +408,15 @@ class Cart(models.Model):
 
         return not self.is_empty()
 
-    def has_item(self, product, option=None):
+    def has_item(self, product_or_list, option=None):
+        if isinstance(product_or_list, list):
+            for product in product_or_list:
+                if self.has_item(product, option):
+                    return True
+            return False
+
+        product = product_or_list
+
         return self.item_set.filter(
             content_type=ContentType.objects.get_for_model(product),
             object_id=product.id,
