@@ -14,7 +14,7 @@ from django.views.generic import DetailView
 from commerce import settings as commerce_settings
 from commerce.gateways.stripe.models import Customer
 from commerce.loyalty import points_to_currency_unit
-from commerce.models import Order
+from commerce.models import Order, Discount
 from inventor.templatetags.inventor import uri
 
 stripe.api_key = commerce_settings.GATEWAY_STRIPE_SECRET_API_KEY
@@ -43,7 +43,7 @@ class StripeCreateSessionView(DetailView):
 
         line_items = []
 
-        if order.loyalty_points_used > 0:
+        if order.loyalty_points_used > 0 or order.discount and order.discount.unit == Discount.UNIT_CURRENCY:
             # Stripe does not support items with negative amount (credit)
             line_items.append({
                 'price_data': {
@@ -92,17 +92,18 @@ class StripeCreateSessionView(DetailView):
                     'quantity': 1,
                 })
 
-            if order.loyalty_points_used > 0:
-                line_items.append({
-                    'price_data': {
-                        'currency': commerce_settings.CURRENCY.lower(),
-                        'unit_amount': -int(points_to_currency_unit(order.loyalty_points_used) * 100),
-                        'product_data': {
-                            'name': _('Credit'),
-                        },
-                    },
-                    'quantity': 1,
-                })
+            # stripe does not support negative items !!!
+            # if order.loyalty_points_used > 0:
+            #     line_items.append({
+            #         'price_data': {
+            #             'currency': commerce_settings.CURRENCY.lower(),
+            #             'unit_amount': -int(points_to_currency_unit(order.loyalty_points_used) * 100),
+            #             'product_data': {
+            #                 'name': _('Credit'),
+            #             },
+            #         },
+            #         'quantity': 1,
+            #     })
 
         try:
             # TODO: billing
