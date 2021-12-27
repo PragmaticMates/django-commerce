@@ -12,7 +12,7 @@ register = template.Library()
 
 @register.simple_tag(takes_context=True)
 def discount_for_product(context, product):
-    discounts = Discount.objects.for_product(product)
+    valid_product_discounts = Discount.objects.for_product(product).valid()
 
     # promoted discount
     valid_promoted_infinite_codes = discount_codes(context['request'])['valid_promoted_discount_codes']
@@ -28,8 +28,7 @@ def discount_for_product(context, product):
         pass
 
     if discount:
-        discounts = discounts.filter(id=discount.id)
-        discount = discounts.first()
+        discount = valid_product_discounts.filter(id=discount.id).first()
         return discount
 
     return None

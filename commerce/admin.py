@@ -244,10 +244,30 @@ class OrderAdmin(admin.ModelAdmin):
     send_loyalty_reminder.short_description = _('Send loyalty reminder')
 
 
+class DiscountValidListFilter(admin.SimpleListFilter):
+    title = _('valid')
+    parameter_name = 'valid'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('yes', _('yes')),
+            ('no', _('no')),
+        )
+
+    def queryset(self, request, queryset):
+        print(self.value())
+        if self.value() == 'yes':
+            return queryset.valid()
+
+        if self.value() == 'no':
+            return queryset.not_valid()
+
+
 @admin.register(Discount)
 class DiscountAdmin(admin.ModelAdmin):
-    list_display = ('code', 'usage', 'description', 'amount', 'valid_until', 'promoted', 'add_to_cart', 'product_types', 'products_qs', 'is_used_in_order')
-    list_filter = ['usage', 'promoted', 'add_to_cart']
+    search_fields = ['code']
+    list_display = ('code', 'usage', 'description', 'amount', 'unit', 'valid_until', 'promoted', 'add_to_cart', 'product_types', 'products_qs', 'is_used_in_order')
+    list_filter = ['unit', 'usage', 'promoted', 'add_to_cart', DiscountValidListFilter]
     autocomplete_fields = ['content_types', 'user']
 
     def product_types(self, obj):

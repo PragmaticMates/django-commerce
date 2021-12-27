@@ -4,6 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import Q
 from django.utils.timezone import now
+from gm2m.models import create_gm2m_intermediary_model
 
 
 class CartQuerySet(models.QuerySet):
@@ -118,10 +119,20 @@ class DiscountCodeQuerySet(models.QuerySet):
         except AttributeError:
             product_discounts = self.none()
 
-        return self.filter(Q(unit=self.model.UNIT_PERCENTAGE),
-            Q(content_types__in=[ct]) |  # content type discounts
-            Q(content_types=None) |      # general discounts
-            Q(id__in=product_discounts)  # specific product discounts
+        field = getattr(self.model, 'products').field
+        im = create_gm2m_intermediary_model(field, self.model)
+        ids_of_discounts_with_products = set(im.objects.values_list('gm2m_src_id', flat=True))
+
+        # Q(unit=self.model.UNIT_PERCENTAGE),
+        return self.filter(
+            Q(id__in=product_discounts) |  # specific product discounts
+            Q(
+                ~Q(id__in=ids_of_discounts_with_products),  # exclude discounts of specific products
+                Q(
+                    Q(content_types__in=[ct]) |  # content type discounts
+                    Q(content_types=None)        # or general discounts
+                )
+            )
         )
 
 
