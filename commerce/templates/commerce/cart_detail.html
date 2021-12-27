@@ -10,6 +10,9 @@
 
     {% crispy form %}
 
+    {% if cart.discount and cart.discount.unit == cart.discount.UNIT_CURRENCY %}
+        <strong>{% trans 'Discount' %}:</strong> {{ cart.discount.get_amount_display }}<br>
+    {% endif %}
     <strong>{% trans 'Subtotal' %}:</strong> {{ cart.get_subtotal_display }}
 
     <br><br>

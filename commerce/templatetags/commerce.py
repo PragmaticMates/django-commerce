@@ -15,7 +15,7 @@ def discount_for_product(context, product):
     valid_product_discounts = Discount.objects.for_product(product).valid()
 
     # promoted discount
-    valid_promoted_infinite_codes = discount_codes(context['request'])['valid_promoted_discount_codes']
+    valid_promoted_infinite_codes = discount_codes(context['request'])['valid_promoted_discount_codes'].for_product(product)
     discount = valid_promoted_infinite_codes.first()
 
     try:
@@ -35,7 +35,7 @@ def discount_for_product(context, product):
 
 
 @register.filter()
-def discount_price(price, amount):
+def percentage_discount_price(price, amount):
     if price in EMPTY_VALUES or price == 0:
         return 0
 

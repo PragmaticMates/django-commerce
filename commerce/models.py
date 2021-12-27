@@ -579,10 +579,10 @@ class Item(models.Model):
         product = self.product
         discount = self.cart.discount
 
-        if discount:
+        if discount and discount.unit == Discount.UNIT_PERCENTAGE:
             if Discount.objects.for_product(product).filter(id=discount.id).exists():
-                from commerce.templatetags.commerce import discount_price
-                return Decimal(discount_price(product.price, discount.amount))
+                from commerce.templatetags.commerce import percentage_discount_price
+                return Decimal(percentage_discount_price(product.price, discount.amount))
 
         return self.regular_price
 
