@@ -417,11 +417,17 @@ class Cart(models.Model):
 
         product = product_or_list
 
-        return self.item_set.filter(
-            content_type=ContentType.objects.get_for_model(product),
-            object_id=product.id,
-            option=option
-        ).exists()
+        kwargs = {
+            'content_type': ContentType.objects.get_for_model(product),
+            'object_id': product.id
+        }
+
+        if option:
+            kwargs.update({
+                'option': option
+            })
+
+        return self.item_set.filter(**kwargs).exists()
 
     def has_item_of_type(self, model):
         return self.item_set.filter(
