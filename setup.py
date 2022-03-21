@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-commerce',
-    version='0.2.2',
+    version='0.2.3',
     description='Basic e-shop app for Django',
     long_description=open('README.md').read(),
     author='Pragmatic Mates',
@@ -12,13 +12,6 @@ setup(
     maintainer_email='info@pragmaticmates.com',
     url='https://github.com/PragmaticMates/django-commerce',
     packages=find_packages(),
-    # [
-    #     'commerce',
-    #     'commerce.migrations',
-    #     'commerce.gateways.globalpayments',
-    #     'commerce.gateways.globalpayments.migrations',
-    #     'commerce.gateways.wiretransfer',
-    # ],
     include_package_data=True,
     install_requires=('django', 'django-invoicing'),
     classifiers=[
