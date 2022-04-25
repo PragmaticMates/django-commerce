@@ -26,6 +26,11 @@ stripe.api_key = commerce_settings.GATEWAY_STRIPE_SECRET_API_KEY
 endpoint_secret = commerce_settings.GATEWAY_STRIPE_ENDPOINT_SECRET
 
 
+# TODO: check useful functionality: https://medium.com/geekculture/how-to-integrate-stripe-in-django-1f7b8e83c0a8
+# TODO: check useful functionality: https://justdjango.com/blog/django-stripe-payments-tutorial
+# TODO: https://stripe.com/docs/payments/accept-a-payment?platform=web&ui=checkout
+# TODO: https://testdriven.io/blog/django-stripe-tutorial/
+
 class StripeCreateSessionView(DetailView):
     model = Order
 
@@ -117,6 +122,8 @@ class StripeCreateSessionView(DetailView):
                 success_url=uri({'request': request}, reverse('commerce:stripe_success_payment')),
                 cancel_url=uri({'request': request}, reverse('commerce:stripe_cancel_payment')),
             )
+            # TODO: check functionality
+            # return redirect(checkout_session.url)
             return HttpResponse(json.dumps({'id': checkout_session.id}), status=200)
         except Exception as e:
             print('ERROR', e)

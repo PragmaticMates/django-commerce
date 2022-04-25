@@ -6,7 +6,6 @@ from commerce.views.cart import AddToCartView, RemoveFromCartView, CartDetailVie
 from commerce.views.order import OrderPaymentView, OrderPaymentReturnView, OrderListView
 from commerce.views.loyalty import LoyaltyProgramView
 from commerce import settings as commerce_settings
-from commerce.gateways.stripe.views import StripeCreateSessionView, StripeSuccessPaymentView, StripeCancelPaymentView, StripeWebhookView
 
 app_name = 'commerce'
 
@@ -25,6 +24,9 @@ urlpatterns = [
 ]
 
 if 'commerce.gateways.stripe' in settings.INSTALLED_APPS:
+    from commerce.gateways.stripe.views import StripeCreateSessionView, StripeSuccessPaymentView, \
+        StripeCancelPaymentView, StripeWebhookView
+
     urlpatterns += [
         path(pgettext_lazy("url", 'stripe/create-session/<int:pk>/'), StripeCreateSessionView.as_view(), name='stripe_create_session'),
         path(pgettext_lazy("url", 'stripe/success/'), StripeSuccessPaymentView.as_view(), name='stripe_success_payment'),
