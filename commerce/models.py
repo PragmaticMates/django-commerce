@@ -675,7 +675,7 @@ class Order(models.Model):
     payment_fee = models.DecimalField(_('payment fee'), help_text=commerce_settings.CURRENCY, max_digits=10, decimal_places=2, db_index=True, validators=[MinValueValidator(0)])
 
     # Invoices
-    invoices = models.ManyToManyField(to='invoicing.Invoice', verbose_name=_('invoices'), blank=True, related_name='orders')
+    invoices = models.ManyToManyField(to='invoicing.Invoice', verbose_name=_('invoices'), blank=True, related_name='purchases')
 
     # Discount
     discount = models.ForeignKey(Discount, verbose_name=_('discount'), on_delete=models.PROTECT, blank=True, null=True, default=None)
