@@ -867,10 +867,9 @@ class Order(models.Model):
             )
 
             def check_tax_and_get_price(price):
-                unit_price_is_with_tax = True  # TODO: settings
                 tax_rate = getattr(settings, 'INVOICING_TAX_RATE', None)  # TODO: taxation policy
 
-                if unit_price_is_with_tax and tax_rate is not None and tax_rate > 0:
+                if commerce_settings.UNIT_PRICE_IS_WITH_TAX and tax_rate is not None and tax_rate > 0:
                     return price / Decimal(100 + Decimal(tax_rate)) * 100
 
                 return price
