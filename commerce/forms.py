@@ -7,6 +7,7 @@ from django.core.validators import EMPTY_VALUES
 from django.forms import Form, HiddenInput
 from django.template import Template, Context, loader
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from commerce import settings as commerce_settings
@@ -118,8 +119,8 @@ class AddressesForm(forms.ModelForm):
                 ),
                 'delivery_country',
                 Row(
-                    Div(PrependedText('email', '<i class="fas fa-at"></i>'), css_class='col-md-7'),
-                    Div(PrependedText('phone', '<i class="far fa-mobile"></i>'), css_class='col-md-5'),
+                    Div(PrependedText('email', mark_safe('<i class="fas fa-at"></i>')), css_class='col-md-7'),
+                    Div(PrependedText('phone', mark_safe('<i class="far fa-mobile"></i>')), css_class='col-md-5'),
                 ),
                 css_class='col-md-6'
             )
@@ -133,8 +134,8 @@ class AddressesForm(forms.ModelForm):
             delivery_details_fieldset = Fieldset(
                 _('Contact details'),
                 Row(
-                    Div(PrependedText('email', '<i class="fas fa-at"></i>'), css_class='col-md-7'),
-                    Div(PrependedText('phone', '<i class="far fa-mobile"></i>'), css_class='col-md-5'),
+                    Div(PrependedText('email', mark_safe('<i class="fas fa-at"></i>')), css_class='col-md-7'),
+                    Div(PrependedText('phone', mark_safe('<i class="far fa-mobile"></i>')), css_class='col-md-5'),
                 ),
                 css_class='col-md-6'
             )

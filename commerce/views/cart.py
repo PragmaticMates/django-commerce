@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
+from django.core.validators import EMPTY_VALUES
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext_lazy as _
 from django.views import View
@@ -145,25 +146,29 @@ class CheckoutAddressesView(CartMixin, EmptyCartRedirectMixin, UpdateView):
 
     def get_cart_details(self, subject):
         if hasattr(subject, 'get_cart_details'):
-            return subject.get_cart_details()
+            details = subject.get_cart_details()
+        else:
+            details = {
+                'delivery_name': subject.delivery_name,
+                'delivery_street': subject.delivery_street,
+                'delivery_postcode': subject.delivery_postcode,
+                'delivery_city': subject.delivery_city,
+                'delivery_country': subject.delivery_country,
+                'billing_name': subject.billing_name,
+                'billing_street': subject.billing_street,
+                'billing_postcode': subject.billing_postcode,
+                'billing_city': subject.billing_city,
+                'billing_country': subject.billing_country,
+                'reg_id': subject.reg_id,
+                'tax_id': subject.tax_id,
+                'vat_id': subject.vat_id,
+                'email': subject.email,
+                'phone': subject.phone,
+            }
 
-        return {
-            'delivery_name': subject.delivery_name,
-            'delivery_street': subject.delivery_street,
-            'delivery_postcode': subject.delivery_postcode,
-            'delivery_city': subject.delivery_city,
-            'delivery_country': subject.delivery_country,
-            'billing_name': subject.billing_name,
-            'billing_street': subject.billing_street,
-            'billing_postcode': subject.billing_postcode,
-            'billing_city': subject.billing_city,
-            'billing_country': subject.billing_country,
-            'reg_id': subject.reg_id,
-            'tax_id': subject.tax_id,
-            'vat_id': subject.vat_id,
-            'email': subject.email,
-            'phone': subject.phone,
-        }
+        not_empty_details = {k: v for k, v in details.items() if v not in EMPTY_VALUES}
+
+        return not_empty_details
 
     def get_initial(self):
         initial = super().get_initial()
