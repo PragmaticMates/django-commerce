@@ -143,45 +143,42 @@ class CheckoutAddressesView(CartMixin, EmptyCartRedirectMixin, UpdateView):
     template_name = 'commerce/checkout_form.html'
     form_class = AddressesForm
 
+    def get_cart_details(self, subject):
+        if hasattr(subject, 'get_cart_details'):
+            return subject.get_cart_details()
+
+        return {
+            'delivery_name': subject.delivery_name,
+            'delivery_street': subject.delivery_street,
+            'delivery_postcode': subject.delivery_postcode,
+            'delivery_city': subject.delivery_city,
+            'delivery_country': subject.delivery_country,
+            'billing_name': subject.billing_name,
+            'billing_street': subject.billing_street,
+            'billing_postcode': subject.billing_postcode,
+            'billing_city': subject.billing_city,
+            'billing_country': subject.billing_country,
+            'reg_id': subject.reg_id,
+            'tax_id': subject.tax_id,
+            'vat_id': subject.vat_id,
+            'email': subject.email,
+            'phone': subject.phone,
+        }
+
     def get_initial(self):
         initial = super().get_initial()
         user = self.object.user
         last_user_order = user.order_set.last()
 
-        # TODO: refactor
         if last_user_order:
-            initial.update({
-                'delivery_name': self.object.delivery_name or last_user_order.delivery_name,
-                'delivery_street': self.object.delivery_street or last_user_order.delivery_street,
-                'delivery_postcode': self.object.delivery_postcode or last_user_order.delivery_postcode,
-                'delivery_city': self.object.delivery_city or last_user_order.delivery_city,
-                'delivery_country': self.object.delivery_country or last_user_order.delivery_country,
-                'billing_name': self.object.billing_name or last_user_order.billing_name,
-                'billing_street': self.object.billing_street or last_user_order.billing_street,
-                'billing_postcode': self.object.billing_postcode or last_user_order.billing_postcode,
-                'billing_city': self.object.billing_city or last_user_order.billing_city,
-                'billing_country': self.object.billing_country or last_user_order.billing_country,
-                'reg_id': self.object.reg_id or last_user_order.reg_id,
-                'tax_id': self.object.tax_id or last_user_order.tax_id,
-                'vat_id': self.object.vat_id or last_user_order.vat_id,
-                'email': self.object.email or last_user_order.email,
-                'phone': self.object.phone or last_user_order.phone,
-            })
+            # details from last order
+            initial.update(self.get_cart_details(last_user_order))
         else:
-            initial.update({
-                'delivery_name': self.object.delivery_name or user.get_full_name(),
-                'delivery_street': self.object.delivery_street or user.street,
-                'delivery_postcode': self.object.delivery_postcode or user.postcode,
-                'delivery_city': self.object.delivery_city or user.city,
-                'delivery_country': self.object.delivery_country or user.country,
-                'billing_name': self.object.billing_name or user.get_full_name(),
-                'billing_street': self.object.billing_street or user.street,
-                'billing_postcode': self.object.billing_postcode or user.postcode,
-                'billing_city': self.object.billing_city or user.city,
-                'billing_country': self.object.billing_country or user.country,
-                'email': self.object.email or user.email,
-                'phone': self.object.phone or user.phone,
-            })
+            # details from order user / purchaser
+            initial.update(self.get_cart_details(user))
+
+        # details from cart itself (the highest priority)
+        initial.update(self.get_cart_details(self.object))
 
         return initial
 

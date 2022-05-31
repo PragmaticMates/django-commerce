@@ -22,6 +22,7 @@ from internationalflavor.vat_number import VATNumberField
 from modeltrans.fields import TranslationField
 
 from commerce import settings as commerce_settings
+from commerce.helpers import get_product_availability
 from commerce.loyalty import points_to_currency_unit, currency_units_to_points, available_points
 from commerce.querysets import OrderQuerySet, PurchasedItemQuerySet, DiscountCodeQuerySet, ShippingOptionQuerySet, CartQuerySet
 from invoicing.models import Invoice, Item as InvoiceItem
@@ -436,7 +437,7 @@ class Cart(models.Model):
 
     def has_only_digital_goods(self):
         not_digital_goods = filter(
-            lambda i: i.product.availability != AbstractProduct.AVAILABILITY_DIGITAL_GOODS,
+            lambda i: get_product_availability(i.product) != AbstractProduct.AVAILABILITY_DIGITAL_GOODS,
             self.item_set.all()
         )
         return len(list(not_digital_goods)) == 0
