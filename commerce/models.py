@@ -804,7 +804,7 @@ class Order(models.Model):
 
     def has_only_digital_goods(self):
         not_digital_goods = filter(
-            lambda i: i.product.availability != AbstractProduct.AVAILABILITY_DIGITAL_GOODS,
+            lambda i: get_product_availability(i.product) != AbstractProduct.AVAILABILITY_DIGITAL_GOODS,
             self.purchaseditem_set.all()
         )
         return len(list(not_digital_goods)) == 0
@@ -856,8 +856,8 @@ class Order(models.Model):
                 customer_registration_id=self.reg_id,
                 customer_tax_id=self.tax_id,
                 customer_vat_id=self.vat_id,
-                customer_email=self.user.email,
-                customer_phone=self.user.phone,
+                customer_email=self.email,
+                customer_phone=self.phone,
                 shipping_name=self.delivery_name,
                 shipping_street=self.delivery_street,
                 shipping_zip=self.delivery_postcode,
@@ -866,13 +866,13 @@ class Order(models.Model):
                 delivery_method=delivery_method
             )
 
-            def check_tax_and_get_price(price):
-                tax_rate = getattr(settings, 'INVOICING_TAX_RATE', None)  # TODO: taxation policy
-
-                if commerce_settings.UNIT_PRICE_IS_WITH_TAX and tax_rate is not None and tax_rate > 0:
-                    return price / Decimal(100 + Decimal(tax_rate)) * 100
+            def check_tax_and_get_price(price, rate):
+                if commerce_settings.UNIT_PRICE_IS_WITH_TAX and rate is not None and rate > 0:
+                    return price / Decimal(100 + Decimal(rate)) * 100
 
                 return price
+
+            tax_rate = invoice.get_tax_rate()
 
             for purchaseditem in self.purchaseditem_set.all():
                 item = InvoiceItem.objects.create(
@@ -880,7 +880,7 @@ class Order(models.Model):
                     title=purchaseditem.title_with_option,
                     quantity=purchaseditem.quantity,
                     unit=InvoiceItem.UNIT_PIECES,
-                    unit_price=check_tax_and_get_price(purchaseditem.price),
+                    unit_price=check_tax_and_get_price(purchaseditem.price, tax_rate),
                     # discount=self.discount,  # TODO
                 )
 
@@ -902,7 +902,7 @@ class Order(models.Model):
                 title=_('Shipping fee'),
                 quantity=1,
                 unit=InvoiceItem.UNIT_EMPTY,
-                unit_price=check_tax_and_get_price(self.shipping_fee),
+                unit_price=check_tax_and_get_price(self.shipping_fee, tax_rate),
                 # discount=self.discount,  # TODO
             )
 
@@ -911,11 +911,16 @@ class Order(models.Model):
                 title=_('Payment fee'),
                 quantity=1,
                 unit=InvoiceItem.UNIT_EMPTY,
-                unit_price=check_tax_and_get_price(self.payment_fee),
+                unit_price=check_tax_and_get_price(self.payment_fee, tax_rate),
                 # discount=self.discount,  # TODO
             )
 
             self.invoices.add(invoice)
+
+            # call custom signal
+            invoice_created.send(sender=self.__class__, order=self, invoice=invoice)
+
+            return invoice
 
     def send_details(self):
         with override_language(self.user.preferred_language):

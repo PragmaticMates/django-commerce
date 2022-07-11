@@ -255,7 +255,6 @@ class DiscountValidListFilter(admin.SimpleListFilter):
         )
 
     def queryset(self, request, queryset):
-        print(self.value())
         if self.value() == 'yes':
             return queryset.valid()
 

@@ -227,6 +227,7 @@ class CheckoutSummaryView(CartMixin, EmptyCartRedirectMixin, DetailView):
         context_data = super().get_context_data(**kwargs)
         context_data.update({
             'loyalty_program_enabled': commerce_settings.LOYALTY_PROGRAM_ENABLED,
+            'unit_price_is_with_tax': commerce_settings.UNIT_PRICE_IS_WITH_TAX,
         })
         return context_data
 

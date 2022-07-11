@@ -1,0 +1,18 @@
+{% load i18n %}
+<div class="row text-left">
+    <div class="col-md-6">
+        <strong>{% trans 'IBAN' %}:</strong> {{ commerce_settings.IBAN }}<br>
+        <strong>{% trans 'BIC/SWIFT' %}:</strong> {{ commerce_settings.BIC_SWIFT }}<br>
+        <strong>{% trans 'Amount' %}:</strong> {{ order.get_total_display }}<br>
+        <strong>{% trans 'Note' %}:</strong> {{ order.user }}<br>
+        <strong>{% trans 'Variable symbol' %} / {% trans 'Reference' %}:</strong> <span class="text-info">{{ order.number }}</span><br><br>
+    </div>
+    <div class="col-md-6">
+        <i>{% trans 'Some banks may require following information' %}:</i><br>
+        <strong>{% trans 'Recipient' %}:</strong> {{ commerce_settings.RECIPIENT }}<br>
+        <strong>{% trans 'Address' %}:</strong> {{ commerce_settings.RECIPIENT_ADDRESS }}<br>
+        <strong>{% trans 'Bank name' %}:</strong> {{ commerce_settings.BANK_NAME }}<br>
+        <strong>{% trans 'Bank address' %}:</strong> {{ commerce_settings.BANK_ADDRESS }}<br><br>
+    </div>
+</div>
+<span class="text-danger">{% trans 'It is important to use variable symbol / reference above to correctly pair your payment with the order!' %}</span>
