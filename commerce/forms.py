@@ -137,7 +137,7 @@ class AddressesForm(forms.ModelForm):
                     Div(PrependedText('email', mark_safe('<i class="fas fa-at"></i>')), css_class='col-md-7'),
                     Div(PrependedText('phone', mark_safe('<i class="far fa-mobile"></i>')), css_class='col-md-5'),
                 ),
-                css_class='col-md-6'
+                css_class='col-md-6 contact-details'
             )
 
         # Billing details
@@ -156,7 +156,7 @@ class AddressesForm(forms.ModelForm):
                     Div('tax_id', css_class='col-md-4'),
                     Div('vat_id', css_class='col-md-4')
                 ),
-                css_class='col-md-6'
+                css_class='col-md-6 billing-details'
             )
         else:
             billing_details_fieldset = None
