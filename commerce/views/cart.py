@@ -196,6 +196,24 @@ class CheckoutShippingAndPaymentView(CartMixin, EmptyCartRedirectMixin, UpdateVi
     template_name = 'commerce/checkout_form.html'
     form_class = ShippingAndPaymentForm
 
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        shipping_options = ShippingOption.objects.for_country(self.object.delivery_country)
+        payment_methods = PaymentMethod.objects.all()
+
+        if shipping_options.count() == 1 and payment_methods.count() == 1:
+            if shipping_options.first().fee == 0 and payment_methods.first().fee == 0:
+                form_kwargs = self.get_form_kwargs()
+                form_kwargs.update({'data': self.get_initial()})
+                form = self.get_form_class()(**form_kwargs)
+
+                if form.is_valid():
+                    return self.form_valid(form)
+                else:
+                    return self.form_invalid(form)
+
+        return super().get(request, *args, **kwargs)
+
     def form_valid(self, form):
         form.save()
         return redirect('commerce:checkout_summary')
