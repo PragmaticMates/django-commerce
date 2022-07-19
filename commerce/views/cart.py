@@ -254,21 +254,28 @@ class CheckoutFinishView(CartMixin, DetailView):
     def get(self, request, *args, **kwargs):
         cart = self.get_object()
 
-        if cart.can_be_finished():
-            order_status = Order.STATUS_AWAITING_PAYMENT if cart.total > 0 else Order.STATUS_PENDING
-            order = cart.to_order(status=order_status)
-
-            if order.status != Order.STATUS_AWAITING_PAYMENT:
-                return redirect(order.get_absolute_url())
-
-            if not order.payment_method:
-                messages.error(request, _('Missing payment method'))
-                return redirect(order.get_absolute_url())
-
-            if order.payment_method.method == PaymentMethod.METHOD_ONLINE_PAYMENT:
-                return redirect(order.get_payment_url())
-
-            return redirect(order.get_absolute_url())
-        else:
+        # if cart can not be finished, redirect back to cart detail
+        if not cart.can_be_finished():
             messages.warning(request, _('Checkout process can not be finished yet'))
             return redirect(cart.get_absolute_url())
+
+        # set order status depending on cart total value
+        order_status = Order.STATUS_AWAITING_PAYMENT if cart.total > 0 else Order.STATUS_PENDING
+        order = cart.to_order(status=order_status)
+
+        if order.status != Order.STATUS_AWAITING_PAYMENT:
+            return redirect(self.get_checkout_finish_url(order))
+
+        if not order.payment_method:
+            messages.error(request, _('Missing payment method'))
+            return redirect(self.get_checkout_finish_url(order))
+
+        if order.payment_method.method == PaymentMethod.METHOD_ONLINE_PAYMENT:
+            return redirect(order.get_payment_url())
+
+        return redirect(self.get_checkout_finish_url(order))
+
+    def get_checkout_finish_url(self, order):
+        if commerce_settings.CHECKOUT_FINISH_URL:
+            return commerce_settings.CHECKOUT_FINISH_URL
+        return order.get_absolute_url()
