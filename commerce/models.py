@@ -814,7 +814,7 @@ class Order(models.Model):
         return not self.has_only_digital_goods()
 
     def create_invoice(self, type=Invoice.TYPE.INVOICE, status=Invoice.STATUS.SENT):
-        language = self.user.preferred_language
+        language = getattr(self.user, 'preferred_language', settings.LANGUAGE_CODE)  # TODO: user is Abstract model. preferred_language could be missing or should be configurable
 
         with override_language(language):
             issue_date = now().date()
