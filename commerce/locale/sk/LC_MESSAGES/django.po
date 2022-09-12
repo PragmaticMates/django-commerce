@@ -3,21 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-12 15:17+0200\n"
-"PO-Revision-Date: 2021-12-11 14:01+0058\n"
-"Last-Translator: b'Erik PRAGMATIC <erik@pragmaticmates.com>'\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2022-09-12 13:21+0000\n"
+"Last-Translator: Weblate Admin <erik@pragmaticmates.com>\n"
+"Language-Team: Slovak <https://weblate.swida.sk/projects/django-commerce/app/"
+"sk/>\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 4.9.1\n"
 "X-Translated-Using: django-rosetta 0.9.3\n"
 
 #: admin.py:45 admin.py:99 forms.py:113
@@ -120,20 +121,16 @@ msgid "Send loyalty reminder"
 msgstr "Odoslať vernostnú pripomienku"
 
 #: admin.py:248
-#, fuzzy
-#| msgid "valid until"
 msgid "valid"
-msgstr "platné do"
+msgstr "platné"
 
 #: admin.py:253
 msgid "yes"
-msgstr ""
+msgstr "áno"
 
 #: admin.py:254
-#, fuzzy
-#| msgid "now"
 msgid "no"
-msgstr "teraz"
+msgstr "nie"
 
 #: admin.py:281
 msgid "Products"
@@ -1150,55 +1147,51 @@ msgstr "Pripravujeme..."
 
 #: templates/commerce/payment_information_wire_transfer.html:4
 msgid "IBAN"
-msgstr ""
+msgstr "IBAN"
 
 #: templates/commerce/payment_information_wire_transfer.html:5
 msgid "BIC/SWIFT"
-msgstr ""
+msgstr "BIC/SWIFT"
 
 #: templates/commerce/payment_information_wire_transfer.html:6
-#, fuzzy
-#| msgid "amount"
 msgid "Amount"
-msgstr "čiastka"
+msgstr "Čiastka"
 
 #: templates/commerce/payment_information_wire_transfer.html:7
 msgid "Note"
-msgstr ""
+msgstr "Poznámka"
 
 #: templates/commerce/payment_information_wire_transfer.html:8
 msgid "Reference"
-msgstr ""
+msgstr "Referencia"
 
 #: templates/commerce/payment_information_wire_transfer.html:11
 msgid "Some banks may require following information"
-msgstr ""
+msgstr "Niektoré banky môžu vyžadovať nasledujúce informácie"
 
 #: templates/commerce/payment_information_wire_transfer.html:12
 msgid "Recipient"
-msgstr ""
+msgstr "Príjemca"
 
 #: templates/commerce/payment_information_wire_transfer.html:13
-#, fuzzy
-#| msgid "Addresses"
 msgid "Address"
-msgstr "Adresy"
+msgstr "Adresa"
 
 #: templates/commerce/payment_information_wire_transfer.html:14
 msgid "Bank name"
-msgstr ""
+msgstr "Názov banky"
 
 #: templates/commerce/payment_information_wire_transfer.html:15
-#, fuzzy
-#| msgid "Billing address"
 msgid "Bank address"
-msgstr "Fakturačná adresa"
+msgstr "Adresa banky"
 
 #: templates/commerce/payment_information_wire_transfer.html:18
 msgid ""
 "It is important to use variable symbol / reference above to correctly pair "
 "your payment with the order!"
 msgstr ""
+"Je dôležité uviesť správny variabilný symbol / referenciu kvôli korektnému "
+"spárovaniu Vašej platby s objednávkou."
 
 #: urls.py:13
 msgctxt "url"
