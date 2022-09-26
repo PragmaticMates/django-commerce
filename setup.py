@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 from setuptools import setup, find_packages
 
+from commerce import VERSION
+
 setup(
     name='django-commerce',
-    version='0.2.3',
+    version=VERSION,
     description='Basic e-shop app for Django',
     long_description=open('README.md').read(),
     author='Pragmatic Mates',
