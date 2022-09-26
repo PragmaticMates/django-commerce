@@ -897,23 +897,29 @@ class Order(models.Model):
             invoice.credit = credit
             invoice.save(update_fields=['credit'])
 
-            shipping_item = InvoiceItem.objects.create(
-                invoice=invoice,
-                title=_('Shipping fee'),
-                quantity=1,
-                unit=InvoiceItem.UNIT_EMPTY,
-                unit_price=check_tax_and_get_price(self.shipping_fee, tax_rate),
-                # discount=self.discount,  # TODO
-            )
+            shipping_fee = check_tax_and_get_price(self.shipping_fee, tax_rate)
 
-            payment_item = InvoiceItem.objects.create(
-                invoice=invoice,
-                title=_('Payment fee'),
-                quantity=1,
-                unit=InvoiceItem.UNIT_EMPTY,
-                unit_price=check_tax_and_get_price(self.payment_fee, tax_rate),
-                # discount=self.discount,  # TODO
-            )
+            if shipping_fee > 0 and not commerce_settings.EXCLUDE_FREE_ITEMS_FROM_INVOICE:
+                shipping_item = InvoiceItem.objects.create(
+                    invoice=invoice,
+                    title=_('Shipping fee'),
+                    quantity=1,
+                    unit=InvoiceItem.UNIT_EMPTY,
+                    unit_price=shipping_fee,
+                    # discount=self.discount,  # TODO
+                )
+
+            payment_fee = check_tax_and_get_price(self.payment_fee, tax_rate)
+
+            if payment_fee > 0 and not commerce_settings.EXCLUDE_FREE_ITEMS_FROM_INVOICE:
+                payment_item = InvoiceItem.objects.create(
+                    invoice=invoice,
+                    title=_('Payment fee'),
+                    quantity=1,
+                    unit=InvoiceItem.UNIT_EMPTY,
+                    unit_price=payment_fee,
+                    # discount=self.discount,  # TODO
+                )
 
             self.invoices.add(invoice)
 
