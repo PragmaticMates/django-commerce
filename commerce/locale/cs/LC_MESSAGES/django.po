@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-12 15:17+0200\n"
-"PO-Revision-Date: 2022-09-12 13:37+0000\n"
-"Last-Translator: Weblate Admin <erik@pragmaticmates.com>\n"
+"PO-Revision-Date: 2022-09-30 12:18+0000\n"
+"Last-Translator: Peter Rusinak <peter.rusinak@transportly.eu>\n"
 "Language-Team: Czech <https://weblate.swida.sk/projects/django-commerce/app/"
 "cs/>\n"
 "Language: cs\n"
@@ -23,425 +23,430 @@ msgstr ""
 #: admin.py:45 admin.py:99 forms.py:113
 #: templates/commerce/checkout_summary.html:7
 msgid "Delivery address"
-msgstr ""
+msgstr "Doručovací adresa"
 
 #: admin.py:46 admin.py:100
 msgid "Billing address"
-msgstr ""
+msgstr "Fakturační adresa"
 
 #: admin.py:47 admin.py:101 forms.py:146
 #: templates/commerce/checkout_summary.html:20
 msgid "Billing details"
-msgstr ""
+msgstr "Fakturační údaje"
 
 #: admin.py:48 admin.py:102 forms.py:135
 msgid "Contact details"
-msgstr ""
+msgstr "Kontaktní údaje"
 
 #: admin.py:49 admin.py:103 templates/commerce/mails/order_created.txt:9
 #: templates/commerce/mails/order_details.txt:7
 #: templates/commerce/mails/order_reminder.txt:7
 msgid "Shipping"
-msgstr ""
+msgstr "Doprava"
 
 #: admin.py:50
 msgid "Others"
-msgstr ""
+msgstr "Ostatní"
 
 #: admin.py:51 admin.py:105
+#, fuzzy
 msgid "Timestamps"
-msgstr ""
+msgstr "Časová razítka"
 
 #: admin.py:104
 msgid "Billing"
-msgstr ""
+msgstr "Fakturace"
 
 #: admin.py:128
 msgid "Missing bank API token"
-msgstr ""
+msgstr "Chybí token rozhraní API banky"
 
 #: admin.py:132
 msgid "Missing bank API"
-msgstr ""
+msgstr "Chybí rozhraní API banky"
 
 #: admin.py:168
 #, python-brace-format
 msgid "Bank API {commerce_settings.BANK_API} not implemented"
-msgstr ""
+msgstr "Banka API {commerce_settings.BANK_API} není implementováno"
 
 #: admin.py:186
 msgid "Order not found"
-msgstr ""
+msgstr "Objednávka nenalezena"
 
 #: admin.py:197
 msgid "Currency mismatch"
-msgstr ""
+msgstr "Neshoda / Nesoulad měn"
 
 #: admin.py:199
 msgid "Total value mismatch"
-msgstr ""
+msgstr "Nesoulad celkové hodnoty"
 
 #: admin.py:206
 msgid "Missing variable symbol"
-msgstr ""
+msgstr "Chybí variabilní symbol"
 
 #: admin.py:209
 msgid "Sync transactions"
-msgstr ""
+msgstr "Synchronizovat transakce"
 
 #: admin.py:214
 msgid "Create invoice"
-msgstr ""
+msgstr "Vytvořit fakturu"
 
 #: admin.py:219
 msgid "Send details"
-msgstr ""
+msgstr "Odeslat podrobnosti"
 
 #: admin.py:224
+#, fuzzy
 msgid "Send reminder"
-msgstr ""
+msgstr "Odeslat upomínku / připomenutí"
 
 #: admin.py:228
 msgid "Loyalty program is disabled"
-msgstr ""
+msgstr "Věrnostní program je vypnutý"
 
 #: admin.py:241
 #, python-format
 msgid "User %s has %d loyalty points"
-msgstr ""
+msgstr "Uživatel %s má %d věrnostních bodů"
 
 #: admin.py:243
 #, python-format
 msgid "Loyalty reminder sent to %d users"
-msgstr ""
+msgstr "Věrnostní připomínka byla odeslána %d uživatelům"
 
 #: admin.py:244
 msgid "Send loyalty reminder"
-msgstr ""
+msgstr "Odeslat věrnostní připomínku"
 
 #: admin.py:248
 msgid "valid"
-msgstr ""
+msgstr "platný"
 
 #: admin.py:253
 msgid "yes"
-msgstr ""
+msgstr "ano"
 
 #: admin.py:254
 msgid "no"
-msgstr ""
+msgstr "ne"
 
 #: admin.py:281
 msgid "Products"
-msgstr ""
+msgstr "Produkty"
 
 #: apps.py:11
 msgid "Commerce"
-msgstr ""
+msgstr "Obchod"
 
 #: forms.py:19 forms.py:39
 msgid "Discount code"
-msgstr ""
+msgstr "Slevový kód"
 
 #: forms.py:20 loyalty.py:66 templates/commerce/checkout_summary.html:37
 #: templates/commerce/mails/order_created.txt:11
 #: templates/commerce/orders_table.html:10
 msgid "Loyalty points"
-msgstr ""
+msgstr "Věrnostní body"
 
 #: forms.py:49
 #, python-format
 msgid "You can use %d points"
-msgstr ""
+msgstr "Můžete použít %d bodů"
 
 #: forms.py:60
 msgid "Apply"
-msgstr ""
+msgstr "Aplikovat"
 
 #: forms.py:75
 #, python-format
 msgid "Discount code %s is not assigned to you"
-msgstr ""
+msgstr "Slevový kód %s vám není přiřazen"
 
 #: forms.py:78
 #, python-format
 msgid "Discount code %s is not valid anymore"
-msgstr ""
+msgstr "Slevový kód %s již není platný"
 
 #: forms.py:81
 #, python-format
 msgid "Discount code %s was used already"
-msgstr ""
+msgstr "Slevový kód %s již byl použit"
 
 #: forms.py:84
 #, python-format
 msgid "Discount code %s can be applied to at most %d items"
-msgstr ""
+msgstr "Slevový kód %s lze uplatnit na maximálně %d položek"
 
 #: forms.py:90
 msgid "Discount product is not in the cart"
-msgstr ""
+msgstr "Zlevněný produkt není v košíku"
 
 #: forms.py:93
 msgid "There is no such discount code"
-msgstr ""
+msgstr "Takový slevový kód neexistuje"
 
 #: forms.py:178 forms.py:241
 msgid "Continue"
-msgstr ""
+msgstr "Pokračovat"
 
 #: forms.py:218
 msgid "Choose Payment Type"
-msgstr ""
+msgstr "Vyberte Typ platby"
 
 #: forms.py:232
 msgid "Select Shipping Option"
-msgstr ""
+msgstr "Vyberte možnost dopravy"
 
 #: forms.py:250
 #, python-format
 msgid "This payment method is not available for shipping option %s"
-msgstr ""
+msgstr "Tato platební metoda není dostupná pro možnost dopravy %s"
 
 #: gateways/globalpayments/managers.py:22
 #: gateways/stripe/templates/commerce/stripe_button.html:7
 msgid "Pay"
-msgstr ""
+msgstr "Platit"
 
 #: gateways/globalpayments/managers.py:146
 msgid "Invalid payment signature."
-msgstr ""
+msgstr "Neplatný podpis platby."
 
 #: gateways/globalpayments/managers.py:154
 msgid "Payment failed. Error detail:"
-msgstr ""
+msgstr "Platba selhala. Podrobnosti o chybě:"
 
 #: gateways/globalpayments/managers.py:158
 msgid "Transaction not recognised"
-msgstr ""
+msgstr "Transakce nebyla rozpoznána"
 
 #: gateways/globalpayments/managers.py:170
 msgid "Order successfully paid."
-msgstr ""
+msgstr "Objednávka úspěšně zaplacena."
 
 #: gateways/globalpayments/managers.py:173
 msgid "Payment without result."
-msgstr ""
+msgstr "Platba bez výsledku."
 
 #: gateways/globalpayments/models.py:16
 msgid "processing"
-msgstr ""
+msgstr "zpracovává se"
 
 #: gateways/globalpayments/models.py:17
 msgid "approved"
-msgstr ""
+msgstr "schválený"
 
 #: gateways/globalpayments/models.py:18
 msgid "paid"
-msgstr ""
+msgstr "zaplaceno"
 
 #: gateways/globalpayments/models.py:19
 msgid "partial"
-msgstr ""
+msgstr "částečný"
 
 #: gateways/globalpayments/models.py:20
 msgid "canceled"
-msgstr ""
+msgstr "zrušeno"
 
 #: gateways/globalpayments/models.py:21
 msgid "unpaid"
-msgstr ""
+msgstr "nezaplaceno"
 
 #: gateways/globalpayments/models.py:22
 msgid "returned"
-msgstr ""
+msgstr "vráceno"
 
 #: gateways/globalpayments/models.py:24 gateways/globalpayments/models.py:40
 #: models.py:695
 msgid "order"
-msgstr ""
+msgstr "objednávka"
 
 #: gateways/globalpayments/models.py:25 models.py:645
 msgid "status"
-msgstr ""
+msgstr "stav"
 
 #: gateways/globalpayments/models.py:26 gateways/globalpayments/models.py:63
 #: gateways/stripe/models.py:10 models.py:278 models.py:564 models.py:689
 #: models.py:952
 msgid "created"
-msgstr ""
+msgstr "vytvořené"
 
 #: gateways/globalpayments/models.py:27 gateways/globalpayments/models.py:64
 #: gateways/stripe/models.py:11 models.py:279 models.py:565 models.py:690
 #: models.py:953
 msgid "modified"
-msgstr ""
+msgstr "upraveno"
 
 #: gateways/globalpayments/models.py:30
 msgid "payment"
-msgstr ""
+msgstr "platba"
 
 #: gateways/globalpayments/models.py:31
 msgid "payments"
-msgstr ""
+msgstr "platby"
 
 #: gateways/globalpayments/models.py:41
 msgid "operation"
-msgstr ""
+msgstr "operace"
 
 #: gateways/globalpayments/models.py:42
 msgid "order number"
-msgstr ""
+msgstr "číslo objednávky"
 
 #: gateways/globalpayments/models.py:43
 msgid "merchant order number"
-msgstr ""
+msgstr "číslo objednávky obchodníka"
 
 #: gateways/globalpayments/models.py:44
+#, fuzzy
 msgid "md"
-msgstr ""
+msgstr "md"
 
 #: gateways/globalpayments/models.py:45
 msgid "primary code"
-msgstr ""
+msgstr "primární kód"
 
 #: gateways/globalpayments/models.py:46
 msgid "secondary code"
-msgstr ""
+msgstr "sekundární kód"
 
 #: gateways/globalpayments/models.py:47
 msgid "result text"
-msgstr ""
+msgstr "výsledný text"
 
 #: gateways/globalpayments/models.py:48
+#, fuzzy
 msgid "user param 1"
-msgstr ""
+msgstr "uživatelský parametr 1"
 
 #: gateways/globalpayments/models.py:49
 msgid "additional information"
-msgstr ""
+msgstr "dodatečné informace"
 
 #: gateways/globalpayments/models.py:50
 msgid "token"
-msgstr ""
+msgstr "token"
 
 #: gateways/globalpayments/models.py:51
 msgid "expiration"
-msgstr ""
+msgstr "expirace"
 
 #: gateways/globalpayments/models.py:52
 msgid "authorisation centre result"
-msgstr ""
+msgstr "výsledek autorizačního centra"
 
 #: gateways/globalpayments/models.py:53
 msgid "authorisation centre code"
-msgstr ""
+msgstr "kód autorizačního centra"
 
 #: gateways/globalpayments/models.py:54
 msgid "masked card number"
-msgstr ""
+msgstr "maskované číslo karty"
 
 #: gateways/globalpayments/models.py:55
 msgid "day to capture"
-msgstr ""
+msgstr "zachytit dne"
 
 #: gateways/globalpayments/models.py:56
 msgid "token registration status"
-msgstr ""
+msgstr "stav registrace tokenu"
 
 #: gateways/globalpayments/models.py:57
 msgid "authorisation centre result code"
-msgstr ""
+msgstr "kód výsledku autorizačního centra"
 
 #: gateways/globalpayments/models.py:58
 msgid "retrieval reference number"
-msgstr ""
+msgstr "referenční číslo vyhledávání"
 
 #: gateways/globalpayments/models.py:59
 msgid "payment account reference"
-msgstr ""
+msgstr "odkaz na platební účet"
 
 #: gateways/globalpayments/models.py:60
 msgid "trace ID"
-msgstr ""
+msgstr "trace ID"
 
 #: gateways/globalpayments/models.py:61
 msgid "digest"
-msgstr ""
+msgstr "digest"
 
 #: gateways/globalpayments/models.py:62
 msgid "digest 1"
-msgstr ""
+msgstr "digest 1"
 
 #: gateways/globalpayments/models.py:67
 msgid "result"
-msgstr ""
+msgstr "výsledek"
 
 #: gateways/globalpayments/models.py:68
 msgid "results"
-msgstr ""
+msgstr "výsledky"
 
 #: gateways/stripe/models.py:7 models.py:161
 msgid "user"
-msgstr ""
+msgstr "uživatel"
 
 #: gateways/stripe/models.py:8
 msgid "Stripe ID"
-msgstr ""
+msgstr "Stripe ID"
 
 #: gateways/stripe/models.py:9
 msgid "Payment method ID"
-msgstr ""
+msgstr "ID platební metody"
 
 #: gateways/stripe/models.py:14
 msgid "customer"
-msgstr ""
+msgstr "zákazník"
 
 #: gateways/stripe/models.py:15
 msgid "customers"
-msgstr ""
+msgstr "zákazníky"
 
 #: gateways/stripe/views.py:42 views/order.py:26
 msgid "It is not possible to pay this order anymore."
-msgstr ""
+msgstr "Tuto objednávku již není možné zaplatit."
 
 #: gateways/stripe/views.py:58
 msgid "Order number"
-msgstr ""
+msgstr "Číslo objednávky"
 
 #: gateways/stripe/views.py:82 models.py:902
 #: templates/commerce/checkout_summary.html:43
 msgid "Shipping fee"
-msgstr ""
+msgstr "Poplatek za doručení"
 
 #: gateways/stripe/views.py:94 models.py:911
 #: templates/commerce/checkout_summary.html:47
 msgid "Payment fee"
-msgstr ""
+msgstr "Poplatek za platbu"
 
 #: gateways/stripe/views.py:135
 msgid "Payment was successful."
-msgstr ""
+msgstr "Platba proběhla úspěšně."
 
 #: gateways/stripe/views.py:142
 msgid "Payment failed."
-msgstr ""
+msgstr "Platba selhala."
 
 #: models.py:40
 msgid "stock"
-msgstr ""
+msgstr "skladem"
 
 #: models.py:41 models.py:149
 msgid "infinite"
-msgstr ""
+msgstr "nekonečné"
 
 #: models.py:42
 msgid "digital goods"
-msgstr ""
+msgstr "digitální zboží"
 
 #: models.py:43
+#, fuzzy
 msgid "sale ended"
-msgstr ""
+msgstr "prodej / výprodej ukončen"
 
 #: models.py:45
 msgid "availability"
