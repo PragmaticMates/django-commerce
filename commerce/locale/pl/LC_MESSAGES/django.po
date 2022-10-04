@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-12 15:17+0200\n"
-"PO-Revision-Date: 2022-09-30 12:18+0000\n"
+"PO-Revision-Date: 2022-10-05 14:18+0000\n"
 "Last-Translator: Rafal Szczepanowicz <rafal@transportly.eu>\n"
 "Language-Team: Polish <https://weblate.swida.sk/projects/django-commerce/app/"
 "pl/>\n"
@@ -606,7 +606,6 @@ msgid "discounts"
 msgstr ""
 
 #: models.py:191
-#, fuzzy
 msgid "Amount of percentage has to be from interval 0-100."
 msgstr "Kwota procentowa musi być z przedziału 0-100."
 
