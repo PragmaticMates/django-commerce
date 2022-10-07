@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-12 15:17+0200\n"
-"PO-Revision-Date: 2022-10-05 14:18+0000\n"
+"PO-Revision-Date: 2022-10-08 13:18+0000\n"
 "Last-Translator: Rafal Szczepanowicz <rafal@transportly.eu>\n"
 "Language-Team: Polish <https://weblate.swida.sk/projects/django-commerce/app/"
 "pl/>\n"
@@ -23,7 +23,6 @@ msgstr ""
 
 #: admin.py:45 admin.py:99 forms.py:113
 #: templates/commerce/checkout_summary.html:7
-#, fuzzy
 msgid "Delivery address"
 msgstr "Adres dostawy"
 
@@ -63,11 +62,11 @@ msgstr "Dane do faktury"
 
 #: admin.py:128
 msgid "Missing bank API token"
-msgstr ""
+msgstr "Brak tokena API banku"
 
 #: admin.py:132
 msgid "Missing bank API"
-msgstr ""
+msgstr "Brak bankowego API"
 
 #: admin.py:168
 #, fuzzy, python-brace-format
@@ -83,7 +82,6 @@ msgid "Currency mismatch"
 msgstr "Niezgodność waluty"
 
 #: admin.py:199
-#, fuzzy
 msgid "Total value mismatch"
 msgstr "Niezgodność wartości całkowitej"
 
@@ -114,7 +112,7 @@ msgid "Loyalty program is disabled"
 msgstr "Program lojalnościowy jest wyłączony"
 
 #: admin.py:241
-#, fuzzy, python-format
+#, python-format
 msgid "User %s has %d loyalty points"
 msgstr "Użytkownik %s ma %d punktów lojalnościowych"
 
@@ -130,15 +128,15 @@ msgstr "Wyślij przypomnienie o lojalności"
 
 #: admin.py:248
 msgid "valid"
-msgstr ""
+msgstr "ważny"
 
 #: admin.py:253
 msgid "yes"
-msgstr ""
+msgstr "tak"
 
 #: admin.py:254
 msgid "no"
-msgstr ""
+msgstr "nie"
 
 #: admin.py:281
 msgid "Products"
@@ -194,14 +192,13 @@ msgid "Discount product is not in the cart"
 msgstr "Produkt rabatowy nie znajduje się w koszyku"
 
 #: forms.py:93
-#, fuzzy
 msgid "There is no such discount code"
-msgstr "Nie ma takiego kodu rabatowego/zniżkowego"
+msgstr "Nie ma takiego kodu rabatowego"
 
 #: forms.py:178 forms.py:241
 #, fuzzy
 msgid "Continue"
-msgstr "Kontynuuj/Kontynuuować"
+msgstr "Kontynuuj/Kontynuować"
 
 #: forms.py:218
 msgid "Choose Payment Type"
@@ -222,7 +219,6 @@ msgid "Pay"
 msgstr "Zapłać"
 
 #: gateways/globalpayments/managers.py:146
-#, fuzzy
 msgid "Invalid payment signature."
 msgstr "Nieprawidłowy podpis płatności."
 
@@ -239,13 +235,12 @@ msgid "Order successfully paid."
 msgstr "Zamówienie opłacone pomyślnie."
 
 #: gateways/globalpayments/managers.py:173
-#, fuzzy
 msgid "Payment without result."
 msgstr "Płatność bez rezultatu."
 
 #: gateways/globalpayments/models.py:16
 msgid "processing"
-msgstr ""
+msgstr "przetwarzanie"
 
 #: gateways/globalpayments/models.py:17
 #, fuzzy
@@ -254,33 +249,34 @@ msgstr "zatwierdzony/e/o"
 
 #: gateways/globalpayments/models.py:18
 msgid "paid"
-msgstr ""
+msgstr "zapłacono"
 
 #: gateways/globalpayments/models.py:19
 msgid "partial"
-msgstr ""
+msgstr "częściowo"
 
 #: gateways/globalpayments/models.py:20
 #, fuzzy
 msgid "canceled"
-msgstr "anulowano/e"
+msgstr "anulowano/e/y/a"
 
 #: gateways/globalpayments/models.py:21
 msgid "unpaid"
-msgstr ""
+msgstr "niezapłacony"
 
 #: gateways/globalpayments/models.py:22
+#, fuzzy
 msgid "returned"
-msgstr ""
+msgstr "zwrócony/e/o/a"
 
 #: gateways/globalpayments/models.py:24 gateways/globalpayments/models.py:40
 #: models.py:695
 msgid "order"
-msgstr ""
+msgstr "zamówienie"
 
 #: gateways/globalpayments/models.py:25 models.py:645
 msgid "status"
-msgstr ""
+msgstr "status"
 
 #: gateways/globalpayments/models.py:26 gateways/globalpayments/models.py:63
 #: gateways/stripe/models.py:10 models.py:278 models.py:564 models.py:689
@@ -291,28 +287,29 @@ msgstr "utworzono"
 #: gateways/globalpayments/models.py:27 gateways/globalpayments/models.py:64
 #: gateways/stripe/models.py:11 models.py:279 models.py:565 models.py:690
 #: models.py:953
+#, fuzzy
 msgid "modified"
-msgstr ""
+msgstr "zmodifikowany/a/o/e"
 
 #: gateways/globalpayments/models.py:30
 msgid "payment"
-msgstr ""
+msgstr "zapłata"
 
 #: gateways/globalpayments/models.py:31
 msgid "payments"
-msgstr ""
+msgstr "płatności"
 
 #: gateways/globalpayments/models.py:41
 msgid "operation"
-msgstr ""
+msgstr "operacja"
 
 #: gateways/globalpayments/models.py:42
 msgid "order number"
-msgstr ""
+msgstr "numer zamówienia"
 
 #: gateways/globalpayments/models.py:43
 msgid "merchant order number"
-msgstr ""
+msgstr "numer zamówienia sprzedawcy"
 
 #: gateways/globalpayments/models.py:44
 msgid "md"
@@ -320,31 +317,33 @@ msgstr ""
 
 #: gateways/globalpayments/models.py:45
 msgid "primary code"
-msgstr ""
+msgstr "kod podstawowy"
 
 #: gateways/globalpayments/models.py:46
 msgid "secondary code"
-msgstr ""
+msgstr "kod dodatkowy"
 
 #: gateways/globalpayments/models.py:47
+#, fuzzy
 msgid "result text"
-msgstr ""
+msgstr "tekst wyniku"
 
 #: gateways/globalpayments/models.py:48
 msgid "user param 1"
-msgstr ""
+msgstr "parametr użytkownika 1"
 
 #: gateways/globalpayments/models.py:49
 msgid "additional information"
 msgstr "dodatkowe informacje"
 
 #: gateways/globalpayments/models.py:50
+#, fuzzy
 msgid "token"
-msgstr ""
+msgstr "token/znak/dowod wdziecznosci"
 
 #: gateways/globalpayments/models.py:51
 msgid "expiration"
-msgstr ""
+msgstr "wygaśnięcie"
 
 #: gateways/globalpayments/models.py:52
 #, fuzzy
@@ -358,7 +357,7 @@ msgstr "kod centrum autoryzacji"
 
 #: gateways/globalpayments/models.py:54
 msgid "masked card number"
-msgstr ""
+msgstr "zamaskowany numer karty"
 
 #: gateways/globalpayments/models.py:55
 #, fuzzy
@@ -366,8 +365,9 @@ msgid "day to capture"
 msgstr "dzień do schwytania"
 
 #: gateways/globalpayments/models.py:56
+#, fuzzy
 msgid "token registration status"
-msgstr ""
+msgstr "status rejestracji tokena"
 
 #: gateways/globalpayments/models.py:57
 #, fuzzy
@@ -375,20 +375,22 @@ msgid "authorisation centre result code"
 msgstr "kod wyniku centrum autoryzacji"
 
 #: gateways/globalpayments/models.py:58
+#, fuzzy
 msgid "retrieval reference number"
-msgstr ""
+msgstr "numer referencyjny wyszukiwania"
 
 #: gateways/globalpayments/models.py:59
 msgid "payment account reference"
-msgstr ""
+msgstr "numer rachunku płatniczego"
 
 #: gateways/globalpayments/models.py:60
 msgid "trace ID"
-msgstr ""
+msgstr "identyfikator śledzenia"
 
 #: gateways/globalpayments/models.py:61
+#, fuzzy
 msgid "digest"
-msgstr ""
+msgstr "strawić"
 
 #: gateways/globalpayments/models.py:62
 msgid "digest 1"
@@ -396,18 +398,17 @@ msgstr ""
 
 #: gateways/globalpayments/models.py:67
 msgid "result"
-msgstr ""
+msgstr "wynik"
 
 #: gateways/globalpayments/models.py:68
 msgid "results"
-msgstr ""
+msgstr "wyniki"
 
 #: gateways/stripe/models.py:7 models.py:161
 msgid "user"
-msgstr ""
+msgstr "użytkownik"
 
 #: gateways/stripe/models.py:8
-#, fuzzy
 msgid "Stripe ID"
 msgstr "Identyfikator paska"
 
@@ -433,9 +434,8 @@ msgstr "Numer zamówienia"
 
 #: gateways/stripe/views.py:82 models.py:902
 #: templates/commerce/checkout_summary.html:43
-#, fuzzy
 msgid "Shipping fee"
-msgstr "Opłata przewozowa/wysyłki"
+msgstr "Opłata za wysyłkę"
 
 #: gateways/stripe/views.py:94 models.py:911
 #: templates/commerce/checkout_summary.html:47
@@ -451,20 +451,22 @@ msgid "Payment failed."
 msgstr "Płatność nie powiodła się."
 
 #: models.py:40
+#, fuzzy
 msgid "stock"
-msgstr ""
+msgstr "zbiór/dostępność"
 
 #: models.py:41 models.py:149
+#, fuzzy
 msgid "infinite"
-msgstr ""
+msgstr "nieskończony"
 
 #: models.py:42
 msgid "digital goods"
-msgstr ""
+msgstr "towary cyfrowe"
 
 #: models.py:43
 msgid "sale ended"
-msgstr ""
+msgstr "sprzedaż zakończona"
 
 #: models.py:45
 msgid "availability"
@@ -472,7 +474,7 @@ msgstr "dostępność"
 
 #: models.py:49 models.py:950
 msgid "price"
-msgstr ""
+msgstr "cena"
 
 #: models.py:52
 #, fuzzy
@@ -481,15 +483,15 @@ msgstr "czekam/oczekuję"
 
 #: models.py:53 models.py:524
 msgid "options"
-msgstr ""
+msgstr "opcje"
 
 #: models.py:92 models.py:125 models.py:515
 msgid "title"
-msgstr ""
+msgstr "tytuł"
 
 #: models.py:93 models.py:127
 msgid "fee"
-msgstr ""
+msgstr "opłata"
 
 #: models.py:94
 msgid "countries"
@@ -501,11 +503,11 @@ msgstr "kraj"
 
 #: models.py:101 models.py:268
 msgid "shipping option"
-msgstr ""
+msgstr "opcja wysyłki"
 
 #: models.py:102
 msgid "shipping options"
-msgstr ""
+msgstr "opcje wysyłki"
 
 #: models.py:119
 msgid "cash on delivery"
@@ -513,31 +515,32 @@ msgstr "płatność gotówką przy odbiorze"
 
 #: models.py:120
 msgid "wire transfer"
-msgstr ""
+msgstr "przelew"
 
 #: models.py:121
 msgid "online payment"
-msgstr ""
+msgstr "płatność online"
 
 #: models.py:126
 msgid "method"
-msgstr ""
+msgstr "metoda"
 
 #: models.py:132 models.py:269
 msgid "payment method"
-msgstr ""
+msgstr "metoda płatności"
 
 #: models.py:133
 msgid "payment methods"
-msgstr ""
+msgstr "metody płatności"
 
 #: models.py:148
 msgid "one-time only"
-msgstr ""
+msgstr "tylko jeden raz"
 
 #: models.py:154
+#, fuzzy
 msgid "percentage"
-msgstr ""
+msgstr "odsetek/procent"
 
 #: models.py:155
 msgid "currency"
@@ -553,11 +556,12 @@ msgstr "ilość"
 
 #: models.py:159
 msgid "unit"
-msgstr ""
+msgstr "jednostka"
 
 #: models.py:160
+#, fuzzy
 msgid "usage"
-msgstr ""
+msgstr "stosowanie/używanie"
 
 #: models.py:163 models.py:996
 msgid "description"
@@ -565,15 +569,16 @@ msgstr "opis"
 
 #: models.py:164
 msgid "valid until"
-msgstr ""
+msgstr "ważny do"
 
 #: models.py:165
+#, fuzzy
 msgid "promoted"
-msgstr ""
+msgstr "promowany"
 
 #: models.py:165
 msgid "show in topbar"
-msgstr ""
+msgstr "pokaż w górnym pasku"
 
 #: models.py:166
 msgid "add to cart"
@@ -586,24 +591,24 @@ msgstr "automatycznie"
 #: models.py:167
 #, fuzzy
 msgid "content types"
-msgstr "typy zawartości"
+msgstr "typy/rodzaje zawartości"
 
 #: models.py:168
 msgid "max items in cart"
-msgstr ""
+msgstr "maksymalna ilość pozycji w koszyku"
 
 #: models.py:169
 msgid "products"
-msgstr ""
+msgstr "produkty"
 
 #: models.py:174 models.py:272 models.py:682
 #: templates/commerce/discount_topbar.html:8
 msgid "discount"
-msgstr ""
+msgstr "rabat"
 
 #: models.py:175
 msgid "discounts"
-msgstr ""
+msgstr "rabaty"
 
 #: models.py:191
 msgid "Amount of percentage has to be from interval 0-100."
@@ -616,15 +621,15 @@ msgstr "Typy treści nie mogą być używane razem z typem waluty"
 
 #: models.py:245 models.py:252 models.py:649 models.py:656
 msgid "full name or company name"
-msgstr ""
+msgstr "imię i nazwisko lub nazwa firmy"
 
 #: models.py:246 models.py:253 models.py:650
 msgid "street and number"
-msgstr ""
+msgstr "ulica i numer"
 
 #: models.py:247 models.py:254 models.py:651 models.py:658
 msgid "postcode"
-msgstr ""
+msgstr "kod pocztowy"
 
 #: models.py:248 models.py:255 models.py:652 models.py:659
 msgid "city"
@@ -635,7 +640,6 @@ msgid "Company Registration No."
 msgstr "REGON"
 
 #: models.py:260 models.py:663 templates/commerce/checkout_summary.html:26
-#, fuzzy
 msgid "TAX ID"
 msgstr "NIP"
 
@@ -645,53 +649,53 @@ msgstr "Numer identyfikacji VAT"
 
 #: models.py:264 models.py:667
 msgid "email"
-msgstr ""
+msgstr "email"
 
 #: models.py:265 models.py:668
 msgid "phone"
-msgstr ""
+msgstr "telefon"
 
 #: models.py:275 models.py:685
 msgid "loyalty points"
-msgstr ""
+msgstr "punkty lojalnościowe"
 
 #: models.py:275 models.py:685
 msgid "used to lower the total price"
-msgstr ""
+msgstr "użyte do obniżenia ceny całkowitej"
 
 #: models.py:284
 msgid "shopping cart"
-msgstr ""
+msgstr "koszyk"
 
 #: models.py:285
 msgid "shopping carts"
-msgstr ""
+msgstr "koszyki"
 
 #: models.py:288
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Shopping cart of {self.user}"
 msgstr "Koszyk {self.user}"
 
 #: models.py:518
 #, fuzzy
 msgid "content type"
-msgstr "typ zawartości"
+msgstr "typ/rodzaj zawartości"
 
 #: models.py:523
 msgid "option"
-msgstr ""
+msgstr "opcja"
 
 #: models.py:563 models.py:949 models.py:994
 msgid "quantity"
-msgstr ""
+msgstr "ilość"
 
 #: models.py:568
 msgid "item"
-msgstr ""
+msgstr "przedmiot"
 
 #: models.py:569
 msgid "items"
-msgstr ""
+msgstr "przedmioty"
 
 #: models.py:626
 #, fuzzy
@@ -729,12 +733,12 @@ msgstr "Oczekiwanie na Załadunek"
 #: models.py:633
 #, fuzzy
 msgid "Partially Shipped"
-msgstr "Częsciowo Wysłany/o/e"
+msgstr "Częściowo Wysłany/o/e/a"
 
 #: models.py:634
 #, fuzzy
 msgid "Shipped"
-msgstr "Wysłany/Wysłano"
+msgstr "Wysłany/o/e"
 
 #: models.py:635
 msgid "Completed"
@@ -752,50 +756,50 @@ msgstr "Odrzucony/Odrzucono"
 #: models.py:638
 #, fuzzy
 msgid "Refunded"
-msgstr "Zwrócone/Zrefundowane"
+msgstr "Zrefundowano/e/a"
 
 #: models.py:639
 #, fuzzy
 msgid "Partially Refunded"
-msgstr "Częściowo Zwrócony/e"
+msgstr "Częściowo Zwrócony/e/a"
 
 #: models.py:640
 #, fuzzy
 msgid "Disputed"
-msgstr "Sporne"
+msgstr "Sporne/Zakwestionowany"
 
 #: models.py:641
 #, fuzzy
 msgid "On hold"
-msgstr "W oczekiwaniu/Wstrzymane"
+msgstr "Wstrzymane/Wstrzymano"
 
 #: models.py:646
 msgid "number"
-msgstr ""
+msgstr "numer"
 
 #: models.py:657
 msgid "street"
-msgstr ""
+msgstr "ulica"
 
 #: models.py:672
 msgid "shipping fee"
-msgstr ""
+msgstr "opłata przewozowa"
 
 #: models.py:676
 msgid "payment fee"
-msgstr ""
+msgstr "opłata"
 
 #: models.py:679
 msgid "invoices"
-msgstr ""
+msgstr "faktury"
 
 #: models.py:688
 msgid "reminder sent"
-msgstr ""
+msgstr "przypomnienie wysłane"
 
 #: models.py:696
 msgid "orders"
-msgstr ""
+msgstr "zamówienia"
 
 #: models.py:927
 #, python-format
@@ -809,27 +813,28 @@ msgstr "Przypomnienie o zamówieniu: %d"
 
 #: models.py:951
 msgid "files"
-msgstr ""
+msgstr "pliki"
 
 #: models.py:957
 msgid "purchased item"
-msgstr ""
+msgstr "zakupiony przedmiot"
 
 #: models.py:958
 msgid "purchased items"
-msgstr ""
+msgstr "zakupione przedmioty"
 
 #: models.py:995
 msgid "datetime"
 msgstr "data i godzina"
 
 #: models.py:999
+#, fuzzy
 msgid "supply"
-msgstr ""
+msgstr "dostarczyć"
 
 #: models.py:1000
 msgid "supplies"
-msgstr ""
+msgstr "zaopatrzenie"
 
 #: tasks.py:16
 msgid "New order"
@@ -845,8 +850,9 @@ msgid "Choose option"
 msgstr "Wybierz opcję"
 
 #: templates/commerce/add_to_cart_form.html:10
+#, fuzzy
 msgid "in stock"
-msgstr ""
+msgstr "na stanie/ w magazynie"
 
 #: templates/commerce/add_to_cart_form.html:15
 msgid "Purchase"
@@ -871,9 +877,8 @@ msgstr "Wartość"
 
 #: templates/commerce/admin/sync_transactions.html:12
 #: templates/commerce/payment_information_wire_transfer.html:8
-#, fuzzy
 msgid "Variable symbol"
-msgstr "Symbol wariabilny"
+msgstr "Zmienny symbol"
 
 #: templates/commerce/admin/sync_transactions.html:13
 msgid "Order details"
@@ -888,7 +893,6 @@ msgid "Information"
 msgstr "Informacja"
 
 #: templates/commerce/admin/sync_transactions.html:16
-#, fuzzy
 msgid "Errors"
 msgstr "Błędy"
 
@@ -962,9 +966,8 @@ msgstr "Wysyłka i płatność"
 #: templates/commerce/checkout_steps.html:6
 #: templates/commerce/checkout_steps.html:10
 #: templates/commerce/checkout_steps.html:14
-#, fuzzy
 msgid "Summary"
-msgstr "Streszczenie/Podsumowanie"
+msgstr "Podsumowanie"
 
 #: templates/commerce/checkout_summary.html:14
 msgid "Contact information"
@@ -999,9 +1002,8 @@ msgstr "Metoda płatności"
 #: templates/commerce/mails/order_details.txt:10
 #: templates/commerce/mails/order_reminder.txt:9
 #: templates/commerce/orders_table.html:8
-#, fuzzy
 msgid "Total"
-msgstr "Całkowity/Razem"
+msgstr "Razem"
 
 #: templates/commerce/checkout_summary.html:55
 #, fuzzy
@@ -1009,15 +1011,15 @@ msgid "Finish"
 msgstr "Koniec/Zakończ"
 
 #: templates/commerce/checkout_summary.html:57 views/cart.py:259
+#, fuzzy
 msgid "Checkout process can not be finished yet"
-msgstr ""
+msgstr "Proces kasy nie może się jeszcze zakończyć"
 
 #: templates/commerce/discount_topbar.html:8
 msgid "Use code"
 msgstr "Użyj kodu"
 
 #: templates/commerce/discount_topbar.html:9
-#, fuzzy
 msgid "Ends in"
 msgstr "Kończy się w"
 
@@ -1028,10 +1030,9 @@ msgstr ""
 
 #: templates/commerce/discount_topbar.html:22
 msgid "now"
-msgstr ""
+msgstr "teraz"
 
 #: templates/commerce/discount_topbar.html:32
-#, fuzzy
 msgid "Expired"
 msgstr "Wygasło"
 
@@ -1081,9 +1082,8 @@ msgid "Hello %(user)s!"
 msgstr "Witaj %(user)s!"
 
 #: templates/commerce/mails/order_details.txt:3
-#, fuzzy
 msgid "Thank you for your order."
-msgstr "Dziękuję za Twoje zamówienie. / Dziękujemy za Twoje zamówienie."
+msgstr "Dziękujemy za Twoje zamówienie."
 
 #: templates/commerce/mails/order_details.txt:5
 #: templates/commerce/mails/order_reminder.txt:5
@@ -1117,6 +1117,8 @@ msgid ""
 "On %(date)s you ordered following items but we do not register payment to "
 "the associated order."
 msgstr ""
+"W dniu %(date)s zamówiłeś następujące przedmioty, ale nie rejestrujemy "
+"płatności za powiązane zamówienie."
 
 #: templates/commerce/mails/order_reminder.txt:14
 #, fuzzy
@@ -1125,7 +1127,7 @@ msgid ""
 "date will be cancelled automatically."
 msgstr ""
 "Termin płatności to 14 dni od wymeldowania. Zamówienia bez płatności po "
-"terminie zostaną automatycznie anulowane."
+"terminie zapłaty zostaną automatycznie anulowane."
 
 #: templates/commerce/mails/order_reminder.txt:15
 #, fuzzy
@@ -1137,9 +1139,8 @@ msgstr ""
 "ponownie wprowadzony symbol zmiennej dla płatności lub skontaktuj się z nami."
 
 #: templates/commerce/mails/order_reminder.txt:17
-#, fuzzy
 msgid "Thank you for understanding."
-msgstr "Dziękuję za zrozumienie. / Dziękujemy za zrozumienie."
+msgstr "Dziękujemy za zrozumienie."
 
 #: templates/commerce/mails/order_status_changed.txt:1
 #, python-format
@@ -1200,7 +1201,6 @@ msgid "Note"
 msgstr "Notatka"
 
 #: templates/commerce/payment_information_wire_transfer.html:8
-#, fuzzy
 msgid "Reference"
 msgstr "Referencja"
 
@@ -1226,13 +1226,12 @@ msgid "Bank address"
 msgstr "Adres banku"
 
 #: templates/commerce/payment_information_wire_transfer.html:18
-#, fuzzy
 msgid ""
 "It is important to use variable symbol / reference above to correctly pair "
 "your payment with the order!"
 msgstr ""
 "Ważne jest, aby użyć powyższego symbolu zmiennej / referencji, aby poprawnie "
-"sparować płatność z zamówieniem!"
+"sparować Twoj płatność z zamówieniem!"
 
 #: urls.py:13
 #, fuzzy
@@ -1243,12 +1242,12 @@ msgstr "dodaj-do-koszyka/<int:content_type_id>/<int:object_id>/"
 #: urls.py:14
 msgctxt "url"
 msgid "remove-from-cart/<int:item_id>/"
-msgstr ""
+msgstr "usun-z-koszyka/<int:item_id>/"
 
 #: urls.py:15
 msgctxt "url"
 msgid "unapply-discount/"
-msgstr ""
+msgstr "anuluj-rabat/"
 
 #: urls.py:16
 msgctxt "url"
@@ -1256,7 +1255,6 @@ msgid "cart/"
 msgstr "koszyk/"
 
 #: urls.py:17
-#, fuzzy
 msgctxt "url"
 msgid "checkout/addresses/"
 msgstr "kasa/adresy/"
@@ -1272,7 +1270,6 @@ msgid "checkout/summary/"
 msgstr "kasa/podsumowanie/"
 
 #: urls.py:20
-#, fuzzy
 msgctxt "url"
 msgid "checkout/finish/"
 msgstr "kasa/zakoncz/"
@@ -1280,47 +1277,48 @@ msgstr "kasa/zakoncz/"
 #: urls.py:21
 msgctxt "url"
 msgid "order/<int:number>/payment/"
-msgstr ""
+msgstr "zamowienie/<int:number>/platnosc/"
 
 #: urls.py:22
 msgctxt "url"
 msgid "order/<int:number>/payment/return/"
-msgstr ""
+msgstr "zamowienie/<int:number>/platnosc/zwrot/"
 
 #: urls.py:23
 msgctxt "url"
 msgid "orders/"
-msgstr ""
+msgstr "zamowienia/"
 
 #: urls.py:31
 msgctxt "url"
 msgid "stripe/create-session/<int:pk>/"
-msgstr ""
+msgstr "pasek/utworz-sesje/<int:pk>/"
 
 #: urls.py:32
 msgctxt "url"
 msgid "stripe/success/"
-msgstr ""
+msgstr "pasek/sukces/"
 
 #: urls.py:33
 msgctxt "url"
 msgid "stripe/cancel/"
-msgstr ""
+msgstr "pasek/anuluj/"
 
 #: urls.py:34
+#, fuzzy
 msgctxt "url"
 msgid "stripe/webhook/"
-msgstr ""
+msgstr "pasek/webhook/"
 
 #: urls.py:39
 msgctxt "url"
 msgid "loyalty-program/"
-msgstr ""
+msgstr "program-lojalnosciowy/"
 
 #: views/cart.py:30
 #, fuzzy, python-format
 msgid "You can order at most %d items at once"
-msgstr "Możesz zamówić maksymalnie %d pozycji na raz"
+msgstr "Możesz zamówić maksymalnie %d pozycji jednocześnie"
 
 #: views/cart.py:50
 #, python-format
