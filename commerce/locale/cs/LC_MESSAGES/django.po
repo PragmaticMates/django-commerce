@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-12 15:17+0200\n"
-"PO-Revision-Date: 2022-10-08 13:18+0000\n"
+"PO-Revision-Date: 2022-10-28 07:18+0000\n"
 "Last-Translator: Peter Rusinak <peter.rusinak@transportly.eu>\n"
 "Language-Team: Czech <https://weblate.swida.sk/projects/django-commerce/app/"
 "cs/>\n"
@@ -46,12 +46,11 @@ msgstr "Doprava"
 
 #: admin.py:50
 msgid "Others"
-msgstr "Ostatní"
+msgstr "Jiné"
 
 #: admin.py:51 admin.py:105
-#, fuzzy
 msgid "Timestamps"
-msgstr "Časová razítka"
+msgstr "Časové údaje"
 
 #: admin.py:104
 msgid "Billing"
@@ -59,16 +58,16 @@ msgstr "Fakturace"
 
 #: admin.py:128
 msgid "Missing bank API token"
-msgstr "Chybí token rozhraní API banky"
+msgstr "Chybí token pro API banky"
 
 #: admin.py:132
 msgid "Missing bank API"
-msgstr "Chybí rozhraní API banky"
+msgstr "Chybí API banky"
 
 #: admin.py:168
 #, python-brace-format
 msgid "Bank API {commerce_settings.BANK_API} not implemented"
-msgstr "Banka API {commerce_settings.BANK_API} není implementováno"
+msgstr "API banky {commerce_settings.BANK_API} není implementováno"
 
 #: admin.py:186
 msgid "Order not found"
@@ -76,7 +75,7 @@ msgstr "Objednávka nenalezena"
 
 #: admin.py:197
 msgid "Currency mismatch"
-msgstr "Neshoda / Nesoulad měn"
+msgstr "Měna se liší"
 
 #: admin.py:199
 msgid "Total value mismatch"
@@ -92,16 +91,15 @@ msgstr "Synchronizovat transakce"
 
 #: admin.py:214
 msgid "Create invoice"
-msgstr "Vytvořit fakturu"
+msgstr "Vystavit fakturu"
 
 #: admin.py:219
 msgid "Send details"
 msgstr "Odeslat podrobnosti"
 
 #: admin.py:224
-#, fuzzy
 msgid "Send reminder"
-msgstr "Odeslat upomínku / připomenutí"
+msgstr "Odeslat připomínku"
 
 #: admin.py:228
 msgid "Loyalty program is disabled"
@@ -115,7 +113,7 @@ msgstr "Uživatel %s má %d věrnostních bodů"
 #: admin.py:243
 #, python-format
 msgid "Loyalty reminder sent to %d users"
-msgstr "Věrnostní připomínka byla odeslána %d uživatelům"
+msgstr "Věrnostní připomínka odeslána %d uživatelem"
 
 #: admin.py:244
 msgid "Send loyalty reminder"
@@ -178,11 +176,11 @@ msgstr "Slevový kód %s již byl použit"
 #: forms.py:84
 #, python-format
 msgid "Discount code %s can be applied to at most %d items"
-msgstr "Slevový kód %s lze uplatnit na maximálně %d položek"
+msgstr "Slevový kód %s může být použit nejvýše na %d položek"
 
 #: forms.py:90
 msgid "Discount product is not in the cart"
-msgstr "Zlevněný produkt není v košíku"
+msgstr "Slevový produkt se nenachází v košíku"
 
 #: forms.py:93
 msgid "There is no such discount code"
@@ -194,7 +192,7 @@ msgstr "Pokračovat"
 
 #: forms.py:218
 msgid "Choose Payment Type"
-msgstr "Vyberte Typ platby"
+msgstr "Zvolte typ platby"
 
 #: forms.py:232
 msgid "Select Shipping Option"
@@ -212,11 +210,11 @@ msgstr "Platit"
 
 #: gateways/globalpayments/managers.py:146
 msgid "Invalid payment signature."
-msgstr "Neplatný podpis platby."
+msgstr "Nesprávný podpis platby."
 
 #: gateways/globalpayments/managers.py:154
 msgid "Payment failed. Error detail:"
-msgstr "Platba selhala. Podrobnosti o chybě:"
+msgstr "Platba selhala. Chyba:"
 
 #: gateways/globalpayments/managers.py:158
 msgid "Transaction not recognised"
@@ -224,7 +222,7 @@ msgstr "Transakce nebyla rozpoznána"
 
 #: gateways/globalpayments/managers.py:170
 msgid "Order successfully paid."
-msgstr "Objednávka úspěšně zaplacena."
+msgstr "Objednávka úspěšně uhrazena."
 
 #: gateways/globalpayments/managers.py:173
 msgid "Payment without result."
@@ -300,7 +298,6 @@ msgid "merchant order number"
 msgstr "číslo objednávky obchodníka"
 
 #: gateways/globalpayments/models.py:44
-#, fuzzy
 msgid "md"
 msgstr "md"
 
@@ -317,7 +314,6 @@ msgid "result text"
 msgstr "výsledný text"
 
 #: gateways/globalpayments/models.py:48
-#, fuzzy
 msgid "user param 1"
 msgstr "uživatelský parametr 1"
 
@@ -407,7 +403,7 @@ msgstr "zákazníky"
 
 #: gateways/stripe/views.py:42 views/order.py:26
 msgid "It is not possible to pay this order anymore."
-msgstr "Tuto objednávku již není možné zaplatit."
+msgstr "Tuto objednávku již nelze uhradit."
 
 #: gateways/stripe/views.py:58
 msgid "Order number"
@@ -444,9 +440,8 @@ msgid "digital goods"
 msgstr "digitální zboží"
 
 #: models.py:43
-#, fuzzy
 msgid "sale ended"
-msgstr "prodej / výprodej ukončen"
+msgstr "prodej skončil"
 
 #: models.py:45
 msgid "availability"
@@ -457,9 +452,8 @@ msgid "price"
 msgstr "cena"
 
 #: models.py:52
-#, fuzzy
 msgid "awaiting"
-msgstr "čekání / čekající"
+msgstr "očekáváme"
 
 #: models.py:53 models.py:524
 msgid "options"
@@ -514,9 +508,8 @@ msgid "payment methods"
 msgstr "platební metody"
 
 #: models.py:148
-#, fuzzy
 msgid "one-time only"
-msgstr "pouze jednorázová / jednorázově / jednou"
+msgstr "jednorázové"
 
 #: models.py:154
 msgid "percentage"
@@ -555,9 +548,8 @@ msgid "promoted"
 msgstr "povýšen"
 
 #: models.py:165
-#, fuzzy
 msgid "show in topbar"
-msgstr "zobrazit v horní liště / horním panelu"
+msgstr "zobrazit na horní liště"
 
 #: models.py:166
 msgid "add to cart"
@@ -590,11 +582,11 @@ msgstr "slevy"
 
 #: models.py:191
 msgid "Amount of percentage has to be from interval 0-100."
-msgstr "Výše procenta musí být z intervalu 0-100."
+msgstr "Procenta musí být z intervalu od 0-100."
 
 #: models.py:195
 msgid "Content types can't be used together with currency type"
-msgstr "Typy obsahu nelze použít společně s typem měny"
+msgstr "Typy obsahu nemohou být použity spolu s typem \"měna\"."
 
 #: models.py:245 models.py:252 models.py:649 models.py:656
 msgid "full name or company name"
@@ -614,7 +606,7 @@ msgstr "město"
 
 #: models.py:259 models.py:662 templates/commerce/checkout_summary.html:25
 msgid "Company Registration No."
-msgstr "Registrační číslo společnosti"
+msgstr "IČO"
 
 #: models.py:260 models.py:663 templates/commerce/checkout_summary.html:26
 msgid "TAX ID"
@@ -675,7 +667,7 @@ msgstr "položky"
 
 #: models.py:626
 msgid "Awaiting Payment"
-msgstr "Čekání na platbu"
+msgstr "Čeká na platbu"
 
 #: models.py:627
 msgid "Pending"
@@ -690,13 +682,12 @@ msgid "Processing"
 msgstr "Zpracovává se"
 
 #: models.py:630
-#, fuzzy
 msgid "Awaiting Fulfillment"
-msgstr "Čekání / Čekající na splnění / vyplnění"
+msgstr "Očekáváme naskladnění"
 
 #: models.py:631
 msgid "Awaiting Shipment"
-msgstr "Čeká na zásilku"
+msgstr "Čeká na expedici"
 
 #: models.py:632
 msgid "Awaiting Pickup"
@@ -731,13 +722,12 @@ msgid "Partially Refunded"
 msgstr "Částečně vráceno"
 
 #: models.py:640
-#, fuzzy
 msgid "Disputed"
-msgstr "Sporný / Zpochybněno"
+msgstr "Ve sporu"
 
 #: models.py:641
 msgid "On hold"
-msgstr "Pozastaveno"
+msgstr "Zadržená"
 
 #: models.py:646
 msgid "number"
@@ -770,12 +760,12 @@ msgstr "objednávky"
 #: models.py:927
 #, python-format
 msgid "Order details: %d"
-msgstr "Podrobnosti objednávky: %d"
+msgstr "Detaily objednávky: %d"
 
 #: models.py:937
 #, python-format
 msgid "Order reminder: %d"
-msgstr "Připomenutí objednávky: %d"
+msgstr "Připomínka objednávky: %d"
 
 #: models.py:951
 msgid "files"
@@ -790,19 +780,16 @@ msgid "purchased items"
 msgstr "zakoupené položky"
 
 #: models.py:995
-#, fuzzy
 msgid "datetime"
 msgstr "datum a čas"
 
 #: models.py:999
-#, fuzzy
 msgid "supply"
-msgstr "zásobování / dodávka"
+msgstr "zásobování"
 
 #: models.py:1000
-#, fuzzy
 msgid "supplies"
-msgstr "zásoby / dodávky"
+msgstr "zásobování"
 
 #: tasks.py:16
 msgid "New order"
@@ -815,7 +802,7 @@ msgstr "Stav objednávky %d změněn"
 
 #: templates/commerce/add_to_cart_form.html:7
 msgid "Choose option"
-msgstr "Vyberte možnost"
+msgstr "Zvolte možnost"
 
 #: templates/commerce/add_to_cart_form.html:10
 msgid "in stock"
@@ -826,9 +813,8 @@ msgid "Purchase"
 msgstr "Nákup"
 
 #: templates/commerce/add_to_cart_form.html:16
-#, fuzzy
 msgid "Soon"
-msgstr "Již brzy"
+msgstr "Brzy"
 
 #: templates/commerce/admin/sync_transactions.html:5
 msgid "Transactions"
@@ -850,7 +836,7 @@ msgstr "Variabilní symbol"
 
 #: templates/commerce/admin/sync_transactions.html:13
 msgid "Order details"
-msgstr "Podrobnosti objednávky"
+msgstr "Detaily objednávky"
 
 #: templates/commerce/admin/sync_transactions.html:14
 msgid "Sender"
@@ -917,7 +903,7 @@ msgstr "Smazat"
 #: templates/commerce/checkout_form.html:2
 #: templates/commerce/checkout_summary.html:2
 msgid "Checkout"
-msgstr "Pokladna"
+msgstr "Nákup"
 
 #: templates/commerce/checkout_steps.html:4
 #: templates/commerce/checkout_steps.html:8
@@ -979,7 +965,7 @@ msgstr "Dokončit"
 
 #: templates/commerce/checkout_summary.html:57 views/cart.py:259
 msgid "Checkout process can not be finished yet"
-msgstr "Objednávku nelze dokončit"
+msgstr "Nákupní proces ještě nemůže být ukončen"
 
 #: templates/commerce/discount_topbar.html:8
 msgid "Use code"
@@ -987,13 +973,12 @@ msgstr "Použít kód"
 
 #: templates/commerce/discount_topbar.html:9
 msgid "Ends in"
-msgstr "Končí za"
+msgstr "Končí o"
 
 #: templates/commerce/discount_topbar.html:18
 #: templates/commerce/discount_topbar.html:19
-#, fuzzy
 msgid "ms|s|m|h|d|w|m|y"
-msgstr "ms|s|m|h|d|w|m|y"
+msgstr "ms|s|m|h|d|t|m|r"
 
 #: templates/commerce/discount_topbar.html:22
 msgid "now"
@@ -1023,7 +1008,7 @@ msgid ""
 msgstr ""
 "Dobrý den, %(user)s!\n"
 "\n"
-"Vytvořena nová objednávka:\n"
+"Byla vytvořena nová objednávka:\n"
 "\n"
 "Číslo: %(number)s\n"
 "Zákazník: %(customer)s\n"
@@ -1090,8 +1075,8 @@ msgid ""
 "Payment due is 14 days since checkout. Orders without payments after due "
 "date will be cancelled automatically."
 msgstr ""
-"Splatnost platby je 14 dní od placení. Objednávky bez platby po datu "
-"splatnosti budou automaticky zrušeny."
+"Datum splatnosti je 14 dní ode dne vytvoření objednávky. Pokud do tohoto "
+"data nebudeme evidovat vaši platbu, objednávka bude automaticky stornována."
 
 #: templates/commerce/mails/order_reminder.txt:15
 msgid ""
@@ -1114,7 +1099,7 @@ msgid ""
 msgstr ""
 "Dobrý den, %(user)s!\n"
 "\n"
-"Stav vaší objednávky %(number)s změněn na: %(status)s\n"
+"Stav Vaší objednávky %(number)s byl změněn na: %(status)s\n"
 
 #: templates/commerce/order_list.html:2
 msgid "Orders"
@@ -1165,7 +1150,7 @@ msgstr "BIC/SWIFT"
 
 #: templates/commerce/payment_information_wire_transfer.html:6
 msgid "Amount"
-msgstr "Množství"
+msgstr "Částka"
 
 #: templates/commerce/payment_information_wire_transfer.html:7
 msgid "Note"
@@ -1200,8 +1185,8 @@ msgid ""
 "It is important to use variable symbol / reference above to correctly pair "
 "your payment with the order!"
 msgstr ""
-"Pro správné spárování platby s objednávkou je důležité použít variabilní "
-"symbol / referenci výše!"
+"Je důležité uvést správný variabilní symbol/referenci kvůli korektnímu "
+"spárování Vaší platby s objednávkou."
 
 #: urls.py:13
 msgctxt "url"
@@ -1274,7 +1259,6 @@ msgid "stripe/cancel/"
 msgstr "stripe/zrusit/"
 
 #: urls.py:34
-#, fuzzy
 msgctxt "url"
 msgid "stripe/webhook/"
 msgstr "stripe/webhook/"
@@ -1292,12 +1276,12 @@ msgstr "Najednou můžete objednat maximálně %d položek"
 #: views/cart.py:50
 #, python-format
 msgid "Discount %s was removed from cart"
-msgstr "Sleva %s byla odstraněna z košíku"
+msgstr "Sleva %s byla odebrána z košíku"
 
 #: views/cart.py:52
-#, fuzzy, python-format
+#, python-format
 msgid "%s was added into cart"
-msgstr "%s bylo přidáno do košíku"
+msgstr "%s byl přidán do košíku"
 
 #: views/cart.py:54
 #, python-format
@@ -1307,7 +1291,7 @@ msgstr "%s je již v košíku"
 #: views/cart.py:86
 #, python-format
 msgid "%s removed from cart"
-msgstr "%s odebráno z košíku"
+msgstr "%s byl odstraněn z košíku"
 
 #: views/cart.py:270
 msgid "Missing payment method"
