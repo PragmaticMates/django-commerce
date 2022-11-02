@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-12 15:17+0200\n"
-"PO-Revision-Date: 2022-10-28 07:18+0000\n"
+"PO-Revision-Date: 2022-11-04 07:18+0000\n"
 "Last-Translator: Rafal Szczepanowicz <rafal@transportly.eu>\n"
 "Language-Team: Polish <https://weblate.swida.sk/projects/django-commerce/app/"
 "pl/>\n"
@@ -46,9 +46,8 @@ msgid "Shipping"
 msgstr "Wysyłka"
 
 #: admin.py:50
-#, fuzzy
 msgid "Others"
-msgstr "Inne/Inni"
+msgstr "Inne"
 
 #: admin.py:51 admin.py:105
 #, fuzzy
@@ -56,9 +55,8 @@ msgid "Timestamps"
 msgstr "Znaczniki czasu"
 
 #: admin.py:104
-#, fuzzy
 msgid "Billing"
-msgstr "Dane do faktury"
+msgstr "Fakturowanie"
 
 #: admin.py:128
 msgid "Missing bank API token"
@@ -69,9 +67,9 @@ msgid "Missing bank API"
 msgstr "Brak bankowego API"
 
 #: admin.py:168
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Bank API {commerce_settings.BANK_API} not implemented"
-msgstr "Bank API {commerce_settings.BANK_API} nie zaimplementowano"
+msgstr "Bankowe API {commerce_settings.BANK_API} nie zaimplementowano"
 
 #: admin.py:186
 msgid "Order not found"
@@ -143,7 +141,6 @@ msgid "Products"
 msgstr "Produkty"
 
 #: apps.py:11
-#, fuzzy
 msgid "Commerce"
 msgstr "Handel"
 
@@ -697,14 +694,12 @@ msgid "items"
 msgstr "przedmioty"
 
 #: models.py:626
-#, fuzzy
 msgid "Awaiting Payment"
 msgstr "Oczekiwanie na Zapłatę"
 
 #: models.py:627
-#, fuzzy
 msgid "Pending"
-msgstr "W oczekiwaniu/Oczekuję"
+msgstr "Oczekuję"
 
 #: models.py:628
 msgid "Payment received"
@@ -720,24 +715,20 @@ msgid "Awaiting Fulfillment"
 msgstr "Oczekiwanie na Wykonanie"
 
 #: models.py:631
-#, fuzzy
 msgid "Awaiting Shipment"
 msgstr "Oczekiwanie na Wysyłkę"
 
 #: models.py:632
-#, fuzzy
 msgid "Awaiting Pickup"
-msgstr "Oczekiwanie na Załadunek"
+msgstr "Oczekiwanie na Odbiór"
 
 #: models.py:633
-#, fuzzy
 msgid "Partially Shipped"
-msgstr "Częściowo Wysłany/o/e/a"
+msgstr "Częściowo Wysłane"
 
 #: models.py:634
-#, fuzzy
 msgid "Shipped"
-msgstr "Wysłany/o/e"
+msgstr "Wysłane"
 
 #: models.py:635
 msgid "Completed"
@@ -753,14 +744,12 @@ msgid "Declined"
 msgstr "Odrzucony/Odrzucono"
 
 #: models.py:638
-#, fuzzy
 msgid "Refunded"
-msgstr "Zrefundowano/e/a"
+msgstr "Zrefundowane"
 
 #: models.py:639
-#, fuzzy
 msgid "Partially Refunded"
-msgstr "Częściowo Zwrócony/e/a"
+msgstr "Częściowo Zrefundowane"
 
 #: models.py:640
 #, fuzzy
@@ -948,7 +937,7 @@ msgstr "Usuń"
 #: templates/commerce/checkout_form.html:2
 #: templates/commerce/checkout_summary.html:2
 msgid "Checkout"
-msgstr ""
+msgstr "Do kasy"
 
 #: templates/commerce/checkout_steps.html:4
 #: templates/commerce/checkout_steps.html:8
@@ -1010,7 +999,6 @@ msgid "Finish"
 msgstr "Koniec/Zakończ"
 
 #: templates/commerce/checkout_summary.html:57 views/cart.py:259
-#, fuzzy
 msgid "Checkout process can not be finished yet"
 msgstr "Proces kasy nie może się jeszcze zakończyć"
 
@@ -1220,7 +1208,6 @@ msgid "Bank name"
 msgstr "Nazwa banku"
 
 #: templates/commerce/payment_information_wire_transfer.html:15
-#, fuzzy
 msgid "Bank address"
 msgstr "Adres banku"
 
