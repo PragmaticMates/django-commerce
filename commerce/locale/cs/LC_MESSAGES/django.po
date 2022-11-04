@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-12 15:17+0200\n"
-"PO-Revision-Date: 2022-10-28 07:18+0000\n"
+"PO-Revision-Date: 2022-11-05 10:18+0000\n"
 "Last-Translator: Peter Rusinak <peter.rusinak@transportly.eu>\n"
 "Language-Team: Czech <https://weblate.swida.sk/projects/django-commerce/app/"
 "cs/>\n"
@@ -121,7 +121,7 @@ msgstr "Odeslat věrnostní připomínku"
 
 #: admin.py:248
 msgid "valid"
-msgstr "platný"
+msgstr "platné"
 
 #: admin.py:253
 msgid "yes"
@@ -234,7 +234,7 @@ msgstr "zpracovává se"
 
 #: gateways/globalpayments/models.py:17
 msgid "approved"
-msgstr "schválený"
+msgstr "schváleno"
 
 #: gateways/globalpayments/models.py:18
 msgid "paid"
@@ -242,7 +242,7 @@ msgstr "zaplaceno"
 
 #: gateways/globalpayments/models.py:19
 msgid "partial"
-msgstr "částečný"
+msgstr "částečně zaplaceno"
 
 #: gateways/globalpayments/models.py:20
 msgid "canceled"
@@ -311,7 +311,7 @@ msgstr "sekundární kód"
 
 #: gateways/globalpayments/models.py:47
 msgid "result text"
-msgstr "výsledný text"
+msgstr "návratový text"
 
 #: gateways/globalpayments/models.py:48
 msgid "user param 1"
@@ -351,7 +351,7 @@ msgstr "stav registrace tokenu"
 
 #: gateways/globalpayments/models.py:57
 msgid "authorisation centre result code"
-msgstr "kód výsledku autorizačního centra"
+msgstr "návratový kód z autorizačního centra"
 
 #: gateways/globalpayments/models.py:58
 msgid "retrieval reference number"
@@ -493,7 +493,7 @@ msgstr "bankovní převod"
 
 #: models.py:121
 msgid "online payment"
-msgstr "platba přes internet"
+msgstr "online platba"
 
 #: models.py:126
 msgid "method"
@@ -533,7 +533,7 @@ msgstr "jednotka"
 
 #: models.py:160
 msgid "usage"
-msgstr "používání"
+msgstr "použití"
 
 #: models.py:163 models.py:996
 msgid "description"
@@ -545,7 +545,7 @@ msgstr "platné do"
 
 #: models.py:165
 msgid "promoted"
-msgstr "povýšen"
+msgstr "promováno"
 
 #: models.py:165
 msgid "show in topbar"
@@ -630,7 +630,7 @@ msgstr "věrnostní body"
 
 #: models.py:275 models.py:685
 msgid "used to lower the total price"
-msgstr "slouží ke snížení celkové ceny"
+msgstr "použitých ke snížení celkové ceny"
 
 #: models.py:284
 msgid "shopping cart"
@@ -810,7 +810,7 @@ msgstr "na skladě"
 
 #: templates/commerce/add_to_cart_form.html:15
 msgid "Purchase"
-msgstr "Nákup"
+msgstr "Koupit"
 
 #: templates/commerce/add_to_cart_form.html:16
 msgid "Soon"
