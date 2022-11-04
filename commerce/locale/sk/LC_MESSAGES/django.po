@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-12 15:17+0200\n"
-"PO-Revision-Date: 2022-10-28 07:18+0000\n"
+"PO-Revision-Date: 2022-11-05 10:18+0000\n"
 "Last-Translator: Peter Rusinak <peter.rusinak@transportly.eu>\n"
 "Language-Team: Slovak <https://weblate.swida.sk/projects/django-commerce/app/"
 "sk/>\n"
@@ -418,7 +418,7 @@ msgstr "Poplatok za doručenie"
 #: gateways/stripe/views.py:94 models.py:911
 #: templates/commerce/checkout_summary.html:47
 msgid "Payment fee"
-msgstr "Poplatok za platobnú metódu"
+msgstr "Poplatok za platbu"
 
 #: gateways/stripe/views.py:135
 msgid "Payment was successful."
@@ -502,11 +502,11 @@ msgstr "metóda"
 
 #: models.py:132 models.py:269
 msgid "payment method"
-msgstr "platobná metóda"
+msgstr "spôsob platby"
 
 #: models.py:133
 msgid "payment methods"
-msgstr "platobné metódy"
+msgstr "spôsoby platby"
 
 #: models.py:148
 msgid "one-time only"
@@ -672,11 +672,11 @@ msgstr "Čaká na platbu"
 
 #: models.py:627
 msgid "Pending"
-msgstr "Nevybavená"
+msgstr "Čaká na spracovanie"
 
 #: models.py:628
 msgid "Payment received"
-msgstr "Prijatá platba"
+msgstr "Platba prijatá"
 
 #: models.py:629
 msgid "Processing"
@@ -744,7 +744,7 @@ msgstr "poplatok za doručenie"
 
 #: models.py:676
 msgid "payment fee"
-msgstr "poplatok za platobnú metódu"
+msgstr "poplatok za platbu"
 
 #: models.py:679
 msgid "invoices"
@@ -950,7 +950,7 @@ msgstr "Možnosť dopravy"
 #: templates/commerce/mails/order_reminder.txt:8
 #: templates/commerce/orders_table.html:12
 msgid "Payment method"
-msgstr "Platobná metóda"
+msgstr "Spôsob platby"
 
 #: templates/commerce/checkout_summary.html:50
 #: templates/commerce/mails/order_created.txt:12
@@ -1143,7 +1143,7 @@ msgstr "Faktúra"
 
 #: templates/commerce/orders_table.html:50
 msgid "Preparing..."
-msgstr "Pripravujeme..."
+msgstr "Pripravuje sa..."
 
 #: templates/commerce/payment_information_wire_transfer.html:4
 msgid "IBAN"
