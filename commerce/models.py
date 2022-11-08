@@ -813,13 +813,21 @@ class Order(models.Model):
     def delivery_details_required(self):
         return not self.has_only_digital_goods()
 
-    def create_invoice(self, type=Invoice.TYPE.INVOICE, status=Invoice.STATUS.SENT):
-        language = getattr(self.user, 'preferred_language', settings.LANGUAGE_CODE)  # TODO: user is Abstract model. preferred_language could be missing or should be configurable
+    def create_invoice(self, type=Invoice.TYPE.INVOICE, status=Invoice.STATUS.SENT, creator=None):
+        language = getattr(self.user, 'preferred_language', settings.LANGUAGE_CODE) or settings.LANGUAGE_CODE  # TODO: user is Abstract model. preferred_language could be missing or should be configurable
 
         with override_language(language):
             issue_date = now().date()
             due_days = 0 if status == Invoice.STATUS.PAID else 7  # TODO: default due days
             delivery_method = Invoice.DELIVERY_METHOD.MAILING if self.delivery_details_required else Invoice.DELIVERY_METHOD.DIGITAL
+
+            payment_method = ''
+            if self.payment_method.method == PaymentMethod.METHOD_WIRE_TRANSFER:
+                payment_method = Invoice.PAYMENT_METHOD.BANK_TRANSFER
+            elif self.payment_method.method == PaymentMethod.METHOD_CASH_ON_DELIVERY:
+                payment_method = Invoice.PAYMENT_METHOD.CASH
+            elif self.payment_method.method in [PaymentMethod.METHOD_ONLINE_PAYMENT, PaymentMethod.METHOD_PAYPAL]:
+                payment_method = Invoice.PAYMENT_METHOD.PAYMENT_CARD
 
             invoice = Invoice.objects.create(
                 type=type,
@@ -829,9 +837,8 @@ class Order(models.Model):
                 date_tax_point=issue_date,
                 date_due=issue_date + relativedelta(days=due_days),
                 currency=commerce_settings.CURRENCY,
+                payment_method=payment_method,
                 # already_paid=
-                # payment_method=Invoice.PAYMENT_METHOD.BANK_TRANSFER,
-                # payment_method=Invoice.PAYMENT_METHOD.BANK_TRANSFER if self.payment_method.method == Payment.METHOD_WIRE_TRANSFER
                 # constant_symbol=
                 variable_symbol=self.number,
                 bank_name=settings.INVOICING_BANK['name'],
@@ -863,7 +870,7 @@ class Order(models.Model):
                 shipping_zip=self.delivery_postcode,
                 shipping_city=self.delivery_city,
                 shipping_country=self.delivery_country,
-                delivery_method=delivery_method
+                delivery_method=delivery_method,
             )
 
             def check_tax_and_get_price(price, rate):
@@ -924,7 +931,7 @@ class Order(models.Model):
             self.invoices.add(invoice)
 
             # call custom signal
-            invoice_created.send(sender=self.__class__, order=self, invoice=invoice)
+            invoice_created.send(sender=self.__class__, order=self, invoice=invoice, creator=creator)
 
             return invoice
 
