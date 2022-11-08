@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-12 15:17+0200\n"
-"PO-Revision-Date: 2022-11-04 07:18+0000\n"
+"PO-Revision-Date: 2022-11-09 16:18+0000\n"
 "Last-Translator: Rafal Szczepanowicz <rafal@transportly.eu>\n"
 "Language-Team: Polish <https://weblate.swida.sk/projects/django-commerce/app/"
 "pl/>\n"
@@ -50,9 +50,8 @@ msgid "Others"
 msgstr "Inne"
 
 #: admin.py:51 admin.py:105
-#, fuzzy
 msgid "Timestamps"
-msgstr "Znaczniki czasu"
+msgstr "Dane czasowe"
 
 #: admin.py:104
 msgid "Billing"
@@ -84,14 +83,12 @@ msgid "Total value mismatch"
 msgstr "Niezgodność wartości całkowitej"
 
 #: admin.py:206
-#, fuzzy
 msgid "Missing variable symbol"
-msgstr "Brak symbolu zmiennej/wariabilnego symbolu"
+msgstr "Brak wariabilnego symbolu"
 
 #: admin.py:209
-#, fuzzy
 msgid "Sync transactions"
-msgstr "Synchronizuj transakcje/Synchronizacja transakcji"
+msgstr "Synchronizacja transakcji"
 
 #: admin.py:214
 msgid "Create invoice"
@@ -115,14 +112,13 @@ msgid "User %s has %d loyalty points"
 msgstr "Użytkownik %s ma %d punktów lojalnościowych"
 
 #: admin.py:243
-#, fuzzy, python-format
+#, python-format
 msgid "Loyalty reminder sent to %d users"
-msgstr "Przypomnienie o lojalności wysłane do %d użytkowników"
+msgstr "Przypomnienie lojalnościowe wysłane do %d użytkowników"
 
 #: admin.py:244
-#, fuzzy
 msgid "Send loyalty reminder"
-msgstr "Wyślij przypomnienie o lojalności"
+msgstr "Wyślij przypomnienie lojalnościowe"
 
 #: admin.py:248
 msgid "valid"
@@ -192,9 +188,8 @@ msgid "There is no such discount code"
 msgstr "Nie ma takiego kodu rabatowego"
 
 #: forms.py:178 forms.py:241
-#, fuzzy
 msgid "Continue"
-msgstr "Kontynuuj/Kontynuować"
+msgstr "Kontynuować"
 
 #: forms.py:218
 msgid "Choose Payment Type"
@@ -239,9 +234,8 @@ msgid "processing"
 msgstr "przetwarzanie"
 
 #: gateways/globalpayments/models.py:17
-#, fuzzy
 msgid "approved"
-msgstr "zatwierdzony/e/o"
+msgstr "zatwierdzono"
 
 #: gateways/globalpayments/models.py:18
 msgid "paid"
@@ -252,18 +246,16 @@ msgid "partial"
 msgstr "częściowo"
 
 #: gateways/globalpayments/models.py:20
-#, fuzzy
 msgid "canceled"
-msgstr "anulowano/e/y/a"
+msgstr "anulowane"
 
 #: gateways/globalpayments/models.py:21
 msgid "unpaid"
 msgstr "niezapłacony"
 
 #: gateways/globalpayments/models.py:22
-#, fuzzy
 msgid "returned"
-msgstr "zwrócony/e/o/a"
+msgstr "zwrócona"
 
 #: gateways/globalpayments/models.py:24 gateways/globalpayments/models.py:40
 #: models.py:695
@@ -283,9 +275,8 @@ msgstr "utworzono"
 #: gateways/globalpayments/models.py:27 gateways/globalpayments/models.py:64
 #: gateways/stripe/models.py:11 models.py:279 models.py:565 models.py:690
 #: models.py:953
-#, fuzzy
 msgid "modified"
-msgstr "zmodifikowany/a/o/e"
+msgstr "zmodifikowano"
 
 #: gateways/globalpayments/models.py:30
 msgid "payment"
@@ -309,7 +300,7 @@ msgstr "numer zamówienia sprzedawcy"
 
 #: gateways/globalpayments/models.py:44
 msgid "md"
-msgstr ""
+msgstr "md"
 
 #: gateways/globalpayments/models.py:45
 msgid "primary code"
@@ -320,7 +311,6 @@ msgid "secondary code"
 msgstr "kod dodatkowy"
 
 #: gateways/globalpayments/models.py:47
-#, fuzzy
 msgid "result text"
 msgstr "tekst wyniku"
 
@@ -333,21 +323,18 @@ msgid "additional information"
 msgstr "dodatkowe informacje"
 
 #: gateways/globalpayments/models.py:50
-#, fuzzy
 msgid "token"
-msgstr "token/znak/dowod wdziecznosci"
+msgstr "token"
 
 #: gateways/globalpayments/models.py:51
 msgid "expiration"
 msgstr "wygaśnięcie"
 
 #: gateways/globalpayments/models.py:52
-#, fuzzy
 msgid "authorisation centre result"
 msgstr "wynik centrum autoryzacji"
 
 #: gateways/globalpayments/models.py:53
-#, fuzzy
 msgid "authorisation centre code"
 msgstr "kod centrum autoryzacji"
 
@@ -356,22 +343,18 @@ msgid "masked card number"
 msgstr "zamaskowany numer karty"
 
 #: gateways/globalpayments/models.py:55
-#, fuzzy
 msgid "day to capture"
 msgstr "dzień do schwytania"
 
 #: gateways/globalpayments/models.py:56
-#, fuzzy
 msgid "token registration status"
 msgstr "status rejestracji tokena"
 
 #: gateways/globalpayments/models.py:57
-#, fuzzy
 msgid "authorisation centre result code"
 msgstr "kod wyniku centrum autoryzacji"
 
 #: gateways/globalpayments/models.py:58
-#, fuzzy
 msgid "retrieval reference number"
 msgstr "numer referencyjny wyszukiwania"
 
@@ -384,13 +367,12 @@ msgid "trace ID"
 msgstr "identyfikator śledzenia"
 
 #: gateways/globalpayments/models.py:61
-#, fuzzy
 msgid "digest"
 msgstr "strawić"
 
 #: gateways/globalpayments/models.py:62
 msgid "digest 1"
-msgstr ""
+msgstr "strawić 1"
 
 #: gateways/globalpayments/models.py:67
 msgid "result"
@@ -447,14 +429,12 @@ msgid "Payment failed."
 msgstr "Płatność nie powiodła się."
 
 #: models.py:40
-#, fuzzy
 msgid "stock"
-msgstr "zbiór/dostępność"
+msgstr "magazyn"
 
 #: models.py:41 models.py:149
-#, fuzzy
 msgid "infinite"
-msgstr "nieskończony"
+msgstr "nieskończone"
 
 #: models.py:42
 msgid "digital goods"
@@ -473,9 +453,8 @@ msgid "price"
 msgstr "cena"
 
 #: models.py:52
-#, fuzzy
 msgid "awaiting"
-msgstr "czekam/oczekuję"
+msgstr "oczekuję"
 
 #: models.py:53 models.py:524
 msgid "options"
@@ -534,9 +513,8 @@ msgid "one-time only"
 msgstr "tylko jeden raz"
 
 #: models.py:154
-#, fuzzy
 msgid "percentage"
-msgstr "odsetek/procent"
+msgstr "procenty"
 
 #: models.py:155
 msgid "currency"
@@ -555,9 +533,8 @@ msgid "unit"
 msgstr "jednostka"
 
 #: models.py:160
-#, fuzzy
 msgid "usage"
-msgstr "stosowanie/używanie"
+msgstr "użycie"
 
 #: models.py:163 models.py:996
 msgid "description"
@@ -568,9 +545,8 @@ msgid "valid until"
 msgstr "ważny do"
 
 #: models.py:165
-#, fuzzy
 msgid "promoted"
-msgstr "promowany"
+msgstr "promowane"
 
 #: models.py:165
 msgid "show in topbar"
@@ -585,9 +561,8 @@ msgid "automatically"
 msgstr "automatycznie"
 
 #: models.py:167
-#, fuzzy
 msgid "content types"
-msgstr "typy/rodzaje zawartości"
+msgstr "typy zawartości"
 
 #: models.py:168
 msgid "max items in cart"
@@ -611,7 +586,6 @@ msgid "Amount of percentage has to be from interval 0-100."
 msgstr "Kwota procentowa musi być z przedziału 0-100."
 
 #: models.py:195
-#, fuzzy
 msgid "Content types can't be used together with currency type"
 msgstr "Typy treści nie mogą być używane razem z typem waluty"
 
@@ -673,9 +647,8 @@ msgid "Shopping cart of {self.user}"
 msgstr "Koszyk {self.user}"
 
 #: models.py:518
-#, fuzzy
 msgid "content type"
-msgstr "typ/rodzaj zawartości"
+msgstr "typ zawartości"
 
 #: models.py:523
 msgid "option"
@@ -710,9 +683,8 @@ msgid "Processing"
 msgstr "Przetwarzanie"
 
 #: models.py:630
-#, fuzzy
 msgid "Awaiting Fulfillment"
-msgstr "Oczekiwanie na Wykonanie"
+msgstr "Oczekiwanie na Zmagazynowanie"
 
 #: models.py:631
 msgid "Awaiting Shipment"
@@ -739,9 +711,8 @@ msgid "Cancelled"
 msgstr "Anulowany"
 
 #: models.py:637
-#, fuzzy
 msgid "Declined"
-msgstr "Odrzucony/Odrzucono"
+msgstr "Odrzucono"
 
 #: models.py:638
 msgid "Refunded"
@@ -752,14 +723,12 @@ msgid "Partially Refunded"
 msgstr "Częściowo Zrefundowane"
 
 #: models.py:640
-#, fuzzy
 msgid "Disputed"
-msgstr "Sporne/Zakwestionowany"
+msgstr "Sporne"
 
 #: models.py:641
-#, fuzzy
 msgid "On hold"
-msgstr "Wstrzymane/Wstrzymano"
+msgstr "Wstrzymano"
 
 #: models.py:646
 msgid "number"
@@ -816,9 +785,8 @@ msgid "datetime"
 msgstr "data i godzina"
 
 #: models.py:999
-#, fuzzy
 msgid "supply"
-msgstr "dostarczyć"
+msgstr "dzień dodania"
 
 #: models.py:1000
 msgid "supplies"
@@ -838,9 +806,8 @@ msgid "Choose option"
 msgstr "Wybierz opcję"
 
 #: templates/commerce/add_to_cart_form.html:10
-#, fuzzy
 msgid "in stock"
-msgstr "na stanie/ w magazynie"
+msgstr "na stanie"
 
 #: templates/commerce/add_to_cart_form.html:15
 msgid "Purchase"
@@ -994,9 +961,8 @@ msgid "Total"
 msgstr "Razem"
 
 #: templates/commerce/checkout_summary.html:55
-#, fuzzy
 msgid "Finish"
-msgstr "Koniec/Zakończ"
+msgstr "Zakończyć"
 
 #: templates/commerce/checkout_summary.html:57 views/cart.py:259
 msgid "Checkout process can not be finished yet"
@@ -1013,7 +979,7 @@ msgstr "Kończy się w"
 #: templates/commerce/discount_topbar.html:18
 #: templates/commerce/discount_topbar.html:19
 msgid "ms|s|m|h|d|w|m|y"
-msgstr ""
+msgstr "ms|s|m|h|d|w|m|y"
 
 #: templates/commerce/discount_topbar.html:22
 msgid "now"
@@ -1108,16 +1074,14 @@ msgstr ""
 "płatności za powiązane zamówienie."
 
 #: templates/commerce/mails/order_reminder.txt:14
-#, fuzzy
 msgid ""
 "Payment due is 14 days since checkout. Orders without payments after due "
 "date will be cancelled automatically."
 msgstr ""
-"Termin płatności to 14 dni od wymeldowania. Zamówienia bez płatności po "
-"terminie zapłaty zostaną automatycznie anulowane."
+"Termin płatności to 14 dni od dnia wytworzenia zamówienia. Zamówienia bez "
+"płatności po terminie zapłaty zostaną automatycznie anulowane."
 
 #: templates/commerce/mails/order_reminder.txt:15
-#, fuzzy
 msgid ""
 "If you already paid for your order and its status hasn't changed, please "
 "double check the entered variable symbol for your payment or contact us."
@@ -1153,7 +1117,15 @@ msgid_plural ""
 "You have %(points)s unused points in total value of "
 "%(unused_points_in_currency_unit)s %(currency)s."
 msgstr[0] ""
+"Masz %(points)s niewykorzystany punkt o łącznej wartości "
+"%(unused_points_in_currency_unit)s %(currency)s."
 msgstr[1] ""
+"Masz %(points)s niewykorzystane punkty o łącznej wartości "
+"%(unused_points_in_currency_unit)s %(currency)s."
+msgstr[2] ""
+"Masz %(points)s niewykorzystanych punktów o łącznej wartości "
+"%(unused_points_in_currency_unit)s %(currency)s."
+msgstr[3] ""
 
 #: templates/commerce/orders_table.html:5
 msgid "Number"
@@ -1220,7 +1192,6 @@ msgstr ""
 "sparować Twoj płatność z zamówieniem!"
 
 #: urls.py:13
-#, fuzzy
 msgctxt "url"
 msgid "add-to-cart/<int:content_type_id>/<int:object_id>/"
 msgstr "dodaj-do-koszyka/<int:content_type_id>/<int:object_id>/"
@@ -1291,7 +1262,6 @@ msgid "stripe/cancel/"
 msgstr "pasek/anuluj/"
 
 #: urls.py:34
-#, fuzzy
 msgctxt "url"
 msgid "stripe/webhook/"
 msgstr "pasek/webhook/"
@@ -1302,7 +1272,7 @@ msgid "loyalty-program/"
 msgstr "program-lojalnosciowy/"
 
 #: views/cart.py:30
-#, fuzzy, python-format
+#, python-format
 msgid "You can order at most %d items at once"
 msgstr "Możesz zamówić maksymalnie %d pozycji jednocześnie"
 
