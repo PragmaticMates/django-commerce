@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-12 15:17+0200\n"
+"POT-Creation-Date: 2022-11-16 00:15+0100\n"
 "PO-Revision-Date: 2022-11-09 16:18+0000\n"
 "Last-Translator: Rafal Szczepanowicz <rafal@transportly.eu>\n"
 "Language-Team: Polish <https://weblate.swida.sk/projects/django-commerce/app/"
@@ -268,13 +268,13 @@ msgstr "status"
 
 #: gateways/globalpayments/models.py:26 gateways/globalpayments/models.py:63
 #: gateways/stripe/models.py:10 models.py:278 models.py:564 models.py:689
-#: models.py:952
+#: models.py:965
 msgid "created"
 msgstr "utworzono"
 
 #: gateways/globalpayments/models.py:27 gateways/globalpayments/models.py:64
 #: gateways/stripe/models.py:11 models.py:279 models.py:565 models.py:690
-#: models.py:953
+#: models.py:966
 msgid "modified"
 msgstr "zmodifikowano"
 
@@ -410,12 +410,12 @@ msgstr "Nie można już opłacić tego zamówienia."
 msgid "Order number"
 msgstr "Numer zamówienia"
 
-#: gateways/stripe/views.py:82 models.py:902
+#: gateways/stripe/views.py:82 models.py:912
 #: templates/commerce/checkout_summary.html:43
 msgid "Shipping fee"
 msgstr "Opłata za wysyłkę"
 
-#: gateways/stripe/views.py:94 models.py:911
+#: gateways/stripe/views.py:94 models.py:924
 #: templates/commerce/checkout_summary.html:47
 msgid "Payment fee"
 msgstr "Opłata"
@@ -448,7 +448,7 @@ msgstr "sprzedaż zakończona"
 msgid "availability"
 msgstr "dostępność"
 
-#: models.py:49 models.py:950
+#: models.py:49 models.py:963
 msgid "price"
 msgstr "cena"
 
@@ -536,7 +536,7 @@ msgstr "jednostka"
 msgid "usage"
 msgstr "użycie"
 
-#: models.py:163 models.py:996
+#: models.py:163 models.py:1009
 msgid "description"
 msgstr "opis"
 
@@ -654,7 +654,7 @@ msgstr "typ zawartości"
 msgid "option"
 msgstr "opcja"
 
-#: models.py:563 models.py:949 models.py:994
+#: models.py:563 models.py:962 models.py:1007
 msgid "quantity"
 msgstr "ilość"
 
@@ -758,37 +758,37 @@ msgstr "przypomnienie wysłane"
 msgid "orders"
 msgstr "zamówienia"
 
-#: models.py:927
+#: models.py:940
 #, python-format
 msgid "Order details: %d"
 msgstr "Szczegóły zamówienia: %d"
 
-#: models.py:937
+#: models.py:950
 #, python-format
 msgid "Order reminder: %d"
 msgstr "Przypomnienie o zamówieniu: %d"
 
-#: models.py:951
+#: models.py:964
 msgid "files"
 msgstr "pliki"
 
-#: models.py:957
+#: models.py:970
 msgid "purchased item"
 msgstr "zakupiony przedmiot"
 
-#: models.py:958
+#: models.py:971
 msgid "purchased items"
 msgstr "zakupione przedmioty"
 
-#: models.py:995
+#: models.py:1008
 msgid "datetime"
 msgstr "data i godzina"
 
-#: models.py:999
+#: models.py:1012
 msgid "supply"
 msgstr "dzień dodania"
 
-#: models.py:1000
+#: models.py:1013
 msgid "supplies"
 msgstr "zaopatrzenie"
 
