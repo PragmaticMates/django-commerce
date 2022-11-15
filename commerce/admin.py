@@ -210,7 +210,7 @@ class OrderAdmin(admin.ModelAdmin):
 
     def create_invoice(self, request, queryset):
         for obj in queryset:
-            obj.create_invoice()
+            obj.create_invoice(creator=request.user)
     create_invoice.short_description = _('Create invoice')
 
     def send_details(self, request, queryset):
