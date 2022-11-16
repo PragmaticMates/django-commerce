@@ -5,6 +5,7 @@ from django.db import models
 from django.db.models import Q
 from django.utils.timezone import now
 from gm2m.models import create_gm2m_intermediary_model
+from commerce import settings as commerce_settings
 
 
 class CartQuerySet(models.QuerySet):
@@ -49,7 +50,10 @@ class OrderQuerySet(models.QuerySet):
     def not_reminded(self):
         return self.filter(reminder_sent=None)
 
-    def old(self, days=7, interval='open'):
+    def old(self, days=commerce_settings.OLD_ORDER_THRESHOLD, interval='open'):
+        if days is None:
+            return self.none()
+
         threshold = now() - timedelta(days=days)
 
         if interval == 'open':

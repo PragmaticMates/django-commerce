@@ -7,7 +7,10 @@ from commerce.loyalty import unused_points, send_loyalty_reminder
 @job(commerce_settings.REDIS_QUEUE)
 def send_order_reminders():
     from commerce.models import Order
-    unpaid_old_orders = Order.objects.not_reminded().awaiting_payment().old(days=7)
+    unpaid_old_orders = Order.objects\
+        .not_reminded()\
+        .awaiting_payment()\
+        .old(days=commerce_settings.OLD_ORDER_THRESHOLD)
     total_orders = unpaid_old_orders.count()
     print(f'Found {total_orders} old unpaid orders without reminder')
 
