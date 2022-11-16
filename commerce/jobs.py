@@ -10,7 +10,7 @@ def send_order_reminders():
     unpaid_old_orders = Order.objects\
         .not_reminded()\
         .awaiting_payment()\
-        .old(days=commerce_settings.OLD_ORDER_THRESHOLD)
+        .old(days=commerce_settings.OLD_ORDER_REMIND_THRESHOLD)
     total_orders = unpaid_old_orders.count()
     print(f'Found {total_orders} old unpaid orders without reminder')
 
@@ -24,7 +24,9 @@ def cancel_unpaid_orders():
     from commerce.models import Order
     from invoicing.models import Invoice
 
-    unpaid_old_orders = Order.objects.awaiting_payment().old(days=14)
+    unpaid_old_orders = Order.objects\
+        .awaiting_payment()\
+        .old(days=commerce_settings.OLD_ORDER_CANCEL_THRESHOLD)
     total_orders = unpaid_old_orders.count()
     print(f'Found {total_orders} old unpaid orders')
 
@@ -57,8 +59,10 @@ def delete_old_empty_carts():
 @job(commerce_settings.REDIS_QUEUE)
 def send_loyalty_reminders():
     from commerce.models import Order
-    days = 7
-    orders = Order.objects.with_earned_loyalty_points().old(days=days, interval='exact')
+    days = 7  # TODO: setting
+    orders = Order.objects\
+        .with_earned_loyalty_points()\
+        .old(days=days, interval='exact')
     total_orders = orders.count()
 
     print(f'Found {total_orders} orders with loyalty points {days} old exactly days')

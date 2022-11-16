@@ -50,7 +50,7 @@ class OrderQuerySet(models.QuerySet):
     def not_reminded(self):
         return self.filter(reminder_sent=None)
 
-    def old(self, days=commerce_settings.OLD_ORDER_THRESHOLD, interval='open'):
+    def old(self, days=None, interval='open'):
         if days is None:
             return self.none()
 
