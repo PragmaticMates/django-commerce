@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-16 00:15+0100\n"
-"PO-Revision-Date: 2022-11-09 16:18+0000\n"
+"PO-Revision-Date: 2022-11-22 22:51+0000\n"
 "Last-Translator: Rafal Szczepanowicz <rafal@transportly.eu>\n"
 "Language-Team: Polish <https://weblate.swida.sk/projects/django-commerce/app/"
 "pl/>\n"
@@ -197,7 +197,7 @@ msgstr "Wybierz Rodzaj Płatności"
 
 #: forms.py:232
 msgid "Select Shipping Option"
-msgstr "Wybierz Opcję Wysyłki"
+msgstr "Wybierz Metodę Dostawy"
 
 #: forms.py:250
 #, python-format
@@ -478,11 +478,11 @@ msgstr "kraj"
 
 #: models.py:101 models.py:268
 msgid "shipping option"
-msgstr "opcja wysyłki"
+msgstr "metoda dostawy"
 
 #: models.py:102
 msgid "shipping options"
-msgstr "opcje wysyłki"
+msgstr "metody dostawy"
 
 #: models.py:119
 msgid "cash on delivery"
@@ -942,7 +942,7 @@ msgstr "Suma"
 
 #: templates/commerce/checkout_summary.html:42
 msgid "Shipping option"
-msgstr "Opcja wysyłki"
+msgstr "Metoda dostawy"
 
 #: templates/commerce/checkout_summary.html:46
 #: templates/commerce/mails/order_created.txt:10
