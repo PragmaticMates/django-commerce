@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-11-24 21:09+0100\n"
-"PO-Revision-Date: 2022-12-10 13:18+0000\n"
-"Last-Translator: Krisztina Mathe <krisztina.mathe@transportly.eu>\n"
+"PO-Revision-Date: 2022-12-12 20:30+0000\n"
+"Last-Translator: Radovan Šoltys <radovan.soltys@swida.sk>\n"
 "Language-Team: Romanian <https://weblate.swida.sk/projects/django-commerce/"
 "app/ro/>\n"
 "Language: ro\n"
@@ -1033,7 +1033,7 @@ msgstr ""
 #: templates/commerce/mails/order_reminder.txt:1
 #, python-format
 msgid "Hello %(user)s!"
-msgstr "Bună ziua %(utilizator)s!"
+msgstr "Bună ziua %(user)s!"
 
 #: templates/commerce/mails/order_details.txt:3
 msgid "Thank you for your order."
