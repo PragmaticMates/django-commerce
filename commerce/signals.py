@@ -34,6 +34,7 @@ def order_created(sender, order, **kwargs):
 @apm_custom_context('signals')
 def order_status_changed(sender, instance, **kwargs):
     if instance.pk and SignalsHelper.attribute_changed(instance, ['status']):
+        # TODO: if payment received: add regular invoice as attachment
         # notify customer
         if instance.status in commerce_settings.NOTIFY_ABOUT_STATUSES:
             notify_about_changed_order_status.delay(instance)

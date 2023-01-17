@@ -26,6 +26,7 @@ from commerce.helpers import get_product_availability
 from commerce.loyalty import points_to_currency_unit, currency_units_to_points, available_points
 from commerce.querysets import OrderQuerySet, PurchasedItemQuerySet, DiscountCodeQuerySet, ShippingOptionQuerySet, CartQuerySet
 from invoicing.models import Invoice, Item as InvoiceItem
+from invoicing.utils import get_invoices_in_pdf
 from pragmatic.fields import ChoiceArrayField
 from pragmatic.managers import EmailManager
 from pragmatic.mixins import SlugMixin
@@ -939,7 +940,7 @@ class Order(models.Model):
         for user in get_user_model().objects.active().with_perm('commerce.view_order'):
             with override_language(user.preferred_language):
                 attachments = []
-                export_files = self.get_invoices_pdf(self.invoices.all())
+                export_files = get_invoices_in_pdf(self.invoices.all())
 
                 for export_file in export_files:
                     attachments.append({
@@ -957,36 +958,10 @@ class Order(models.Model):
                     request=None
                 )
 
-    # TODO: refactor and move somewhere else (django-invoicing)
-    def get_invoices_pdf(self, invoices):
-        invoicing_formatter = getattr(settings, 'INVOICING_FORMATTER', 'invoicing.formatters.html.BootstrapHTMLFormatter')
-        formatter_class = import_string(invoicing_formatter)
-        print_api_url = getattr(settings, 'HTML_TO_PDF_API', None)
-        requests = []
-        export_files = []
-
-        for invoice in invoices:
-            formatter = formatter_class(invoice)
-            html_content = formatter.get_response().content
-            requests.append({'invoice': str(invoice), 'html_content': html_content})
-
-        from requests_futures import sessions
-        session = sessions.FuturesSession(max_workers=3)
-        futures = [
-            {'invoice': request.get('invoice'), 'future': session.post(print_api_url, data=request.get('html_content'))}
-            for request in requests]
-
-        for f in futures:
-            file_name = f.get('invoice')
-            result = f.get('future').result()
-            export_files.append({'name': file_name + '.pdf', 'content': result.content})
-
-        return export_files
-
     def send_details(self):
         with override_language(self.user.preferred_language):
             attachments = []
-            export_files = self.get_invoices_pdf(self.invoices.all())
+            export_files = get_invoices_in_pdf(self.invoices.all())
 
             for export_file in export_files:
                 attachments.append({
