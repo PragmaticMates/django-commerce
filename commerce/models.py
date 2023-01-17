@@ -935,6 +935,18 @@ class Order(models.Model):
 
             return invoice
 
+    def notify_staff(self):
+        for user in get_user_model().objects.active().with_perm('commerce.view_order'):
+            with override_language(user.preferred_language):
+                # TODO: attachments = invoices
+                EmailManager.send_mail(
+                    to=user,
+                    template_prefix='commerce/mails/order_created',
+                    subject=_('New order'),
+                    data={'order': self},
+                    request=None
+                )
+
     def send_details(self):
         with override_language(self.user.preferred_language):
             # TODO: attachments

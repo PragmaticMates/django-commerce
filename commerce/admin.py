@@ -86,7 +86,7 @@ class PurchasedItemInline(admin.StackedInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    actions = ['sync_transactions', 'create_invoice', 'send_details', 'send_reminder', 'send_loyalty_reminder']
+    actions = ['sync_transactions', 'create_invoice', 'send_details', 'notify_staff', 'send_reminder', 'send_loyalty_reminder']
     date_hierarchy = 'created'
     search_fields = ['number', 'user__email', 'user__first_name', 'user__last_name', 'delivery_name', 'delivery_street', 'delivery_postcode', 'delivery_city', 'delivery_country']
     list_display = ('number', 'status', 'delivery_address', 'purchased_items', 'total', 'delivery_country', 'shipping_option', 'payment_method', 'created', 'modified')
@@ -216,7 +216,12 @@ class OrderAdmin(admin.ModelAdmin):
     def send_details(self, request, queryset):
         for obj in queryset:
             obj.send_details()
-    send_details.short_description = _('Send details')
+    send_details.short_description = _('Send details to customer')
+
+    def notify_staff(self, request, queryset):
+        for obj in queryset:
+            obj.notify_staff()
+    notify_staff.short_description = _('Notify staff')
 
     def send_reminder(self, request, queryset):
         for obj in queryset:
