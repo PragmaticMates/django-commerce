@@ -3,944 +3,946 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-24 21:09+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2022-12-12 21:33+0100\n"
+"PO-Revision-Date: 2022-12-12 20:30+0000\n"
+"Last-Translator: Radovan Šoltys <radovan.soltys@swida.sk>\n"
+"Language-Team: Romanian <https://weblate.swida.sk/projects/django-commerce/"
+"app/ro/>\n"
+"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
-"2:1));\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
+"X-Generator: Weblate 4.9.1\n"
 
 #: admin.py:45 admin.py:99 forms.py:113
 #: templates/commerce/checkout_summary.html:7
 msgid "Delivery address"
-msgstr ""
+msgstr "Adresa de livrare"
 
 #: admin.py:46 admin.py:100
 msgid "Billing address"
-msgstr ""
+msgstr "Adresa de facturare"
 
 #: admin.py:47 admin.py:101 forms.py:146
 #: templates/commerce/checkout_summary.html:20
 msgid "Billing details"
-msgstr ""
+msgstr "Detalii de facturare"
 
 #: admin.py:48 admin.py:102 forms.py:135
 msgid "Contact details"
-msgstr ""
+msgstr "Detalii de contact"
 
 #: admin.py:49 admin.py:103 templates/commerce/mails/order_created.txt:9
 #: templates/commerce/mails/order_details.txt:7
 #: templates/commerce/mails/order_reminder.txt:7
 msgid "Shipping"
-msgstr ""
+msgstr "Expediere"
 
 #: admin.py:50
 msgid "Others"
-msgstr ""
+msgstr "Alții"
 
 #: admin.py:51 admin.py:105
 msgid "Timestamps"
-msgstr ""
+msgstr "Marcaje de timp"
 
 #: admin.py:104
 msgid "Billing"
-msgstr ""
+msgstr "Facturare"
 
 #: admin.py:128
 msgid "Missing bank API token"
-msgstr ""
+msgstr "Lipsește token-ul API bancar"
 
 #: admin.py:132
 msgid "Missing bank API"
-msgstr ""
+msgstr "Lipsește API-ul bancar"
 
 #: admin.py:168
 #, python-brace-format
 msgid "Bank API {commerce_settings.BANK_API} not implemented"
-msgstr ""
+msgstr "API bancar {commerce_settings.BANK_API} nu este implementat"
 
 #: admin.py:186
 msgid "Order not found"
-msgstr ""
+msgstr "Comanda nu a fost găsită"
 
 #: admin.py:197
 msgid "Currency mismatch"
-msgstr ""
+msgstr "Neconcordanță de valută"
 
 #: admin.py:199
 msgid "Total value mismatch"
-msgstr ""
+msgstr "Nepotrivire de valoare totală"
 
 #: admin.py:206
 msgid "Missing variable symbol"
-msgstr ""
+msgstr "Simbol de variabilă lipsă"
 
 #: admin.py:209
 msgid "Sync transactions"
-msgstr ""
+msgstr "Sincronizarea tranzacțiilor"
 
 #: admin.py:214
 msgid "Create invoice"
-msgstr ""
+msgstr "Creați factura"
 
 #: admin.py:219
 msgid "Send details"
-msgstr ""
+msgstr "Trimite detalii"
 
 #: admin.py:224
 msgid "Send reminder"
-msgstr ""
+msgstr "Trimiteți o reamintire"
 
 #: admin.py:228
 msgid "Loyalty program is disabled"
-msgstr ""
+msgstr "Programul de loialitate este dezactivat"
 
 #: admin.py:241
 #, python-format
 msgid "User %s has %d loyalty points"
-msgstr ""
+msgstr "Utilizatorul %s are %d puncte de loialitate"
 
 #: admin.py:243
 #, python-format
 msgid "Loyalty reminder sent to %d users"
-msgstr ""
+msgstr "Reamintire de loialitate trimisă la %d utilizatori"
 
 #: admin.py:244
 msgid "Send loyalty reminder"
-msgstr ""
+msgstr "Trimiteți o reamintire de loialitate"
 
 #: admin.py:248
 msgid "valid"
-msgstr ""
+msgstr "valabil"
 
 #: admin.py:253
 msgid "yes"
-msgstr ""
+msgstr "da"
 
 #: admin.py:254
 msgid "no"
-msgstr ""
+msgstr "nu"
 
 #: admin.py:281
 msgid "Products"
-msgstr ""
+msgstr "Produse"
 
 #: apps.py:11
 msgid "Commerce"
-msgstr ""
+msgstr "Comerț"
 
 #: forms.py:19 forms.py:39
 msgid "Discount code"
-msgstr ""
+msgstr "Cod de reducere"
 
 #: forms.py:20 loyalty.py:66 templates/commerce/checkout_summary.html:37
 #: templates/commerce/mails/order_created.txt:11
 #: templates/commerce/orders_table.html:10
 msgid "Loyalty points"
-msgstr ""
+msgstr "Puncte de loialitate"
 
 #: forms.py:49
 #, python-format
 msgid "You can use %d points"
-msgstr ""
+msgstr "Puteți utiliza %d puncte"
 
 #: forms.py:60
 msgid "Apply"
-msgstr ""
+msgstr "Aplicați"
 
 #: forms.py:75
 #, python-format
 msgid "Discount code %s is not assigned to you"
-msgstr ""
+msgstr "Codul de reducere %s nu v-a fost atribuit"
 
 #: forms.py:78
 #, python-format
 msgid "Discount code %s is not valid anymore"
-msgstr ""
+msgstr "Codul de reducere %s nu mai este valabil"
 
 #: forms.py:81
 #, python-format
 msgid "Discount code %s was used already"
-msgstr ""
+msgstr "Codul de reducere %s a fost deja utilizat"
 
 #: forms.py:84
 #, python-format
 msgid "Discount code %s can be applied to at most %d items"
-msgstr ""
+msgstr "Codul de reducere %s poate fi aplicat la cel mult de %d articole"
 
 #: forms.py:90
 msgid "Discount product is not in the cart"
-msgstr ""
+msgstr "Produsul cu reducere nu se află în coș"
 
 #: forms.py:93
 msgid "There is no such discount code"
-msgstr ""
+msgstr "Nu există un astfel de cod de reducere"
 
 #: forms.py:178 forms.py:241
 msgid "Continue"
-msgstr ""
+msgstr "Continuați"
 
 #: forms.py:218
 msgid "Choose Payment Type"
-msgstr ""
+msgstr "Alegeți tipul de plată"
 
 #: forms.py:232
 msgid "Select Shipping Option"
-msgstr ""
+msgstr "Selectați opțiunea de expediere"
 
 #: forms.py:250
 #, python-format
 msgid "This payment method is not available for shipping option %s"
 msgstr ""
+"Această metodă de plată nu este disponibilă pentru opțiunea de expediere %s"
 
 #: gateways/globalpayments/managers.py:22
 #: gateways/stripe/templates/commerce/stripe_button.html:7
 msgid "Pay"
-msgstr ""
+msgstr "Plătiți"
 
 #: gateways/globalpayments/managers.py:146
 msgid "Invalid payment signature."
-msgstr ""
+msgstr "Semnătură de plată invalidă."
 
 #: gateways/globalpayments/managers.py:154
 msgid "Payment failed. Error detail:"
-msgstr ""
+msgstr "Plata a eșuat. Detaliu de eroare:"
 
 #: gateways/globalpayments/managers.py:158
 msgid "Transaction not recognised"
-msgstr ""
+msgstr "Tranzacție nerecunoscută"
 
 #: gateways/globalpayments/managers.py:170
 msgid "Order successfully paid."
-msgstr ""
+msgstr "Comanda a fost plătită cu succes."
 
 #: gateways/globalpayments/managers.py:173
 msgid "Payment without result."
-msgstr ""
+msgstr "Plată fără rezultat."
 
 #: gateways/globalpayments/models.py:16
 msgid "processing"
-msgstr ""
+msgstr "prelucrare"
 
 #: gateways/globalpayments/models.py:17
 msgid "approved"
-msgstr ""
+msgstr "aprobat"
 
 #: gateways/globalpayments/models.py:18
 msgid "paid"
-msgstr ""
+msgstr "plătit"
 
 #: gateways/globalpayments/models.py:19
 msgid "partial"
-msgstr ""
+msgstr "parțial"
 
 #: gateways/globalpayments/models.py:20
 msgid "canceled"
-msgstr ""
+msgstr "anulat"
 
 #: gateways/globalpayments/models.py:21
 msgid "unpaid"
-msgstr ""
+msgstr "neplătit"
 
 #: gateways/globalpayments/models.py:22
 msgid "returned"
-msgstr ""
+msgstr "a returnat"
 
 #: gateways/globalpayments/models.py:24 gateways/globalpayments/models.py:40
 #: models.py:695
 msgid "order"
-msgstr ""
+msgstr "comandă"
 
 #: gateways/globalpayments/models.py:25 models.py:645
 msgid "status"
-msgstr ""
+msgstr "status"
 
 #: gateways/globalpayments/models.py:26 gateways/globalpayments/models.py:63
 #: gateways/stripe/models.py:10 models.py:278 models.py:564 models.py:689
 #: models.py:965
 msgid "created"
-msgstr ""
+msgstr "creat"
 
 #: gateways/globalpayments/models.py:27 gateways/globalpayments/models.py:64
 #: gateways/stripe/models.py:11 models.py:279 models.py:565 models.py:690
 #: models.py:966
 msgid "modified"
-msgstr ""
+msgstr "modificat"
 
 #: gateways/globalpayments/models.py:30
 msgid "payment"
-msgstr ""
+msgstr "plată"
 
 #: gateways/globalpayments/models.py:31
 msgid "payments"
-msgstr ""
+msgstr "plăți"
 
 #: gateways/globalpayments/models.py:41
 msgid "operation"
-msgstr ""
+msgstr "operațiune"
 
 #: gateways/globalpayments/models.py:42
 msgid "order number"
-msgstr ""
+msgstr "numărul de ordine"
 
 #: gateways/globalpayments/models.py:43
 msgid "merchant order number"
-msgstr ""
+msgstr "numărul de ordine al comerciantului"
 
 #: gateways/globalpayments/models.py:44
 msgid "md"
-msgstr ""
+msgstr "md"
 
 #: gateways/globalpayments/models.py:45
 msgid "primary code"
-msgstr ""
+msgstr "codul primar"
 
 #: gateways/globalpayments/models.py:46
 msgid "secondary code"
-msgstr ""
+msgstr "cod secundar"
 
 #: gateways/globalpayments/models.py:47
 msgid "result text"
-msgstr ""
+msgstr "text rezultat"
 
 #: gateways/globalpayments/models.py:48
 msgid "user param 1"
-msgstr ""
+msgstr "parametru utilizator 1"
 
 #: gateways/globalpayments/models.py:49
 msgid "additional information"
-msgstr ""
+msgstr "informații suplimentare"
 
 #: gateways/globalpayments/models.py:50
 msgid "token"
-msgstr ""
+msgstr "token"
 
 #: gateways/globalpayments/models.py:51
 msgid "expiration"
-msgstr ""
+msgstr "expirare"
 
 #: gateways/globalpayments/models.py:52
 msgid "authorisation centre result"
-msgstr ""
+msgstr "rezultatul centrului de autorizare"
 
 #: gateways/globalpayments/models.py:53
 msgid "authorisation centre code"
-msgstr ""
+msgstr "codul centrului de autorizare"
 
 #: gateways/globalpayments/models.py:54
 msgid "masked card number"
-msgstr ""
+msgstr "număr de card mascat"
 
 #: gateways/globalpayments/models.py:55
 msgid "day to capture"
-msgstr ""
+msgstr "zi pentru a captura"
 
 #: gateways/globalpayments/models.py:56
 msgid "token registration status"
-msgstr ""
+msgstr "starea de înregistrare a token-urilor"
 
 #: gateways/globalpayments/models.py:57
 msgid "authorisation centre result code"
-msgstr ""
+msgstr "codul rezultatului centrului de autorizare"
 
 #: gateways/globalpayments/models.py:58
 msgid "retrieval reference number"
-msgstr ""
+msgstr "numărul de referință al recuperării"
 
 #: gateways/globalpayments/models.py:59
 msgid "payment account reference"
-msgstr ""
+msgstr "referința contului de plată"
 
 #: gateways/globalpayments/models.py:60
 msgid "trace ID"
-msgstr ""
+msgstr "urmărire ID"
 
 #: gateways/globalpayments/models.py:61
 msgid "digest"
-msgstr ""
+msgstr "extras"
 
 #: gateways/globalpayments/models.py:62
 msgid "digest 1"
-msgstr ""
+msgstr "extras 1"
 
 #: gateways/globalpayments/models.py:67
 msgid "result"
-msgstr ""
+msgstr "rezultat"
 
 #: gateways/globalpayments/models.py:68
 msgid "results"
-msgstr ""
+msgstr "rezultate"
 
 #: gateways/stripe/models.py:7 models.py:161
 msgid "user"
-msgstr ""
+msgstr "utilizator"
 
 #: gateways/stripe/models.py:8
 msgid "Stripe ID"
-msgstr ""
+msgstr "Stripe ID"
 
 #: gateways/stripe/models.py:9
 msgid "Payment method ID"
-msgstr ""
+msgstr "ID-ul metodei de plată"
 
 #: gateways/stripe/models.py:14
 msgid "customer"
-msgstr ""
+msgstr "client"
 
 #: gateways/stripe/models.py:15
 msgid "customers"
-msgstr ""
+msgstr "clienți"
 
 #: gateways/stripe/views.py:42 views/order.py:26
 msgid "It is not possible to pay this order anymore."
-msgstr ""
+msgstr "Nu mai este posibil să plătiți această comandă."
 
 #: gateways/stripe/views.py:58
 msgid "Order number"
-msgstr ""
+msgstr "Numărul de ordine"
 
 #: gateways/stripe/views.py:82 models.py:912
 #: templates/commerce/checkout_summary.html:43
 msgid "Shipping fee"
-msgstr ""
+msgstr "Taxa de expediere"
 
 #: gateways/stripe/views.py:94 models.py:924
 #: templates/commerce/checkout_summary.html:47
 msgid "Payment fee"
-msgstr ""
+msgstr "Taxa de plată"
 
 #: gateways/stripe/views.py:135
 msgid "Payment was successful."
-msgstr ""
+msgstr "Plata a fost efectuată cu succes."
 
 #: gateways/stripe/views.py:142
 msgid "Payment failed."
-msgstr ""
+msgstr "Plata a eșuat."
 
 #: models.py:40
 msgid "stock"
-msgstr ""
+msgstr "stoc"
 
 #: models.py:41 models.py:149
 msgid "infinite"
-msgstr ""
+msgstr "infinit"
 
 #: models.py:42
 msgid "digital goods"
-msgstr ""
+msgstr "bunuri digitale"
 
 #: models.py:43
 msgid "sale ended"
-msgstr ""
+msgstr "vânzare încheiată"
 
 #: models.py:45
 msgid "availability"
-msgstr ""
+msgstr "disponibilitate"
 
 #: models.py:49 models.py:963
 msgid "price"
-msgstr ""
+msgstr "preț"
 
 #: models.py:52
 msgid "awaiting"
-msgstr ""
+msgstr "în așteptare"
 
 #: models.py:53 models.py:524
 msgid "options"
-msgstr ""
+msgstr "opțiuni"
 
 #: models.py:92 models.py:125 models.py:515
 msgid "title"
-msgstr ""
+msgstr "titlu"
 
 #: models.py:93 models.py:127
 msgid "fee"
-msgstr ""
+msgstr "taxă"
 
 #: models.py:94
 msgid "countries"
-msgstr ""
+msgstr "țări"
 
 #: models.py:95 models.py:249 models.py:256 models.py:653 models.py:660
 msgid "country"
-msgstr ""
+msgstr "țară"
 
 #: models.py:101 models.py:268
 msgid "shipping option"
-msgstr ""
+msgstr "opțiune de expediere"
 
 #: models.py:102
 msgid "shipping options"
-msgstr ""
+msgstr "opțiuni de expediere"
 
 #: models.py:119
 msgid "cash on delivery"
-msgstr ""
+msgstr "plata la livrare"
 
 #: models.py:120
 msgid "wire transfer"
-msgstr ""
+msgstr "transfer bancar"
 
 #: models.py:121
 msgid "online payment"
-msgstr ""
+msgstr "plata online"
 
 #: models.py:126
 msgid "method"
-msgstr ""
+msgstr "metoda"
 
 #: models.py:132 models.py:269
 msgid "payment method"
-msgstr ""
+msgstr "metoda de plată"
 
 #: models.py:133
 msgid "payment methods"
-msgstr ""
+msgstr "metode de plată"
 
 #: models.py:148
 msgid "one-time only"
-msgstr ""
+msgstr "o singură dată"
 
 #: models.py:154
 msgid "percentage"
-msgstr ""
+msgstr "procentaj"
 
 #: models.py:155
 msgid "currency"
-msgstr ""
+msgstr "monedă"
 
 #: models.py:157
 msgid "code"
-msgstr ""
+msgstr "cod"
 
 #: models.py:158
 msgid "amount"
-msgstr ""
+msgstr "suma"
 
 #: models.py:159
 msgid "unit"
-msgstr ""
+msgstr "unitate"
 
 #: models.py:160
 msgid "usage"
-msgstr ""
+msgstr "utilizare"
 
 #: models.py:163 models.py:1009
 msgid "description"
-msgstr ""
+msgstr "descriere"
 
 #: models.py:164
 msgid "valid until"
-msgstr ""
+msgstr "valabil până la"
 
 #: models.py:165
 msgid "promoted"
-msgstr ""
+msgstr "promovat"
 
 #: models.py:165
 msgid "show in topbar"
-msgstr ""
+msgstr "arată în bara de sus"
 
 #: models.py:166
 msgid "add to cart"
-msgstr ""
+msgstr "adăugați în coș"
 
 #: models.py:166
 msgid "automatically"
-msgstr ""
+msgstr "în mod automat"
 
 #: models.py:167
 msgid "content types"
-msgstr ""
+msgstr "tipuri de conținut"
 
 #: models.py:168
 msgid "max items in cart"
-msgstr ""
+msgstr "numărul maxim de articole din coș"
 
 #: models.py:169
 msgid "products"
-msgstr ""
+msgstr "produse"
 
 #: models.py:174 models.py:272 models.py:682
 #: templates/commerce/discount_topbar.html:8
 msgid "discount"
-msgstr ""
+msgstr "reducere"
 
 #: models.py:175
 msgid "discounts"
-msgstr ""
+msgstr "reduceri"
 
 #: models.py:191
 msgid "Amount of percentage has to be from interval 0-100."
-msgstr ""
+msgstr "Valoarea procentului trebuie să fie cuprinsă între 0-100."
 
 #: models.py:195
 msgid "Content types can't be used together with currency type"
-msgstr ""
+msgstr "Tipurile de conținut nu pot fi utilizate împreună cu tipul de monedă"
 
 #: models.py:245 models.py:252 models.py:649 models.py:656
 msgid "full name or company name"
-msgstr ""
+msgstr "numele complet sau numele companiei"
 
 #: models.py:246 models.py:253 models.py:650
 msgid "street and number"
-msgstr ""
+msgstr "strada și numărul"
 
 #: models.py:247 models.py:254 models.py:651 models.py:658
 msgid "postcode"
-msgstr ""
+msgstr "cod poștal"
 
 #: models.py:248 models.py:255 models.py:652 models.py:659
 msgid "city"
-msgstr ""
+msgstr "oraș"
 
 #: models.py:259 models.py:662 templates/commerce/checkout_summary.html:25
 msgid "Company Registration No."
-msgstr ""
+msgstr "Nr. de înregistrare a societății"
 
 #: models.py:260 models.py:663 templates/commerce/checkout_summary.html:26
 msgid "TAX ID"
-msgstr ""
+msgstr "ID-UL FISCAL"
 
 #: models.py:261 models.py:664 templates/commerce/checkout_summary.html:27
 msgid "VAT ID"
-msgstr ""
+msgstr "ID TVA"
 
 #: models.py:264 models.py:667
 msgid "email"
-msgstr ""
+msgstr "e-mail"
 
 #: models.py:265 models.py:668
 msgid "phone"
-msgstr ""
+msgstr "telefon"
 
 #: models.py:275 models.py:685
 msgid "loyalty points"
-msgstr ""
+msgstr "puncte de loialitate"
 
 #: models.py:275 models.py:685
 msgid "used to lower the total price"
-msgstr ""
+msgstr "utilizate pentru a reduce prețul total"
 
 #: models.py:284
 msgid "shopping cart"
-msgstr ""
+msgstr "coș de cumpărături"
 
 #: models.py:285
 msgid "shopping carts"
-msgstr ""
+msgstr "coșuri de cumpărături"
 
 #: models.py:288
 #, python-brace-format
 msgid "Shopping cart of {self.user}"
-msgstr ""
+msgstr "Coșul de cumpărături al {self.user}"
 
 #: models.py:518
 msgid "content type"
-msgstr ""
+msgstr "tipul de conținut"
 
 #: models.py:523
 msgid "option"
-msgstr ""
+msgstr "opțiunea"
 
 #: models.py:563 models.py:962 models.py:1007
 msgid "quantity"
-msgstr ""
+msgstr "cantitate"
 
 #: models.py:568
 msgid "item"
-msgstr ""
+msgstr "articol"
 
 #: models.py:569
 msgid "items"
-msgstr ""
+msgstr "articole"
 
 #: models.py:626
 msgid "Awaiting Payment"
-msgstr ""
+msgstr "În așteptare de plată"
 
 #: models.py:627
 msgid "Pending"
-msgstr ""
+msgstr "În așteptare"
 
 #: models.py:628
 msgid "Payment received"
-msgstr ""
+msgstr "Plata primită"
 
 #: models.py:629
 msgid "Processing"
-msgstr ""
+msgstr "Prelucrare"
 
 #: models.py:630
 msgid "Awaiting Fulfillment"
-msgstr ""
+msgstr "În așteptare de împlinire"
 
 #: models.py:631
 msgid "Awaiting Shipment"
-msgstr ""
+msgstr "În așteptare de expediere"
 
 #: models.py:632
 msgid "Awaiting Pickup"
-msgstr ""
+msgstr "În așteptare de preluare"
 
 #: models.py:633
 msgid "Partially Shipped"
-msgstr ""
+msgstr "Parțial expediat"
 
 #: models.py:634
 msgid "Shipped"
-msgstr ""
+msgstr "Expediat"
 
 #: models.py:635
 msgid "Completed"
-msgstr ""
+msgstr "Completat"
 
 #: models.py:636
 msgid "Cancelled"
-msgstr ""
+msgstr "Anulat"
 
 #: models.py:637
 msgid "Declined"
-msgstr ""
+msgstr "Refuzat"
 
 #: models.py:638
 msgid "Refunded"
-msgstr ""
+msgstr "Rambursat"
 
 #: models.py:639
 msgid "Partially Refunded"
-msgstr ""
+msgstr "Parțial rambursat"
 
 #: models.py:640
 msgid "Disputed"
-msgstr ""
+msgstr "Disputat"
 
 #: models.py:641
 msgid "On hold"
-msgstr ""
+msgstr "În așteptare"
 
 #: models.py:646
 msgid "number"
-msgstr ""
+msgstr "număr"
 
 #: models.py:657
 msgid "street"
-msgstr ""
+msgstr "strada"
 
 #: models.py:672
 msgid "shipping fee"
-msgstr ""
+msgstr "taxa de expediere"
 
 #: models.py:676
 msgid "payment fee"
-msgstr ""
+msgstr "taxa de plată"
 
 #: models.py:679
 msgid "invoices"
-msgstr ""
+msgstr "facturi"
 
 #: models.py:688
 msgid "reminder sent"
-msgstr ""
+msgstr "reamintire trimisă"
 
 #: models.py:696
 msgid "orders"
-msgstr ""
+msgstr "comenzi"
 
 #: models.py:940
 #, python-format
 msgid "Order details: %d"
-msgstr ""
+msgstr "Detalii de comandă: %d"
 
 #: models.py:950
 #, python-format
 msgid "Order reminder: %d"
-msgstr ""
+msgstr "Reamintire de comandă: %d"
 
 #: models.py:964
 msgid "files"
-msgstr ""
+msgstr "fișiere"
 
 #: models.py:970
 msgid "purchased item"
-msgstr ""
+msgstr "articol achiziționat"
 
 #: models.py:971
 msgid "purchased items"
-msgstr ""
+msgstr "articole achiziționate"
 
 #: models.py:1008
 msgid "datetime"
-msgstr ""
+msgstr "data și timp"
 
 #: models.py:1012
 msgid "supply"
-msgstr ""
+msgstr "aprovizionare"
 
 #: models.py:1013
 msgid "supplies"
-msgstr ""
+msgstr "consumabile"
 
 #: tasks.py:16
 msgid "New order"
-msgstr ""
+msgstr "Comandă nouă"
 
 #: tasks.py:27
 #, python-format
 msgid "Status of order %d changed"
-msgstr ""
+msgstr "Starea comenzii %d s-a schimbat"
 
 #: templates/commerce/add_to_cart_form.html:7
 msgid "Choose option"
-msgstr ""
+msgstr "Alegeți opțiunea"
 
 #: templates/commerce/add_to_cart_form.html:10
 msgid "in stock"
-msgstr ""
+msgstr "în stoc"
 
 #: templates/commerce/add_to_cart_form.html:15
 msgid "Purchase"
-msgstr ""
+msgstr "Achiziție"
 
 #: templates/commerce/add_to_cart_form.html:16
 msgid "Soon"
-msgstr ""
+msgstr "În curând"
 
 #: templates/commerce/admin/sync_transactions.html:5
 msgid "Transactions"
-msgstr ""
+msgstr "Tranzacții"
 
 #: templates/commerce/admin/sync_transactions.html:10
 #: templates/commerce/orders_table.html:6
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: templates/commerce/admin/sync_transactions.html:11
 msgid "Value"
-msgstr ""
+msgstr "Valoare"
 
 #: templates/commerce/admin/sync_transactions.html:12
 #: templates/commerce/payment_information_wire_transfer.html:8
 msgid "Variable symbol"
-msgstr ""
+msgstr "Simbol variabil"
 
 #: templates/commerce/admin/sync_transactions.html:13
 msgid "Order details"
-msgstr ""
+msgstr "Detalii de comandă"
 
 #: templates/commerce/admin/sync_transactions.html:14
 msgid "Sender"
-msgstr ""
+msgstr "Expeditor"
 
 #: templates/commerce/admin/sync_transactions.html:15
 msgid "Information"
-msgstr ""
+msgstr "Informații"
 
 #: templates/commerce/admin/sync_transactions.html:16
 msgid "Errors"
-msgstr ""
+msgstr "Erori"
 
 #: templates/commerce/admin/sync_transactions.html:29
 msgid "Status before"
-msgstr ""
+msgstr "Stare înainte de"
 
 #: templates/commerce/admin/sync_transactions.html:30
 msgid "Status after"
-msgstr ""
+msgstr "Starea după"
 
 #: templates/commerce/admin/sync_transactions.html:44
 msgid "No transactions"
-msgstr ""
+msgstr "Nu există tranzacții"
 
 #: templates/commerce/cart_detail.html:2
 msgid "Shopping cart"
-msgstr ""
+msgstr "Coș de cumpărături"
 
 #: templates/commerce/cart_detail.html:5
 msgid "Shopping cart is empty"
-msgstr ""
+msgstr "Coșul de cumpărături este gol"
 
 #: templates/commerce/cart_detail.html:14
 #: templates/commerce/checkout_summary.html:40
 msgid "Discount"
-msgstr ""
+msgstr "Reducere"
 
 #: templates/commerce/cart_detail.html:16
 #: templates/commerce/cart_items_table.html:8
 msgid "Subtotal"
-msgstr ""
+msgstr "Subtotal"
 
 #: templates/commerce/cart_detail.html:20
 msgid "Proceed to checkout"
-msgstr ""
+msgstr "Treceți la plată"
 
 #: templates/commerce/cart_items_table.html:5
 msgid "Item"
-msgstr ""
+msgstr "Articol"
 
 #: templates/commerce/cart_items_table.html:6
 msgid "Price"
-msgstr ""
+msgstr "Preț"
 
 #: templates/commerce/cart_items_table.html:7
 msgid "Quantity"
-msgstr ""
+msgstr "Cantitate"
 
 #: templates/commerce/cart_items_table.html:21
 msgid "Remove"
-msgstr ""
+msgstr "Eliminați"
 
 #: templates/commerce/checkout_form.html:2
 #: templates/commerce/checkout_summary.html:2
 msgid "Checkout"
-msgstr ""
+msgstr "Plată"
 
 #: templates/commerce/checkout_steps.html:4
 #: templates/commerce/checkout_steps.html:8
 #: templates/commerce/checkout_steps.html:12
 msgid "Addresses"
-msgstr ""
+msgstr "Adrese"
 
 #: templates/commerce/checkout_steps.html:5
 #: templates/commerce/checkout_steps.html:9
 #: templates/commerce/checkout_steps.html:13
 msgid "Shipping and payment"
-msgstr ""
+msgstr "Expediere și plată"
 
 #: templates/commerce/checkout_steps.html:6
 #: templates/commerce/checkout_steps.html:10
 #: templates/commerce/checkout_steps.html:14
 msgid "Summary"
-msgstr ""
+msgstr "Rezumat"
 
 #: templates/commerce/checkout_summary.html:14
 msgid "Contact information"
-msgstr ""
+msgstr "Informații de contact"
 
 #: templates/commerce/checkout_summary.html:15
 msgid "Phone"
-msgstr ""
+msgstr "Telefon"
 
 #: templates/commerce/checkout_summary.html:16
 msgid "E-mail"
-msgstr ""
+msgstr "E-mail"
 
 #: templates/commerce/checkout_summary.html:35
 msgid "Sum"
-msgstr ""
+msgstr "Suma"
 
 #: templates/commerce/checkout_summary.html:42
 msgid "Shipping option"
-msgstr ""
+msgstr "Opțiunea de expediere"
 
 #: templates/commerce/checkout_summary.html:46
 #: templates/commerce/mails/order_created.txt:10
@@ -948,7 +950,7 @@ msgstr ""
 #: templates/commerce/mails/order_reminder.txt:8
 #: templates/commerce/orders_table.html:12
 msgid "Payment method"
-msgstr ""
+msgstr "Metoda de plată"
 
 #: templates/commerce/checkout_summary.html:50
 #: templates/commerce/mails/order_created.txt:12
@@ -956,44 +958,44 @@ msgstr ""
 #: templates/commerce/mails/order_reminder.txt:9
 #: templates/commerce/orders_table.html:8
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #: templates/commerce/checkout_summary.html:55
 msgid "Finish"
-msgstr ""
+msgstr "Finisaj"
 
 #: templates/commerce/checkout_summary.html:57 views/cart.py:259
 msgid "Checkout process can not be finished yet"
-msgstr ""
+msgstr "Procesul de plată nu poate fi încă finalizat"
 
 #: templates/commerce/discount_topbar.html:8
 msgid "Use code"
-msgstr ""
+msgstr "Utilizați codul"
 
 #: templates/commerce/discount_topbar.html:9
 msgid "Ends in"
-msgstr ""
+msgstr "Se termină în"
 
 #: templates/commerce/discount_topbar.html:18
 #: templates/commerce/discount_topbar.html:19
 msgid "ms|s|m|h|d|w|m|y"
-msgstr ""
+msgstr "ms|s|m|h|d|w|m|y"
 
 #: templates/commerce/discount_topbar.html:22
 msgid "now"
-msgstr ""
+msgstr "acum"
 
 #: templates/commerce/discount_topbar.html:32
 msgid "Expired"
-msgstr ""
+msgstr "Expirat"
 
 #: templates/commerce/fees.html:3
 msgid "Fees"
-msgstr ""
+msgstr "Taxe"
 
 #: templates/commerce/loyalty.html:2
 msgid "Loyalty program"
-msgstr ""
+msgstr "Program de loialitate"
 
 #: templates/commerce/mails/order_created.txt:1
 #, python-format
@@ -1005,6 +1007,13 @@ msgid ""
 "Number: %(number)s\n"
 "Customer: %(customer)s\n"
 msgstr ""
+"Bună ziua %(user)s!!\n"
+"\n"
+"A fost creată o nouă comandă:\n"
+"\n"
+"\n"
+"Număr: %(number)s\n"
+"Client: %(customer)s\n"
 
 #: templates/commerce/mails/order_created.txt:14
 #: templates/commerce/mails/order_details.txt:14
@@ -1016,28 +1025,30 @@ msgid ""
 "%(site_name)s team!\n"
 "%(site_domain)s\n"
 msgstr ""
+"%(site_name)s echipa!\n"
+"%(site_domain)s\n"
 
 #: templates/commerce/mails/order_details.txt:1
 #: templates/commerce/mails/order_loyalty_reminder.txt:1
 #: templates/commerce/mails/order_reminder.txt:1
 #, python-format
 msgid "Hello %(user)s!"
-msgstr ""
+msgstr "Bună ziua %(user)s!"
 
 #: templates/commerce/mails/order_details.txt:3
 msgid "Thank you for your order."
-msgstr ""
+msgstr "Vă mulțumim pentru comanda dumneavoastră."
 
 #: templates/commerce/mails/order_details.txt:5
 #: templates/commerce/mails/order_reminder.txt:5
 #: templates/commerce/orders_table.html:7
 msgid "Purchased items"
-msgstr ""
+msgstr "Articole achiziționate"
 
 #: templates/commerce/mails/order_details.txt:11
 #: templates/commerce/mails/order_reminder.txt:11
 msgid "Payment"
-msgstr ""
+msgstr "Plata"
 
 #: templates/commerce/mails/order_loyalty_reminder.txt:3
 #, python-format
@@ -1045,10 +1056,13 @@ msgid ""
 "We would like to remind you that you have %(points)s unspent loyalty points "
 "you can use as a discount for your next order!"
 msgstr ""
+"Dorim să vă reamintim că aveți puncte de loialitate %(points)s nefolosite pe "
+"care le puteți folosi ca reducere la următoarea comandă!"
 
 #: templates/commerce/mails/order_loyalty_reminder.txt:5
 msgid "You can read more about our loyalty program at following URL:"
 msgstr ""
+"Puteți citi mai multe despre programul nostru de loialitate la următorul URL:"
 
 #: templates/commerce/mails/order_reminder.txt:3
 #, python-format
@@ -1056,22 +1070,29 @@ msgid ""
 "On %(date)s you ordered following items but we do not register payment to "
 "the associated order."
 msgstr ""
+"La data de %(date)s ați comandat următoarele articole, dar nu am înregistrat "
+"plata pentru comanda asociată."
 
 #: templates/commerce/mails/order_reminder.txt:14
 msgid ""
 "Payment due is 14 days since checkout. Orders without payments after due "
 "date will be cancelled automatically."
 msgstr ""
+"Plata este de 14 zile de la finalizarea comenzii. Comenzile fără plăți după "
+"data scadentă vor fi anulate automat."
 
 #: templates/commerce/mails/order_reminder.txt:15
 msgid ""
 "If you already paid for your order and its status hasn't changed, please "
 "double check the entered variable symbol for your payment or contact us."
 msgstr ""
+"Dacă ați plătit deja comanda și statutul acesteia nu s-a schimbat, vă rugăm "
+"să verificați de două ori simbolul variabil introdus pentru plata dvs. sau "
+"să ne contactați."
 
 #: templates/commerce/mails/order_reminder.txt:17
 msgid "Thank you for understanding."
-msgstr ""
+msgstr "Vă mulțumim pentru înțelegere."
 
 #: templates/commerce/mails/order_status_changed.txt:1
 #, python-format
@@ -1080,10 +1101,13 @@ msgid ""
 "\n"
 "Status of your order %(number)s changed to: %(status)s\n"
 msgstr ""
+"Bună ziua %(user)s!!\n"
+"\n"
+"Statutul comenzii dvs. %(number)s s-a schimbat în: %(status)s\n"
 
 #: templates/commerce/order_list.html:2
 msgid "Orders"
-msgstr ""
+msgstr "Comenzi"
 
 #: templates/commerce/order_list.html:5
 #, python-format
@@ -1094,175 +1118,182 @@ msgid_plural ""
 "You have %(points)s unused points in total value of "
 "%(unused_points_in_currency_unit)s %(currency)s."
 msgstr[0] ""
+"Aveți %(points)s puncte neutilizate în valoarea totală de "
+"%(unused_points_in_currency_unit)s %(currency)s."
 msgstr[1] ""
+"Aveți %(points)s puncte neutilizate în valoarea totală de "
+"%(unused_points_in_currency_unit)s %(currency)s."
+msgstr[2] ""
 
 #: templates/commerce/orders_table.html:5
 msgid "Number"
-msgstr ""
+msgstr "Număr"
 
 #: templates/commerce/orders_table.html:13
 msgid "Status"
-msgstr ""
+msgstr "Stare"
 
 #: templates/commerce/orders_table.html:14
 msgid "Invoice"
-msgstr ""
+msgstr "Factura"
 
 #: templates/commerce/orders_table.html:50
 msgid "Preparing..."
-msgstr ""
+msgstr "Pregătirea..."
 
 #: templates/commerce/payment_information_wire_transfer.html:4
 msgid "IBAN"
-msgstr ""
+msgstr "IBAN"
 
 #: templates/commerce/payment_information_wire_transfer.html:5
 msgid "BIC/SWIFT"
-msgstr ""
+msgstr "BIC/SWIFT"
 
 #: templates/commerce/payment_information_wire_transfer.html:6
 msgid "Amount"
-msgstr ""
+msgstr "Suma"
 
 #: templates/commerce/payment_information_wire_transfer.html:7
 msgid "Note"
-msgstr ""
+msgstr "Notă"
 
 #: templates/commerce/payment_information_wire_transfer.html:8
 msgid "Reference"
-msgstr ""
+msgstr "Referință"
 
 #: templates/commerce/payment_information_wire_transfer.html:11
 msgid "Some banks may require following information"
-msgstr ""
+msgstr "Unele bănci pot solicita următoarele informații"
 
 #: templates/commerce/payment_information_wire_transfer.html:12
 msgid "Recipient"
-msgstr ""
+msgstr "Destinatarul"
 
 #: templates/commerce/payment_information_wire_transfer.html:13
 msgid "Address"
-msgstr ""
+msgstr "Adresa"
 
 #: templates/commerce/payment_information_wire_transfer.html:14
 msgid "Bank name"
-msgstr ""
+msgstr "Numele băncii"
 
 #: templates/commerce/payment_information_wire_transfer.html:15
 msgid "Bank address"
-msgstr ""
+msgstr "Adresa băncii"
 
 #: templates/commerce/payment_information_wire_transfer.html:18
 msgid ""
 "It is important to use variable symbol / reference above to correctly pair "
 "your payment with the order!"
 msgstr ""
+"Este important să folosiți simbolul variabil / referința de mai sus pentru a "
+"asocia corect plata dvs. cu comanda!"
 
 #: urls.py:13
 msgctxt "url"
 msgid "add-to-cart/<int:content_type_id>/<int:object_id>/"
-msgstr ""
+msgstr "add-to-cart/<int:content_type_id>/<int:object_id>/"
 
 #: urls.py:14
 msgctxt "url"
 msgid "remove-from-cart/<int:item_id>/"
-msgstr ""
+msgstr "scoateti-din-cos/<int:item_id>/"
 
 #: urls.py:15
 msgctxt "url"
 msgid "unapply-discount/"
-msgstr ""
+msgstr "desfiintati-discont/"
 
 #: urls.py:16
 msgctxt "url"
 msgid "cart/"
-msgstr ""
+msgstr "cart/"
 
 #: urls.py:17
 msgctxt "url"
 msgid "checkout/addresses/"
-msgstr ""
+msgstr "plata/adrese/"
 
 #: urls.py:18
 msgctxt "url"
 msgid "checkout/shipping-and-payment/"
-msgstr ""
+msgstr "plata/livrare-si-plata/"
 
 #: urls.py:19
 msgctxt "url"
 msgid "checkout/summary/"
-msgstr ""
+msgstr "plata/rezumat/"
 
 #: urls.py:20
 msgctxt "url"
 msgid "checkout/finish/"
-msgstr ""
+msgstr "plata/finisare/"
 
 #: urls.py:21
 msgctxt "url"
 msgid "order/<int:number>/payment/"
-msgstr ""
+msgstr "comanda/<int:number>/plata/"
 
 #: urls.py:22
 msgctxt "url"
 msgid "order/<int:number>/payment/return/"
-msgstr ""
+msgstr "comanda/<int:number>/plata/returneaza/"
 
 #: urls.py:23
 msgctxt "url"
 msgid "orders/"
-msgstr ""
+msgstr "comenzi/"
 
 #: urls.py:31
 msgctxt "url"
 msgid "stripe/create-session/<int:pk>/"
-msgstr ""
+msgstr "stripe/creare-sesiune/<int:pk>/"
 
 #: urls.py:32
 msgctxt "url"
 msgid "stripe/success/"
-msgstr ""
+msgstr "stripe/succes/"
 
 #: urls.py:33
 msgctxt "url"
 msgid "stripe/cancel/"
-msgstr ""
+msgstr "stripe/anuleaza/"
 
 #: urls.py:34
 msgctxt "url"
 msgid "stripe/webhook/"
-msgstr ""
+msgstr "stripe/webhook/"
 
 #: urls.py:39
 msgctxt "url"
 msgid "loyalty-program/"
-msgstr ""
+msgstr "program de fidelizare/"
 
 #: views/cart.py:30
 #, python-format
 msgid "You can order at most %d items at once"
-msgstr ""
+msgstr "Puteți comanda cel mult %d articole simultan"
 
 #: views/cart.py:50
 #, python-format
 msgid "Discount %s was removed from cart"
-msgstr ""
+msgstr "Reducerea %s a fost eliminată din coș"
 
 #: views/cart.py:52
 #, python-format
 msgid "%s was added into cart"
-msgstr ""
+msgstr "%s a fost adăugat în coș"
 
 #: views/cart.py:54
 #, python-format
 msgid "%s is already in cart"
-msgstr ""
+msgstr "%s este deja în coș"
 
 #: views/cart.py:86
 #, python-format
 msgid "%s removed from cart"
-msgstr ""
+msgstr "%s eliminat din coș"
 
 #: views/cart.py:270
 msgid "Missing payment method"
-msgstr ""
+msgstr "Lipsește metoda de plată"

@@ -3,943 +3,944 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-24 21:09+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2022-12-12 21:33+0100\n"
+"PO-Revision-Date: 2022-12-10 13:18+0000\n"
+"Last-Translator: Krisztina Mathe <krisztina.mathe@transportly.eu>\n"
+"Language-Team: Hungarian <https://weblate.swida.sk/projects/django-commerce/"
+"app/hu/>\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.9.1\n"
 
 #: admin.py:45 admin.py:99 forms.py:113
 #: templates/commerce/checkout_summary.html:7
 msgid "Delivery address"
-msgstr ""
+msgstr "Szállítási cím"
 
 #: admin.py:46 admin.py:100
 msgid "Billing address"
-msgstr ""
+msgstr "Fizetési cím"
 
 #: admin.py:47 admin.py:101 forms.py:146
 #: templates/commerce/checkout_summary.html:20
 msgid "Billing details"
-msgstr ""
+msgstr "Fizetési adatok"
 
 #: admin.py:48 admin.py:102 forms.py:135
 msgid "Contact details"
-msgstr ""
+msgstr "Elérhetőségi adatok"
 
 #: admin.py:49 admin.py:103 templates/commerce/mails/order_created.txt:9
 #: templates/commerce/mails/order_details.txt:7
 #: templates/commerce/mails/order_reminder.txt:7
 msgid "Shipping"
-msgstr ""
+msgstr "Szállítás"
 
 #: admin.py:50
 msgid "Others"
-msgstr ""
+msgstr "Egyebek"
 
 #: admin.py:51 admin.py:105
 msgid "Timestamps"
-msgstr ""
+msgstr "Időbélyegzők"
 
 #: admin.py:104
 msgid "Billing"
-msgstr ""
+msgstr "Fizetés"
 
 #: admin.py:128
 msgid "Missing bank API token"
-msgstr ""
+msgstr "Hiányzó banki API token"
 
 #: admin.py:132
 msgid "Missing bank API"
-msgstr ""
+msgstr "Hiányzó banki API"
 
 #: admin.py:168
 #, python-brace-format
 msgid "Bank API {commerce_settings.BANK_API} not implemented"
-msgstr ""
+msgstr "Bank API {commerce_settings.BANK_API} nincs implementálva"
 
 #: admin.py:186
 msgid "Order not found"
-msgstr ""
+msgstr "Rendelés nem található"
 
 #: admin.py:197
 msgid "Currency mismatch"
-msgstr ""
+msgstr "Össze nem illő árfolyam"
 
 #: admin.py:199
 msgid "Total value mismatch"
-msgstr ""
+msgstr "Teljes értékeltérés"
 
 #: admin.py:206
 msgid "Missing variable symbol"
-msgstr ""
+msgstr "Hiányzó változó szimbólum"
 
 #: admin.py:209
 msgid "Sync transactions"
-msgstr ""
+msgstr "Tranzakciók szinkronizálása"
 
 #: admin.py:214
 msgid "Create invoice"
-msgstr ""
+msgstr "Számla létrehozása"
 
 #: admin.py:219
 msgid "Send details"
-msgstr ""
+msgstr "Részletek küldése"
 
 #: admin.py:224
 msgid "Send reminder"
-msgstr ""
+msgstr "Emlékeztető küldése"
 
 #: admin.py:228
 msgid "Loyalty program is disabled"
-msgstr ""
+msgstr "Hűségprogram letiltva"
 
 #: admin.py:241
 #, python-format
 msgid "User %s has %d loyalty points"
-msgstr ""
+msgstr "%s felhasználónak %d hűségpontja van"
 
 #: admin.py:243
 #, python-format
 msgid "Loyalty reminder sent to %d users"
-msgstr ""
+msgstr "Lojalitási emlékeztető elküldve %d felhasználónak"
 
 #: admin.py:244
 msgid "Send loyalty reminder"
-msgstr ""
+msgstr "Hűségre vonatkozó emlékeztető küldése"
 
 #: admin.py:248
 msgid "valid"
-msgstr ""
+msgstr "érvényes"
 
 #: admin.py:253
 msgid "yes"
-msgstr ""
+msgstr "igen"
 
 #: admin.py:254
 msgid "no"
-msgstr ""
+msgstr "nem"
 
 #: admin.py:281
 msgid "Products"
-msgstr ""
+msgstr "Termékek"
 
 #: apps.py:11
 msgid "Commerce"
-msgstr ""
+msgstr "Kereskedelmi"
 
 #: forms.py:19 forms.py:39
 msgid "Discount code"
-msgstr ""
+msgstr "Árkedvezmény kódja"
 
 #: forms.py:20 loyalty.py:66 templates/commerce/checkout_summary.html:37
 #: templates/commerce/mails/order_created.txt:11
 #: templates/commerce/orders_table.html:10
 msgid "Loyalty points"
-msgstr ""
+msgstr "Hűségpontok"
 
 #: forms.py:49
 #, python-format
 msgid "You can use %d points"
-msgstr ""
+msgstr "%d pontot használhat"
 
 #: forms.py:60
 msgid "Apply"
-msgstr ""
+msgstr "Hozzáad"
 
 #: forms.py:75
 #, python-format
 msgid "Discount code %s is not assigned to you"
-msgstr ""
+msgstr "%s árkedvezmény kód nem lett hozzárendelve"
 
 #: forms.py:78
 #, python-format
 msgid "Discount code %s is not valid anymore"
-msgstr ""
+msgstr "%s árkedvezmény kód már nem érvényes"
 
 #: forms.py:81
 #, python-format
 msgid "Discount code %s was used already"
-msgstr ""
+msgstr "%s árkedvezmény kód már volt használva"
 
 #: forms.py:84
 #, python-format
 msgid "Discount code %s can be applied to at most %d items"
-msgstr ""
+msgstr "%s árkedvezmény kódot %d tételhez lehet hozzáadni"
 
 #: forms.py:90
 msgid "Discount product is not in the cart"
-msgstr ""
+msgstr "Kedvezményes termék nincs a kosárban"
 
 #: forms.py:93
 msgid "There is no such discount code"
-msgstr ""
+msgstr "Nincs kedvezményes kód"
 
 #: forms.py:178 forms.py:241
 msgid "Continue"
-msgstr ""
+msgstr "Folytatás"
 
 #: forms.py:218
 msgid "Choose Payment Type"
-msgstr ""
+msgstr "Válassza ki a fizetés módját"
 
 #: forms.py:232
 msgid "Select Shipping Option"
-msgstr ""
+msgstr "Kiszállítási mód kiválasztása"
 
 #: forms.py:250
 #, python-format
 msgid "This payment method is not available for shipping option %s"
-msgstr ""
+msgstr "Ez a fizetési mód nem elérhető a szállítási opcióhoz %s"
 
 #: gateways/globalpayments/managers.py:22
 #: gateways/stripe/templates/commerce/stripe_button.html:7
 msgid "Pay"
-msgstr ""
+msgstr "Fizetés"
 
 #: gateways/globalpayments/managers.py:146
 msgid "Invalid payment signature."
-msgstr ""
+msgstr "Érvénytelen kifizetési aláírás."
 
 #: gateways/globalpayments/managers.py:154
 msgid "Payment failed. Error detail:"
-msgstr ""
+msgstr "A fizetés sikertelen. Hiba részletei:"
 
 #: gateways/globalpayments/managers.py:158
 msgid "Transaction not recognised"
-msgstr ""
+msgstr "Nem felismert tranzakció"
 
 #: gateways/globalpayments/managers.py:170
 msgid "Order successfully paid."
-msgstr ""
+msgstr "Rendelés sikeresen kifizetve."
 
 #: gateways/globalpayments/managers.py:173
 msgid "Payment without result."
-msgstr ""
+msgstr "Eredmény nélküli kifizetés."
 
 #: gateways/globalpayments/models.py:16
 msgid "processing"
-msgstr ""
+msgstr "feldolgozás alatt"
 
 #: gateways/globalpayments/models.py:17
 msgid "approved"
-msgstr ""
+msgstr "elfogadva"
 
 #: gateways/globalpayments/models.py:18
 msgid "paid"
-msgstr ""
+msgstr "kifizetve"
 
 #: gateways/globalpayments/models.py:19
 msgid "partial"
-msgstr ""
+msgstr "részleges"
 
 #: gateways/globalpayments/models.py:20
 msgid "canceled"
-msgstr ""
+msgstr "érvénytelenítve"
 
 #: gateways/globalpayments/models.py:21
 msgid "unpaid"
-msgstr ""
+msgstr "kifizetetlen"
 
 #: gateways/globalpayments/models.py:22
 msgid "returned"
-msgstr ""
+msgstr "visszaküldött"
 
 #: gateways/globalpayments/models.py:24 gateways/globalpayments/models.py:40
 #: models.py:695
 msgid "order"
-msgstr ""
+msgstr "rendelés"
 
 #: gateways/globalpayments/models.py:25 models.py:645
 msgid "status"
-msgstr ""
+msgstr "állapot"
 
 #: gateways/globalpayments/models.py:26 gateways/globalpayments/models.py:63
 #: gateways/stripe/models.py:10 models.py:278 models.py:564 models.py:689
 #: models.py:965
 msgid "created"
-msgstr ""
+msgstr "létrehozva"
 
 #: gateways/globalpayments/models.py:27 gateways/globalpayments/models.py:64
 #: gateways/stripe/models.py:11 models.py:279 models.py:565 models.py:690
 #: models.py:966
 msgid "modified"
-msgstr ""
+msgstr "módosított"
 
 #: gateways/globalpayments/models.py:30
 msgid "payment"
-msgstr ""
+msgstr "fizetés"
 
 #: gateways/globalpayments/models.py:31
 msgid "payments"
-msgstr ""
+msgstr "fizetések"
 
 #: gateways/globalpayments/models.py:41
 msgid "operation"
-msgstr ""
+msgstr "művelet"
 
 #: gateways/globalpayments/models.py:42
 msgid "order number"
-msgstr ""
+msgstr "rendelés száma"
 
 #: gateways/globalpayments/models.py:43
 msgid "merchant order number"
-msgstr ""
+msgstr "kereskedői rendelési szám"
 
 #: gateways/globalpayments/models.py:44
 msgid "md"
-msgstr ""
+msgstr "md"
 
 #: gateways/globalpayments/models.py:45
 msgid "primary code"
-msgstr ""
+msgstr "elsődleges kód"
 
 #: gateways/globalpayments/models.py:46
 msgid "secondary code"
-msgstr ""
+msgstr "másodlagos kód"
 
 #: gateways/globalpayments/models.py:47
 msgid "result text"
-msgstr ""
+msgstr "eredményszöveg"
 
 #: gateways/globalpayments/models.py:48
 msgid "user param 1"
-msgstr ""
+msgstr "felhasználói paraméter 1"
 
 #: gateways/globalpayments/models.py:49
 msgid "additional information"
-msgstr ""
+msgstr "további információk"
 
 #: gateways/globalpayments/models.py:50
 msgid "token"
-msgstr ""
+msgstr "token"
 
 #: gateways/globalpayments/models.py:51
 msgid "expiration"
-msgstr ""
+msgstr "lejárat"
 
 #: gateways/globalpayments/models.py:52
 msgid "authorisation centre result"
-msgstr ""
+msgstr "engedélyező központ eredménye"
 
 #: gateways/globalpayments/models.py:53
 msgid "authorisation centre code"
-msgstr ""
+msgstr "engedélyező központ kódja"
 
 #: gateways/globalpayments/models.py:54
 msgid "masked card number"
-msgstr ""
+msgstr "kitakart kártyaszám"
 
 #: gateways/globalpayments/models.py:55
 msgid "day to capture"
-msgstr ""
+msgstr "nap, hogy megörökítsük"
 
 #: gateways/globalpayments/models.py:56
 msgid "token registration status"
-msgstr ""
+msgstr "token regisztrációs helyzete"
 
 #: gateways/globalpayments/models.py:57
 msgid "authorisation centre result code"
-msgstr ""
+msgstr "engedélyező központ eredménykódja"
 
 #: gateways/globalpayments/models.py:58
 msgid "retrieval reference number"
-msgstr ""
+msgstr "visszakeresési referenciaszám"
 
 #: gateways/globalpayments/models.py:59
 msgid "payment account reference"
-msgstr ""
+msgstr "fizetési számla hivatkozási száma"
 
 #: gateways/globalpayments/models.py:60
 msgid "trace ID"
-msgstr ""
+msgstr "nyomkövetési azonosító"
 
 #: gateways/globalpayments/models.py:61
 msgid "digest"
-msgstr ""
+msgstr "kivonat"
 
 #: gateways/globalpayments/models.py:62
 msgid "digest 1"
-msgstr ""
+msgstr "kivonat 1"
 
 #: gateways/globalpayments/models.py:67
 msgid "result"
-msgstr ""
+msgstr "eredmény"
 
 #: gateways/globalpayments/models.py:68
 msgid "results"
-msgstr ""
+msgstr "eredmények"
 
 #: gateways/stripe/models.py:7 models.py:161
 msgid "user"
-msgstr ""
+msgstr "felhasználó"
 
 #: gateways/stripe/models.py:8
 msgid "Stripe ID"
-msgstr ""
+msgstr "Stripe ID"
 
 #: gateways/stripe/models.py:9
 msgid "Payment method ID"
-msgstr ""
+msgstr "Fizetési mód azonosítója"
 
 #: gateways/stripe/models.py:14
 msgid "customer"
-msgstr ""
+msgstr "ügyfél"
 
 #: gateways/stripe/models.py:15
 msgid "customers"
-msgstr ""
+msgstr "ügyfelek"
 
 #: gateways/stripe/views.py:42 views/order.py:26
 msgid "It is not possible to pay this order anymore."
-msgstr ""
+msgstr "Ezt a megrendelést már nem lehet kifizetni."
 
 #: gateways/stripe/views.py:58
 msgid "Order number"
-msgstr ""
+msgstr "Rendelési szám"
 
 #: gateways/stripe/views.py:82 models.py:912
 #: templates/commerce/checkout_summary.html:43
 msgid "Shipping fee"
-msgstr ""
+msgstr "Szállítási díj"
 
 #: gateways/stripe/views.py:94 models.py:924
 #: templates/commerce/checkout_summary.html:47
 msgid "Payment fee"
-msgstr ""
+msgstr "Fizetési díj"
 
 #: gateways/stripe/views.py:135
 msgid "Payment was successful."
-msgstr ""
+msgstr "A fizetés sikeres volt."
 
 #: gateways/stripe/views.py:142
 msgid "Payment failed."
-msgstr ""
+msgstr "A fizetés sikertelen."
 
 #: models.py:40
 msgid "stock"
-msgstr ""
+msgstr "készlet"
 
 #: models.py:41 models.py:149
 msgid "infinite"
-msgstr ""
+msgstr "végtelen"
 
 #: models.py:42
 msgid "digital goods"
-msgstr ""
+msgstr "digitális javak"
 
 #: models.py:43
 msgid "sale ended"
-msgstr ""
+msgstr "az eladás befejeződött"
 
 #: models.py:45
 msgid "availability"
-msgstr ""
+msgstr "elérhetőség"
 
 #: models.py:49 models.py:963
 msgid "price"
-msgstr ""
+msgstr "ár"
 
 #: models.py:52
 msgid "awaiting"
-msgstr ""
+msgstr "várakozás"
 
 #: models.py:53 models.py:524
 msgid "options"
-msgstr ""
+msgstr "opciók"
 
 #: models.py:92 models.py:125 models.py:515
 msgid "title"
-msgstr ""
+msgstr "cím"
 
 #: models.py:93 models.py:127
 msgid "fee"
-msgstr ""
+msgstr "díj"
 
 #: models.py:94
 msgid "countries"
-msgstr ""
+msgstr "országok"
 
 #: models.py:95 models.py:249 models.py:256 models.py:653 models.py:660
 msgid "country"
-msgstr ""
+msgstr "ország"
 
 #: models.py:101 models.py:268
 msgid "shipping option"
-msgstr ""
+msgstr "szállítási lehetőség"
 
 #: models.py:102
 msgid "shipping options"
-msgstr ""
+msgstr "szállítási lehetőségek"
 
 #: models.py:119
 msgid "cash on delivery"
-msgstr ""
+msgstr "utánvétellel"
 
 #: models.py:120
 msgid "wire transfer"
-msgstr ""
+msgstr "átutalás"
 
 #: models.py:121
 msgid "online payment"
-msgstr ""
+msgstr "online fizetés"
 
 #: models.py:126
 msgid "method"
-msgstr ""
+msgstr "metódus"
 
 #: models.py:132 models.py:269
 msgid "payment method"
-msgstr ""
+msgstr "fizetés módja"
 
 #: models.py:133
 msgid "payment methods"
-msgstr ""
+msgstr "fizetési módok"
 
 #: models.py:148
 msgid "one-time only"
-msgstr ""
+msgstr "egyszeri alkalom"
 
 #: models.py:154
 msgid "percentage"
-msgstr ""
+msgstr "százalék"
 
 #: models.py:155
 msgid "currency"
-msgstr ""
+msgstr "árfolyam"
 
 #: models.py:157
 msgid "code"
-msgstr ""
+msgstr "kód"
 
 #: models.py:158
 msgid "amount"
-msgstr ""
+msgstr "összeg"
 
 #: models.py:159
 msgid "unit"
-msgstr ""
+msgstr "egység"
 
 #: models.py:160
 msgid "usage"
-msgstr ""
+msgstr "használat"
 
 #: models.py:163 models.py:1009
 msgid "description"
-msgstr ""
+msgstr "leírás"
 
 #: models.py:164
 msgid "valid until"
-msgstr ""
+msgstr "eddig érvényes"
 
 #: models.py:165
 msgid "promoted"
-msgstr ""
+msgstr "promovált"
 
 #: models.py:165
 msgid "show in topbar"
-msgstr ""
+msgstr "mutassa a felső sávban"
 
 #: models.py:166
 msgid "add to cart"
-msgstr ""
+msgstr "kosárba helyezés"
 
 #: models.py:166
 msgid "automatically"
-msgstr ""
+msgstr "automatikusan"
 
 #: models.py:167
 msgid "content types"
-msgstr ""
+msgstr "tartalom típusok"
 
 #: models.py:168
 msgid "max items in cart"
-msgstr ""
+msgstr "max elemek a kosárban"
 
 #: models.py:169
 msgid "products"
-msgstr ""
+msgstr "termékek"
 
 #: models.py:174 models.py:272 models.py:682
 #: templates/commerce/discount_topbar.html:8
 msgid "discount"
-msgstr ""
+msgstr "kedvezmény"
 
 #: models.py:175
 msgid "discounts"
-msgstr ""
+msgstr "kedvezmények"
 
 #: models.py:191
 msgid "Amount of percentage has to be from interval 0-100."
-msgstr ""
+msgstr "A százalékos érték 0-100 intervallum között kell legyen."
 
 #: models.py:195
 msgid "Content types can't be used together with currency type"
-msgstr ""
+msgstr "Tartalomtípusok nem használhatók árfolyammal együtt"
 
 #: models.py:245 models.py:252 models.py:649 models.py:656
 msgid "full name or company name"
-msgstr ""
+msgstr "teljes név vagy cég neve"
 
 #: models.py:246 models.py:253 models.py:650
 msgid "street and number"
-msgstr ""
+msgstr "utca és szám"
 
 #: models.py:247 models.py:254 models.py:651 models.py:658
 msgid "postcode"
-msgstr ""
+msgstr "postakód"
 
 #: models.py:248 models.py:255 models.py:652 models.py:659
 msgid "city"
-msgstr ""
+msgstr "város"
 
 #: models.py:259 models.py:662 templates/commerce/checkout_summary.html:25
 msgid "Company Registration No."
-msgstr ""
+msgstr "Cég adóazonosító száma"
 
 #: models.py:260 models.py:663 templates/commerce/checkout_summary.html:26
 msgid "TAX ID"
-msgstr ""
+msgstr "ADÓAZONOSÍTÓ"
 
 #: models.py:261 models.py:664 templates/commerce/checkout_summary.html:27
 msgid "VAT ID"
-msgstr ""
+msgstr "Közösségi adószám"
 
 #: models.py:264 models.py:667
 msgid "email"
-msgstr ""
+msgstr "e-mail"
 
 #: models.py:265 models.py:668
 msgid "phone"
-msgstr ""
+msgstr "telefon"
 
 #: models.py:275 models.py:685
 msgid "loyalty points"
-msgstr ""
+msgstr "hűségpontok"
 
 #: models.py:275 models.py:685
 msgid "used to lower the total price"
-msgstr ""
+msgstr "a teljes ár csökkentésére használva"
 
 #: models.py:284
 msgid "shopping cart"
-msgstr ""
+msgstr "bevásárlókosár"
 
 #: models.py:285
 msgid "shopping carts"
-msgstr ""
+msgstr "bevásárlókosarak"
 
 #: models.py:288
 #, python-brace-format
 msgid "Shopping cart of {self.user}"
-msgstr ""
+msgstr "{self.user} kosara üres"
 
 #: models.py:518
 msgid "content type"
-msgstr ""
+msgstr "tartalom típusa"
 
 #: models.py:523
 msgid "option"
-msgstr ""
+msgstr "opció"
 
 #: models.py:563 models.py:962 models.py:1007
 msgid "quantity"
-msgstr ""
+msgstr "mennyiség"
 
 #: models.py:568
 msgid "item"
-msgstr ""
+msgstr "tétel"
 
 #: models.py:569
 msgid "items"
-msgstr ""
+msgstr "tételek"
 
 #: models.py:626
 msgid "Awaiting Payment"
-msgstr ""
+msgstr "Fizetésre várva"
 
 #: models.py:627
 msgid "Pending"
-msgstr ""
+msgstr "Függőben"
 
 #: models.py:628
 msgid "Payment received"
-msgstr ""
+msgstr "Beérkezett kifizetés"
 
 #: models.py:629
 msgid "Processing"
-msgstr ""
+msgstr "Feldolgozás alatt"
 
 #: models.py:630
 msgid "Awaiting Fulfillment"
-msgstr ""
+msgstr "Teljesítésre várva"
 
 #: models.py:631
 msgid "Awaiting Shipment"
-msgstr ""
+msgstr "Szállításra várva"
 
 #: models.py:632
 msgid "Awaiting Pickup"
-msgstr ""
+msgstr "Felvételre várva"
 
 #: models.py:633
 msgid "Partially Shipped"
-msgstr ""
+msgstr "Részlegesen kiszállítva"
 
 #: models.py:634
 msgid "Shipped"
-msgstr ""
+msgstr "Kiszállítva"
 
 #: models.py:635
 msgid "Completed"
-msgstr ""
+msgstr "Végrehajtva"
 
 #: models.py:636
 msgid "Cancelled"
-msgstr ""
+msgstr "Törölve"
 
 #: models.py:637
 msgid "Declined"
-msgstr ""
+msgstr "Elutasítva"
 
 #: models.py:638
 msgid "Refunded"
-msgstr ""
+msgstr "Visszatérített"
 
 #: models.py:639
 msgid "Partially Refunded"
-msgstr ""
+msgstr "Részlegesen visszatérítve"
 
 #: models.py:640
 msgid "Disputed"
-msgstr ""
+msgstr "Kifogásolt"
 
 #: models.py:641
 msgid "On hold"
-msgstr ""
+msgstr "Függőben"
 
 #: models.py:646
 msgid "number"
-msgstr ""
+msgstr "szám"
 
 #: models.py:657
 msgid "street"
-msgstr ""
+msgstr "utca"
 
 #: models.py:672
 msgid "shipping fee"
-msgstr ""
+msgstr "szállítási díj"
 
 #: models.py:676
 msgid "payment fee"
-msgstr ""
+msgstr "fizetési díj"
 
 #: models.py:679
 msgid "invoices"
-msgstr ""
+msgstr "számlák"
 
 #: models.py:688
 msgid "reminder sent"
-msgstr ""
+msgstr "emlékeztető elküldve"
 
 #: models.py:696
 msgid "orders"
-msgstr ""
+msgstr "rendelések"
 
 #: models.py:940
 #, python-format
 msgid "Order details: %d"
-msgstr ""
+msgstr "Rendelés részletei: %d"
 
 #: models.py:950
 #, python-format
 msgid "Order reminder: %d"
-msgstr ""
+msgstr "Rendelési emlékeztető: %d"
 
 #: models.py:964
 msgid "files"
-msgstr ""
+msgstr "fájlok"
 
 #: models.py:970
 msgid "purchased item"
-msgstr ""
+msgstr "megvásárolt termék"
 
 #: models.py:971
 msgid "purchased items"
-msgstr ""
+msgstr "megvásárolt termékek"
 
 #: models.py:1008
 msgid "datetime"
-msgstr ""
+msgstr "dátum és idő"
 
 #: models.py:1012
 msgid "supply"
-msgstr ""
+msgstr "kellék"
 
 #: models.py:1013
 msgid "supplies"
-msgstr ""
+msgstr "kellékek"
 
 #: tasks.py:16
 msgid "New order"
-msgstr ""
+msgstr "Új rendelés"
 
 #: tasks.py:27
 #, python-format
 msgid "Status of order %d changed"
-msgstr ""
+msgstr "A %d rendelés állapota megváltozott"
 
 #: templates/commerce/add_to_cart_form.html:7
 msgid "Choose option"
-msgstr ""
+msgstr "Válasszon opciót"
 
 #: templates/commerce/add_to_cart_form.html:10
 msgid "in stock"
-msgstr ""
+msgstr "raktáron"
 
 #: templates/commerce/add_to_cart_form.html:15
 msgid "Purchase"
-msgstr ""
+msgstr "Megvásárlás"
 
 #: templates/commerce/add_to_cart_form.html:16
 msgid "Soon"
-msgstr ""
+msgstr "Hamarosan"
 
 #: templates/commerce/admin/sync_transactions.html:5
 msgid "Transactions"
-msgstr ""
+msgstr "Tranzakciók"
 
 #: templates/commerce/admin/sync_transactions.html:10
 #: templates/commerce/orders_table.html:6
 msgid "Date"
-msgstr ""
+msgstr "Dátum"
 
 #: templates/commerce/admin/sync_transactions.html:11
 msgid "Value"
-msgstr ""
+msgstr "Érték"
 
 #: templates/commerce/admin/sync_transactions.html:12
 #: templates/commerce/payment_information_wire_transfer.html:8
 msgid "Variable symbol"
-msgstr ""
+msgstr "Változó szimbólumok"
 
 #: templates/commerce/admin/sync_transactions.html:13
 msgid "Order details"
-msgstr ""
+msgstr "Rendelés részletei"
 
 #: templates/commerce/admin/sync_transactions.html:14
 msgid "Sender"
-msgstr ""
+msgstr "Feladó"
 
 #: templates/commerce/admin/sync_transactions.html:15
 msgid "Information"
-msgstr ""
+msgstr "Információ"
 
 #: templates/commerce/admin/sync_transactions.html:16
 msgid "Errors"
-msgstr ""
+msgstr "Hibák"
 
 #: templates/commerce/admin/sync_transactions.html:29
 msgid "Status before"
-msgstr ""
+msgstr "Állapot előtt"
 
 #: templates/commerce/admin/sync_transactions.html:30
 msgid "Status after"
-msgstr ""
+msgstr "Állapot után"
 
 #: templates/commerce/admin/sync_transactions.html:44
 msgid "No transactions"
-msgstr ""
+msgstr "Nincsenek tranzakciók"
 
 #: templates/commerce/cart_detail.html:2
 msgid "Shopping cart"
-msgstr ""
+msgstr "Bevásárló kosár"
 
 #: templates/commerce/cart_detail.html:5
 msgid "Shopping cart is empty"
-msgstr ""
+msgstr "A bevásárló kosár üres"
 
 #: templates/commerce/cart_detail.html:14
 #: templates/commerce/checkout_summary.html:40
 msgid "Discount"
-msgstr ""
+msgstr "Kedvezmény"
 
 #: templates/commerce/cart_detail.html:16
 #: templates/commerce/cart_items_table.html:8
 msgid "Subtotal"
-msgstr ""
+msgstr "Összesen"
 
 #: templates/commerce/cart_detail.html:20
 msgid "Proceed to checkout"
-msgstr ""
+msgstr "Tovább a pénztárhoz"
 
 #: templates/commerce/cart_items_table.html:5
 msgid "Item"
-msgstr ""
+msgstr "Tétel"
 
 #: templates/commerce/cart_items_table.html:6
 msgid "Price"
-msgstr ""
+msgstr "Ár"
 
 #: templates/commerce/cart_items_table.html:7
 msgid "Quantity"
-msgstr ""
+msgstr "Mennyiség"
 
 #: templates/commerce/cart_items_table.html:21
 msgid "Remove"
-msgstr ""
+msgstr "Eltávolítás"
 
 #: templates/commerce/checkout_form.html:2
 #: templates/commerce/checkout_summary.html:2
 msgid "Checkout"
-msgstr ""
+msgstr "A pénztárhoz"
 
 #: templates/commerce/checkout_steps.html:4
 #: templates/commerce/checkout_steps.html:8
 #: templates/commerce/checkout_steps.html:12
 msgid "Addresses"
-msgstr ""
+msgstr "Címek"
 
 #: templates/commerce/checkout_steps.html:5
 #: templates/commerce/checkout_steps.html:9
 #: templates/commerce/checkout_steps.html:13
 msgid "Shipping and payment"
-msgstr ""
+msgstr "Szállítás fizetés"
 
 #: templates/commerce/checkout_steps.html:6
 #: templates/commerce/checkout_steps.html:10
 #: templates/commerce/checkout_steps.html:14
 msgid "Summary"
-msgstr ""
+msgstr "Összefoglaló"
 
 #: templates/commerce/checkout_summary.html:14
 msgid "Contact information"
-msgstr ""
+msgstr "Elérhetőségi információk"
 
 #: templates/commerce/checkout_summary.html:15
 msgid "Phone"
-msgstr ""
+msgstr "Telefon"
 
 #: templates/commerce/checkout_summary.html:16
 msgid "E-mail"
-msgstr ""
+msgstr "E-mail"
 
 #: templates/commerce/checkout_summary.html:35
 msgid "Sum"
-msgstr ""
+msgstr "Összeg"
 
 #: templates/commerce/checkout_summary.html:42
 msgid "Shipping option"
-msgstr ""
+msgstr "Szállítási lehetőség"
 
 #: templates/commerce/checkout_summary.html:46
 #: templates/commerce/mails/order_created.txt:10
@@ -947,7 +948,7 @@ msgstr ""
 #: templates/commerce/mails/order_reminder.txt:8
 #: templates/commerce/orders_table.html:12
 msgid "Payment method"
-msgstr ""
+msgstr "Fizetési mód"
 
 #: templates/commerce/checkout_summary.html:50
 #: templates/commerce/mails/order_created.txt:12
@@ -955,44 +956,44 @@ msgstr ""
 #: templates/commerce/mails/order_reminder.txt:9
 #: templates/commerce/orders_table.html:8
 msgid "Total"
-msgstr ""
+msgstr "Összesen"
 
 #: templates/commerce/checkout_summary.html:55
 msgid "Finish"
-msgstr ""
+msgstr "Befejezés"
 
 #: templates/commerce/checkout_summary.html:57 views/cart.py:259
 msgid "Checkout process can not be finished yet"
-msgstr ""
+msgstr "A pénztári folyamat még nem fejezhető be"
 
 #: templates/commerce/discount_topbar.html:8
 msgid "Use code"
-msgstr ""
+msgstr "Kód használata"
 
 #: templates/commerce/discount_topbar.html:9
 msgid "Ends in"
-msgstr ""
+msgstr "Ezzel végződik"
 
 #: templates/commerce/discount_topbar.html:18
 #: templates/commerce/discount_topbar.html:19
 msgid "ms|s|m|h|d|w|m|y"
-msgstr ""
+msgstr "ms|s|m|h|d|w|m|y"
 
 #: templates/commerce/discount_topbar.html:22
 msgid "now"
-msgstr ""
+msgstr "most"
 
 #: templates/commerce/discount_topbar.html:32
 msgid "Expired"
-msgstr ""
+msgstr "Lejárt"
 
 #: templates/commerce/fees.html:3
 msgid "Fees"
-msgstr ""
+msgstr "Díj"
 
 #: templates/commerce/loyalty.html:2
 msgid "Loyalty program"
-msgstr ""
+msgstr "Hűségpprogram"
 
 #: templates/commerce/mails/order_created.txt:1
 #, python-format
@@ -1004,6 +1005,12 @@ msgid ""
 "Number: %(number)s\n"
 "Customer: %(customer)s\n"
 msgstr ""
+"Helló %(user)s!\n"
+"\n"
+"Új rendelés lett létrehozva\n"
+"\n"
+"Szám: %(number)s\n"
+"Ügyfél: %(customer)s\n"
 
 #: templates/commerce/mails/order_created.txt:14
 #: templates/commerce/mails/order_details.txt:14
@@ -1015,28 +1022,30 @@ msgid ""
 "%(site_name)s team!\n"
 "%(site_domain)s\n"
 msgstr ""
+"%(site_name)s csapat!\n"
+"%(site_domain)s\n"
 
 #: templates/commerce/mails/order_details.txt:1
 #: templates/commerce/mails/order_loyalty_reminder.txt:1
 #: templates/commerce/mails/order_reminder.txt:1
 #, python-format
 msgid "Hello %(user)s!"
-msgstr ""
+msgstr "Helló %(user)s!"
 
 #: templates/commerce/mails/order_details.txt:3
 msgid "Thank you for your order."
-msgstr ""
+msgstr "Köszönjük a rendelését."
 
 #: templates/commerce/mails/order_details.txt:5
 #: templates/commerce/mails/order_reminder.txt:5
 #: templates/commerce/orders_table.html:7
 msgid "Purchased items"
-msgstr ""
+msgstr "Megvásárolt tételek"
 
 #: templates/commerce/mails/order_details.txt:11
 #: templates/commerce/mails/order_reminder.txt:11
 msgid "Payment"
-msgstr ""
+msgstr "Fizetés"
 
 #: templates/commerce/mails/order_loyalty_reminder.txt:3
 #, python-format
@@ -1044,10 +1053,12 @@ msgid ""
 "We would like to remind you that you have %(points)s unspent loyalty points "
 "you can use as a discount for your next order!"
 msgstr ""
+"Szeretnénk emlékeztetni, hogy %(points)s használatlan hűségpontja van, "
+"amelyet felhasználhat a következő rendelésénél."
 
 #: templates/commerce/mails/order_loyalty_reminder.txt:5
 msgid "You can read more about our loyalty program at following URL:"
-msgstr ""
+msgstr "Hűségprogramunkról bővebben a következő URL címen olvashat:"
 
 #: templates/commerce/mails/order_reminder.txt:3
 #, python-format
@@ -1055,22 +1066,29 @@ msgid ""
 "On %(date)s you ordered following items but we do not register payment to "
 "the associated order."
 msgstr ""
+"%(date)s dátumon Ön a következő tételeket rendelte, de nem regisztráltuk a "
+"fizetést a kapcsolódó rendeléshez."
 
 #: templates/commerce/mails/order_reminder.txt:14
 msgid ""
 "Payment due is 14 days since checkout. Orders without payments after due "
 "date will be cancelled automatically."
 msgstr ""
+"A fizetés a megrendelés teljesítése után 14 nappal történik. Az esedékesség "
+"utáni fizetés nélküli megrendelések automatikusan törlésre kerülnek."
 
 #: templates/commerce/mails/order_reminder.txt:15
 msgid ""
 "If you already paid for your order and its status hasn't changed, please "
 "double check the entered variable symbol for your payment or contact us."
 msgstr ""
+"Ha már kifizette a megrendelését és annak státusza nem változott, kérjük, "
+"ellenőrizze kétszer a fizetésnél megadott változó szimbólumot, vagy lépjen "
+"kapcsolatba velünk."
 
 #: templates/commerce/mails/order_reminder.txt:17
 msgid "Thank you for understanding."
-msgstr ""
+msgstr "Köszönjük a megértését."
 
 #: templates/commerce/mails/order_status_changed.txt:1
 #, python-format
@@ -1079,10 +1097,13 @@ msgid ""
 "\n"
 "Status of your order %(number)s changed to: %(status)s\n"
 msgstr ""
+"Helló %(user)s!\n"
+"\n"
+"A %(number)s megrendelése státusza megváltozott: %(status)s\n"
 
 #: templates/commerce/order_list.html:2
 msgid "Orders"
-msgstr ""
+msgstr "Rendelések"
 
 #: templates/commerce/order_list.html:5
 #, python-format
@@ -1093,175 +1114,181 @@ msgid_plural ""
 "You have %(points)s unused points in total value of "
 "%(unused_points_in_currency_unit)s %(currency)s."
 msgstr[0] ""
+"Önnek %(points)s használatlan pontja van a "
+"%(unused_points_in_currency_unit)s %(currency)s összértékében."
 msgstr[1] ""
+"Önnek %(points)s használatlan pontja van a "
+"%(unused_points_in_currency_unit)s %(currency)s összértékében."
 
 #: templates/commerce/orders_table.html:5
 msgid "Number"
-msgstr ""
+msgstr "Szám"
 
 #: templates/commerce/orders_table.html:13
 msgid "Status"
-msgstr ""
+msgstr "Állapot"
 
 #: templates/commerce/orders_table.html:14
 msgid "Invoice"
-msgstr ""
+msgstr "Számla"
 
 #: templates/commerce/orders_table.html:50
 msgid "Preparing..."
-msgstr ""
+msgstr "Előkészítés..."
 
 #: templates/commerce/payment_information_wire_transfer.html:4
 msgid "IBAN"
-msgstr ""
+msgstr "IBAN"
 
 #: templates/commerce/payment_information_wire_transfer.html:5
 msgid "BIC/SWIFT"
-msgstr ""
+msgstr "BIC/SWIFT"
 
 #: templates/commerce/payment_information_wire_transfer.html:6
 msgid "Amount"
-msgstr ""
+msgstr "Mennyiség"
 
 #: templates/commerce/payment_information_wire_transfer.html:7
 msgid "Note"
-msgstr ""
+msgstr "Megjegyzés"
 
 #: templates/commerce/payment_information_wire_transfer.html:8
 msgid "Reference"
-msgstr ""
+msgstr "Referencia"
 
 #: templates/commerce/payment_information_wire_transfer.html:11
 msgid "Some banks may require following information"
-msgstr ""
+msgstr "Néhány bank a következő információkat kérheti"
 
 #: templates/commerce/payment_information_wire_transfer.html:12
 msgid "Recipient"
-msgstr ""
+msgstr "Címzett"
 
 #: templates/commerce/payment_information_wire_transfer.html:13
 msgid "Address"
-msgstr ""
+msgstr "Cím"
 
 #: templates/commerce/payment_information_wire_transfer.html:14
 msgid "Bank name"
-msgstr ""
+msgstr "Bank neve"
 
 #: templates/commerce/payment_information_wire_transfer.html:15
 msgid "Bank address"
-msgstr ""
+msgstr "Bank címe"
 
 #: templates/commerce/payment_information_wire_transfer.html:18
 msgid ""
 "It is important to use variable symbol / reference above to correctly pair "
 "your payment with the order!"
 msgstr ""
+"Fontos, hogy változó szimbólumokat használjon/a fent jelzett utasítás jelzi, "
+"hogy hogyan tudja helyesen párosítani a kifizetést a rendeléssel!"
 
 #: urls.py:13
 msgctxt "url"
 msgid "add-to-cart/<int:content_type_id>/<int:object_id>/"
-msgstr ""
+msgstr "kosarba-helyezes/<int:content_type_id>/<int:object_id>/"
 
 #: urls.py:14
 msgctxt "url"
 msgid "remove-from-cart/<int:item_id>/"
-msgstr ""
+msgstr "eltavolitas-a-kosarbol/<int:item_id>/"
 
 #: urls.py:15
 msgctxt "url"
 msgid "unapply-discount/"
-msgstr ""
+msgstr "visszavonas-kedvezmeny/"
 
 #: urls.py:16
 msgctxt "url"
 msgid "cart/"
-msgstr ""
+msgstr "kosár/"
 
 #: urls.py:17
 msgctxt "url"
 msgid "checkout/addresses/"
-msgstr ""
+msgstr "penztar/cimek/"
 
 #: urls.py:18
 msgctxt "url"
 msgid "checkout/shipping-and-payment/"
-msgstr ""
+msgstr "penztar/szallitas-es-fiezetes/"
 
 #: urls.py:19
 msgctxt "url"
 msgid "checkout/summary/"
-msgstr ""
+msgstr "penztar/osszefoglalo"
 
 #: urls.py:20
 msgctxt "url"
 msgid "checkout/finish/"
-msgstr ""
+msgstr "penztar/befejezes"
 
 #: urls.py:21
 msgctxt "url"
 msgid "order/<int:number>/payment/"
-msgstr ""
+msgstr "rendeles/<int:number>/payment/"
 
 #: urls.py:22
 msgctxt "url"
 msgid "order/<int:number>/payment/return/"
-msgstr ""
+msgstr "rendeles/<int:number>/fizetes/visszakuldes/"
 
 #: urls.py:23
 msgctxt "url"
 msgid "orders/"
-msgstr ""
+msgstr "rendelesek/"
 
 #: urls.py:31
 msgctxt "url"
 msgid "stripe/create-session/<int:pk>/"
-msgstr ""
+msgstr "stripe/letrehozas-munkamenet/<int:pk>/"
 
 #: urls.py:32
 msgctxt "url"
 msgid "stripe/success/"
-msgstr ""
+msgstr "stripe/siker/"
 
 #: urls.py:33
 msgctxt "url"
 msgid "stripe/cancel/"
-msgstr ""
+msgstr "vonal/torles"
 
 #: urls.py:34
 msgctxt "url"
 msgid "stripe/webhook/"
-msgstr ""
+msgstr "stripe/webhook/"
 
 #: urls.py:39
 msgctxt "url"
 msgid "loyalty-program/"
-msgstr ""
+msgstr "huseg-program/"
 
 #: views/cart.py:30
 #, python-format
 msgid "You can order at most %d items at once"
-msgstr ""
+msgstr "Egyszerre legfeljebb %d tételt rendelhet."
 
 #: views/cart.py:50
 #, python-format
 msgid "Discount %s was removed from cart"
-msgstr ""
+msgstr "%s kedvezmény eltávolítva a kosárból"
 
 #: views/cart.py:52
 #, python-format
 msgid "%s was added into cart"
-msgstr ""
+msgstr "%s hozzáadva a kosárhoz"
 
 #: views/cart.py:54
 #, python-format
 msgid "%s is already in cart"
-msgstr ""
+msgstr "%s már a kosárban van"
 
 #: views/cart.py:86
 #, python-format
 msgid "%s removed from cart"
-msgstr ""
+msgstr "%s eltávolítva a kosárból"
 
 #: views/cart.py:270
 msgid "Missing payment method"
-msgstr ""
+msgstr "Hiányzó fizetési mód"
