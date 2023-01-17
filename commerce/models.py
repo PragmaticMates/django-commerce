@@ -938,24 +938,69 @@ class Order(models.Model):
     def notify_staff(self):
         for user in get_user_model().objects.active().with_perm('commerce.view_order'):
             with override_language(user.preferred_language):
-                # TODO: attachments = invoices
+                attachments = []
+                export_files = self.get_invoices_pdf(self.invoices.all())
+
+                for export_file in export_files:
+                    attachments.append({
+                        'filename': export_file['name'],
+                        'content': export_file['content'],
+                        'content_type': 'application/pdf'
+                    })
+
                 EmailManager.send_mail(
                     to=user,
                     template_prefix='commerce/mails/order_created',
                     subject=_('New order'),
                     data={'order': self},
+                    attachments=attachments,
                     request=None
                 )
 
+    # TODO: refactor and move somewhere else (django-invoicing)
+    def get_invoices_pdf(self, invoices):
+        invoicing_formatter = getattr(settings, 'INVOICING_FORMATTER', 'invoicing.formatters.html.BootstrapHTMLFormatter')
+        formatter_class = import_string(invoicing_formatter)
+        print_api_url = getattr(settings, 'HTML_TO_PDF_API', None)
+        requests = []
+        export_files = []
+
+        for invoice in invoices:
+            formatter = formatter_class(invoice)
+            html_content = formatter.get_response().content
+            requests.append({'invoice': str(invoice), 'html_content': html_content})
+
+        from requests_futures import sessions
+        session = sessions.FuturesSession(max_workers=3)
+        futures = [
+            {'invoice': request.get('invoice'), 'future': session.post(print_api_url, data=request.get('html_content'))}
+            for request in requests]
+
+        for f in futures:
+            file_name = f.get('invoice')
+            result = f.get('future').result()
+            export_files.append({'name': file_name + '.pdf', 'content': result.content})
+
+        return export_files
+
     def send_details(self):
         with override_language(self.user.preferred_language):
-            # TODO: attachments
+            attachments = []
+            export_files = self.get_invoices_pdf(self.invoices.all())
+
+            for export_file in export_files:
+                attachments.append({
+                    'filename': export_file['name'],
+                    'content': export_file['content'],
+                    'content_type': 'application/pdf'
+                })
+
             EmailManager.send_mail(
                 to=self.user,
                 template_prefix='commerce/mails/order_details',
                 subject=_('Order details: %d') % self.number,
                 data={'order': self},
-                attachments=[],
+                attachments=attachments,
                 request=None
             )
 
