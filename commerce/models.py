@@ -937,7 +937,15 @@ class Order(models.Model):
 
     def send_details(self):
         with override_language(self.user.preferred_language):
-            EmailManager.send_mail(self.user, 'commerce/mails/order_details', _('Order details: %d') % self.number, data={'order': self}, request=None)
+            # TODO: attachments
+            EmailManager.send_mail(
+                to=self.user,
+                template_prefix='commerce/mails/order_details',
+                subject=_('Order details: %d') % self.number,
+                data={'order': self},
+                attachments=[],
+                request=None
+            )
 
     def send_reminder(self, force=False):
         if self.total <= 0:

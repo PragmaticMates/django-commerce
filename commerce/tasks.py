@@ -11,10 +11,13 @@ from commerce import settings as commerce_settings
 @job(commerce_settings.REDIS_QUEUE)
 @apm_custom_context('tasks')
 def notify_about_new_order(order):
+    # notify staff
     for user in get_user_model().objects.active().with_perm('commerce.view_order'):
         with override_language(user.preferred_language):
+            # TODO: attachments = invoices
             EmailManager.send_mail(user, 'commerce/mails/order_created', _('New order'), data={'order': order}, request=None)
 
+    # notify customer
     order.send_details()
 
 
@@ -24,4 +27,10 @@ def notify_about_changed_order_status(order):
     user = order.user
 
     with override_language(user.preferred_language):
-        return EmailManager.send_mail(user, 'commerce/mails/order_status_changed', _('Status of order %d changed') % order.number, data={'order': order}, request=None)
+        return EmailManager.send_mail(
+            to=user,
+            template_prefix='commerce/mails/order_status_changed',
+            subject=_('Status of order %d changed') % order.number,
+            data={'order': order},
+            request=None
+        )
