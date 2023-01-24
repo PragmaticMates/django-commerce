@@ -34,12 +34,11 @@ def order_created(sender, order, **kwargs):
 @apm_custom_context('signals')
 def order_status_changed(sender, instance, **kwargs):
     if instance.pk and SignalsHelper.attribute_changed(instance, ['status']):
-        # TODO: if payment received: add regular invoice as attachment
-        # notify customer
-        if instance.status in commerce_settings.NOTIFY_ABOUT_STATUSES:
-            notify_about_changed_order_status.delay(instance)
-
         # only if order status == payment received? (NO!, because we need to create invoice for orders with total = 0 and status pending as well)
         if instance.status not in [Order.STATUS_AWAITING_PAYMENT, Order.STATUS_CANCELLED] and not instance.invoices.all().exists():
             # create invoice if paid
             instance.create_invoice(type=Invoice.TYPE.INVOICE, status=Invoice.STATUS.PAID, creator=instance.user)
+
+        # notify customer
+        if instance.status in commerce_settings.NOTIFY_ABOUT_STATUSES:
+            notify_about_changed_order_status.delay(instance)

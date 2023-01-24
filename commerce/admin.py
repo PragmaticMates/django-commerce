@@ -89,7 +89,7 @@ class OrderAdmin(admin.ModelAdmin):
     actions = ['sync_transactions', 'create_invoice', 'send_details', 'notify_staff', 'send_reminder', 'send_loyalty_reminder']
     date_hierarchy = 'created'
     search_fields = ['number', 'user__email', 'user__first_name', 'user__last_name', 'delivery_name', 'delivery_street', 'delivery_postcode', 'delivery_city', 'delivery_country']
-    list_display = ('number', 'status', 'delivery_address', 'purchased_items', 'total', 'delivery_country', 'shipping_option', 'payment_method', 'created', 'modified')
+    list_display = ('number', 'status', 'delivery_address', 'contact', 'purchased_items', 'total', 'delivery_country', 'shipping_option', 'payment_method', 'created', 'modified')
     list_editable = ['status']
     list_select_related = ['user', 'shipping_option', 'payment_method']
     list_filter = ['shipping_option', 'payment_method', 'status', 'reminder_sent']
@@ -118,6 +118,12 @@ class OrderAdmin(admin.ModelAdmin):
             obj.delivery_postcode,
             obj.delivery_city,
             obj.get_delivery_country_display(),
+        ]]))
+
+    def contact(self, obj):
+        return mark_safe('<br>'.join([str(item) for item in [
+            obj.email,
+            obj.phone,
         ]]))
 
     def purchased_items(self, obj):
@@ -216,6 +222,7 @@ class OrderAdmin(admin.ModelAdmin):
     def send_details(self, request, queryset):
         for obj in queryset:
             obj.send_details()
+            messages.info(request, _('Details sent to %s') % obj.user)
     send_details.short_description = _('Send details to customer')
 
     def notify_staff(self, request, queryset):
