@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-12 21:33+0100\n"
-"PO-Revision-Date: 2022-11-05 10:18+0000\n"
+"PO-Revision-Date: 2023-03-16 15:17+0000\n"
 "Last-Translator: Peter Rusinak <peter.rusinak@transportly.eu>\n"
 "Language-Team: Slovak <https://weblate.swida.sk/projects/django-commerce/app/"
 "sk/>\n"
@@ -708,7 +708,7 @@ msgstr "Dokončená"
 
 #: models.py:636
 msgid "Cancelled"
-msgstr "Zrušená"
+msgstr "Zrušené"
 
 #: models.py:637
 msgid "Declined"
