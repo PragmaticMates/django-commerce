@@ -14,7 +14,7 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.module_loading import import_string
 from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _, ugettext, override as override_language
+from django.utils.translation import override as override_language
 from filer.models import File
 from gm2m import GM2MField
 from internationalflavor.countries import CountryField
@@ -30,6 +30,13 @@ from invoicing.utils import get_invoices_in_pdf
 from pragmatic.fields import ChoiceArrayField
 from pragmatic.managers import EmailManager
 from pragmatic.mixins import SlugMixin
+
+try:
+    # older Django
+    from django.utils.translation import ugettext_lazy as _, ugettext as gettext
+except ImportError:
+    # Django >= 3
+    from django.utils.translation import gettext_lazy as _, gettext
 
 
 class AbstractProduct(models.Model):
@@ -286,7 +293,7 @@ class Cart(models.Model):
         verbose_name_plural = _('shopping carts')
 
     def __str__(self):
-        return ugettext(f'Shopping cart of {self.user}')
+        return gettext(f'Shopping cart of {self.user}')
 
     @transaction.atomic
     def save(self, *args, **kwargs):

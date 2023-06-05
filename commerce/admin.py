@@ -9,13 +9,19 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.validators import EMPTY_VALUES
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
 from internationalflavor.countries._cldr_data import COUNTRY_NAMES
 from modeltrans.admin import ActiveLanguageMixin
 
 from commerce.loyalty import send_loyalty_reminder
 from commerce.models import Cart, Item, ShippingOption, PaymentMethod, Order, PurchasedItem, Option, Discount, Supply
 from commerce import settings as commerce_settings
+
+try:
+    # older Django
+    from django.utils.translation import ugettext_lazy as _
+except ImportError:
+    # Django >= 3
+    from django.utils.translation import gettext_lazy as _
 
 
 if not admin.site.is_registered(ContentType):

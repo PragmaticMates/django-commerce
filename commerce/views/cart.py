@@ -3,7 +3,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.core.validators import EMPTY_VALUES
 from django.shortcuts import get_object_or_404, redirect
-from django.utils.translation import ugettext_lazy as _
 from django.views import View
 from django.views.generic import DetailView, UpdateView
 
@@ -11,6 +10,13 @@ from commerce import settings as commerce_settings
 from commerce.forms import AddressesForm, ShippingAndPaymentForm, DiscountCodeForm
 from commerce.models import Cart, Order, PaymentMethod, Item, Option, ShippingOption
 from commerce.templatetags.commerce import discount_for_product
+
+try:
+    # older Django
+    from django.utils.translation import ugettext_lazy as _
+except ImportError:
+    # Django >= 3
+    from django.utils.translation import gettext_lazy as _
 
 
 class AddToCartView(LoginRequiredMixin, View):

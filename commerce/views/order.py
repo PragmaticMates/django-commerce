@@ -3,12 +3,18 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.module_loading import import_string
-from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DetailView, ListView
 
 from commerce.loyalty import unused_points, points_to_currency_unit
 from commerce.models import Order
 from commerce import settings as commerce_settings
+
+try:
+    # older Django
+    from django.utils.translation import ugettext_lazy as _
+except ImportError:
+    # Django >= 3
+    from django.utils.translation import gettext_lazy as _
 
 
 class OrderPaymentView(LoginRequiredMixin, DetailView):

@@ -8,11 +8,17 @@ from django.forms import Form, HiddenInput
 from django.template import Template, Context, loader
 from django.urls import reverse
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
 
 from commerce import settings as commerce_settings
 from commerce.models import Cart, Discount, ShippingOption
 from commerce.loyalty import available_points
+
+try:
+    # older Django
+    from django.utils.translation import ugettext_lazy as _
+except ImportError:
+    # Django >= 3
+    from django.utils.translation import gettext_lazy as _
 
 
 class DiscountCodeForm(forms.ModelForm):

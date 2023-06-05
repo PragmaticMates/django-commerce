@@ -1,9 +1,15 @@
 import django_rq
 from django.apps import AppConfig
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
 
 from commerce.cron import send_order_reminders, cancel_unpaid_orders, delete_old_empty_carts, send_loyalty_reminders
+
+try:
+    # older Django
+    from django.utils.translation import ugettext_lazy as _
+except ImportError:
+    # Django >= 3
+    from django.utils.translation import gettext_lazy as _
 
 
 class Config(AppConfig):

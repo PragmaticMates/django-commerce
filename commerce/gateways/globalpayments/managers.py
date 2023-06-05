@@ -6,7 +6,6 @@ from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
 from OpenSSL import crypto
 from django.utils.http import urlencode
-from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 
 from commerce import settings as commerce_settings
@@ -15,6 +14,13 @@ from commerce.managers import PaymentManager as CommercePaymentManager
 from commerce.models import Order
 
 from inventor.templatetags.inventor import uri  # TODO: move to pragmatic
+
+try:
+    # older Django
+    from django.utils.translation import ugettext_lazy as _
+except ImportError:
+    # Django >= 3
+    from django.utils.translation import gettext_lazy as _
 
 
 class PaymentManager(CommercePaymentManager):

@@ -6,7 +6,6 @@ from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView
@@ -16,6 +15,13 @@ from commerce.gateways.stripe.models import Customer
 from commerce.loyalty import points_to_currency_unit
 from commerce.models import Order, Discount
 from inventor.templatetags.inventor import uri
+
+try:
+    # older Django
+    from django.utils.translation import ugettext_lazy as _
+except ImportError:
+    # Django >= 3
+    from django.utils.translation import gettext_lazy as _
 
 stripe.api_key = commerce_settings.GATEWAY_STRIPE_SECRET_API_KEY
 

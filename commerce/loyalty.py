@@ -1,9 +1,16 @@
 from decimal import Decimal
 
 from django.core.exceptions import ObjectDoesNotExist
-from django.utils.translation import ugettext_lazy as _, override as override_language
+from django.utils.translation import override as override_language
 from commerce import settings as commerce_settings
 from pragmatic.managers import EmailManager
+
+try:
+    # older Django
+    from django.utils.translation import ugettext_lazy as _
+except ImportError:
+    # Django >= 3
+    from django.utils.translation import gettext_lazy as _
 
 
 def earned_points(user):

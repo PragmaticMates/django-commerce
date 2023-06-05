@@ -1,4 +1,4 @@
-from django.utils.translation import override as override_language, ugettext_lazy as _
+from django.utils.translation import override as override_language
 from django_rq import job
 from invoicing.models import Invoice
 from invoicing.utils import get_invoices_in_pdf
@@ -8,6 +8,13 @@ from pragmatic.signals import apm_custom_context
 
 from commerce import settings as commerce_settings
 from commerce.models import Order
+
+try:
+    # older Django
+    from django.utils.translation import ugettext_lazy as _
+except ImportError:
+    # Django >= 3
+    from django.utils.translation import gettext_lazy as _
 
 
 @job(commerce_settings.REDIS_QUEUE)
