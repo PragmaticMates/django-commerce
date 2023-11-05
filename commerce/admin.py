@@ -107,7 +107,7 @@ class OrderAdmin(admin.ModelAdmin):
         (_('Billing details'), {'fields': [('reg_id', 'tax_id', 'vat_id')]}),
         (_('Contact details'), {'fields': [('email', 'phone')]}),
         (_('Shipping'), {'fields': ['shipping_option', 'shipping_fee', 'payment_method', 'payment_fee']}),
-        (_('Billing'), {'fields': ['invoices']}),
+        (_('Billing'), {'fields': ['invoices', 'discount']}),
         (_('Timestamps'), {'fields': ['reminder_sent', 'created', 'modified']}),
     ]
     autocomplete_fields = ['invoices']
