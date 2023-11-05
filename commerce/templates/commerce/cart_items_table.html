@@ -6,6 +6,7 @@
         <th>{% trans 'Price' %}</th>
         <th>{% trans 'Quantity' %}</th>
         <th>{% trans 'Subtotal' %}</th>
+        <th></th>
     </thead>
     <tbody>
         {% for item in cart.item_set.all %}
@@ -18,8 +19,9 @@
                     {% if item.regular_price and item.regular_price != item.price %}<span class="regular-price">{{ item.get_regular_price_display }}</span>{% endif %}
                     {{ item.get_price_display }}
                 </td>
-                <td>{{ item.quantity }} <a href="{% url 'commerce:remove_from_cart' item.id %}">{% trans 'Remove' %}</a></td>
+                <td>{{ item.quantity }}</td>
                 <td>{{ item.get_subtotal_display }}</td>
+                <td><a href="{% url 'commerce:remove_from_cart' item.id %}">{% trans 'Remove' %}</a></td>
             </tr>
         {% endfor %}
     </tbody>

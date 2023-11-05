@@ -987,7 +987,7 @@ msgstr "teraz"
 
 #: templates/commerce/discount_topbar.html:32
 msgid "Expired"
-msgstr "Expirované"
+msgstr "Exspirované"
 
 #: templates/commerce/fees.html:3
 msgid "Fees"
