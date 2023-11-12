@@ -31,12 +31,7 @@ from pragmatic.fields import ChoiceArrayField
 from pragmatic.managers import EmailManager
 from pragmatic.mixins import SlugMixin
 
-try:
-    # older Django
-    from django.utils.translation import ugettext_lazy as _, ugettext as gettext
-except ImportError:
-    # Django >= 3
-    from django.utils.translation import gettext_lazy as _, gettext
+from django.utils.translation import gettext_lazy as _, gettext
 
 
 class AbstractProduct(models.Model):

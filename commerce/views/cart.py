@@ -12,12 +12,7 @@ from commerce.forms import AddressesForm, ShippingAndPaymentForm, DiscountCodeFo
 from commerce.models import Cart, Order, PaymentMethod, Item, Option, ShippingOption
 from commerce.templatetags.commerce import discount_for_product
 
-try:
-    # older Django
-    from django.utils.translation import ugettext_lazy as _
-except ImportError:
-    # Django >= 3
-    from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 class AddToCartView(LoginRequiredMixin, View):

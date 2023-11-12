@@ -15,12 +15,7 @@ from commerce.models import Order
 
 from inventor.templatetags.inventor import uri  # TODO: move to pragmatic
 
-try:
-    # older Django
-    from django.utils.translation import ugettext_lazy as _
-except ImportError:
-    # Django >= 3
-    from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 class PaymentManager(CommercePaymentManager):

@@ -16,12 +16,7 @@ from commerce.loyalty import points_to_currency_unit
 from commerce.models import Order, Discount
 from inventor.templatetags.inventor import uri
 
-try:
-    # older Django
-    from django.utils.translation import ugettext_lazy as _
-except ImportError:
-    # Django >= 3
-    from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 stripe.api_key = commerce_settings.GATEWAY_STRIPE_SECRET_API_KEY
 

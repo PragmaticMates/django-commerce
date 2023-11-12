@@ -5,20 +5,15 @@ from django import forms
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.validators import EMPTY_VALUES
 from django.forms import Form, HiddenInput
-from django.template import Template, Context, loader
+from django.template import loader
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
 from commerce import settings as commerce_settings
-from commerce.models import Cart, Discount, ShippingOption
+from commerce.models import Cart, Discount
 from commerce.loyalty import available_points
 
-try:
-    # older Django
-    from django.utils.translation import ugettext_lazy as _
-except ImportError:
-    # Django >= 3
-    from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 class DiscountCodeForm(forms.ModelForm):

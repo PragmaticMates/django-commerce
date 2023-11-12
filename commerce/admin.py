@@ -16,12 +16,7 @@ from commerce.loyalty import send_loyalty_reminder
 from commerce.models import Cart, Item, ShippingOption, PaymentMethod, Order, PurchasedItem, Option, Discount, Supply
 from commerce import settings as commerce_settings
 
-try:
-    # older Django
-    from django.utils.translation import ugettext_lazy as _
-except ImportError:
-    # Django >= 3
-    from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 if not admin.site.is_registered(ContentType):
