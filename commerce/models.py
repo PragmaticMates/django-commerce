@@ -195,7 +195,7 @@ class Discount(models.Model):
         return str(self.code)
 
     def clean(self):
-        if self.unit == self.UNIT_PERCENTAGE and (self.amount < 0 or self.amount > 100):
+        if self.amount and self.unit == self.UNIT_PERCENTAGE and (self.amount < 0 or self.amount > 100):
             raise ValidationError(_('Amount of percentage has to be from interval 0-100.'))
 
         # TODO: content types (m2m) are added after instance save().

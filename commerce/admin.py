@@ -281,7 +281,7 @@ class DiscountValidListFilter(admin.SimpleListFilter):
 
 
 @admin.register(Discount)
-class DiscountAdmin(admin.ModelAdmin):
+class DiscountAdmin(ActiveLanguageMixin, admin.ModelAdmin):
     search_fields = ['code']
     list_display = ('code', 'usage', 'description', 'amount', 'unit', 'valid_until', 'promoted', 'add_to_cart', 'product_types', 'products_qs', 'is_used_in_order')
     list_filter = ['unit', 'usage', 'promoted', 'add_to_cart', DiscountValidListFilter]
