@@ -654,11 +654,11 @@ class Order(models.Model):
     number = models.PositiveSmallIntegerField(verbose_name=_('number'), db_index=True, unique=True)
 
     # delivery information
-    delivery_name = models.CharField(_('full name or company name'), max_length=100, db_index=True)
-    delivery_street = models.CharField(_('street and number'), max_length=200)
-    delivery_postcode = models.CharField(_('postcode'), max_length=30)
-    delivery_city = models.CharField(_('city'), max_length=50)
-    delivery_country = CountryField(verbose_name=_('country'), db_index=True)
+    delivery_name = models.CharField(_('full name or company name'), max_length=100, db_index=True, blank=True)
+    delivery_street = models.CharField(_('street and number'), max_length=200, blank=True)
+    delivery_postcode = models.CharField(_('postcode'), max_length=30, blank=True)
+    delivery_city = models.CharField(_('city'), max_length=50, blank=True)
+    delivery_country = CountryField(verbose_name=_('country'), db_index=True, blank=True)
 
     # billing details
     billing_name = models.CharField(_('full name or company name'), max_length=100)
