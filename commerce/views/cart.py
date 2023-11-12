@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.core.validators import EMPTY_VALUES
@@ -155,22 +156,24 @@ class CheckoutAddressesView(CartMixin, EmptyCartRedirectMixin, UpdateView):
             details = subject.get_cart_details()
         else:
             details = {
-                'delivery_name': subject.delivery_name,
-                'delivery_street': subject.delivery_street,
-                'delivery_postcode': subject.delivery_postcode,
-                'delivery_city': subject.delivery_city,
-                'delivery_country': subject.delivery_country,
-                'billing_name': subject.billing_name,
-                'billing_street': subject.billing_street,
-                'billing_postcode': subject.billing_postcode,
-                'billing_city': subject.billing_city,
-                'billing_country': subject.billing_country,
-                'reg_id': subject.reg_id,
-                'tax_id': subject.tax_id,
-                'vat_id': subject.vat_id,
-                'email': subject.email,
-                'phone': subject.phone,
+                'reg_id': getattr(subject, 'reg_id', ''),
+                'tax_id': getattr(subject, 'tax_id', ''),
+                'vat_id': getattr(subject, 'vat_id', ''),
+                'email': getattr(subject, 'email', ''),
+                'phone': getattr(subject, 'phone', ''),
             }
+
+            address_fields = ['name', 'street', 'postcode', 'city', 'country']
+
+            for field in address_fields:
+                for prefix in ['delivery', 'billing']:
+                    attribute = f'{prefix}_{field}'
+                    default = getattr(subject, field, '') if field != 'name' or \
+                        not isinstance(subject, get_user_model()) else getattr(subject, field, subject.get_full_name())
+
+                    details.update({
+                        attribute: getattr(subject, attribute, default),
+                    })
 
         not_empty_details = {k: v for k, v in details.items() if v not in EMPTY_VALUES}
 
