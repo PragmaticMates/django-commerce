@@ -179,12 +179,16 @@ class CheckoutAddressesView(CartMixin, EmptyCartRedirectMixin, UpdateView):
         user = self.object.user
         last_user_order = user.order_set.last()
 
+        # details from order user / purchaser
+        initial.update(self.get_cart_details(user))
+
+        # fill in the missing values with values from the last order
         if last_user_order:
-            # details from last order
-            initial.update(self.get_cart_details(last_user_order))
-        else:
-            # details from order user / purchaser
-            initial.update(self.get_cart_details(user))
+            last_order_cart_details = self.get_cart_details(last_user_order)
+
+            for key, value in last_order_cart_details.items():
+                if key not in initial:
+                    initial[key] = value
 
         # details from cart itself (the highest priority)
         initial.update(self.get_cart_details(self.object))
