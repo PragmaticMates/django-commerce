@@ -2,7 +2,6 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
-from django.core.validators import EMPTY_VALUES
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
 from django.views.generic import DetailView, UpdateView
@@ -166,13 +165,12 @@ class CheckoutAddressesView(CartMixin, EmptyCartRedirectMixin, UpdateView):
                     default = getattr(subject, field, '') if field != 'name' or \
                         not isinstance(subject, get_user_model()) else getattr(subject, field, subject.get_full_name())
 
-                    details.update({
-                        attribute: getattr(subject, attribute, default),
-                    })
+                    if hasattr(subject, attribute):
+                        details.update({
+                            attribute: getattr(subject, attribute, default),
+                        })
 
-        not_empty_details = {k: v for k, v in details.items() if v not in EMPTY_VALUES}
-
-        return not_empty_details
+        return details
 
     def get_initial(self):
         initial = super().get_initial()
@@ -190,8 +188,11 @@ class CheckoutAddressesView(CartMixin, EmptyCartRedirectMixin, UpdateView):
                 if key not in initial:
                     initial[key] = value
 
-        # details from cart itself (the highest priority)
-        initial.update(self.get_cart_details(self.object))
+        # details from cart itself (the highest priority, if not empty)
+        shopping_cart = self.get_cart_details(self.object)
+
+        if any(shopping_cart.values()):
+            initial.update(shopping_cart)
 
         return initial
 
