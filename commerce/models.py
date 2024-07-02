@@ -891,6 +891,7 @@ class Order(models.Model):
                     quantity=purchaseditem.quantity,
                     unit=InvoiceItem.UNIT_PIECES,
                     unit_price=check_tax_and_get_price(purchaseditem.price, tax_rate),
+                    tax_rate=tax_rate
                     # discount=self.discount,  # TODO
                 )
 
@@ -916,6 +917,7 @@ class Order(models.Model):
                     quantity=1,
                     unit=InvoiceItem.UNIT_EMPTY,
                     unit_price=shipping_fee,
+                    tax_rate=tax_rate
                     # discount=self.discount,  # TODO
                 )
 
@@ -928,6 +930,7 @@ class Order(models.Model):
                     quantity=1,
                     unit=InvoiceItem.UNIT_EMPTY,
                     unit_price=payment_fee,
+                    tax_rate=tax_rate
                     # discount=self.discount,  # TODO
                 )
 
