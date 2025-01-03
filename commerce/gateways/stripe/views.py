@@ -12,9 +12,7 @@ from django.views.generic import DetailView
 
 from commerce import settings as commerce_settings
 from commerce.gateways.stripe.models import Customer
-from commerce.loyalty import points_to_currency_unit
 from commerce.models import Order, Discount
-from inventor.templatetags.inventor import uri
 
 from django.utils.translation import gettext_lazy as _
 
@@ -120,8 +118,8 @@ class StripeCreateSessionView(DetailView):
                 payment_method_types=['card'],
                 line_items=line_items,
                 mode='payment',
-                success_url=uri({'request': request}, reverse('commerce:stripe_success_payment')),
-                cancel_url=uri({'request': request}, reverse('commerce:stripe_cancel_payment')),
+                success_url=request.build_absolute_uri(reverse('commerce:stripe_success_payment')),
+                cancel_url=request.build_absolute_uri(reverse('commerce:stripe_cancel_payment')),
             )
             # TODO: check functionality
             # return redirect(checkout_session.url)
@@ -134,13 +132,20 @@ class StripeCreateSessionView(DetailView):
 class StripeSuccessPaymentView(View):
     def dispatch(self, request, *args, **kwargs):
         messages.success(request, _('Payment was successful.'))
-        # TODO
+
+        if commerce_settings.SUCCESSFUL_PAYMENT_REDIRECT_URL:
+            return redirect(commerce_settings.SUCCESSFUL_PAYMENT_REDIRECT_URL)
+
         return redirect(reverse('commerce:orders'))
 
 
 class StripeCancelPaymentView(View):
     def dispatch(self, request, *args, **kwargs):
         messages.error(request, _('Payment failed.'))
+
+        if commerce_settings.FAILED_PAYMENT_REDIRECT_URL:
+            return redirect(commerce_settings.FAILED_PAYMENT_REDIRECT_URL)
+
         return redirect(reverse('commerce:orders'))
 
 
