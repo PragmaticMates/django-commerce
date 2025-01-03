@@ -43,10 +43,18 @@ class OrderPaymentReturnView(LoginRequiredMixin, DetailView):
 
         if success:
             messages.success(request, message)
-            return redirect(commerce_settings.SUCCESSFUL_PAYMENT_REDIRECT_URL)
+
+            if commerce_settings.SUCCESSFUL_PAYMENT_REDIRECT_URL:
+                return redirect(commerce_settings.SUCCESSFUL_PAYMENT_REDIRECT_URL)
+
+            return redirect(reverse('commerce:orders'))
         else:
             messages.error(request, message)
-            return redirect('commerce:orders')  # TODO: add new setting: COMMERCE_FAILED_PAYMENT_REDIRECT_URL
+
+            if commerce_settings.FAILED_PAYMENT_REDIRECT_URL:
+                return redirect(commerce_settings.FAILED_PAYMENT_REDIRECT_URL)
+
+            return redirect(reverse('commerce:orders'))
 
 
 class OrderListView(LoginRequiredMixin, ListView):
