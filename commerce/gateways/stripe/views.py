@@ -47,7 +47,7 @@ class StripeCreateSessionView(DetailView):
 
         line_items = []
 
-        if order.loyalty_points_used > 0 or order.discount and order.discount.unit == Discount.UNIT_CURRENCY:
+        if (order.loyalty_points_used > 0 or order.discount and order.discount.unit == Discount.UNIT_CURRENCY) or not commerce_settings.UNIT_PRICE_IS_WITH_TAX:
             # Stripe does not support items with negative amount (credit)
             line_items.append({
                 'price_data': {

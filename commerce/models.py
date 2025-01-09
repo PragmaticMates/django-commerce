@@ -19,6 +19,7 @@ from filer.models import File
 from gm2m import GM2MField
 from internationalflavor.countries import CountryField
 from internationalflavor.vat_number import VATNumberField
+from invoicing.taxation.eu import EUTaxationPolicy
 from modeltrans.fields import TranslationField
 
 from commerce import settings as commerce_settings
@@ -684,6 +685,9 @@ class Order(models.Model):
     # Discount
     discount = models.ForeignKey(Discount, verbose_name=_('discount'), on_delete=models.PROTECT, blank=True, null=True, default=None)
 
+    # sum (auto calculated fields)
+    total = models.DecimalField(_(u'total'), max_digits=10, decimal_places=2, blank=True, default=0)
+
     # Loyalty program
     loyalty_points = models.PositiveSmallIntegerField(_('loyalty points'), help_text=_('used to lower the total price'), blank=True, default=0)
 
@@ -711,6 +715,23 @@ class Order(models.Model):
 
         manager_class = import_string(manager_class_path)
         return manager_class(self)
+
+    @property
+    def taxation_policy(self):
+        taxation_policy = getattr(settings, 'INVOICING_TAXATION_POLICY', None)
+
+        if taxation_policy is not None:
+            return import_string(taxation_policy)
+
+        supplier = getattr(settings, 'INVOICING_SUPPLIER', None)
+
+        # Check if supplier is from EU
+        if supplier:
+            supplier_country = supplier.get('country_code', None)
+            if supplier_country and EUTaxationPolicy.is_in_EU(supplier_country):
+                return EUTaxationPolicy
+
+        return None
 
     def get_absolute_url(self):
         # TODO
@@ -758,11 +779,20 @@ class Order(models.Model):
 
         return max(subtotal, 0)
 
-    @property
-    def total(self):
+    def calculate_total(self):
         total = self.subtotal
         total += self.shipping_fee
         total += self.payment_fee
+
+        if not commerce_settings.UNIT_PRICE_IS_WITH_TAX and self.taxation_policy and total > 0:
+            supplier = getattr(settings, 'INVOICING_SUPPLIER')
+            tax_rate = self.taxation_policy.get_tax_rate_by_vat_id(
+                supplier['vat_id'],
+                supplier['country_code'],
+                self.vat_id,
+                self.billing_country
+            )
+            total += self.taxation_policy.calculate_tax(total, tax_rate)
 
         # Note: discount is already calculated in subtotal (item price)
 
