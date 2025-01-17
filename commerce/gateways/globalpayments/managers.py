@@ -13,7 +13,7 @@ from commerce.gateways.globalpayments.models import Payment, Result
 from commerce.managers import PaymentManager as CommercePaymentManager
 from commerce.models import Order
 
-from inventor.templatetags.inventor import uri  # TODO: move to pragmatic
+from pragmatic.templatetags.pragmatic_tags import uri
 
 from django.utils.translation import gettext_lazy as _
 
