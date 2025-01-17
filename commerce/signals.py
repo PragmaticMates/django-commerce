@@ -1,10 +1,10 @@
 import django.dispatch
-from django.db.models.signals import pre_save, post_save, post_delete
+from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from invoicing.models import Invoice
 
 from commerce import settings as commerce_settings
-from commerce.models import Order, Cart, PurchasedItem
+from commerce.models import Order, Cart
 from commerce.tasks import notify_about_new_order, notify_about_changed_order_status
 from pragmatic.signals import apm_custom_context, SignalsHelper
 
@@ -42,17 +42,3 @@ def order_status_changed(sender, instance, **kwargs):
         # notify customer
         if instance.status in commerce_settings.NOTIFY_ABOUT_STATUSES:
             notify_about_changed_order_status.delay(instance)
-
-
-@receiver(post_save, sender=PurchasedItem)
-@receiver(post_delete, sender=PurchasedItem)
-def recalculate_total_by_purchased_items(instance, **kwargs):
-    order = instance.order
-    order.total = order.calculate_total()
-    order.save(update_fields=['total'])
-
-
-@receiver(pre_save, sender=Invoice)
-def recalculate_total_by_order(instance, **kwargs):
-    order = instance
-    order.total = order.calculate_total()

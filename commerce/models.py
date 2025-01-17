@@ -7,7 +7,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres.indexes import GinIndex
 from django.core.exceptions import ValidationError
-from django.core.validators import MinValueValidator, EMPTY_VALUES, MaxValueValidator
+from django.core.validators import MinValueValidator, EMPTY_VALUES
 from django.db import models, transaction
 from django.db.models import Sum, CheckConstraint, Q
 from django.urls import reverse
@@ -685,9 +685,6 @@ class Order(models.Model):
     # Discount
     discount = models.ForeignKey(Discount, verbose_name=_('discount'), on_delete=models.PROTECT, blank=True, null=True, default=None)
 
-    # sum (auto calculated fields)
-    total = models.DecimalField(_(u'total'), max_digits=10, decimal_places=2, blank=True, default=0)
-
     # Loyalty program
     loyalty_points = models.PositiveSmallIntegerField(_('loyalty points'), help_text=_('used to lower the total price'), blank=True, default=0)
 
@@ -779,20 +776,16 @@ class Order(models.Model):
 
         return max(subtotal, 0)
 
-    def calculate_total(self):
+    @property
+    def total(self):
         total = self.subtotal
         total += self.shipping_fee
         total += self.payment_fee
+        supplier = getattr(settings, 'INVOICING_SUPPLIER')
 
-        if not commerce_settings.UNIT_PRICE_IS_WITH_TAX and self.taxation_policy and total > 0:
-            supplier = getattr(settings, 'INVOICING_SUPPLIER')
-            tax_rate = self.taxation_policy.get_tax_rate_by_vat_id(
-                supplier['vat_id'],
-                supplier['country_code'],
-                self.vat_id,
-                self.billing_country
-            )
-            total += self.taxation_policy.calculate_tax(total, tax_rate)
+        if not commerce_settings.UNIT_PRICE_IS_WITH_TAX and self.taxation_policy and supplier and total > 0:
+            tax_rate = self.taxation_policy.get_tax_rate(supplier['vat_id'], self.vat_id)
+            total += round(self.taxation_policy.calculate_tax(total, tax_rate), 2)
 
         # Note: discount is already calculated in subtotal (item price)
 
