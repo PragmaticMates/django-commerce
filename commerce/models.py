@@ -389,6 +389,36 @@ class Cart(models.Model):
         return f'{self.total} {commerce_settings.CURRENCY}'
 
     @property
+    def taxation_policy(self):
+        taxation_policy = getattr(settings, 'INVOICING_TAXATION_POLICY', None)
+
+        if taxation_policy is not None:
+            return import_string(taxation_policy)
+
+        supplier = getattr(settings, 'INVOICING_SUPPLIER', None)
+
+        # Check if supplier is from EU
+        if supplier:
+            supplier_country = supplier.get('country_code', None)
+            if supplier_country and EUTaxationPolicy.is_in_EU(supplier_country):
+                return EUTaxationPolicy
+
+        return None
+
+    @property
+    def vat(self):
+        supplier = getattr(settings, 'INVOICING_SUPPLIER')
+
+        if not commerce_settings.UNIT_PRICE_IS_WITH_TAX and self.taxation_policy and supplier:
+            tax_rate = self.taxation_policy.get_tax_rate(supplier['vat_id'], self.vat_id)
+            return round(self.taxation_policy.calculate_tax(self.total, tax_rate), 2)
+
+        return None
+
+    def get_vat_display(self):
+        return f'{self.vat} {commerce_settings.CURRENCY}'
+
+    @property
     def open(self):
         return now() - self.created
 
@@ -606,6 +636,19 @@ class Item(models.Model):
 
     def get_subtotal_display(self):
         return f'{self.subtotal} {commerce_settings.CURRENCY}'
+
+    @property
+    def vat(self):
+        supplier = getattr(settings, 'INVOICING_SUPPLIER')
+
+        if not commerce_settings.UNIT_PRICE_IS_WITH_TAX and self.cart.taxation_policy and supplier:
+            tax_rate = self.cart.taxation_policy.get_tax_rate(supplier['vat_id'], self.cart.vat_id)
+            return round(self.cart.taxation_policy.calculate_tax(self.subtotal, tax_rate), 2)
+
+        return None
+
+    def get_vat_display(self):
+        return f'{self.vat} {commerce_settings.CURRENCY}'
 
 
 class Order(models.Model):
