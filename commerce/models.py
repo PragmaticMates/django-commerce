@@ -320,6 +320,10 @@ class Cart(models.Model):
         return not self.shipping_options.not_free().exists()
 
     @property
+    def shipping_option_selection_required(self):
+        return not self.has_only_free_shipping_options or self.shipping_options.free().count() > 1
+
+    @property
     def delivery_details_required(self):
         return not self.has_only_digital_goods()
 

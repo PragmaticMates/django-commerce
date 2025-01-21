@@ -213,6 +213,10 @@ class ShippingAndPaymentForm(forms.ModelForm):
         self.fields['shipping_option'].queryset = self.instance.shipping_options
 
         payment_method_fieldset = None
+        shipping_option_css = ''
+
+        if not self.instance.shipping_option_selection_required:
+            shipping_option_css = 'd-none'
 
         if self.instance.billing_details_required:
             payment_method_fieldset = Fieldset(
@@ -233,7 +237,7 @@ class ShippingAndPaymentForm(forms.ModelForm):
                     _('Select Shipping Option'),
                     'shipping_option',
                     HTML(loader.get_template('commerce/fees.html').render({'fees': self.fields['shipping_option'].queryset})),
-                    css_class='col-md-6'
+                    css_class=f'col-md-6 {shipping_option_css}'
                 ),
                 payment_method_fieldset,
                 css_class='row justify-content-center'
