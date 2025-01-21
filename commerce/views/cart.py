@@ -280,6 +280,7 @@ class CheckoutFinishView(CartMixin, DetailView):
             return redirect(self.get_checkout_finish_url(order))
 
         if order.payment_method.method == PaymentMethod.METHOD_ONLINE_PAYMENT:
+            messages.info(request, _('Redirecting to the payment gateway... If not redirected, click "Pay" to proceed.'))
             return redirect(order.get_payment_url())
 
         return redirect(self.get_checkout_finish_url(order))
