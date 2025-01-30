@@ -1,5 +1,5 @@
 from django.conf import settings
-
+from django.urls import reverse_lazy
 
 CURRENCY = getattr(settings, 'COMMERCE_CURRENCY', 'EUR')
 PAYMENT_MANAGERS = getattr(settings, 'COMMERCE_PAYMENT_MANAGERS', {
@@ -7,8 +7,8 @@ PAYMENT_MANAGERS = getattr(settings, 'COMMERCE_PAYMENT_MANAGERS', {
     'ONLINE_PAYMENT': 'commerce.gateways.globalpayments.managers.PaymentManager'
 })
 PRODUCTS_AVAILABILITIES = getattr(settings, 'COMMERCE_PRODUCTS_AVAILABILITIES', {})
-SUCCESSFUL_PAYMENT_REDIRECT_URL = getattr(settings, 'COMMERCE_SUCCESSFUL_PAYMENT_REDIRECT_URL', None)
-FAILED_PAYMENT_REDIRECT_URL = getattr(settings, 'COMMERCE_FAILED_PAYMENT_REDIRECT_URL', None)
+SUCCESSFUL_PAYMENT_REDIRECT_URL = getattr(settings, 'COMMERCE_SUCCESSFUL_PAYMENT_REDIRECT_URL',  reverse_lazy('commerce:orders'))
+FAILED_PAYMENT_REDIRECT_URL = getattr(settings, 'COMMERCE_FAILED_PAYMENT_REDIRECT_URL', reverse_lazy('commerce:orders'))
 CHECKOUT_FINISH_URL = getattr(settings, 'COMMERCE_CHECKOUT_FINISH_URL', None)
 IBAN = getattr(settings, 'COMMERCE_IBAN', '')
 BIC_SWIFT = getattr(settings, 'COMMERCE_BIC_SWIFT', '')

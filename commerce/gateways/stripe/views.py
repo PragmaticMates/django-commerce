@@ -132,21 +132,13 @@ class StripeCreateSessionView(DetailView):
 class StripeSuccessPaymentView(View):
     def dispatch(self, request, *args, **kwargs):
         messages.success(request, _('Payment was successful.'))
-
-        if commerce_settings.SUCCESSFUL_PAYMENT_REDIRECT_URL:
-            return redirect(commerce_settings.SUCCESSFUL_PAYMENT_REDIRECT_URL)
-
-        return redirect(reverse('commerce:orders'))
+        return redirect(commerce_settings.SUCCESSFUL_PAYMENT_REDIRECT_URL)
 
 
 class StripeCancelPaymentView(View):
     def dispatch(self, request, *args, **kwargs):
         messages.error(request, _('Payment failed.'))
-
-        if commerce_settings.FAILED_PAYMENT_REDIRECT_URL:
-            return redirect(commerce_settings.FAILED_PAYMENT_REDIRECT_URL)
-
-        return redirect(reverse('commerce:orders'))
+        return redirect(commerce_settings.FAILED_PAYMENT_REDIRECT_URL)
 
 
 class StripeWebhookView(View):

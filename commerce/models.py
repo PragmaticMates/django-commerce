@@ -34,6 +34,8 @@ from pragmatic.mixins import SlugMixin
 
 from django.utils.translation import gettext_lazy as _, gettext
 
+from .mixins import TaxationMixin
+
 
 class AbstractProduct(models.Model):
     AVAILABILITY_STOCK = 'STOCK'
@@ -242,7 +244,7 @@ class Discount(models.Model):
         return True
 
 
-class Cart(models.Model):
+class Cart(models.Model, TaxationMixin):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
 
     # delivery information
@@ -380,49 +382,6 @@ class Cart(models.Model):
         return self.loyalty_points
 
     @property
-    def total(self):
-        total = self.subtotal
-        total += self.shipping_fee
-        total += self.payment_fee
-
-        # Note: discount is already calculated in subtotal (item price)
-
-        return total
-
-    def get_total_display(self):
-        return f'{self.total} {commerce_settings.CURRENCY}'
-
-    @property
-    def taxation_policy(self):
-        taxation_policy = getattr(settings, 'INVOICING_TAXATION_POLICY', None)
-
-        if taxation_policy is not None:
-            return import_string(taxation_policy)
-
-        supplier = getattr(settings, 'INVOICING_SUPPLIER', None)
-
-        # Check if supplier is from EU
-        if supplier:
-            supplier_country = supplier.get('country_code', None)
-            if supplier_country and EUTaxationPolicy.is_in_EU(supplier_country):
-                return EUTaxationPolicy
-
-        return None
-
-    @property
-    def vat(self):
-        supplier = getattr(settings, 'INVOICING_SUPPLIER')
-
-        if not commerce_settings.UNIT_PRICE_IS_WITH_TAX and self.taxation_policy and supplier:
-            tax_rate = self.taxation_policy.get_tax_rate(supplier['vat_id'], self.vat_id)
-            return round(self.taxation_policy.calculate_tax(self.total, tax_rate), 2)
-
-        return None
-
-    def get_vat_display(self):
-        return f'{self.vat} {commerce_settings.CURRENCY}'
-
-    @property
     def open(self):
         return now() - self.created
 
@@ -435,9 +394,6 @@ class Cart(models.Model):
 
     def can_be_finished(self):
         # TODO: check if all fields are set
-
-        if not self.shipping_option:
-            return False
 
         if self.total < 0:
             return False
@@ -592,7 +548,7 @@ class Option(SlugMixin, models.Model):
         return self.total_supplies(product) - self.purchased(product)
 
 
-class Item(models.Model):
+class Item(models.Model, TaxationMixin):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
@@ -642,20 +598,11 @@ class Item(models.Model):
         return f'{self.subtotal} {commerce_settings.CURRENCY}'
 
     @property
-    def vat(self):
-        supplier = getattr(settings, 'INVOICING_SUPPLIER')
-
-        if not commerce_settings.UNIT_PRICE_IS_WITH_TAX and self.cart.taxation_policy and supplier:
-            tax_rate = self.cart.taxation_policy.get_tax_rate(supplier['vat_id'], self.cart.vat_id)
-            return round(self.cart.taxation_policy.calculate_tax(self.subtotal, tax_rate), 2)
-
-        return None
-
-    def get_vat_display(self):
-        return f'{self.vat} {commerce_settings.CURRENCY}'
+    def vat_id(self):
+        return self.cart.vat_id
 
 
-class Order(models.Model):
+class Order(models.Model, TaxationMixin):
     STATUS_AWAITING_PAYMENT = 'AWAITING_PAYMENT'  # Customer has completed the checkout process, but payment has yet to be confirmed. Authorize only transactions that are not yet captured have this status.
     STATUS_PENDING = 'PENDING'  # Customer finished checkout process and didn't have to pay for it, because total price = 0
     STATUS_PAYMENT_RECEIVED = 'PAYMENT_RECEIVED'  # Customer paid order and merchant received the successful transaction.
@@ -760,23 +707,6 @@ class Order(models.Model):
         manager_class = import_string(manager_class_path)
         return manager_class(self)
 
-    @property
-    def taxation_policy(self):
-        taxation_policy = getattr(settings, 'INVOICING_TAXATION_POLICY', None)
-
-        if taxation_policy is not None:
-            return import_string(taxation_policy)
-
-        supplier = getattr(settings, 'INVOICING_SUPPLIER', None)
-
-        # Check if supplier is from EU
-        if supplier:
-            supplier_country = supplier.get('country_code', None)
-            if supplier_country and EUTaxationPolicy.is_in_EU(supplier_country):
-                return EUTaxationPolicy
-
-        return None
-
     def get_absolute_url(self):
         # TODO
         # return reverse('commerce:order_detail', args=(self.number,))
@@ -824,26 +754,8 @@ class Order(models.Model):
         return max(subtotal, 0)
 
     @property
-    def total(self):
-        total = self.subtotal
-        total += self.shipping_fee
-        total += self.payment_fee
-        supplier = getattr(settings, 'INVOICING_SUPPLIER')
-
-        if not commerce_settings.UNIT_PRICE_IS_WITH_TAX and self.taxation_policy and supplier and total > 0:
-            tax_rate = self.taxation_policy.get_tax_rate(supplier['vat_id'], self.vat_id)
-            total += round(self.taxation_policy.calculate_tax(total, tax_rate), 2)
-
-        # Note: discount is already calculated in subtotal (item price)
-
-        return total
-
-    @property
     def total_in_cents(self):
         return int(self.total * 100)
-
-    def get_total_display(self):
-        return f'{self.total} {commerce_settings.CURRENCY}'
 
     @staticmethod
     def get_next_number():

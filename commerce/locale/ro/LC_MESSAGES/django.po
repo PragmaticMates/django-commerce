@@ -1297,3 +1297,9 @@ msgstr "%s eliminat din coș"
 #: views/cart.py:270
 msgid "Missing payment method"
 msgstr "Lipsește metoda de plată"
+
+#: views/cart.py:283
+msgid ""
+"Redirecting to the payment gateway... If not redirected, click \"Pay\" to "
+"proceed."
+msgstr ""
