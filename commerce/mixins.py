@@ -25,9 +25,10 @@ class TaxationMixin(object):
         total = self.subtotal
         total += self.shipping_fee if hasattr(self, 'shipping_fee') else 0
         total += self.payment_fee if hasattr(self, 'payment_fee') else 0
+        supplier_vat_id = default_supplier('vat_id')
 
-        if not commerce_settings.UNIT_PRICE_IS_WITH_TAX and self.taxation_policy and default_supplier('vat_id') and total > 0:
-            tax_rate = self.taxation_policy.get_tax_rate(default_supplier('vat_id'), self.vat_id)
+        if not commerce_settings.UNIT_PRICE_IS_WITH_TAX and self.taxation_policy and supplier_vat_id and total > 0:
+            tax_rate = self.taxation_policy.get_tax_rate(supplier_vat_id, self.vat_id)
             total += round(self.taxation_policy.calculate_tax(total, tax_rate), 2)
 
             # Note: discount is already calculated in subtotal (item price)
@@ -39,8 +40,10 @@ class TaxationMixin(object):
 
     @property
     def vat(self):
-        if not commerce_settings.UNIT_PRICE_IS_WITH_TAX and self.taxation_policy and default_supplier('vat_id'):
-            tax_rate = self.taxation_policy.get_tax_rate(default_supplier('vat_id'), self.vat_id)
+        supplier_vat_id = default_supplier('vat_id')
+
+        if not commerce_settings.UNIT_PRICE_IS_WITH_TAX and self.taxation_policy and supplier_vat_id:
+            tax_rate = self.taxation_policy.get_tax_rate(supplier_vat_id, self.vat_id)
             return round(self.taxation_policy.calculate_tax(self.total, tax_rate), 2)
 
         return None
