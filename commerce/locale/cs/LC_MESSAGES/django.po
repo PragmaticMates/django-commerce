@@ -1296,3 +1296,9 @@ msgstr "%s byl odstraněn z košíku"
 #: views/cart.py:270
 msgid "Missing payment method"
 msgstr "Chybí způsob platby"
+
+#: views/cart.py:283
+msgid ""
+"Redirecting to the payment gateway... If not redirected, click \"Pay\" to "
+"proceed."
+msgstr ""

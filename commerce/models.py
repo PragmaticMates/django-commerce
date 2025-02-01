@@ -7,7 +7,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres.indexes import GinIndex
 from django.core.exceptions import ValidationError
-from django.core.validators import MinValueValidator, EMPTY_VALUES, MaxValueValidator
+from django.core.validators import MinValueValidator, EMPTY_VALUES
 from django.db import models, transaction
 from django.db.models import Sum, CheckConstraint, Q
 from django.urls import reverse
@@ -19,6 +19,7 @@ from filer.models import File
 from gm2m import GM2MField
 from internationalflavor.countries import CountryField
 from internationalflavor.vat_number import VATNumberField
+from invoicing.taxation.eu import EUTaxationPolicy
 from modeltrans.fields import TranslationField
 
 from commerce import settings as commerce_settings
@@ -32,6 +33,8 @@ from pragmatic.managers import EmailManager
 from pragmatic.mixins import SlugMixin
 
 from django.utils.translation import gettext_lazy as _, gettext
+
+from .mixins import TaxationMixin
 
 
 class AbstractProduct(models.Model):
@@ -241,7 +244,7 @@ class Discount(models.Model):
         return True
 
 
-class Cart(models.Model):
+class Cart(models.Model, TaxationMixin):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
 
     # delivery information
@@ -319,6 +322,10 @@ class Cart(models.Model):
         return not self.shipping_options.not_free().exists()
 
     @property
+    def shipping_option_selection_required(self):
+        return not self.has_only_free_shipping_options or self.shipping_options.free().count() > 1
+
+    @property
     def delivery_details_required(self):
         return not self.has_only_digital_goods()
 
@@ -375,19 +382,6 @@ class Cart(models.Model):
         return self.loyalty_points
 
     @property
-    def total(self):
-        total = self.subtotal
-        total += self.shipping_fee
-        total += self.payment_fee
-
-        # Note: discount is already calculated in subtotal (item price)
-
-        return total
-
-    def get_total_display(self):
-        return f'{self.total} {commerce_settings.CURRENCY}'
-
-    @property
     def open(self):
         return now() - self.created
 
@@ -400,9 +394,6 @@ class Cart(models.Model):
 
     def can_be_finished(self):
         # TODO: check if all fields are set
-
-        if not self.shipping_option:
-            return False
 
         if self.total < 0:
             return False
@@ -557,7 +548,7 @@ class Option(SlugMixin, models.Model):
         return self.total_supplies(product) - self.purchased(product)
 
 
-class Item(models.Model):
+class Item(models.Model, TaxationMixin):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
@@ -606,8 +597,12 @@ class Item(models.Model):
     def get_subtotal_display(self):
         return f'{self.subtotal} {commerce_settings.CURRENCY}'
 
+    @property
+    def vat_id(self):
+        return self.cart.vat_id
 
-class Order(models.Model):
+
+class Order(models.Model, TaxationMixin):
     STATUS_AWAITING_PAYMENT = 'AWAITING_PAYMENT'  # Customer has completed the checkout process, but payment has yet to be confirmed. Authorize only transactions that are not yet captured have this status.
     STATUS_PENDING = 'PENDING'  # Customer finished checkout process and didn't have to pay for it, because total price = 0
     STATUS_PAYMENT_RECEIVED = 'PAYMENT_RECEIVED'  # Customer paid order and merchant received the successful transaction.
@@ -759,21 +754,8 @@ class Order(models.Model):
         return max(subtotal, 0)
 
     @property
-    def total(self):
-        total = self.subtotal
-        total += self.shipping_fee
-        total += self.payment_fee
-
-        # Note: discount is already calculated in subtotal (item price)
-
-        return total
-
-    @property
     def total_in_cents(self):
         return int(self.total * 100)
-
-    def get_total_display(self):
-        return f'{self.total} {commerce_settings.CURRENCY}'
 
     @staticmethod
     def get_next_number():
