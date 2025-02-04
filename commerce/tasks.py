@@ -1,5 +1,3 @@
-import time
-
 from django.utils.translation import override as override_language
 from django_rq import job
 from invoicing.models import Invoice
@@ -34,7 +32,6 @@ def notify_about_changed_order_status(order):
         attachments = []
 
         if order.status in [Order.STATUS_PAYMENT_RECEIVED, Order.STATUS_COMPLETED]:
-            time.sleep(5) # wait 5s to make sure all invoices have been created
             invoices = order.invoices.filter(type=Invoice.TYPE.INVOICE)
             export_files = get_invoices_in_pdf(invoices)
 
@@ -53,3 +50,9 @@ def notify_about_changed_order_status(order):
             attachments=attachments,
             request=None
         )
+
+
+@job(commerce_settings.REDIS_QUEUE)
+@apm_custom_context('tasks')
+def notify_about_changed_order_status_in_background(order):
+    notify_about_changed_order_status.delay(order)

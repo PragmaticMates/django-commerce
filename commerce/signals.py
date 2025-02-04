@@ -5,7 +5,7 @@ from invoicing.models import Invoice
 
 from commerce import settings as commerce_settings
 from commerce.models import Order, Cart
-from commerce.tasks import notify_about_new_order, notify_about_changed_order_status
+from commerce.tasks import notify_about_new_order, notify_about_changed_order_status_in_background
 from pragmatic.signals import apm_custom_context, SignalsHelper
 
 checkout_finished = django.dispatch.Signal()
@@ -41,4 +41,4 @@ def order_status_changed(sender, instance, **kwargs):
 
         # notify customer
         if instance.status in commerce_settings.NOTIFY_ABOUT_STATUSES:
-            notify_about_changed_order_status.delay(instance)
+            SignalsHelper.add_task_and_connect(sender, instance, notify_about_changed_order_status_in_background, [instance])
