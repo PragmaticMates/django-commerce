@@ -18,7 +18,7 @@
 {% trans 'Purchased items' %}:{% for item in order.purchaseditem_set.all %}
 {{ item }} ({{ item.quantity }}x): {{ item.get_subtotal_display }}{% endfor %}
 
-{% trans 'Shipping' %}: {{ order.shipping_option }}
+{% if order.shipping_option %}{% trans 'Shipping' %}: {{ order.shipping_option }}{% endif %}
 {% trans 'Payment method' %}: {{ order.payment_method }}
 {% if order.loyalty_points > 0 %}{% trans 'Loyalty points' %}: {{ order.get_loyalty_points_display }}{% endif %}
 {% trans 'Total' %}: {{ order.get_total_display }}

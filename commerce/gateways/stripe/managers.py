@@ -17,7 +17,7 @@ class PaymentManager(CommercePaymentManager):
         return ''
 
     def get_payment_url(self):
-        url = reverse('commerce:orders')
+        url = commerce_settings.GATEWAY_STRIPE_PAYMENT_URL
         return f'{url}?pay={self.order.id}'
 
     # def get_order_number_from_payment_id(self, session):

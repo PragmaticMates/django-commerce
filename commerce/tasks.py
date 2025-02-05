@@ -50,3 +50,9 @@ def notify_about_changed_order_status(order):
             attachments=attachments,
             request=None
         )
+
+
+@job(commerce_settings.REDIS_QUEUE)
+@apm_custom_context('tasks')
+def notify_about_changed_order_status_in_background(order):
+    notify_about_changed_order_status.delay(order)
