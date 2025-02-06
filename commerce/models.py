@@ -798,7 +798,7 @@ class Order(models.Model, TaxationMixin):
     def delivery_details_required(self):
         return not self.has_only_digital_goods()
 
-    def create_invoice(self, type=Invoice.TYPE.INVOICE, status=Invoice.STATUS.SENT, creator=None):
+    def create_invoice(self, type=Invoice.TYPE.INVOICE, status=Invoice.STATUS.SENT, creator=None, sequence_generator=None, number_formatter=None):
         language = getattr(self.user, 'preferred_language', settings.LANGUAGE_CODE) or settings.LANGUAGE_CODE  # TODO: user is Abstract model. preferred_language could be missing or should be configurable
 
         with override_language(language):
@@ -814,7 +814,7 @@ class Order(models.Model, TaxationMixin):
             elif self.payment_method.method in [PaymentMethod.METHOD_ONLINE_PAYMENT, PaymentMethod.METHOD_PAYPAL]:
                 payment_method = Invoice.PAYMENT_METHOD.PAYMENT_CARD
 
-            invoice = Invoice.objects.create(
+            invoice = Invoice(
                 type=type,
                 status=status,
                 language=language,
@@ -857,6 +857,14 @@ class Order(models.Model, TaxationMixin):
                 shipping_country=self.delivery_country,
                 delivery_method=delivery_method,
             )
+
+            if sequence_generator:
+                invoice.sequence_generator = sequence_generator
+
+            if number_formatter:
+                invoice.number_formatter = number_formatter
+
+            invoice.save()
 
             def check_tax_and_get_price(price, rate):
                 if commerce_settings.UNIT_PRICE_IS_WITH_TAX and rate is not None and rate > 0:
