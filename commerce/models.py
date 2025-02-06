@@ -814,6 +814,11 @@ class Order(models.Model, TaxationMixin):
             elif self.payment_method.method in [PaymentMethod.METHOD_ONLINE_PAYMENT, PaymentMethod.METHOD_PAYPAL]:
                 payment_method = Invoice.PAYMENT_METHOD.PAYMENT_CARD
 
+            already_paid = 0
+            if type == Invoice.TYPE.INVOICE and status == Invoice.STATUS.PAID and payment_method == Invoice.PAYMENT_METHOD.PAYMENT_CARD:
+                already_paid = self.total
+
+
             invoice = Invoice(
                 type=type,
                 status=status,
@@ -823,7 +828,7 @@ class Order(models.Model, TaxationMixin):
                 date_due=issue_date + relativedelta(days=due_days),
                 currency=commerce_settings.CURRENCY,
                 payment_method=payment_method,
-                # already_paid=
+                already_paid=already_paid,
                 # constant_symbol=
                 variable_symbol=self.number,
                 bank_name=settings.INVOICING_BANK['name'],
